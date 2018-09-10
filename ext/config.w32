@@ -1,0 +1,55 @@
+ARG_ENABLE("leevel", "enable leevel", "no");
+
+if (PHP_LEEVEL != "no") {
+  EXTENSION("leevel", "leevel.c", null, "-I"+configure_module_dirname);
+  ADD_SOURCES(configure_module_dirname + "/kernel", "main.c memory.c exception.c debug.c backtrace.c object.c array.c string.c fcall.c require.c file.c operators.c math.c concat.c variables.c filter.c iterator.c exit.c time.c", "leevel");
+  /* PCRE is always included on WIN32 */
+  AC_DEFINE("ZEPHIR_USE_PHP_PCRE", 1, "Whether PHP pcre extension is present at compile time");
+  if (PHP_JSON != "no") {
+    ADD_EXTENSION_DEP("leevel", "json");
+    AC_DEFINE("ZEPHIR_USE_PHP_JSON", 1, "Whether PHP json extension is present at compile time");
+  }
+  
+  ADD_SOURCES(configure_module_dirname + "/leevel/support", "facade.zep.c imacro.zep.c iarray.zep.c ijson.zep.c ihtml.zep.c str.zep.c type.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/di", "provider.zep.c icontainer.zep.c container.zep.c containerinvalidargumentexception.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/flow", "icontrol.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/http", "iresponse.zep.c bag.zep.c response.zep.c file.zep.c fileexception.zep.c headerbag.zep.c irequest.zep.c jsonresponse.zep.c apiresponse.zep.c filebag.zep.c filenotfoundexception.zep.c fileresponse.zep.c redirectresponse.zep.c request.zep.c responseheaderbag.zep.c serverbag.zep.c uploadedfile.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/manager", "manager.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/view", "connect.zep.c iconnect.zep.c iview.zep.c html.zep.c manager.zep.c phpui.zep.c twig.zep.c v8js.zep.c view.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/log", "iconnect.zep.c connect.zep.c ilog.zep.c file.zep.c log.zep.c manager.zep.c syslog.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/mvc", "iview.zep.c icontroller.zep.c controller.zep.c view.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/cache", "connect.zep.c iconnect.zep.c icache.zep.c cache.zep.c file.zep.c load.zep.c manager.zep.c redis.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/session", "connect.zep.c isession.zep.c file.zep.c manager.zep.c nulls.zep.c redis.zep.c session.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/cache/redis", "iconnect.zep.c phpredis.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/cookie", "icookie.zep.c cookie.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/event", "idispatch.zep.c isubject.zep.c dispatch.zep.c eventprovider.zep.c observer.zep.c subject.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/i18n", "ii18n.zep.c i18n.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/kernel", "ikernel.zep.c iproject.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/option", "ioption.zep.c option.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/pipeline", "ipipeline.zep.c pipeline.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/router", "iresponsefactory.zep.c irouter.zep.c iurl.zep.c responsefactory.zep.c router.zep.c routerprovider.zep.c url.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/router/match", "imatch.zep.c pathinfo.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel", "auth.zep.c cache.zep.c cookie.zep.c database.zep.c db.zep.c encryption.zep.c event.zep.c filesystem.zep.c i18n.zep.c leevel.zep.c log.zep.c mail.zep.c option.zep.c page.zep.c request.zep.c response.zep.c router.zep.c session.zep.c throttler.zep.c url.zep.c validate.zep.c view.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/auth/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/bootstrap/bootstrap", "loadi18n.zep.c loadoption.zep.c registerruntime.zep.c traverseprovider.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/bootstrap", "kernel.zep.c project.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/cache/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/collection", "collection.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/database/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/encryption/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/event/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/filesystem/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/log/middleware", "log.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/log/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/mail/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/router/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/session/middleware", "session.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/session/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/support/debug", "console.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/throttler/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/validate/provider", "register.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel/view/provider", "register.zep.c", "leevel");
+  ADD_FLAG("CFLAGS_LEEVEL", "/D ZEPHIR_RELEASE /Oi /Ot /Oy /Ob2 /Gs /GF /Gy /GL");
+  ADD_FLAG("CFLAGS", "/D ZEPHIR_RELEASE /Oi /Ot /Oy /Ob2 /Gs /GF /Gy /GL");
+  ADD_FLAG("LDFLAGS", "/LTCG");
+}

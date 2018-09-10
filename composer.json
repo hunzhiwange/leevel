@@ -1,0 +1,45 @@
+{
+    "name": "hunzhiwange/leevel-ext",
+    "description": "The Leevel Framework.",
+    "keywords": ["framework", "queryphp", "leevel"],
+    "license": "MIT",
+    "homepage": "http://www.queryphp.com",
+    "support": {
+        "issues": "https://github.com/hunzhiwange/framework/issues",
+        "source": "https://github.com/hunzhiwange/framework"
+    },
+    "authors": [{
+        "name": "Xiangmin Liu",
+        "email": "635750556@qq.com"
+    }],
+    "require": {
+        "php": "^7.1.3",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "hunzhiwange/framework": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "nunomaduro/collision": "~2.0",
+        "phalcon/zephir": "^0.10.10"
+    },
+    "suggest": {
+        "ext-swoole": "Required to use swoole.",
+        "ext-v8js": "Required to use php v8js.",
+        "league/flysystem-sftp": "Sftp adapter support.",
+        "league/flysystem-ziparchive": "ZipArchive adapter support."
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
