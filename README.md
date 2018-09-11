@@ -26,7 +26,7 @@ Leevel is an open source web framework delivered as a C extension and supplement
  * Framework On Gitee: <https://gitee.com/dyhb/framework/>
  * Leevel On Github: <https://github.com/hunzhiwange/leevel/>
  * Leevel On Gitee: <https://gitee.com/dyhb/leevel>
- * Test: <https://github.com/leeves/tests/>
+ * Test: <https://github.com/leevels/tests/>
  * Package: <https://github.com/leevels/>
 
 ## Requirement
