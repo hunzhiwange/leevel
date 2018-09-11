@@ -1,5 +1,5 @@
 # Leevel Framework Subtree
 
 ```
-git subtree add --prefix=tests git@github.com:queryyetsimple/tests.git master
+git subtree add --prefix=tests git@github.com:leevels/tests.git master
 ```

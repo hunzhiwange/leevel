@@ -24,11 +24,11 @@ The code below need to be add.
     merge = refs/heads/master
 
 [remote "origin"]
-        url = git@gitee.com:dyhb/queryyetsimple.git
+        url = git@gitee.com:dyhb/leevel.git
         fetch = +refs/heads/*:refs/remotes/origin/*
 
 [remote "tests"]
-    url = git@github.com:queryyetsimple/tests.git
+    url = git@github.com:leevels/tests.git
     fetch = +refs/heads/*:refs/remotes/tests/*
 
 [alias]      
