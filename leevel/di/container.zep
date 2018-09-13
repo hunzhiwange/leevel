@@ -65,20 +65,6 @@ class Container implements IContainer, ArrayAccess {
     protected alias = [];
 
     /**
-     * share 静态变量值
-     *
-     * @var array
-     */
-    protected shareClosure = [];
-
-    /**
-     * share 传递闭包参数
-     *
-     * @var \Closure
-     */
-    protected shareUseClosures;
-
-    /**
      * 注册到容器
      *
      * @param mixed $name
@@ -147,41 +133,6 @@ class Container implements IContainer, ArrayAccess {
     public function singleton(var name, var service = null)
     {
         return this->bind(name, service, true);
-    }
-
-    /**
-     * 创建共享的闭包
-     *
-     * @param \Closure $closures
-     * @return \Closure
-     */
-    public function share(<Closure> closures)
-    {
-        let this->shareUseClosures = closures;
-
-        return Closure::fromCallable([this, "shareClosure"]);
-    }
-
-    /**
-     * 创建 share 闭包
-     * 
-     * @param \Leevel\Di\IContainer $container
-     * @return mixed
-     */
-    protected function shareClosure(var container)
-    {
-        var hash, obj;
-
-        let hash = spl_object_hash(this->shareUseClosures);
-
-        if fetch obj, this->shareClosure[hash] {
-            return obj;
-        }
-
-        let obj = call_user_func(this->shareUseClosures, container);
-        let this->shareClosure[hash] = obj;
-
-        return obj;
     }
 
     /**

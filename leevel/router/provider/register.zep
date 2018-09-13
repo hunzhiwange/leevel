@@ -143,9 +143,8 @@ class Register extends Provider
 
         for item in [
             "with_suffix",
-            "html_suffix",
-            "domain_top",
-            "subdomain_on"
+            "suffix",
+            "domain"
         ] {
             let options[item] = option->get(item);
         }
@@ -160,9 +159,7 @@ class Register extends Provider
      */
     protected function redirect()
     {
-        this->container->bind("redirect", this->container->share(
-            Closure::fromCallable([this, "redirectClosure"])
-        ));
+        this->container->singleton("redirect", Closure::fromCallable([this, "redirectClosure"]));
     }
 
     /**
@@ -210,9 +207,9 @@ class Register extends Provider
 
         return response->
 
-        setViewSuccessTemplate(option->get("view\\action_success"))->
+        setViewSuccessTemplate(option->get("view\\success"))->
 
-        setViewFailTemplate(option->get("view\\action_fail"));
+        setViewFailTemplate(option->get("view\\fail"));
     }
 
     /**

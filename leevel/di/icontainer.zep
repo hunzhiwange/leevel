@@ -58,14 +58,6 @@ interface IContainer
     public function singleton(var name, var service = null);
 
     /**
-     * 创建共享的闭包
-     *
-     * @param \Closure $closure
-     * @return \Closure
-     */
-    public function share(<Closure> closure);
-
-    /**
      * 设置别名
      *
      * @param array|string $alias
