@@ -5,9 +5,9 @@
   <a href="https://travis-ci.org/hunzhiwange/leevel">
     <img alt="Build Status" src="https://img.shields.io/travis/hunzhiwange/leevel.svg" /></a>
   <a href="https://github.com/hunzhiwange/leevel/releases">
-    <img alt="Latest Version" src="https://poser.pugx.org/hunzhiwange/leevel/version" /></a>
+    <img alt="Latest Version" src="https://poser.pugx.org/hunzhiwange/leevel-ext/version" /></a>
   <a href="http://opensource.org/licenses/MIT">
-    <img alt="Leevel License" src="https://poser.pugx.org/hunzhiwange/leevel/license.svg" /></a>
+    <img alt="Leevel License" src="https://poser.pugx.org/hunzhiwange/leevel-ext/license.svg" /></a>
 </p>
 
 # The Leevel Framework To Rebuild QueryPHP

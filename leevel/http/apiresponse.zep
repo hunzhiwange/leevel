@@ -43,7 +43,7 @@ class ApiResponse extends JsonResponse
 
     /**
      * 请求成功
-     * 一般用于GET与POST请求： 200
+     * 一般用于GET与POST请求: 200
      * 
      * @param mixed $content
      * @param string $text
@@ -67,7 +67,7 @@ class ApiResponse extends JsonResponse
      * @param null|string $location
      * @return $this
      */
-    public function created(var location = "", var content = "")
+    public function created(var location = null, var content = "")
     {
         if this->checkTControl() {
             return this;
@@ -267,9 +267,11 @@ class ApiResponse extends JsonResponse
     }
     
     /**
-     * 格式化错误消息
-     *  
-     * @param string $message
+     * 格式化错误消息.
+     *
+     * @param string     $message
+     * @param null|string  $text
+     *
      * @return $this
      */
     protected function normalizeErrorMessage(var message = null, var text = null)

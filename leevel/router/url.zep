@@ -49,9 +49,8 @@ class Url implements IUrl
      */
     protected option = [
         "with_suffix" : false,
-        "html_suffix" : ".html",
-        "domain_top" : "",
-        "subdomain_on" : true
+        "suffix" : ".html",
+        "domain" : ""
     ];
     
     /**
@@ -173,16 +172,13 @@ class Url implements IUrl
      */
     protected function withDomain(string url, string domain) -> string
     {
-        if this->option["subdomain_on"] !== true ||
-            ! (this->option["domain_top"]) ||
-            empty domain {
+        if ! (this->option["domain"]) || empty domain {
             return url;
         }
 
         return (this->isSecure() ? "https://" : "http://") . 
             (domain && domain != "*" ? domain . "." : "") . 
-            this->option["domain_top"] . 
-            url;
+            this->option["domain"] . url;
     }
     
     /**
@@ -208,7 +204,7 @@ class Url implements IUrl
             return url;
         }
 
-        let suffix = suffix === true ? this->option["html_suffix"] : suffix;
+        let suffix = suffix === true ? this->option["suffix"] : suffix;
 
         if strpos(url, "?") !== false {
             let url = str_replace("?", suffix . "?", url);
