@@ -56,20 +56,25 @@ ZEPHIR_INIT_CLASS(Leevel_Event_Observer) {
 }
 
 /**
- * 设置句柄
+ * 构造函数
  *
  * @param \Closure $handle
  * @return void
  */
-PHP_METHOD(Leevel_Event_Observer, setHandle) {
+PHP_METHOD(Leevel_Event_Observer, __construct) {
 
-	zval *handle, handle_sub;
+	zval *handle = NULL, handle_sub, __$null;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&handle_sub);
+	ZVAL_NULL(&__$null);
 
-	zephir_fetch_params(0, 1, 0, &handle);
+	zephir_fetch_params(0, 0, 1, &handle);
 
+	if (!handle) {
+		handle = &handle_sub;
+		handle = &__$null;
+	}
 
 
 	zephir_update_property_zval(this_ptr, SL("handle"), handle);

@@ -129,7 +129,7 @@ PHP_METHOD(Leevel_Http_JsonResponse, __construct) {
 	if (Z_TYPE_P(data) == IS_NULL) {
 		ZEPHIR_INIT_NVAR(data);
 		object_init_ex(data, spl_ce_ArrayObject);
-		ZEPHIR_CALL_METHOD(NULL, data, "__construct", NULL, 52);
+		ZEPHIR_CALL_METHOD(NULL, data, "__construct", NULL, 53);
 		zephir_check_call_status();
 	}
 	if (json) {
@@ -190,7 +190,7 @@ PHP_METHOD(Leevel_Http_JsonResponse, create) {
 
 	object_init_ex(return_value, leevel_http_jsonresponse_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53, data, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54, data, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -240,7 +240,7 @@ PHP_METHOD(Leevel_Http_JsonResponse, fromJsonString) {
 	object_init_ex(return_value, leevel_http_jsonresponse_ce);
 	ZVAL_LONG(&_0, status);
 	ZVAL_BOOL(&_1, 1);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53, data, &_0, &headers, &_1);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54, data, &_0, &headers, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 

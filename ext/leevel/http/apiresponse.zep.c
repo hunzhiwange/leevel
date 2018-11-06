@@ -78,7 +78,7 @@ PHP_METHOD(Leevel_Http_ApiResponse, create) {
 
 	object_init_ex(return_value, leevel_http_apiresponse_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53, data, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54, data, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 

@@ -201,7 +201,7 @@ PHP_METHOD(Leevel_Http_RedirectResponse, create) {
 
 	object_init_ex(return_value, leevel_http_redirectresponse_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 110, &url, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 111, &url, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -511,7 +511,7 @@ PHP_METHOD(Leevel_Http_RedirectResponse, setTargetUrl) {
 	ZVAL_LONG(&_1, 3);
 	ZEPHIR_INIT_VAR(&_2);
 	ZVAL_STRING(&_2, "UTF-8");
-	ZEPHIR_CALL_FUNCTION(&_3, "htmlspecialchars", NULL, 111, &url, &_1, &_2);
+	ZEPHIR_CALL_FUNCTION(&_3, "htmlspecialchars", NULL, 112, &url, &_1, &_2);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_2);
 	ZVAL_STRING(&_2, "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"UTF-8\" />\n        <meta http-equiv=\"refresh\" content=\"0;url=%1$s\" />\n        <title>Redirecting to %1$s</title>\n    </head>\n    <body>\n        Redirecting to <a href=\"%1$s\">%1$s</a>.\n    </body>\n</html>");

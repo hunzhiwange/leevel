@@ -244,7 +244,7 @@ PHP_METHOD(Leevel_Http_UploadedFile, isValid) {
 		} else {
 			ZEPHIR_CALL_METHOD(&_4, this_ptr, "getpathname", NULL, 0);
 			zephir_check_call_status();
-			ZEPHIR_CALL_FUNCTION(&_2, "is_uploaded_file", NULL, 121, &_4);
+			ZEPHIR_CALL_FUNCTION(&_2, "is_uploaded_file", NULL, 122, &_4);
 			zephir_check_call_status();
 		}
 		_1 = zephir_is_true(&_2);
@@ -302,7 +302,7 @@ PHP_METHOD(Leevel_Http_UploadedFile, move) {
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "movetotarget", NULL, 0, &_3$$3, &target, &_4$$3);
 		zephir_check_call_status();
 		object_init_ex(return_value, leevel_http_file_ce);
-		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 43, &target);
+		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 44, &target);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -354,7 +354,7 @@ PHP_METHOD(Leevel_Http_UploadedFile, getMaxFilesize) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "upload_max_filesize");
-	ZEPHIR_CALL_FUNCTION(&_1, "ini_get", NULL, 122, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "ini_get", NULL, 123, &_0);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&iniMax);
 	zephir_fast_strtolower(&iniMax, &_1);
@@ -376,12 +376,12 @@ PHP_METHOD(Leevel_Http_UploadedFile, getMaxFilesize) {
 	zephir_fast_strpos(&_5, &max, &_4, 0 );
 	if (ZEPHIR_IS_LONG_IDENTICAL(&_3, 0)) {
 		ZVAL_LONG(&_6$$4, 16);
-		ZEPHIR_CALL_FUNCTION(&_7$$4, "intval", &_8, 123, &max, &_6$$4);
+		ZEPHIR_CALL_FUNCTION(&_7$$4, "intval", &_8, 124, &max, &_6$$4);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(&max, &_7$$4);
 	} else if (ZEPHIR_IS_LONG_IDENTICAL(&_5, 0)) {
 		ZVAL_LONG(&_9$$5, 8);
-		ZEPHIR_CALL_FUNCTION(&_10$$5, "intval", &_8, 123, &max, &_9$$5);
+		ZEPHIR_CALL_FUNCTION(&_10$$5, "intval", &_8, 124, &max, &_9$$5);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(&max, &_10$$5);
 	} else {

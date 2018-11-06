@@ -166,7 +166,7 @@ PHP_METHOD(Leevel_Log_File, flush) {
 		ZEPHIR_CALL_USER_FUNC_ARRAY(&_2$$3, &_3$$3, &value);
 		zephir_check_call_status();
 		ZVAL_LONG(&_5$$3, 3);
-		ZEPHIR_CALL_FUNCTION(NULL, "error_log", &_6, 124, &_2$$3, &_5$$3, &filepath);
+		ZEPHIR_CALL_FUNCTION(NULL, "error_log", &_6, 125, &_2$$3, &_5$$3, &filepath);
 		zephir_check_call_status();
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&value);
@@ -221,23 +221,23 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 	zephir_get_strval(&filePath, filePath_param);
 
 
-	ZEPHIR_CALL_FUNCTION(&dirname, "dirname", &_0, 46, &filePath);
+	ZEPHIR_CALL_FUNCTION(&dirname, "dirname", &_0, 47, &filePath);
 	zephir_check_call_status();
 	ZEPHIR_CALL_FUNCTION(&_1, "is_file", &_2, 26, &filePath);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_1))) {
-		ZEPHIR_CALL_FUNCTION(&_3$$3, "is_dir", &_4, 44, &dirname);
+		ZEPHIR_CALL_FUNCTION(&_3$$3, "is_dir", &_4, 45, &dirname);
 		zephir_check_call_status();
 		if (!(zephir_is_true(&_3$$3))) {
-			ZEPHIR_CALL_FUNCTION(&_5$$4, "dirname", &_0, 46, &dirname);
+			ZEPHIR_CALL_FUNCTION(&_5$$4, "dirname", &_0, 47, &dirname);
 			zephir_check_call_status();
-			ZEPHIR_CALL_FUNCTION(&_6$$4, "is_dir", &_4, 44, &_5$$4);
+			ZEPHIR_CALL_FUNCTION(&_6$$4, "is_dir", &_4, 45, &_5$$4);
 			zephir_check_call_status();
 			_7$$4 = zephir_is_true(&_6$$4);
 			if (_7$$4) {
-				ZEPHIR_CALL_FUNCTION(&_8$$4, "dirname", &_0, 46, &dirname);
+				ZEPHIR_CALL_FUNCTION(&_8$$4, "dirname", &_0, 47, &dirname);
 				zephir_check_call_status();
-				ZEPHIR_CALL_FUNCTION(&_9$$4, "is_writable", &_10, 45, &_8$$4);
+				ZEPHIR_CALL_FUNCTION(&_9$$4, "is_writable", &_10, 46, &_8$$4);
 				zephir_check_call_status();
 				_7$$4 = !zephir_is_true(&_9$$4);
 			}
@@ -255,10 +255,10 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 				return;
 			}
 			ZVAL_LONG(&_15$$4, 0777);
-			ZEPHIR_CALL_FUNCTION(NULL, "mkdir", NULL, 47, &dirname, &_15$$4, &__$true);
+			ZEPHIR_CALL_FUNCTION(NULL, "mkdir", NULL, 48, &dirname, &_15$$4, &__$true);
 			zephir_check_call_status();
 		}
-		ZEPHIR_CALL_FUNCTION(&_16$$3, "is_writable", &_10, 45, &dirname);
+		ZEPHIR_CALL_FUNCTION(&_16$$3, "is_writable", &_10, 46, &dirname);
 		zephir_check_call_status();
 		if (!(zephir_is_true(&_16$$3))) {
 			ZEPHIR_INIT_VAR(&_17$$6);
@@ -274,7 +274,7 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 			return;
 		}
 	}
-	ZEPHIR_CALL_FUNCTION(NULL, "clearstatcache", NULL, 73);
+	ZEPHIR_CALL_FUNCTION(NULL, "clearstatcache", NULL, 74);
 	zephir_check_call_status();
 	ZEPHIR_CALL_FUNCTION(&_20, "is_file", &_2, 26, &filePath);
 	zephir_check_call_status();
@@ -282,14 +282,14 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 	if (_21) {
 		zephir_read_property(&_22, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 		zephir_array_fetch_string(&_23, &_22, SL("size"), PH_NOISY | PH_READONLY, "leevel/log/file.zep", 121 TSRMLS_CC);
-		ZEPHIR_CALL_FUNCTION(&_24, "filesize", NULL, 77, &filePath);
+		ZEPHIR_CALL_FUNCTION(&_24, "filesize", NULL, 78, &filePath);
 		zephir_check_call_status();
 		_21 = ZEPHIR_GE_LONG(&_24, zephir_floor(&_23 TSRMLS_CC));
 	}
 	if (_21) {
 		ZEPHIR_INIT_VAR(&_25$$7);
 		ZVAL_STRING(&_25$$7, ".log");
-		ZEPHIR_CALL_FUNCTION(&_26$$7, "basename", NULL, 125, &filePath, &_25$$7);
+		ZEPHIR_CALL_FUNCTION(&_26$$7, "basename", NULL, 126, &filePath, &_25$$7);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_25$$7);
 		zephir_time(&_25$$7);
@@ -299,7 +299,7 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 		zephir_sub_function(&_28$$7, &_25$$7, &_27$$7);
 		ZEPHIR_INIT_VAR(&_29$$7);
 		ZEPHIR_CONCAT_VSVSVS(&_29$$7, &dirname, "/", &_26$$7, "_", &_28$$7, ".log");
-		ZEPHIR_CALL_FUNCTION(NULL, "rename", NULL, 126, &filePath, &_29$$7);
+		ZEPHIR_CALL_FUNCTION(NULL, "rename", NULL, 127, &filePath, &_29$$7);
 		zephir_check_call_status();
 	}
 	ZEPHIR_MM_RESTORE();
@@ -360,7 +360,7 @@ PHP_METHOD(Leevel_Log_File, normalizePath) {
 	}
 	zephir_read_property(&_8, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	zephir_array_fetch_string(&_9, &_8, SL("name"), PH_NOISY | PH_READONLY, "leevel/log/file.zep", 144 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_10, "date", NULL, 79, &_9);
+	ZEPHIR_CALL_FUNCTION(&_10, "date", NULL, 80, &_9);
 	zephir_check_call_status();
 	ZEPHIR_CONCAT_VSVSVVS(return_value, &_3, "/", &_5, ".", &_6, &_10, ".log");
 	RETURN_MM();
@@ -412,7 +412,7 @@ PHP_METHOD(Leevel_Log_File, formatMessage) {
 	ZEPHIR_CONCAT_SV(&_1, "[%s] %s %s: %s", &_0);
 	ZEPHIR_INIT_VAR(&_2);
 	ZVAL_STRING(&_2, "Y-m-d H:i:s");
-	ZEPHIR_CALL_FUNCTION(&_3, "date", NULL, 79, &_2);
+	ZEPHIR_CALL_FUNCTION(&_3, "date", NULL, 80, &_2);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_2);
 	ZVAL_LONG(&_4, 256);

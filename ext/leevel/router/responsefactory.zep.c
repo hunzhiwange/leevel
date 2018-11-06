@@ -427,7 +427,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, json) {
 	} else {
 		ZVAL_BOOL(&_1, 0);
 	}
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53, data, &_0, &headers, &_1);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54, data, &_0, &headers, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -577,12 +577,12 @@ PHP_METHOD(Leevel_Router_ResponseFactory, download) {
 	} else {
 		ZVAL_BOOL(&_3, 0);
 	}
-	ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 105, file, &_0, &headers, &_1, &_2, &_3);
+	ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 106, file, &_0, &headers, &_1, &_2, &_3);
 	zephir_check_call_status();
 	if (!(Z_TYPE_P(&name) == IS_NULL)) {
 		ZEPHIR_INIT_VAR(&_4$$3);
 		ZVAL_STRING(&_4$$3, "attachment");
-		ZEPHIR_RETURN_CALL_METHOD(&response, "setcontentdisposition", NULL, 140, &_4$$3, &name);
+		ZEPHIR_RETURN_CALL_METHOD(&response, "setcontentdisposition", NULL, 141, &_4$$3, &name);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -655,7 +655,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, file) {
 	} else {
 		ZVAL_BOOL(&_3, 0);
 	}
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 105, file, &_0, &headers, &_1, &_2, &_3);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 106, file, &_0, &headers, &_1, &_2, &_3);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1343,7 +1343,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, createApiResponse) {
 	ZEPHIR_MM_GROW();
 
 	object_init_ex(return_value, leevel_http_apiresponse_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54);
 	zephir_check_call_status();
 	RETURN_MM();
 

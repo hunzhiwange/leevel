@@ -334,7 +334,7 @@ PHP_METHOD(Leevel_Option_Option, set) {
 			}
 			ZEPHIR_INIT_NVAR(&values);
 			ZVAL_COPY(&values, _0$$3);
-			ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", &_3, 130, &key, &values);
+			ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", &_3, 131, &key, &values);
 			zephir_check_call_status();
 		} ZEND_HASH_FOREACH_END();
 		ZEPHIR_INIT_NVAR(&values);
@@ -630,7 +630,7 @@ PHP_METHOD(Leevel_Option_Option, setRecursion) {
 		zephir_array_update_zval(&result, &item, &_0$$3, PH_COPY | PH_SEPARATE);
 	}
 	if (!(ZEPHIR_IS_EMPTY(&part))) {
-		ZEPHIR_CALL_METHOD(&_1$$4, this_ptr, "setrecursion", NULL, 131, &part, value);
+		ZEPHIR_CALL_METHOD(&_1$$4, this_ptr, "setrecursion", NULL, 132, &part, value);
 		zephir_check_call_status();
 		zephir_array_update_zval(&result, &item, &_1$$4, PH_COPY | PH_SEPARATE);
 	} else {
@@ -675,7 +675,7 @@ PHP_METHOD(Leevel_Option_Option, deleteRecursion) {
 	}
 	if (!(ZEPHIR_IS_EMPTY(&part))) {
 		zephir_array_fetch(&_1$$4, &result, &item, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 308 TSRMLS_CC);
-		ZEPHIR_CALL_METHOD(&_0$$4, this_ptr, "deleterecursion", NULL, 132, &part, &_1$$4);
+		ZEPHIR_CALL_METHOD(&_0$$4, this_ptr, "deleterecursion", NULL, 133, &part, &_1$$4);
 		zephir_check_call_status();
 		zephir_array_update_zval(&result, &item, &_0$$4, PH_COPY | PH_SEPARATE);
 	} else {

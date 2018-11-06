@@ -314,7 +314,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 		ZEPHIR_INIT_VAR(&pipeline);
 		object_init_ex(&pipeline, leevel_pipeline_pipeline_ce);
 		zephir_read_property(&_6$$5, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_METHOD(NULL, &pipeline, "__construct", NULL, 141, &_6$$5);
+		ZEPHIR_CALL_METHOD(NULL, &pipeline, "__construct", NULL, 142, &_6$$5);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_7$$5);
 		zephir_create_array(&_7$$5, 2, 0 TSRMLS_CC);
@@ -344,7 +344,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 		zephir_array_fetch(&_14$$5, &_13$$5, &method, PH_NOISY | PH_READONLY, "leevel/router/router.zep", 229 TSRMLS_CC);
 		ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_9, 8, &_12$$5, &_14$$5);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &pipeline, "then", NULL, 142);
+		ZEPHIR_CALL_METHOD(NULL, &pipeline, "then", NULL, 143);
 		zephir_check_call_status();
 	}
 	ZEPHIR_MM_RESTORE();
@@ -492,7 +492,7 @@ PHP_METHOD(Leevel_Router_Router, addBasepaths) {
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_read_property(&_1, this_ptr, SL("basepaths"), PH_NOISY_CC | PH_READONLY);
 	zephir_fast_array_merge(&_0, &_1, &basepaths TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_2, "array_unique", NULL, 143, &_0);
+	ZEPHIR_CALL_FUNCTION(&_2, "array_unique", NULL, 144, &_0);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("basepaths"), &_2);
 	ZEPHIR_MM_RESTORE();
@@ -565,7 +565,7 @@ PHP_METHOD(Leevel_Router_Router, addGroups) {
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_read_property(&_1, this_ptr, SL("groups"), PH_NOISY_CC | PH_READONLY);
 	zephir_fast_array_merge(&_0, &_1, &groups TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_2, "array_unique", NULL, 143, &_0);
+	ZEPHIR_CALL_FUNCTION(&_2, "array_unique", NULL, 144, &_0);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("groups"), &_2);
 	ZEPHIR_MM_RESTORE();
@@ -878,21 +878,21 @@ PHP_METHOD(Leevel_Router_Router, matchePath) {
 	zephir_array_fetch_long(&params, &tmpListPathsParams, 1, PH_NOISY, "leevel/router/router.zep", 466 TSRMLS_CC);
 	if (zephir_fast_count_int(&paths TSRMLS_CC) == 1) {
 		ZEPHIR_MAKE_REF(&paths);
-		ZEPHIR_CALL_FUNCTION(&_22$$11, "array_pop", &_23, 133, &paths);
+		ZEPHIR_CALL_FUNCTION(&_22$$11, "array_pop", &_23, 134, &paths);
 		ZEPHIR_UNREF(&paths);
 		zephir_check_call_status();
 		zephir_array_update_string(&result, SL("_c"), &_22$$11, PH_COPY | PH_SEPARATE);
 	} else {
 		if (zephir_is_true(&paths)) {
 			ZEPHIR_MAKE_REF(&paths);
-			ZEPHIR_CALL_FUNCTION(&_24$$13, "array_pop", &_23, 133, &paths);
+			ZEPHIR_CALL_FUNCTION(&_24$$13, "array_pop", &_23, 134, &paths);
 			ZEPHIR_UNREF(&paths);
 			zephir_check_call_status();
 			zephir_array_update_string(&result, SL("_a"), &_24$$13, PH_COPY | PH_SEPARATE);
 		}
 		if (zephir_is_true(&paths)) {
 			ZEPHIR_MAKE_REF(&paths);
-			ZEPHIR_CALL_FUNCTION(&_25$$14, "array_pop", &_23, 133, &paths);
+			ZEPHIR_CALL_FUNCTION(&_25$$14, "array_pop", &_23, 134, &paths);
 			ZEPHIR_UNREF(&paths);
 			zephir_check_call_status();
 			zephir_array_update_string(&result, SL("_c"), &_25$$14, PH_COPY | PH_SEPARATE);

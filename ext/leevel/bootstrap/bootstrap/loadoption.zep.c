@@ -107,7 +107,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, handle) {
 	}
 	ZEPHIR_INIT_VAR(&option);
 	object_init_ex(&option, leevel_option_option_ce);
-	ZEPHIR_CALL_METHOD(NULL, &option, "__construct", NULL, 57, &data);
+	ZEPHIR_CALL_METHOD(NULL, &option, "__construct", NULL, 58, &data);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_8);
 	ZVAL_STRING(&_8, "option");
@@ -224,17 +224,17 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, setEnvVar) {
 		}
 		ZEPHIR_INIT_VAR(&_1$$3);
 		ZEPHIR_CONCAT_VSV(&_1$$3, &name, "=", &_0$$3);
-		ZEPHIR_CALL_FUNCTION(NULL, "putenv", &_2, 58, &_1$$3);
+		ZEPHIR_CALL_FUNCTION(NULL, "putenv", &_2, 59, &_1$$3);
 		zephir_check_call_status();
 	} else if (Z_TYPE_P(value) == IS_NULL) {
 		ZEPHIR_INIT_VAR(&_3$$4);
 		ZEPHIR_CONCAT_VS(&_3$$4, &name, "(null)");
-		ZEPHIR_CALL_FUNCTION(NULL, "putenv", &_2, 58, &_3$$4);
+		ZEPHIR_CALL_FUNCTION(NULL, "putenv", &_2, 59, &_3$$4);
 		zephir_check_call_status();
 	} else {
 		ZEPHIR_INIT_VAR(&_4$$5);
 		ZEPHIR_CONCAT_VSV(&_4$$5, &name, "=", value);
-		ZEPHIR_CALL_FUNCTION(NULL, "putenv", &_2, 58, &_4$$5);
+		ZEPHIR_CALL_FUNCTION(NULL, "putenv", &_2, 59, &_4$$5);
 		zephir_check_call_status();
 	}
 	zephir_array_update_zval(_ENV, &name, value, PH_COPY | PH_SEPARATE);
@@ -274,7 +274,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, initialization) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "UTF-8");
-	ZEPHIR_CALL_FUNCTION(NULL, "mb_internal_encoding", NULL, 59, &_0);
+	ZEPHIR_CALL_FUNCTION(NULL, "mb_internal_encoding", NULL, 60, &_0);
 	zephir_check_call_status();
 	if ((zephir_function_exists_ex(SL("date_default_timezone_set") TSRMLS_CC) == SUCCESS)) {
 		ZEPHIR_INIT_VAR(&_2$$3);
@@ -283,7 +283,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, initialization) {
 		ZVAL_STRING(&_3$$3, "UTC");
 		ZEPHIR_CALL_METHOD(&_1$$3, option, "get", NULL, 0, &_2$$3, &_3$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_FUNCTION(NULL, "date_default_timezone_set", NULL, 60, &_1$$3);
+		ZEPHIR_CALL_FUNCTION(NULL, "date_default_timezone_set", NULL, 61, &_1$$3);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_NVAR(&_0);
@@ -304,10 +304,10 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, initialization) {
 	if (_5) {
 		ZEPHIR_INIT_VAR(&_8$$5);
 		ZVAL_STRING(&_8$$5, "gz_handler");
-		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 61, &_8$$5);
+		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 62, &_8$$5);
 		zephir_check_call_status();
 	} else {
-		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 61);
+		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 62);
 		zephir_check_call_status();
 	}
 	ZEPHIR_MM_RESTORE();

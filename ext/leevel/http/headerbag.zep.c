@@ -180,7 +180,7 @@ PHP_METHOD(Leevel_Http_HeaderBag, __toString) {
 		RETURN_MM_STRING("");
 	}
 	ZEPHIR_MAKE_REF(&headers);
-	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 51, &headers);
+	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 52, &headers);
 	ZEPHIR_UNREF(&headers);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&content);

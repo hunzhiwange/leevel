@@ -511,7 +511,7 @@ PHP_METHOD(Leevel_Log_Log, log) {
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	zephir_array_fetch_string(&_1, &_0, SL("levels"), PH_NOISY | PH_READONLY, "leevel/log/log.zep", 225 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_2, "in_array", NULL, 54, &level, &_1, &__$true);
+	ZEPHIR_CALL_FUNCTION(&_2, "in_array", NULL, 55, &level, &_1, &__$true);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_2))) {
 		RETURN_MM_NULL();

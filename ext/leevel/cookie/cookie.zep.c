@@ -434,7 +434,7 @@ PHP_METHOD(Leevel_Cookie_Cookie, pop) {
 	array_init(&_1);
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "get", NULL, 0, &key, &_1, &option);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(&_2, "array_diff", NULL, 97, &_0, &value);
+	ZEPHIR_CALL_FUNCTION(&_2, "array_diff", NULL, 98, &_0, &value);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "set", NULL, 0, &key, &_2, &option);
 	zephir_check_call_status();

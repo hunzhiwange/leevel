@@ -235,7 +235,7 @@ PHP_METHOD(Leevel_Bootstrap_Project, singletons) {
 	} else {
 		ZEPHIR_INIT_VAR(&_2$$4);
 		object_init_ex(&_2$$4, leevel_bootstrap_project_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 68, path);
+		ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 69, path);
 		zephir_check_call_status();
 		zend_update_static_property(leevel_bootstrap_project_ce, ZEND_STRL("project"), &_2$$4);
 		zephir_read_static_property_ce(&_3$$4, leevel_bootstrap_project_ce, SL("project"), PH_NOISY_CC | PH_READONLY);
@@ -276,7 +276,7 @@ PHP_METHOD(Leevel_Bootstrap_Project, runWithExtension) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "leevel");
-	ZEPHIR_RETURN_CALL_FUNCTION("extension_loaded", NULL, 69, &_0);
+	ZEPHIR_RETURN_CALL_FUNCTION("extension_loaded", NULL, 70, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1888,19 +1888,19 @@ PHP_METHOD(Leevel_Bootstrap_Project, registerBaseProvider) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, leevel_event_provider_register_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 70, this_ptr);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 71, this_ptr);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "register", &_1, 0, &_0);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_2);
 	object_init_ex(&_2, leevel_log_provider_register_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 71, this_ptr);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", NULL, 72, this_ptr);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "register", &_1, 0, &_2);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_3);
 	object_init_ex(&_3, leevel_router_provider_register_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", NULL, 72, this_ptr);
+	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", NULL, 73, this_ptr);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "register", &_1, 0, &_3);
 	zephir_check_call_status();

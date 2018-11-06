@@ -239,7 +239,7 @@ PHP_METHOD(Leevel_View_Twig, renderFile) {
 	zephir_read_property(&_0, this_ptr, SL("parser"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&loader, &_0, "getloader", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(&_1, "dirname", NULL, 46, &file);
+	ZEPHIR_CALL_FUNCTION(&_1, "dirname", NULL, 47, &file);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &loader, "setpaths", NULL, 0, &_1);
 	zephir_check_call_status();

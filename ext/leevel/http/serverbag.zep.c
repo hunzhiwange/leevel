@@ -94,7 +94,7 @@ PHP_METHOD(Leevel_Http_ServerBag, getHeaders) {
 		ZVAL_STRING(&_5$$3, "HTTP_");
 		ZEPHIR_INIT_NVAR(&_6$$3);
 		zephir_fast_strpos(&_6$$3, &key, &_5$$3, 0 );
-		ZEPHIR_CALL_FUNCTION(&_7$$3, "in_array", &_8, 54, &key, &contentHeaders, &__$true);
+		ZEPHIR_CALL_FUNCTION(&_7$$3, "in_array", &_8, 55, &key, &contentHeaders, &__$true);
 		zephir_check_call_status();
 		if (ZEPHIR_IS_LONG_IDENTICAL(&_6$$3, 0)) {
 			ZVAL_LONG(&_9$$4, 5);

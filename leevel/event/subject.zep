@@ -105,11 +105,14 @@ class Subject implements ISubject, SplSubject
      */
     public function register(var observer)
     {
+        var handle;
+
         if is_object(observer) && observer instanceof Closure {
-            let observer = new Observer(observer);
+            let handle = observer;
+            let observer = new Observer(handle);
         } else {
             if is_string(observer) {
-                let observer = this->container->make(observer);
+                let observer = this->container->make(observer, [null]);
 
                 if is_string(observer) {
                     throw new InvalidArgumentException(
@@ -124,9 +127,9 @@ class Subject implements ISubject, SplSubject
                          sprintf("Observer `%s` is invalid.", get_class(observer))
                      );
                  }
-                 dd(observer);
 
-                 let observer = new Observer(Closure::fromCallable([observer, "handle"]));
+                 let handle = [observer, "handle"];
+                 let observer = new Observer(Closure::fromCallable(handle));
              }
         }
 

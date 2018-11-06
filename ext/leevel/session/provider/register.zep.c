@@ -180,7 +180,7 @@ PHP_METHOD(Leevel_Session_Provider_Register, sessionsClosure) {
 
 
 	object_init_ex(return_value, leevel_session_manager_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 88, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 89, container);
 	zephir_check_call_status();
 	RETURN_MM();
 

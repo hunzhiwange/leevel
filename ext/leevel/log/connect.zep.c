@@ -300,7 +300,7 @@ PHP_METHOD(Leevel_Log_Connect, normalizeLevel) {
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_read_property(&_1, this_ptr, SL("supportLevel"), PH_NOISY_CC | PH_READONLY);
 	zephir_array_keys(&_0, &_1 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(&_2, "in_array", NULL, 54, &level, &_0, &__$true);
+	ZEPHIR_CALL_FUNCTION(&_2, "in_array", NULL, 55, &level, &_0, &__$true);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_2))) {
 		RETURN_MM_STRING("debug");
