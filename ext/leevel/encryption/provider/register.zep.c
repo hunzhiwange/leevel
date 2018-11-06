@@ -24,7 +24,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.26
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Encryption_Provider_Register) {
@@ -101,7 +101,7 @@ PHP_METHOD(Leevel_Encryption_Provider_Register, register) {
 
 /**
  * 创建 encryption 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Encryption\Encryption
  */
@@ -109,7 +109,7 @@ PHP_METHOD(Leevel_Encryption_Provider_Register, encryptionClosure) {
 
 	zend_class_entry *_1 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *container, container_sub, option, _0, _2, _3;
+	zval *container, container_sub, option, _0, _2, _3, _4, _5;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&container_sub);
@@ -117,6 +117,8 @@ PHP_METHOD(Leevel_Encryption_Provider_Register, encryptionClosure) {
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
+	ZVAL_UNDEF(&_4);
+	ZVAL_UNDEF(&_5);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &container);
@@ -137,10 +139,18 @@ PHP_METHOD(Leevel_Encryption_Provider_Register, encryptionClosure) {
 		ZEPHIR_CALL_METHOD(&_2, &option, "get", NULL, 0, &_0);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_0);
-		ZVAL_STRING(&_0, "auth_expiry");
+		ZVAL_STRING(&_0, "auth_cipher");
 		ZEPHIR_CALL_METHOD(&_3, &option, "get", NULL, 0, &_0);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 0, &_2, &_3);
+		ZEPHIR_INIT_NVAR(&_0);
+		ZVAL_STRING(&_0, "auth_rsa_private");
+		ZEPHIR_CALL_METHOD(&_4, &option, "get", NULL, 0, &_0);
+		zephir_check_call_status();
+		ZEPHIR_INIT_NVAR(&_0);
+		ZVAL_STRING(&_0, "auth_rsa_public");
+		ZEPHIR_CALL_METHOD(&_5, &option, "get", NULL, 0, &_0);
+		zephir_check_call_status();
+		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 0, &_2, &_3, &_4, &_5);
 		zephir_check_call_status();
 	}
 	RETURN_MM();
