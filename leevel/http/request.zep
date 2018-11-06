@@ -26,7 +26,7 @@ use Leevel\Support\IArray;
 /**
  * HTTP 请求
  * This class borrows heavily from the Symfony4 Framework and is part of the symfony package
- * 
+ *
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.03.05
@@ -42,56 +42,56 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
      * @var \Leevel\Http\Bag
      */
     public query;
-    
+
     /**
      * POST Bag
      *
      * @var \Leevel\Http\Bag
      */
     public request;
-    
+
     /**
      * 路由解析后的参数
      *
      * @var \Leevel\Http\Bag
      */
     public params;
-    
+
     /**
      * COOKIE Bag
      *
      * @var \Leevel\Http\Bag
      */
     public cookies;
-    
+
     /**
      * FILE Bag
      *
      * @var \Leevel\Http\FileBag
      */
     public files;
-    
+
     /**
      * SERVER Bag
      *
      * @var \Leevel\Http\ServerBag
      */
     public server;
-    
+
     /**
      * HEADER Bag
      *
      * @var \Leevel\Http\HeaderBag
      */
     public headers;
-    
+
     /**
      * 内容
-     * 
+     *
      * @var string|resource|false|null
      */
     protected content;
-    
+
     /**
      * 基础 url
      *
@@ -101,53 +101,53 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
     /**
      * 基础路径
-     * 
+     *
      * @var string
      */
     protected basePath;
-    
+
     /**
      * 请求 url
      *
      * @var string
      */
     protected requestUri;
-    
+
     /**
      * 请求类型
      *
      * @var string
      */
     protected method;
-    
+
     /**
      * pathInfo
      *
      * @var string
      */
     protected pathInfo;
-    
+
     /**
      * 应用名字
      *
      * @var string
      */
     protected app;
-    
+
     /**
      * 控制器名字
      *
      * @var string
      */
     protected controller;
-    
+
     /**
      * 方法名字
      *
      * @var string
      */
     protected action;
-    
+
     /**
      * 当前语言
      *
@@ -161,10 +161,10 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
      * @var array
      */
     protected static macro = [];
-    
+
     /**
      * 构造函数
-     * 
+     *
      * @param array $query
      * @param array $request
      * @param array $params
@@ -178,10 +178,10 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         this->reset(query, request, params, cookies, files, server, content);
     }
-    
+
     /**
      * 重置或者初始化
-     * 
+     *
      * @param array $query
      * @param array $request
      * @param array $params
@@ -211,7 +211,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
         let this->action = null;
         let this->language = null;
     }
-    
+
     /**
      * 全局变量创建一个 Request
      *
@@ -220,13 +220,13 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public static function createFromGlobals()
     {
         var request;
-    
+
         let request = new static(_GET, _POST, [], _COOKIE, _FILES, _SERVER, null);
         let request = self::normalizeRequestFromContent(request);
 
         return request;
     }
-    
+
     /**
      * 格式化请求的内容
      *
@@ -236,14 +236,14 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public static function normalizeRequestFromContent(<Request> request) -> <Request>
     {
         var data, contentType, method;
-    
+
         let contentType = request->headers->get("CONTENT_TYPE");
         let method = strtoupper(request->server->get("REQUEST_METHOD", self::METHOD_GET));
 
-        if contentType && 0 === strpos(contentType, "application/x-www-form-urlencoded") && 
+        if contentType && 0 === strpos(contentType, "application/x-www-form-urlencoded") &&
             in_array(method, [
-            self::METHOD_PUT, 
-            self::METHOD_DELETE, 
+            self::METHOD_PUT,
+            self::METHOD_DELETE,
             self::METHOD_PATCH
         ]) {
             parse_str(request->getContent(), data);
@@ -252,7 +252,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return request;
     }
-    
+
     /**
      * 获取参数
      *
@@ -263,7 +263,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function get(string key, var defaults = null)
     {
         var all;
-    
+
         let all = this->all();
 
         if array_key_exists(key, all) {
@@ -272,7 +272,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
             return this->params->get(key, defaults);
         }
     }
-    
+
     /**
      * 请求是否包含给定的 key
      *
@@ -300,7 +300,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return true;
     }
-    
+
     /**
      * 请求是否包含非空
      *
@@ -326,7 +326,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return true;
     }
-    
+
     /**
      * 取得给定的 key 数据
      *
@@ -352,7 +352,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return results;
     }
-    
+
     /**
      * 取得排除给定的 key 数据
      *
@@ -379,7 +379,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return results;
     }
-    
+
     /**
      * 取回输入和文件
      *
@@ -389,7 +389,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return array_replace_recursive(this->input(), this->allFiles());
     }
-    
+
     /**
      * 获取输入数据
      *
@@ -400,7 +400,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function input(var key = null, var defaults = null)
     {
         var input;
-    
+
         let input = this->getInputSource()->all() + this->query->all();
 
         if is_null(key) {
@@ -409,7 +409,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return isset input[key] ? input[key] : defaults;
     }
-    
+
     /**
      * 取回 query
      *
@@ -421,7 +421,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getItem("query", key, defaults);
     }
-    
+
     /**
      * 请求是否存在 COOKIE
      *
@@ -432,7 +432,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return ! (is_null(this->cookie(key)));
     }
-    
+
     /**
      * 取回 cookie
      *
@@ -444,7 +444,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getItem("cookies", key, defaults);
     }
-    
+
     /**
      * 取得所有文件
      *
@@ -454,7 +454,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->files->all();
     }
-    
+
     /**
      * 获取文件
      * 数组文件请在末尾加上反斜杆访问
@@ -471,7 +471,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
             return this->files->getArr(key, defaults);
         }
     }
-    
+
     /**
      * 文件是否存在已上传的文件
      * 数组文件请在末尾加上反斜杆访问
@@ -482,7 +482,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function hasFile(string key) -> boolean
     {
         var files, file;
-    
+
         let files = this->file(key);
 
         if ! (is_array(files)) {
@@ -497,7 +497,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return false;
     }
-    
+
     /**
      * 验证是否为文件实例
      *
@@ -508,7 +508,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return is_object(file) && file instanceof SplFileObject && file->getPath() != "";
     }
-    
+
     /**
      * 取回 header
      *
@@ -520,7 +520,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getItem("headers", key, defaults);
     }
-    
+
     /**
      * 取回 server
      *
@@ -532,7 +532,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getItem("server", key, defaults);
     }
-    
+
     /**
      * 取回数据项
      *
@@ -549,7 +549,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->{source}->get(key, defaults);
     }
-    
+
     /**
      * 合并输入
      *
@@ -560,7 +560,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         this->getInputSource()->add(input);
     }
-    
+
     /**
      * 替换输入
      *
@@ -571,11 +571,11 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         this->getInputSource()->replace(input);
     }
-    
+
     /**
      * PHP 运行模式命令行, 兼容 swoole http service
      * Swoole http 服务器也以命令行运行
-     * 
+     *
      * @link http://php.net/manual/zh/function.php-sapi-name.php
      * @return boolean
      */
@@ -587,10 +587,10 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->isRealCli();
     }
-    
+
     /**
      * PHP 运行模式命令行
-     * 
+     *
      * @link http://php.net/manual/zh/function.php-sapi-name.php
      * @return boolean
      */
@@ -598,7 +598,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return "cli" == PHP_SAPI;
     }
-    
+
     /**
      * PHP 运行模式 cgi
      *
@@ -609,7 +609,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return substr(PHP_SAPI, 0, 3) == "cgi";
     }
-    
+
     /**
      * 是否为 Ajax 请求行为
      *
@@ -618,7 +618,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function isAjax() -> boolean
     {
         var field;
-    
+
         let field = self::VAR_AJAX;
 
         if this->request->has(field) || this->query->has(field) {
@@ -627,7 +627,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->isRealAjax();
     }
-    
+
     /**
      * 是否为 Ajax 请求行为真实
      *
@@ -647,7 +647,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->headers->get("X_REQUESTED_WITH") === "XMLHttpRequest";
     }
-    
+
     /**
      * 是否为 Pjax 请求行为
      *
@@ -656,7 +656,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function isPjax() -> boolean
     {
         var field;
-    
+
         let field = self::VAR_PJAX;
 
         if this->request->has(field) || this->query->has(field) {
@@ -665,7 +665,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->isRealPjax();
     }
-    
+
     /**
      * 是否为 Pjax 请求行为真实
      *
@@ -789,139 +789,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return false;
     }
-    
-    /**
-     * 是否为手机访问
-     *
-     * @return boolean
-     */
-    public function isMobile() -> boolean
-    {
-        var useAgent, allHttp;
-    
-        let useAgent = this->headers->get("USER_AGENT");
-        let allHttp = this->server->get("ALL_HTTP");
 
-        // Pre-final check to reset everything if the user is on Windows
-        if strpos(useAgent, "windows") !== false {
-            return false;
-        }
-
-        if preg_match("/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i", useAgent) {
-            return true;
-        }
-
-        if strpos(this->headers->get("ACCEPT"), "application/vnd.wap.xhtml+xml") !== false {
-            return true;
-        }
-
-        if this->headers->has("X_WAP_PROFILE") || this->headers->has("PROFILE") {
-            return true;
-        }
-
-        if in_array(strtolower(substr(useAgent, 0, 4)), [
-            "w3c ", 
-            "acs-", 
-            "alav", 
-            "alca", 
-            "amoi", 
-            "audi", 
-            "avan", 
-            "benq", 
-            "bird", 
-            "blac", 
-            "blaz", 
-            "brew", 
-            "cell", 
-            "cldc", 
-            "cmd-", 
-            "dang", 
-            "doco", 
-            "eric", 
-            "hipt", 
-            "inno", 
-            "ipaq", 
-            "java", 
-            "jigs", 
-            "kddi", 
-            "keji", 
-            "leno", 
-            "lg-c", 
-            "lg-d", 
-            "lg-g", 
-            "lge-", 
-            "maui", 
-            "maxo", 
-            "midp", 
-            "mits", 
-            "mmef", 
-            "mobi", 
-            "mot-", 
-            "moto", 
-            "mwbp", 
-            "nec-", 
-            "newt", 
-            "noki", 
-            "oper", 
-            "palm", 
-            "pana", 
-            "pant", 
-            "phil", 
-            "play", 
-            "port", 
-            "prox", 
-            "qwap", 
-            "sage", 
-            "sams", 
-            "sany", 
-            "sch-", 
-            "sec-", 
-            "send", 
-            "seri", 
-            "sgh-", 
-            "shar", 
-            "sie-", 
-            "siem", 
-            "smal", 
-            "smar", 
-            "sony", 
-            "sph-", 
-            "symb", 
-            "t-mo", 
-            "teli", 
-            "tim-", 
-            "tosh", 
-            "tsm-", 
-            "upg1", 
-            "upsi", 
-            "vk-v", 
-            "voda", 
-            "wap-", 
-            "wapa", 
-            "wapi", 
-            "wapp", 
-            "wapr", 
-            "webc", 
-            "winw", 
-            "winw", 
-            "xda", 
-            "xda-"
-        ]) {
-            return true;
-        }
-
-        if strpos(strtolower(allHttp), "operamini") !== false {
-            return true;
-        }
-
-        // But WP7 is also Windows, with a slightly different characteristic
-        if strpos(useAgent, "windows phone") !== false {
-            return true;
-        }
-
-        return false;
-    }
-    
     /**
      * 是否为 HEAD 请求行为
      *
@@ -931,7 +799,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_HEAD;
     }
-    
+
     /**
      * 是否为 GET 请求行为
      *
@@ -941,7 +809,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_GET;
     }
-    
+
     /**
      * 是否为 POST 请求行为
      *
@@ -951,7 +819,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_POST;
     }
-    
+
     /**
      * 是否为 PUT 请求行为
      *
@@ -961,7 +829,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_PUT;
     }
-    
+
     /**
      * 是否为 PATCH 请求行为
      *
@@ -971,7 +839,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_PATCH;
     }
-    
+
     /**
      * 是否为 PURGE 请求行为
      *
@@ -981,7 +849,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_PURGE;
     }
-    
+
     /**
      * 是否为 OPTIONS 请求行为
      *
@@ -991,7 +859,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_OPTIONS;
     }
-    
+
     /**
      * 是否为 TRACE 请求行为
      *
@@ -1001,7 +869,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_TRACE;
     }
-    
+
     /**
      * 是否为 CONNECT 请求行为
      *
@@ -1011,7 +879,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_CONNECT;
     }
-    
+
     /**
      * 获取 IP 地址
      *
@@ -1021,7 +889,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->headers->get("CLIENT_IP", this->server->get("REMOTE_ADDR", "0.0.0.0"));
     }
-    
+
     /**
      * 请求类型
      *
@@ -1030,7 +898,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getMethod() -> string
     {
         var method, field;
-    
+
         if ! (is_null(this->method)) {
             return this->method;
         }
@@ -1050,7 +918,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->method;
     }
-    
+
     /**
      * 设置请求类型
      *
@@ -1065,7 +933,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this;
     }
-    
+
     /**
      * 实际请求类型
      *
@@ -1086,7 +954,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() === strtoupper(method);
     }
-    
+
     /**
      * 取回应用名
      *
@@ -1096,7 +964,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->app;
     }
-    
+
     /**
      * 取回控制器名
      *
@@ -1106,7 +974,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->controller;
     }
-    
+
     /**
      * 取回方法名
      *
@@ -1116,7 +984,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->action;
     }
-    
+
     /**
      * 取得节点
      *
@@ -1126,7 +994,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->app() . "://" . this->controller() . "/" . this->action();
     }
-    
+
     /**
      * 设置应用名
      *
@@ -1139,7 +1007,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this;
     }
-    
+
     /**
      * 设置控制器名
      *
@@ -1152,7 +1020,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this;
     }
-    
+
     /**
      * 设置方法名
      *
@@ -1165,7 +1033,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this;
     }
-    
+
     /**
      * 返回当前的语言
      *
@@ -1185,7 +1053,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->language;
     }
-    
+
     /**
      * 设置当前的语言
      *
@@ -1198,7 +1066,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this;
     }
-    
+
     /**
      * 取得请求内容
      *
@@ -1207,7 +1075,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getContent()
     {
         var resources;
-    
+
         let resources = is_resource(this->content);
 
         if resources {
@@ -1221,7 +1089,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->content;
     }
-    
+
     /**
      * 返回 root URL
      *
@@ -1231,7 +1099,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return rtrim(this->getSchemeAndHttpHost() . this->getBaseUrl(), "/");
     }
-    
+
     /**
      * 返回入口文件
      *
@@ -1244,7 +1112,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
         if this->isCli() {
             return "";
         }
-    
+
         let scriptName = this->getScriptName();
 
         let scriptName = dirname(scriptName);
@@ -1254,7 +1122,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return scriptName;
     }
-    
+
     /**
      * 取得脚本名字
      *
@@ -1264,7 +1132,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->server->get("SCRIPT_NAME", this->server->get("ORIG_SCRIPT_NAME", ""));
     }
-    
+
     /**
      * 是否启用 https
      *
@@ -1280,7 +1148,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return false;
     }
-    
+
     /**
      * 取得 http host
      *
@@ -1289,7 +1157,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getHttpHost() -> string
     {
         var scheme, port;
-    
+
         let scheme = this->getScheme();
         let port = this->getPort();
 
@@ -1299,7 +1167,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->getHost() . ":" . port;
     }
-    
+
     /**
      * 获取 host
      *
@@ -1322,7 +1190,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return host;
     }
-    
+
     /**
      * 取得 Scheme 和 Host
      *
@@ -1332,7 +1200,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getScheme() . "://" . this->getHttpHost();
     }
-    
+
     /**
      * 返回当前 URL 地址
      *
@@ -1341,7 +1209,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getUri() -> string
     {
         var queryString;
-    
+
         let queryString = this->getQueryString();
 
         if queryString !== null {
@@ -1350,7 +1218,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->getSchemeAndHttpHost() . this->getBaseUrl() . this->getPathInfo() . queryString;
     }
-    
+
     /**
      * 服务器端口
      *
@@ -1359,7 +1227,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getPort() -> int
     {
         var port;
-    
+
         let port = this->server->get("SERVER_PORT");
 
         if ! (port) {
@@ -1368,7 +1236,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return port;
     }
-    
+
     /**
      * 返回 scheme
      *
@@ -1378,7 +1246,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->isSecure() ? "https" : "http";
     }
-    
+
     /**
      * 取回查询参数
      *
@@ -1387,12 +1255,12 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getQueryString()
     {
         var queryString;
-    
+
         let queryString = this->normalizeQueryString(this->server->get("QUERY_STRING", ""));
 
         return "" === queryString  && "0" !== queryString ? null : queryString;
     }
-    
+
     /**
      * 设置 pathInfo
      *
@@ -1405,7 +1273,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this;
     }
-    
+
     /**
      * pathInfo 兼容性分析
      *
@@ -1414,7 +1282,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getPathInfo() -> string
     {
         var pathInfo, baseUrl, requestUri, pos;
-    
+
         if ! (is_null(this->pathInfo)) {
             return this->pathInfo;
         }
@@ -1468,7 +1336,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getBasePath() -> string
     {
         var baseUrl, filename, basePath;
-    
+
         if this->basePath !== null {
             return this->basePath;
         }
@@ -1494,7 +1362,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return this->basePath;
     }
-    
+
     /**
      * 分析基础 url
      *
@@ -1503,7 +1371,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getBaseUrl() -> string
     {
         var fileName, url, path, segs, index, maxCount, pos, seg, requestUri, prefix, basename;
-    
+
         if ! (is_null(this->baseUrl)) {
             return this->baseUrl;
         }
@@ -1557,7 +1425,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
                 return this->baseUrl;
             }
         }
-        
+
         let basename = basename(url);
         if empty basename || strpos(rawurldecode(requestUri), basename) {
             return "";
@@ -1570,12 +1438,12 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
                 let url = substr(requestUri, 0, pos + strlen(url));
             }
         }
-        
+
         let this->baseUrl = rtrim(url, "/");
 
         return this->baseUrl;
     }
-    
+
     /**
      * 请求参数
      *
@@ -1584,7 +1452,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     public function getRequestUri() -> string
     {
         var requestUri;
-    
+
         if ! (is_null(this->requestUri)) {
             return this->requestUri;
         }
@@ -1615,7 +1483,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         let self::macro[name] = macro;
     }
-    
+
     /**
      * 判断一个扩展是否注册
      *
@@ -1651,7 +1519,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
      * 由于 zephir 对应的 C 扩展版本不支持对象内绑定 class
      * 即 Closure::bind($closures, null, get_called_class())
      * 为保持功能一致，所以绑定对象但是不绑定作用域，即可以使用 $this,只能访问 public 属性
-     * 
+     *
      * @param string $method
      * @param array $args
      * @return mixed
@@ -1668,7 +1536,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         throw new BadMethodCallException(sprintf("Method %s is not exits.", method));
     }
-    
+
     /**
      * 判断字符串是否为数字
      *
@@ -1683,7 +1551,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return ctype_digit(strval(value));
     }
-    
+
     /**
      * pathinfo 处理
      *
@@ -1706,17 +1574,17 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return pathInfo;
     }
-    
+
     /**
      * 格式化查询参数
-     * 
+     *
      * @param string $queryString
      * @return string
      */
     protected function normalizeQueryString(string queryString) -> string
     {
         var parts, item;
-    
+
         if queryString == "" {
             return "";
         }
@@ -1732,7 +1600,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return implode("&", parts);
     }
-    
+
     /**
      * 取得请求输入源
      *
@@ -1742,7 +1610,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->getMethod() == self::METHOD_GET ? this->query : this->request;
     }
-    
+
     /**
      * 是否为空字符串
      *
@@ -1752,7 +1620,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     protected function isEmptyString(string key) -> boolean
     {
         var value;
-    
+
         let value = this->input(key);
 
         return is_string(value) && "" === trim(value) && "0" !== value;
@@ -1760,7 +1628,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
     /**
      * URL 前缀编码
-     * 
+     *
      * @param string $string
      * @param string $prefix
      * @return string|boolean
@@ -1768,7 +1636,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     protected function getUrlencodedPrefix(string strings, string prefix)
     {
         var len, matches;
-    
+
         if 0 !== strpos(rawurldecode(strings), prefix) {
             return false;
         }
@@ -1782,7 +1650,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         return false;
     }
-    
+
     /**
      * 对象转数组
      *
@@ -1792,52 +1660,50 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return this->all();
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetExists
      *
-     * @param string $offset
-     * @return mixed
+     * @param mixed $index
+     * @return bool
      */
-    public function offsetExists(string offset)
+    public function offsetExists(var index) -> boolean
     {
-        return array_key_exists(offset, this->all());
+        return array_key_exists(index, this->all());
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetGet
      *
-     * @param string $offset
+     * @param mixed $index
      * @return mixed
      */
-    public function offsetGet(string offset)
+    public function offsetGet(var index)
     {
-        return data_get(this->all(), offset);
+        return data_get(this->all(), index);
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetSet
      *
-     * @param string $offset
-     * @param mixed $value
-     * @return mixed
+     * @param string $index
+     * @param mixed $newval
      */
-    public function offsetSet(string offset, var value)
+    public function offsetSet(var index, var newval)
     {
-        return this->getInputSource()->set(offset, value);
+        return this->getInputSource()->set(index, newval);
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetUnset
      *
-     * @param string $offset
-     * @return void
+     * @param mixed $index
      */
-    public function offsetUnset(string offset)
+    public function offsetUnset(var index)
     {
-        return this->getInputSource()->remove(offset);
+        return this->getInputSource()->remove(index);
     }
-    
+
     /**
      * 是否存在输入值
      *
@@ -1848,7 +1714,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return ! (is_null(this->__get(key)));
     }
-    
+
     /**
      * 获取输入值
      *
@@ -1871,7 +1737,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         return self::callStaticMacro(method, args);
     }
-    
+
     /**
      * __call 魔术方法
      *

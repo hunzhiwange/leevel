@@ -46,20 +46,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_option_option_reset, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_option_option_offsetexists, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_option_option_offsetget, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_option_option_offsetset, 0, 0, 2)
-	ZEND_ARG_INFO(0, offset)
-	ZEND_ARG_INFO(0, value)
+	ZEND_ARG_INFO(0, index)
+	ZEND_ARG_INFO(0, newval)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_option_option_offsetunset, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_option_option_setrecursion, 0, 0, 1)

@@ -203,7 +203,7 @@ PHP_METHOD(Leevel_View_Provider_Register, viewViewsClosure) {
 
 
 	object_init_ex(return_value, leevel_view_manager_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 89, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 88, container);
 	zephir_check_call_status();
 	RETURN_MM();
 

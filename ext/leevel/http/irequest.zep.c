@@ -442,13 +442,6 @@ ZEPHIR_DOC_METHOD(Leevel_Http_IRequest, isRealAcceptJson);
 ZEPHIR_DOC_METHOD(Leevel_Http_IRequest, isAcceptAny);
 
 /**
- * 是否为手机访问.
- *
- * @return bool
- */
-ZEPHIR_DOC_METHOD(Leevel_Http_IRequest, isMobile);
-
-/**
  * 是否为 HEAD 请求行为.
  *
  * @return bool

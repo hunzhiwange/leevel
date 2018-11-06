@@ -20,6 +20,7 @@ use SplObserver;
 use SplObjectStorage;
 use InvalidArgumentException;
 use Leevel\Di\IContainer;
+use Closure;
 
 /**
  * 观察者目标角色 subject
@@ -32,28 +33,27 @@ use Leevel\Di\IContainer;
  */
 class Subject implements ISubject, SplSubject
 {
-
     /**
      * 容器
      *
      * @var \Leevel\Di\IContainer
      */
     public container;
-    
+
     /**
      * 观察者角色 observer
      *
      * @var \SplObjectStorage(\SplObserver)
      */
     protected observers;
-    
+
     /**
      * 通知附加参数
      *
      * @var array
      */
     public notifyArgs = [];
-    
+
     /**
      * 构造函数
      *
@@ -65,7 +65,7 @@ class Subject implements ISubject, SplSubject
         let this->observers = new SplObjectStorage();
         let this->container = container;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -73,7 +73,7 @@ class Subject implements ISubject, SplSubject
     {
         this->observers->attach(observer);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -81,7 +81,7 @@ class Subject implements ISubject, SplSubject
     {
         this->observers->detach(observer);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -90,37 +90,46 @@ class Subject implements ISubject, SplSubject
         let this->notifyArgs = func_get_args();
 
         this->observers->rewind();
-        
+
         while this->observers->valid() {
             this->observers->current()->update(this);
             this->observers->next();
         }
     }
-    
+
     /**
      * 添加一个观察者角色
      *
-     * @param \SplObserver|string $observer
+     * @param \SplObserver|string|\Closure $observer
      * @return $this
      */
-    public function attachs(observer)
+    public function register(var observer)
     {
-        if is_string(observer) {
-            let observer = this->container->make(observer);
-            
+        if is_object(observer) && observer instanceof Closure {
+            let observer = new Observer(observer);
+        } else {
             if is_string(observer) {
-                throw new InvalidArgumentException(
-                    sprintf("Observer is invalid.")
-                );
+                let observer = this->container->make(observer);
+
+                if is_string(observer) {
+                    throw new InvalidArgumentException(
+                        sprintf("Observer `%s` is invalid.", observer)
+                    );
+                }
             }
+
+            if !(is_object(observer) && observer instanceof SplObserver) {
+                 if (!is_callable([observer, "handle"])) {
+                     throw new InvalidArgumentException(
+                         sprintf("Observer `%s` is invalid.", get_class(observer))
+                     );
+                 }
+                 dd(observer);
+
+                 let observer = new Observer(Closure::fromCallable([observer, "handle"]));
+             }
         }
 
-        if observer instanceof SplObserver {
-            this->attach(observer);
-        } else {
-            throw new InvalidArgumentException(
-                "Invalid observer argument because it not instanceof SplObserver."
-            );
-        }
+        this->attach(observer);
     }
 }

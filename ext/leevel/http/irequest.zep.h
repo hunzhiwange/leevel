@@ -146,7 +146,6 @@ ZEPHIR_INIT_FUNCS(leevel_http_irequest_method_entry) {
 	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isAcceptJson, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isRealAcceptJson, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isAcceptAny, NULL)
-	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isMobile, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isHead, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isGet, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IRequest, isPost, NULL)

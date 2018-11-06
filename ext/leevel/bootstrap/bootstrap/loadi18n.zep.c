@@ -119,13 +119,13 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadI18n, handle) {
 	}
 	ZEPHIR_INIT_VAR(&i18n);
 	object_init_ex(&i18n, leevel_i18n_i18n_ce);
-	ZEPHIR_CALL_METHOD(NULL, &i18n, "__construct", NULL, 56, &i18nDefault);
+	ZEPHIR_CALL_METHOD(NULL, &i18n, "__construct", NULL, 55, &i18nDefault);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_1);
 	ZVAL_STRING(&_1, "i18n");
 	ZEPHIR_CALL_METHOD(NULL, project, "instance", NULL, 0, &_1, &i18n);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &i18n, "addtext", NULL, 57, &i18nDefault, &data);
+	ZEPHIR_CALL_METHOD(NULL, &i18n, "addtext", NULL, 56, &i18nDefault, &data);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -191,7 +191,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadI18n, getExtend) {
 			ZEPHIR_CONCAT_VSV(&_6$$4, &path, "/", &item);
 			ZEPHIR_CPY_WRT(&item, &_6$$4);
 		}
-		ZEPHIR_CALL_FUNCTION(&_7$$3, "is_dir", &_8, 45, &item);
+		ZEPHIR_CALL_FUNCTION(&_7$$3, "is_dir", &_8, 44, &item);
 		zephir_check_call_status();
 		if (!(zephir_is_true(&_7$$3))) {
 			ZEPHIR_INIT_NVAR(&_9$$5);

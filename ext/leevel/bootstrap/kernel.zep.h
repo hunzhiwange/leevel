@@ -14,7 +14,6 @@ PHP_METHOD(Leevel_Bootstrap_Kernel, dispatchRouter);
 PHP_METHOD(Leevel_Bootstrap_Kernel, bootstrap);
 PHP_METHOD(Leevel_Bootstrap_Kernel, reportException);
 PHP_METHOD(Leevel_Bootstrap_Kernel, renderException);
-PHP_METHOD(Leevel_Bootstrap_Kernel, prepareTrace);
 PHP_METHOD(Leevel_Bootstrap_Kernel, middlewareTerminate);
 zend_object *zephir_init_properties_Leevel_Bootstrap_Kernel(zend_class_entry *class_type TSRMLS_DC);
 
@@ -53,10 +52,6 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_bootstrap_kernel_renderexception, 0, 0, 2)
 	ZEND_ARG_OBJ_INFO(0, e, Exception, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_bootstrap_kernel_preparetrace, 0, 0, 1)
-	ZEND_ARG_OBJ_INFO(0, response, Leevel\\Http\\IResponse, 0)
-ZEND_END_ARG_INFO()
-
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_bootstrap_kernel_middlewareterminate, 0, 0, 2)
 	ZEND_ARG_OBJ_INFO(0, request, Leevel\\Http\\IRequest, 0)
 	ZEND_ARG_OBJ_INFO(0, response, Leevel\\Http\\IResponse, 0)
@@ -74,7 +69,6 @@ ZEPHIR_INIT_FUNCS(leevel_bootstrap_kernel_method_entry) {
 	PHP_ME(Leevel_Bootstrap_Kernel, bootstrap, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, reportException, arginfo_leevel_bootstrap_kernel_reportexception, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, renderException, arginfo_leevel_bootstrap_kernel_renderexception, ZEND_ACC_PROTECTED)
-	PHP_ME(Leevel_Bootstrap_Kernel, prepareTrace, arginfo_leevel_bootstrap_kernel_preparetrace, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, middlewareTerminate, arginfo_leevel_bootstrap_kernel_middlewareterminate, ZEND_ACC_PROTECTED)
 	PHP_FE_END
 };

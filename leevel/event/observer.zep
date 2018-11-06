@@ -17,7 +17,8 @@ namespace Leevel\Event;
 
 use SplSubject;
 use SplObserver;
-use RuntimeException;
+use Closure;
+use InvalidArgumentException;
 
 /**
  * 观察者角色 observer
@@ -31,38 +32,60 @@ use RuntimeException;
  */
 class Observer implements SplObserver
 {
-
     /**
      * 观察者目标角色 subject
      *
      * @var \SplSubject
      */
     protected subject;
-    
+
+    /**
+     * 观察者实现.
+     *
+     * @var \Closure
+     */
+    protected handle;
+
     /**
      * 构造函数
      *
+     * @param \Closure $handle
      * @return void
      */
-    public function __construct()
+    public function __construct(var handle = null)
     {
+        let this->handle = handle;
     }
-    
+
+    /**
+     * 观察者实现.
+     */
+    public function __invoke()
+    {
+        call_user_func_array(this->handle, func_get_args());
+    }
+
     /**
      * {@inheritdoc}
      */
     public function update(<SplSubject> subject) -> void
     {
-        var method;
-    
-        let method = method_exists(this, "handle") ? "handle" : "run";
+        var handle;
 
-        if ! (is_callable([this, method])) {
-            throw new RuntimeException(
-                sprintf("Observer %s must has run or handle method.", get_class(this))
+        if method_exists(this, "handle") {
+            let handle = [this, "handle"];
+        } elseif this->handle {
+            let handle = [this, "__invoke"];
+        } else {
+            let handle = null;
+        }
+
+        if ! (is_callable(handle)) {
+            throw new InvalidArgumentException(
+                sprintf("Observer %s must has handle method.", get_class(this))
             );
         }
 
-        subject->container->call([this, method], subject->notifyArgs);
+        subject->container->call(handle, subject->notifyArgs);
     }
 }

@@ -132,14 +132,14 @@ PHP_METHOD(Leevel_View_Phpui, display) {
 		ZEPHIR_INIT_NVAR(&key);
 	}
 	if (display == 0) {
-		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", NULL, 62);
+		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", NULL, 61);
 		zephir_check_call_status();
 		if (zephir_require_zval(&tmpFile TSRMLS_CC) == FAILURE) {
 			RETURN_MM_NULL();
 		}
-		ZEPHIR_CALL_FUNCTION(&result, "ob_get_contents", NULL, 157);
+		ZEPHIR_CALL_FUNCTION(&result, "ob_get_contents", NULL, 156);
 		zephir_check_call_status();
-		ZEPHIR_CALL_FUNCTION(NULL, "ob_end_clean", NULL, 158);
+		ZEPHIR_CALL_FUNCTION(NULL, "ob_end_clean", NULL, 157);
 		zephir_check_call_status();
 		RETURN_CCTOR(&result);
 	} else {

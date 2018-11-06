@@ -302,7 +302,7 @@ PHP_METHOD(Leevel_Http_UploadedFile, move) {
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "movetotarget", NULL, 0, &_3$$3, &target, &_4$$3);
 		zephir_check_call_status();
 		object_init_ex(return_value, leevel_http_file_ce);
-		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 44, &target);
+		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 43, &target);
 		zephir_check_call_status();
 		RETURN_MM();
 	}

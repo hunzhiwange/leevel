@@ -24,7 +24,7 @@ use Leevel\I18n\II18n;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.06
- * 
+ *
  * @version 1.0
  */
 class I18n implements II18n
@@ -62,7 +62,7 @@ class I18n implements II18n
      *
      * @return string
      */
-    public function getText()
+    public function gettext()
     {
         var arr;
 
@@ -79,7 +79,7 @@ class I18n implements II18n
         if count(arr) > 1 {
             let arr[0] = call_user_func_array("sprintf", arr);
         }
-        
+
         return arr[0];
     }
 
@@ -92,7 +92,7 @@ class I18n implements II18n
     {
         var arr;
         let arr = func_get_args();
-        return call_user_func_array([this, "getText"], arr);
+        return call_user_func_array([this, "gettext"], arr);
     }
 
     /**
@@ -102,7 +102,7 @@ class I18n implements II18n
      * @param array $data 语言包数据
      * @return void
      */
-    public function addText(string i18n, array data = [])
+    public function addtext(string i18n, array data = [])
     {
         if array_key_exists(i18n, this->text) {
             let this->text[i18n] = array_merge(this->text[i18n], data);

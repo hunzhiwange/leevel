@@ -74,6 +74,7 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/database.zep.c
 	leevel/database/provider/register.zep.c
 	leevel/db.zep.c
+	leevel/debug.zep.c
 	leevel/di/containerinvalidargumentexception.zep.c
 	leevel/encryption.zep.c
 	leevel/encryption/provider/register.zep.c
@@ -129,7 +130,6 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/session/provider/register.zep.c
 	leevel/session/redis.zep.c
 	leevel/session/session.zep.c
-	leevel/support/debug/console.zep.c
 	leevel/support/ihtml.zep.c
 	leevel/support/str.zep.c
 	leevel/support/type.zep.c

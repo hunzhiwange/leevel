@@ -157,7 +157,9 @@ class Pipeline implements IPipeline
     {
         var args, current, next, params, item;
 
-        if ! this->generator->valid() || this->generator->next() || ! this->generator->valid() {
+        if ! this->generator->valid() ||
+           this->generator->next() ||
+           ! this->generator->valid() {
            return;
         }
 

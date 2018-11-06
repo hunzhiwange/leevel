@@ -17,8 +17,10 @@
 #include "kernel/object.h"
 #include "kernel/main.h"
 #include "kernel/operators.h"
+#include "Zend/zend_closures.h"
 #include "kernel/exception.h"
 #include "ext/spl/spl_exceptions.h"
+#include "kernel/array.h"
 
 
 /**
@@ -191,21 +193,33 @@ PHP_METHOD(Leevel_Event_Subject, notify) {
 /**
  * 添加一个观察者角色
  *
- * @param \SplObserver|string $observer
+ * @param \SplObserver|string|\Closure $observer
  * @return $this
  */
-PHP_METHOD(Leevel_Event_Subject, attachs) {
+PHP_METHOD(Leevel_Event_Subject, register) {
 
+	zend_class_entry *_16$$7;
+	zval _9$$7, _17$$7;
+	zend_bool _0, _8$$4;
+	zephir_fcall_cache_entry *_1 = NULL, *_7 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *observer = NULL, observer_sub, _0$$3, _1$$3, _2$$4, _3$$4, _4$$4;
+	zval *observer = NULL, observer_sub, _2$$5, _3$$5, _4$$6, _5$$6, _6$$6, _10$$7, _15$$7, _11$$8, _12$$8, _13$$8, _14$$8;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&observer_sub);
-	ZVAL_UNDEF(&_0$$3);
-	ZVAL_UNDEF(&_1$$3);
-	ZVAL_UNDEF(&_2$$4);
-	ZVAL_UNDEF(&_3$$4);
-	ZVAL_UNDEF(&_4$$4);
+	ZVAL_UNDEF(&_2$$5);
+	ZVAL_UNDEF(&_3$$5);
+	ZVAL_UNDEF(&_4$$6);
+	ZVAL_UNDEF(&_5$$6);
+	ZVAL_UNDEF(&_6$$6);
+	ZVAL_UNDEF(&_10$$7);
+	ZVAL_UNDEF(&_15$$7);
+	ZVAL_UNDEF(&_11$$8);
+	ZVAL_UNDEF(&_12$$8);
+	ZVAL_UNDEF(&_13$$8);
+	ZVAL_UNDEF(&_14$$8);
+	ZVAL_UNDEF(&_9$$7);
+	ZVAL_UNDEF(&_17$$7);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &observer);
@@ -213,32 +227,80 @@ PHP_METHOD(Leevel_Event_Subject, attachs) {
 	ZEPHIR_SEPARATE_PARAM(observer);
 
 
-	if (Z_TYPE_P(observer) == IS_STRING) {
-		zephir_read_property(&_0$$3, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_METHOD(&_1$$3, &_0$$3, "make", NULL, 0, observer);
-		zephir_check_call_status();
-		ZEPHIR_CPY_WRT(observer, &_1$$3);
-		if (Z_TYPE_P(observer) == IS_STRING) {
-			ZEPHIR_INIT_VAR(&_2$$4);
-			object_init_ex(&_2$$4, spl_ce_InvalidArgumentException);
-			ZEPHIR_INIT_VAR(&_3$$4);
-			ZVAL_STRING(&_3$$4, "Observer is invalid.");
-			ZEPHIR_CALL_FUNCTION(&_4$$4, "sprintf", NULL, 1, &_3$$4);
-			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 21, &_4$$4);
-			zephir_check_call_status();
-			zephir_throw_exception_debug(&_2$$4, "leevel/event/subject.zep", 114 TSRMLS_CC);
-			ZEPHIR_MM_RESTORE();
-			return;
-		}
+	_0 = Z_TYPE_P(observer) == IS_OBJECT;
+	if (_0) {
+		_0 = zephir_instance_of_ev(observer, zend_ce_closure TSRMLS_CC);
 	}
-	if (zephir_is_instance_of(observer, SL("SplObserver") TSRMLS_CC)) {
-		ZEPHIR_CALL_METHOD(NULL, this_ptr, "attach", NULL, 0, observer);
+	if (_0) {
+		ZEPHIR_INIT_NVAR(observer);
+		object_init_ex(observer, leevel_event_observer_ce);
+		ZEPHIR_CALL_METHOD(NULL, observer, "__construct", &_1, 101, observer);
 		zephir_check_call_status();
 	} else {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Invalid observer argument because it not instanceof SplObserver.", "leevel/event/subject.zep", 123);
-		return;
+		if (Z_TYPE_P(observer) == IS_STRING) {
+			zephir_read_property(&_2$$5, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
+			ZEPHIR_CALL_METHOD(&_3$$5, &_2$$5, "make", NULL, 0, observer);
+			zephir_check_call_status();
+			ZEPHIR_CPY_WRT(observer, &_3$$5);
+			if (Z_TYPE_P(observer) == IS_STRING) {
+				ZEPHIR_INIT_VAR(&_4$$6);
+				object_init_ex(&_4$$6, spl_ce_InvalidArgumentException);
+				ZEPHIR_INIT_VAR(&_5$$6);
+				ZVAL_STRING(&_5$$6, "Observer `%s` is invalid.");
+				ZEPHIR_CALL_FUNCTION(&_6$$6, "sprintf", &_7, 1, &_5$$6, observer);
+				zephir_check_call_status();
+				ZEPHIR_CALL_METHOD(NULL, &_4$$6, "__construct", NULL, 21, &_6$$6);
+				zephir_check_call_status();
+				zephir_throw_exception_debug(&_4$$6, "leevel/event/subject.zep", 117 TSRMLS_CC);
+				ZEPHIR_MM_RESTORE();
+				return;
+			}
+		}
+		_8$$4 = Z_TYPE_P(observer) == IS_OBJECT;
+		if (_8$$4) {
+			_8$$4 = zephir_is_instance_of(observer, SL("SplObserver") TSRMLS_CC);
+		}
+		if (!(_8$$4)) {
+			ZEPHIR_INIT_VAR(&_9$$7);
+			zephir_create_array(&_9$$7, 2, 0 TSRMLS_CC);
+			zephir_array_fast_append(&_9$$7, observer);
+			ZEPHIR_INIT_VAR(&_10$$7);
+			ZVAL_STRING(&_10$$7, "handle");
+			zephir_array_fast_append(&_9$$7, &_10$$7);
+			if (!(zephir_is_callable(&_9$$7 TSRMLS_CC))) {
+				ZEPHIR_INIT_VAR(&_11$$8);
+				object_init_ex(&_11$$8, spl_ce_InvalidArgumentException);
+				ZEPHIR_INIT_VAR(&_12$$8);
+				zephir_get_class(&_12$$8, observer, 0 TSRMLS_CC);
+				ZEPHIR_INIT_VAR(&_13$$8);
+				ZVAL_STRING(&_13$$8, "Observer `%s` is invalid.");
+				ZEPHIR_CALL_FUNCTION(&_14$$8, "sprintf", &_7, 1, &_13$$8, &_12$$8);
+				zephir_check_call_status();
+				ZEPHIR_CALL_METHOD(NULL, &_11$$8, "__construct", NULL, 21, &_14$$8);
+				zephir_check_call_status();
+				zephir_throw_exception_debug(&_11$$8, "leevel/event/subject.zep", 125 TSRMLS_CC);
+				ZEPHIR_MM_RESTORE();
+				return;
+			}
+			ZEPHIR_CALL_FUNCTION(NULL, "dd", NULL, 0, observer);
+			zephir_check_call_status();
+			ZEPHIR_INIT_NVAR(observer);
+			object_init_ex(observer, leevel_event_observer_ce);
+			_16$$7 = zephir_fetch_class_str_ex(SL("Closure"), ZEND_FETCH_CLASS_AUTO);
+			ZEPHIR_INIT_VAR(&_17$$7);
+			zephir_create_array(&_17$$7, 2, 0 TSRMLS_CC);
+			zephir_array_fast_append(&_17$$7, observer);
+			ZEPHIR_INIT_NVAR(&_10$$7);
+			ZVAL_STRING(&_10$$7, "handle");
+			zephir_array_fast_append(&_17$$7, &_10$$7);
+			ZEPHIR_CALL_CE_STATIC(&_15$$7, _16$$7, "fromcallable", NULL, 0, &_17$$7);
+			zephir_check_call_status();
+			ZEPHIR_CALL_METHOD(NULL, observer, "__construct", &_1, 101, &_15$$7);
+			zephir_check_call_status();
+		}
 	}
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "attach", NULL, 0, observer);
+	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
 }

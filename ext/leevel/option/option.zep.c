@@ -489,25 +489,23 @@ PHP_METHOD(Leevel_Option_Option, reset) {
 /**
  * 判断配置是否存在
  *
- * @param string $offset
+ * @param mixed $index
  * @return bool
  */
 PHP_METHOD(Leevel_Option_Option, offsetExists) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *offset_param = NULL;
-	zval offset;
+	zval *index, index_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&offset);
+	ZVAL_UNDEF(&index_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &offset_param);
-
-	zephir_get_strval(&offset, offset_param);
+	zephir_fetch_params(1, 1, 0, &index);
 
 
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "has", NULL, 0, &offset);
+
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "has", NULL, 0, index);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -516,25 +514,23 @@ PHP_METHOD(Leevel_Option_Option, offsetExists) {
 /**
  * 实现 ArrayAccess::offsetGet
  *
- * @param string $offset
+ * @param mixed $index
  * @return mixed
  */
 PHP_METHOD(Leevel_Option_Option, offsetGet) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *offset_param = NULL;
-	zval offset;
+	zval *index, index_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&offset);
+	ZVAL_UNDEF(&index_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &offset_param);
-
-	zephir_get_strval(&offset, offset_param);
+	zephir_fetch_params(1, 1, 0, &index);
 
 
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "get", NULL, 0, &offset);
+
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "get", NULL, 0, index);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -543,27 +539,24 @@ PHP_METHOD(Leevel_Option_Option, offsetGet) {
 /**
  * 实现 ArrayAccess::offsetSet
  *
- * @param string $offset
- * @param mixed $value
- * @return void
+ * @param mixed $index
+ * @param mixed $newval
  */
 PHP_METHOD(Leevel_Option_Option, offsetSet) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *offset_param = NULL, *value, value_sub;
-	zval offset;
+	zval *index, index_sub, *newval, newval_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&offset);
-	ZVAL_UNDEF(&value_sub);
+	ZVAL_UNDEF(&index_sub);
+	ZVAL_UNDEF(&newval_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 2, 0, &offset_param, &value);
-
-	zephir_get_strval(&offset, offset_param);
+	zephir_fetch_params(1, 2, 0, &index, &newval);
 
 
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "set", NULL, 0, &offset, value);
+
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "set", NULL, 0, index, newval);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -572,25 +565,22 @@ PHP_METHOD(Leevel_Option_Option, offsetSet) {
 /**
  * 实现 ArrayAccess::offsetUnset
  *
- * @param string $offset
- * @return void
+ * @param mixed $index
  */
 PHP_METHOD(Leevel_Option_Option, offsetUnset) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *offset_param = NULL;
-	zval offset;
+	zval *index, index_sub;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&offset);
+	ZVAL_UNDEF(&index_sub);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &offset_param);
-
-	zephir_get_strval(&offset, offset_param);
+	zephir_fetch_params(1, 1, 0, &index);
 
 
-	ZEPHIR_CALL_METHOD(NULL, this_ptr, "delete", NULL, 0, &offset);
+
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "delete", NULL, 0, index);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -684,7 +674,7 @@ PHP_METHOD(Leevel_Option_Option, deleteRecursion) {
 		RETURN_CTOR(&result);
 	}
 	if (!(ZEPHIR_IS_EMPTY(&part))) {
-		zephir_array_fetch(&_1$$4, &result, &item, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 310 TSRMLS_CC);
+		zephir_array_fetch(&_1$$4, &result, &item, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 308 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(&_0$$4, this_ptr, "deleterecursion", NULL, 132, &part, &_1$$4);
 		zephir_check_call_status();
 		zephir_array_update_zval(&result, &item, &_0$$4, PH_COPY | PH_SEPARATE);
@@ -733,16 +723,16 @@ PHP_METHOD(Leevel_Option_Option, parseNamespace) {
 	if (zephir_is_true(&_1)) {
 		ZEPHIR_INIT_VAR(&names);
 		zephir_fast_explode_str(&names, SL("\\"), &name, LONG_MAX TSRMLS_CC);
-		zephir_array_fetch_long(&_2$$3, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 332 TSRMLS_CC);
+		zephir_array_fetch_long(&_2$$3, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 330 TSRMLS_CC);
 		if (ZEPHIR_IS_EMPTY(&_2$$3)) {
 			ZEPHIR_INIT_VAR(&_3$$4);
 			ZVAL_STRING(&_3$$4, "*");
 			zephir_array_update_long(&names, 1, &_3$$4, PH_COPY | PH_SEPARATE ZEPHIR_DEBUG_PARAMS_DUMMY);
 		}
-		zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 335 TSRMLS_CC);
+		zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 333 TSRMLS_CC);
 		zephir_get_strval(&name, &tempname);
 		ZEPHIR_OBS_VAR(&namespaces);
-		zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 337 TSRMLS_CC);
+		zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 335 TSRMLS_CC);
 	} else {
 		ZEPHIR_INIT_NVAR(&namespaces);
 		ZVAL_STRING(&namespaces, "app");

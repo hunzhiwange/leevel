@@ -23,10 +23,6 @@ use Leevel\Router\IRouter;
 use Leevel\Kernel\IKernel;
 use Leevel\Http\IResponse;
 use Leevel\Kernel\IProject;
-use Leevel\Http\ApiResponse;
-use Leevel\Http\JsonResponse;
-use Leevel\Http\RedirectResponse;
-use Leevel\Support\Debug\Console;
 
 /**
  * 内核执行
@@ -34,7 +30,7 @@ use Leevel\Support\Debug\Console;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2016.11.18
- * 
+ *
  * @version 1.0
  */
 abstract class Kernel implements IKernel
@@ -45,14 +41,14 @@ abstract class Kernel implements IKernel
      * @var \Leevel\Kernel\IProject
      */
     protected project;
-    
+
     /**
      * 路由
      *
      * @var \Leevel\Router\IRouter
      */
     protected router;
-    
+
     /**
      * 项目初始化执行
      *
@@ -64,7 +60,7 @@ abstract class Kernel implements IKernel
         "Leevel\\Bootstrap\\Bootstrap\\RegisterRuntime",
         "Leevel\\Bootstrap\\Bootstrap\\TraverseProvider"
     ];
-    
+
     /**
      * 构造函数
      *
@@ -76,7 +72,7 @@ abstract class Kernel implements IKernel
         let this->project = project;
         let this->router = router;
     }
-    
+
     /**
      * 响应 HTTP 请求
      *
@@ -86,15 +82,13 @@ abstract class Kernel implements IKernel
     public function handle(<IRequest> request) -> <IResponse>
     {
         var response, e, fatalException;
-    
+
         try {
             this->registerBaseService(request);
 
             this->bootstrap();
 
             let response = this->getResponseWithRequest(request);
-
-            let response = this->prepareTrace(response);
 
             this->middlewareTerminate(request, response);
         } catch Exception, e {
@@ -118,17 +112,17 @@ abstract class Kernel implements IKernel
 
         return response;
     }
-    
+
     /**
      * 返回运行处理器
-     * 
+     *
      * @return \Leevel\Bootstrap\Runtime\IRuntime
      */
     protected function getRuntime() -> <IRuntime>
     {
         return this->project->make("Leevel\\Kernel\\Runtime\\IRuntime");
     }
-    
+
     /**
      * 执行结束
      *
@@ -138,7 +132,7 @@ abstract class Kernel implements IKernel
     public function terminate(<IRequest> request, <IResponse> response) -> void
     {
     }
-    
+
     /**
      * 返回项目
      *
@@ -148,17 +142,17 @@ abstract class Kernel implements IKernel
     {
         return this->project;
     }
-    
+
     /**
      * 注册基础服务
-     * 
+     *
      * @param \Leevel\Http\IRequest $request
      */
     protected function registerBaseService(<IRequest> request)
     {
         this->project->instance("request", request);
     }
-    
+
     /**
      * 根据请求返回响应
      *
@@ -169,7 +163,7 @@ abstract class Kernel implements IKernel
     {
         return this->dispatchRouter(request);
     }
-    
+
     /**
      * 路由调度
      *
@@ -180,7 +174,7 @@ abstract class Kernel implements IKernel
     {
         return this->router->dispatch(request);
     }
-    
+
     /**
      * 初始化
      */
@@ -188,7 +182,7 @@ abstract class Kernel implements IKernel
     {
         this->project->bootstrap(this->bootstraps);
     }
-    
+
     /**
      * 上报错误
      *
@@ -198,7 +192,7 @@ abstract class Kernel implements IKernel
     {
         this->getRuntime()->report(e);
     }
-    
+
     /**
      * 渲染异常
      *
@@ -209,36 +203,6 @@ abstract class Kernel implements IKernel
     protected function renderException(<IRequest> request, <Exception> e) -> <IResponse>
     {
         return this->getRuntime()->render(request, e);
-    }
-    
-    /**
-     * 调试信息
-     *
-     * @param \Leevel\Http\IResponse $response
-     * @return \Leevel\Http\IResponse
-     */
-    protected function prepareTrace(<IResponse> response) -> <IResponse>
-    {
-        var logs, data;
-    
-        if ! (this->project->debug()) {
-            return response;
-        }
-
-        let logs = this->project->make("Leevel\\Log\\ILog")->all();
-        let data = response->getData();
-
-        if (response instanceof ApiResponse || 
-            response instanceof JsonResponse || 
-            response->isJson()) && is_array(data) {
-            let data["_TRACE"] = Console::jsonTrace(logs);
-            response->setData(data);
-        } elseif ! (response instanceof RedirectResponse) {
-            let data = Console::trace(logs);
-            response->appendContent(data);
-        }
-
-        return response;
     }
 
     /**

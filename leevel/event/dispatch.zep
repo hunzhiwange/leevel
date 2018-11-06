@@ -15,6 +15,7 @@
  */
 namespace Leevel\Event;
 
+use Closure;
 use Leevel\Di\IContainer;
 
 /**
@@ -23,33 +24,32 @@ use Leevel\Di\IContainer;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.31
- * 
+ *
  * @version 1.0
  */
 class Dispatch implements IDispatch
 {
-
     /**
      * 项目容器
      *
      * @var \Leevel\Di\IContainer
      */
     protected container;
-    
+
     /**
      * 注册的监听器
      *
      * @var array
      */
     protected listeners = [];
-    
+
     /**
      * 通配符的监听器
      *
      * @var array
      */
     protected wildcards = [];
-    
+
     /**
      * 创建一个事件解析器
      *
@@ -60,19 +60,20 @@ class Dispatch implements IDispatch
     {
         let this->container = container;
     }
-    
+
     /**
      * 执行一个事件
      *
      * @return void
      */
-    public function run()
+    public function handle()
     {
-        var event, listeners, items, params = [], name;
+        var event, listeners, params = [], items, name;
+        array tmp = [];
 
         let params = func_get_args();
         let event = array_shift(params);
-    
+
         if is_object(event) {
             let name = get_class($event);
         } else {
@@ -93,11 +94,12 @@ class Dispatch implements IDispatch
         ksort(listeners);
 
         for items in listeners {
-            let items = this->makeSubject(items);
-            call_user_func_array([items, "notify"], params);
+            let tmp = array_merge(tmp, items);
         }
+
+        call_user_func_array([this->makeSubject(tmp), "notify"], params);
     }
-    
+
     /**
      * 注册监听器
      *
@@ -127,7 +129,7 @@ class Dispatch implements IDispatch
             }
         }
     }
-    
+
     /**
      * 获取一个事件监听器
      *
@@ -137,7 +139,7 @@ class Dispatch implements IDispatch
     public function get(var event) -> array
     {
         var listeners, key, item, priority, value, res;
-    
+
         let listeners = [];
 
         let event = this->normalizeEvent(event);
@@ -162,7 +164,7 @@ class Dispatch implements IDispatch
 
         return listeners;
     }
-    
+
     /**
      * 判断事件监听器是否存在
      *
@@ -173,7 +175,7 @@ class Dispatch implements IDispatch
     {
         return ! empty this->get(event);
     }
-    
+
     /**
      * 删除一个事件所有监听器
      *
@@ -213,23 +215,23 @@ class Dispatch implements IDispatch
     protected function makeSubject(array listeners)
     {
         var subject, item;
-    
+
         let subject = new Subject(this->container);
 
         for item in listeners {
-            subject->attachs(item);
+            subject->register(item);
         }
 
         return subject;
     }
-    
+
     /**
      * 通配符正则
      *
      * @param string $regex
      * @return string
      */
-    protected function prepareRegexForWildcard(var regex) -> string
+    protected function prepareRegexForWildcard(string regex) -> string
     {
         let regex = preg_quote(regex, "/");
         let regex = "/^" . str_replace("\\*", "(\\S+)", regex) . "$/";

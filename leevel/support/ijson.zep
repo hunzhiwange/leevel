@@ -32,5 +32,5 @@ interface IJson
      * @param integer $option
      * @return string
      */
-    public function toJson($option = JSON_UNESCAPED_UNICODE);
+    public function toJson(int option = 256);
 }

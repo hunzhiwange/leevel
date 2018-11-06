@@ -15,7 +15,7 @@
 Leevel is an open source web framework delivered as a C extension and supplement for the QueryPHP framework providing high performance and lower resource consumption.
 
 * Site: <https://www.queryphp.com/>
-* API: <http://api.queryphp.com>
+* API: <https://api.queryphp.com>
 * Document: <https://www.leevel.vip/>
 
 ## The core packages
@@ -26,8 +26,10 @@ Leevel is an open source web framework delivered as a C extension and supplement
  * Framework On Gitee: <https://gitee.com/dyhb/framework/>
  * Leevel On Github: <https://github.com/hunzhiwange/leevel/>
  * Leevel On Gitee: <https://gitee.com/dyhb/leevel>
- * Test: <https://github.com/leevels/tests/>
- * Package: <https://github.com/leevels/>
+ * Tests: <https://github.com/leevels/tests/>
+ * Packages: <https://github.com/leevels/>
+ * Packages From Hunzhiwange: <https://packagist.org/packages/hunzhiwange/>
+ * Packages From Leevel: <https://packagist.org/packages/leevel/>
 
 ## Requirement
 
@@ -41,7 +43,7 @@ version_compare(PHP_VERSION, '7.1.3', '<') && die('PHP 7.1.3 OR Higher');
 
 Need to tests.
 
-### Linux 
+### Linux
 
 You can download the source code.
 

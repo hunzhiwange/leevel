@@ -29,7 +29,7 @@ if (PHP_LEEVEL != "no") {
 	ADD_SOURCES(configure_module_dirname + "/leevel/pipeline", "ipipeline.zep.c pipeline.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/router", "iresponsefactory.zep.c irouter.zep.c iurl.zep.c responsefactory.zep.c router.zep.c routerprovider.zep.c url.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/router/match", "imatch.zep.c pathinfo.zep.c", "leevel");
-	ADD_SOURCES(configure_module_dirname + "/leevel", "auth.zep.c cache.zep.c cookie.zep.c database.zep.c db.zep.c encryption.zep.c event.zep.c filesystem.zep.c i18n.zep.c leevel.zep.c log.zep.c mail.zep.c option.zep.c page.zep.c request.zep.c response.zep.c router.zep.c session.zep.c throttler.zep.c url.zep.c validate.zep.c view.zep.c", "leevel");
+	ADD_SOURCES(configure_module_dirname + "/leevel", "auth.zep.c cache.zep.c cookie.zep.c database.zep.c db.zep.c debug.zep.c encryption.zep.c event.zep.c filesystem.zep.c i18n.zep.c leevel.zep.c log.zep.c mail.zep.c option.zep.c page.zep.c request.zep.c response.zep.c router.zep.c session.zep.c throttler.zep.c url.zep.c validate.zep.c view.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/auth/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/bootstrap/bootstrap", "loadi18n.zep.c loadoption.zep.c registerruntime.zep.c traverseprovider.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/bootstrap", "kernel.zep.c project.zep.c", "leevel");
@@ -45,7 +45,6 @@ if (PHP_LEEVEL != "no") {
 	ADD_SOURCES(configure_module_dirname + "/leevel/router/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/session/middleware", "session.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/session/provider", "register.zep.c", "leevel");
-	ADD_SOURCES(configure_module_dirname + "/leevel/support/debug", "console.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/throttler/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/validate/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/view/provider", "register.zep.c", "leevel");

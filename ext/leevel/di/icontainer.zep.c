@@ -58,14 +58,6 @@ ZEPHIR_DOC_METHOD(Leevel_Di_IContainer, instance);
 ZEPHIR_DOC_METHOD(Leevel_Di_IContainer, singleton);
 
 /**
- * 创建共享的闭包
- *
- * @param \Closure $closure
- * @return \Closure
- */
-ZEPHIR_DOC_METHOD(Leevel_Di_IContainer, share);
-
-/**
  * 设置别名
  *
  * @param array|string $alias

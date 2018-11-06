@@ -15,14 +15,15 @@
  */
 namespace Leevel\Collection;
 
-use Closure;
-use Iterator;
-use Countable;
 use ArrayAccess;
+use ArrayIterator;
+use Closure;
+use Countable;
 use JsonSerializable;
 use RuntimeException;
 use BadMethodCallException;
 use InvalidArgumentException;
+use IteratorAggregate;
 use Leevel\Support\Type;
 use Leevel\Support\IJson;
 use Leevel\Support\IArray;
@@ -34,26 +35,25 @@ use Leevel\Support\IMacro;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.02.03
- * 
+ *
  * @version 1.0
  */
-class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Countable, JsonSerializable
+class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAccess, Countable, JsonSerializable
 {
-
     /**
      * 元素合集
      *
      * @var array
      */
     protected elements = [];
-    
+
     /**
      * 验证
      *
      * @var boolean
      */
     protected valid = true;
-    
+
     /**
      * 类型
      *
@@ -67,7 +67,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
      * @var array
      */
     protected static macro = [];
-    
+
     /**
      * 构造函数
      *
@@ -78,7 +78,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function __construct(var elements = [], array type = null)
     {
         var key, value;
-    
+
         if ! empty type {
             let this->type = type;
         }
@@ -93,7 +93,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
             let this->elements = elements;
         }
     }
-    
+
     /**
      * 创建一个集合
      *
@@ -105,7 +105,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return new self(elements, type);
     }
-    
+
     /**
      * 当前元素
      *
@@ -115,7 +115,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return current(this->elements);
     }
-    
+
     /**
      * 当前 key
      *
@@ -125,7 +125,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return key(this->elements);
     }
-    
+
     /**
      * 下一个元素
      *
@@ -134,11 +134,11 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function next()
     {
         var next;
-    
+
         let next = next(this->elements);
         let this->valid = next !== false;
     }
-    
+
     /**
      * 指针重置
      *
@@ -149,7 +149,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
         reset(this->elements);
         let this->valid = true;
     }
-    
+
     /**
      * 验证
      *
@@ -159,55 +159,63 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->valid;
     }
-    
+
+    /**
+     * 实现 IteratorAggregate::getIterator.
+     *
+     * @return \ArrayIterator
+     */
+    public function getIterator()-> <ArrayIterator>
+    {
+        return new ArrayIterator(this->elements);
+    }
+
     /**
      * 实现 ArrayAccess::offsetExists
      *
-     * @param string $offset
+     * @param mixed $index
      * @return mixed
      */
-    public function offsetExists(string offset)
+    public function offsetExists(var index) -> bool
     {
-        return isset this->elements[offset];
+        return isset this->elements[index];
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetGet
      *
-     * @param string $offset
+     * @param mixed $index
      * @return mixed
      */
-    public function offsetGet(string offset)
+    public function offsetGet(var index)
     {
-        return isset this->elements[offset] ? this->elements[offset] : null;
+        return isset this->elements[index] ? this->elements[index] : null;
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetSet
      *
-     * @param string $key
-     * @param mixed $value
-     * @return void
+     * @param mixed $index
+     * @param mixed $newval
      */
-    public function offsetSet(string key, value)
+    public function offsetSet(var index, var newval)
     {
-        this->checkType(value);
-        let this->elements[key] = value;
+        this->checkType(newval);
+        let this->elements[index] = newval;
     }
-    
+
     /**
      * 实现 ArrayAccess::offsetUnset
      *
-     * @param string $key
-     * @return void
+     * @param mixed $index
      */
-    public function offsetUnset(string key)
+    public function offsetUnset(var index)
     {
-        if isset this->elements[key] {
-            unset this->elements[key];
+        if isset this->elements[index] {
+            unset this->elements[index];
         }
     }
-    
+
     /**
      * 统计元素数量 count($obj)
      *
@@ -217,7 +225,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return count(this->elements);
     }
-    
+
     /**
      * 返回所有元素
      *
@@ -227,7 +235,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->elements;
     }
-    
+
     /**
      * 对象转数组
      *
@@ -248,7 +256,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return result;
     }
-    
+
     /**
      * 实现 JsonSerializable::jsonSerialize
      *
@@ -273,7 +281,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return result;
     }
-    
+
     /**
      * 对象转 JSON
      *
@@ -284,7 +292,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return json_encode(this->jsonSerialize(), option);
     }
-    
+
     /**
      * __toString 魔术方法
      *
@@ -294,10 +302,10 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->toJson();
     }
-    
+
     /**
      * JQuery.each
-     * 
+     *
      * @param callable $callback
      * @return $this
      */
@@ -308,7 +316,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
         if !is_callable(callback) {
             throw new RuntimeException("Each need a callback.");
         }
-    
+
         for key, item in this->elements {
             if {callback}(item, key) === false {
                 break;
@@ -317,7 +325,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return this;
     }
-    
+
     /**
      * JQuery.prev
      *
@@ -326,13 +334,13 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function prev()
     {
         var prev;
-    
+
         let prev = prev(this->elements);
         let this->valid = true;
 
         return prev;
     }
-    
+
     /**
      * JQuery.end
      *
@@ -341,13 +349,13 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function end()
     {
         var end;
-    
+
         let end = end(this->elements);
         let this->valid = false;
 
         return end;
     }
-    
+
     /**
      * JQuery.siblings
      *
@@ -357,7 +365,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function siblings(var key = null) -> array
     {
         var result, k, value;
-    
+
         let result = [];
         let key = this->parseKey(key);
 
@@ -370,7 +378,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return result;
     }
-    
+
     /**
      * JQuery.nextAll
      *
@@ -380,7 +388,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function nextAll(var key = null) -> array
     {
         var result, current, k, value;
-    
+
         let result = [];
         let key = this->parseKey(key);
         let current = false;
@@ -398,7 +406,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return result;
     }
-    
+
     /**
      * JQuery.prevAll
      *
@@ -408,7 +416,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function prevAll(var key = null) -> array
     {
         var result, current, k, value;
-    
+
         let result = [];
         let key = this->parseKey(key);
         let current = false;
@@ -424,7 +432,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return result;
     }
-    
+
     /**
      * JQuery.attr
      *
@@ -440,7 +448,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
             this->offsetSet(key, value);
         }
     }
-    
+
     /**
      * JQuery.eq
      *
@@ -451,7 +459,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->offsetGet(key);
     }
-    
+
     /**
      * JQuery.get
      *
@@ -462,7 +470,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->offsetGet(key);
     }
-    
+
     /**
      * JQuery.index
      *
@@ -473,7 +481,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     public function index(var value = null, boolean strict = true)
     {
         var key;
-    
+
         if value === null {
             return this->key();
         } else {
@@ -485,7 +493,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
             return key;
         }
     }
-    
+
     /**
      * JQuery.find
      *
@@ -496,7 +504,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->offsetGet(key);
     }
-    
+
     /**
      * JQuery.first
      *
@@ -507,7 +515,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
         this->rewind();
         return this->current();
     }
-    
+
     /**
      * JQuery.last
      *
@@ -517,7 +525,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->end();
     }
-    
+
     /**
      * JQuery.is
      *
@@ -528,7 +536,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->offsetExists(key);
     }
-    
+
     /**
      * JQuery.slice
      *
@@ -540,7 +548,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return array_slice(this->elements, selector, length);
     }
-    
+
     /**
      * JQuery.not
      *
@@ -551,7 +559,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->siblings(key);
     }
-    
+
     /**
      * JQuery.filter
      *
@@ -562,7 +570,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->siblings(key);
     }
-    
+
     /**
      * jquer.size
      *
@@ -572,7 +580,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->count();
     }
-    
+
     /**
      * 是否为空
      *
@@ -582,7 +590,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return empty(this->elements);
     }
-    
+
     /**
      * 数据 map
      *
@@ -606,7 +614,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         let self::macro[name] = macro;
     }
-    
+
     /**
      * 判断一个扩展是否注册
      *
@@ -642,7 +650,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
      * 由于 zephir 对应的 C 扩展版本不支持对象内绑定 class
      * 即 Closure::bind($closures, null, get_called_class())
      * 为保持功能一致，所以绑定对象但是不绑定作用域，即可以使用 $this,只能访问 public 属性
-     * 
+     *
      * @param string $method
      * @param array $args
      * @return mixed
@@ -659,7 +667,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         throw new BadMethodCallException(sprintf("Method %s is not exits.", method));
     }
-    
+
     /**
      * 验证类型
      *
@@ -680,7 +688,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
             sprintf("Collection type %s validation failed.", implode(",", this->type))
         );
     }
-    
+
     /**
      * 转换数据到数组
      *
@@ -710,7 +718,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
 
         return elements;
     }
-    
+
     /**
      * 分析 key
      *
@@ -724,7 +732,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
         }
         return key;
     }
-    
+
     /**
      * __get 魔术方法
      *
@@ -735,7 +743,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return this->offsetGet(key);
     }
-    
+
     /**
      * __set 魔术方法
      *
@@ -759,7 +767,7 @@ class Collection implements IMacro, IArray, IJson, Iterator, ArrayAccess, Counta
     {
         return self::callStaticMacro(method, args);
     }
-    
+
     /**
      * __call 魔术方法
      *

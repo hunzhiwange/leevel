@@ -22,7 +22,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_event_idispatch_delete, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(leevel_event_idispatch_method_entry) {
-	PHP_ABSTRACT_ME(Leevel_Event_IDispatch, run, NULL)
+	PHP_ABSTRACT_ME(Leevel_Event_IDispatch, handle, NULL)
 	PHP_ABSTRACT_ME(Leevel_Event_IDispatch, register, arginfo_leevel_event_idispatch_register)
 	PHP_ABSTRACT_ME(Leevel_Event_IDispatch, get, arginfo_leevel_event_idispatch_get)
 	PHP_ABSTRACT_ME(Leevel_Event_IDispatch, has, arginfo_leevel_event_idispatch_has)

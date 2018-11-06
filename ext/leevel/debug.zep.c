@@ -15,16 +15,17 @@
 
 
 /**
- * 沙盒 psr4
+ * 沙盒 debug
  *
  * @author Xiangmin Liu <635750556@qq.com>
- * @package $$
- * @since 2017.12.23
+ * 
+ * @since 2017.09.20
+ * 
  * @version 1.0
  */
-ZEPHIR_INIT_CLASS(Leevel_Psr4) {
+ZEPHIR_INIT_CLASS(Leevel_Debug) {
 
-	ZEPHIR_REGISTER_CLASS_EX(Leevel, Psr4, leevel, psr4, leevel_support_facade_ce, leevel_psr4_method_entry, 0);
+	ZEPHIR_REGISTER_CLASS_EX(Leevel, Debug, leevel, debug, leevel_support_facade_ce, leevel_debug_method_entry, 0);
 
 	return SUCCESS;
 
@@ -35,12 +36,12 @@ ZEPHIR_INIT_CLASS(Leevel_Psr4) {
  *
  * @return string
  */
-PHP_METHOD(Leevel_Psr4, name) {
+PHP_METHOD(Leevel_Debug, name) {
 
 	zval *this_ptr = getThis();
 
 
-	RETURN_STRING("psr4");
+	RETURN_STRING("debug");
 
 }
 

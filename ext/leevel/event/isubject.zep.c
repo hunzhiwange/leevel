@@ -18,7 +18,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2017.06.24
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Event_ISubject) {
@@ -32,8 +32,8 @@ ZEPHIR_INIT_CLASS(Leevel_Event_ISubject) {
 /**
  * 添加一个观察者角色
  *
- * @param \SplObserver|string $observer
+ * @param \SplObserver|string|\Closure $observer
  * @return $this
  */
-ZEPHIR_DOC_METHOD(Leevel_Event_ISubject, attachs);
+ZEPHIR_DOC_METHOD(Leevel_Event_ISubject, register);
 

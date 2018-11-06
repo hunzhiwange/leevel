@@ -105,9 +105,9 @@ PHP_METHOD(Leevel_Session_File, createCache) {
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, leevel_cache_file_ce);
 	zephir_read_property(&_1, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 86, &_1);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 85, &_1);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 85, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 84, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

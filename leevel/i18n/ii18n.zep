@@ -21,7 +21,7 @@ namespace Leevel\I18n;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.06
- * 
+ *
  * @version 1.0
  */
 interface II18n
@@ -32,7 +32,7 @@ interface II18n
      *
      * @return string
      */
-    public function getText();
+    public function gettext();
 
     /**
      * 获取语言 text
@@ -48,7 +48,7 @@ interface II18n
      * @param array $data 语言包数据
      * @return void
      */
-    public function addText(string i18n, array data = []);
+    public function addtext(string i18n, array data = []);
 
     /**
      * 设置当前语言包上下文环境

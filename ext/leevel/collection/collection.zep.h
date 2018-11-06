@@ -10,6 +10,7 @@ PHP_METHOD(Leevel_Collection_Collection, key);
 PHP_METHOD(Leevel_Collection_Collection, next);
 PHP_METHOD(Leevel_Collection_Collection, rewind);
 PHP_METHOD(Leevel_Collection_Collection, valid);
+PHP_METHOD(Leevel_Collection_Collection, getIterator);
 PHP_METHOD(Leevel_Collection_Collection, offsetExists);
 PHP_METHOD(Leevel_Collection_Collection, offsetGet);
 PHP_METHOD(Leevel_Collection_Collection, offsetSet);
@@ -65,20 +66,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_collection_collection_make, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_collection_collection_offsetexists, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_collection_collection_offsetget, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_collection_collection_offsetset, 0, 0, 2)
-	ZEND_ARG_INFO(0, key)
-	ZEND_ARG_INFO(0, value)
+	ZEND_ARG_INFO(0, index)
+	ZEND_ARG_INFO(0, newval)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_collection_collection_offsetunset, 0, 0, 1)
-	ZEND_ARG_INFO(0, key)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_collection_collection_tojson, 0, 0, 0)
@@ -203,6 +204,7 @@ ZEPHIR_INIT_FUNCS(leevel_collection_collection_method_entry) {
 	PHP_ME(Leevel_Collection_Collection, next, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Collection_Collection, rewind, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Collection_Collection, valid, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Collection_Collection, getIterator, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Collection_Collection, offsetExists, arginfo_leevel_collection_collection_offsetexists, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Collection_Collection, offsetGet, arginfo_leevel_collection_collection_offsetget, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Collection_Collection, offsetSet, arginfo_leevel_collection_collection_offsetset, ZEND_ACC_PUBLIC)

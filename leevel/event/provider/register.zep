@@ -26,12 +26,11 @@ use Leevel\Event\Dispatch;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.26
- * 
+ *
  * @version 1.0
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -55,7 +54,7 @@ class Register extends Provider
 
     /**
      * 创建 event 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Event\Dispatch
      */
@@ -63,7 +62,7 @@ class Register extends Provider
     {
         return new Dispatch(container);
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -73,7 +72,7 @@ class Register extends Provider
     {
         return [
             "event" : [
-                "Leevel\\Event\\Dispatch", 
+                "Leevel\\Event\\Dispatch",
                 "Leevel\\Event\\IDispatch"
             ]
         ];

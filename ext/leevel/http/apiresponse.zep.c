@@ -78,7 +78,7 @@ PHP_METHOD(Leevel_Http_ApiResponse, create) {
 
 	object_init_ex(return_value, leevel_http_apiresponse_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54, data, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53, data, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -86,7 +86,7 @@ PHP_METHOD(Leevel_Http_ApiResponse, create) {
 
 /**
  * 请求成功
- * 一般用于GET与POST请求： 200
+ * 一般用于GET与POST请求: 200
  * 
  * @param mixed $content
  * @param string $text
@@ -142,11 +142,12 @@ PHP_METHOD(Leevel_Http_ApiResponse, ok) {
 PHP_METHOD(Leevel_Http_ApiResponse, created) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *location = NULL, location_sub, *content = NULL, content_sub, _0, _1, _2$$4;
+	zval *location = NULL, location_sub, *content = NULL, content_sub, __$null, _0, _1, _2$$4;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&location_sub);
 	ZVAL_UNDEF(&content_sub);
+	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2$$4);
@@ -156,8 +157,7 @@ PHP_METHOD(Leevel_Http_ApiResponse, created) {
 
 	if (!location) {
 		location = &location_sub;
-		ZEPHIR_INIT_VAR(location);
-		ZVAL_STRING(location, "");
+		location = &__$null;
 	}
 	if (!content) {
 		content = &content_sub;
@@ -660,9 +660,11 @@ PHP_METHOD(Leevel_Http_ApiResponse, internalServerError) {
 }
 
 /**
- * 格式化错误消息
- *  
- * @param string $message
+ * 格式化错误消息.
+ *
+ * @param string     $message
+ * @param null|string  $text
+ *
  * @return $this
  */
 PHP_METHOD(Leevel_Http_ApiResponse, normalizeErrorMessage) {

@@ -21,19 +21,18 @@ namespace Leevel\Event;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.31
- * 
+ *
  * @version 1.0
  */
 interface IDispatch
 {
-
     /**
      * 执行一个事件
      *
      * @return void
      */
-    public function run();
-    
+    public function handle();
+
     /**
      * 注册监听器
      *
@@ -43,7 +42,7 @@ interface IDispatch
      * @return void
      */
     public function register(var event, var listener, int priority = 500);
-    
+
     /**
      * 获取一个事件监听器
      *
@@ -51,7 +50,7 @@ interface IDispatch
      * @return array
      */
     public function get(var event) -> array;
-    
+
     /**
      * 判断事件监听器是否存在
      *
@@ -59,7 +58,7 @@ interface IDispatch
      * @return bool
      */
     public function has(var event) -> boolean;
-    
+
     /**
      * 删除一个事件所有监听器
      *

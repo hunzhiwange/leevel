@@ -24,7 +24,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.26
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Event_Provider_Register) {
@@ -101,7 +101,7 @@ PHP_METHOD(Leevel_Event_Provider_Register, register) {
 
 /**
  * 创建 event 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Event\Dispatch
  */
@@ -119,7 +119,7 @@ PHP_METHOD(Leevel_Event_Provider_Register, eventClosure) {
 
 
 	object_init_ex(return_value, leevel_event_dispatch_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 101, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 100, container);
 	zephir_check_call_status();
 	RETURN_MM();
 

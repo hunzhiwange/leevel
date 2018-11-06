@@ -6,8 +6,6 @@ ZEPHIR_INIT_CLASS(Leevel_Di_Container);
 PHP_METHOD(Leevel_Di_Container, bind);
 PHP_METHOD(Leevel_Di_Container, instance);
 PHP_METHOD(Leevel_Di_Container, singleton);
-PHP_METHOD(Leevel_Di_Container, share);
-PHP_METHOD(Leevel_Di_Container, shareClosure);
 PHP_METHOD(Leevel_Di_Container, alias);
 PHP_METHOD(Leevel_Di_Container, make);
 PHP_METHOD(Leevel_Di_Container, call);
@@ -51,14 +49,6 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_singleton, 0, 0, 1)
 	ZEND_ARG_INFO(0, name)
 	ZEND_ARG_INFO(0, service)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_share, 0, 0, 1)
-	ZEND_ARG_OBJ_INFO(0, closures, Closure, 0)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_shareclosure, 0, 0, 1)
-	ZEND_ARG_INFO(0, container)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_alias, 0, 0, 1)
@@ -149,20 +139,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_parsealias, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_offsetexists, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_offsetget, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_offsetset, 0, 0, 2)
-	ZEND_ARG_INFO(0, offset)
-	ZEND_ARG_INFO(0, value)
+	ZEND_ARG_INFO(0, index)
+	ZEND_ARG_INFO(0, newval)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container_offsetunset, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_di_container___get, 0, 0, 1)
@@ -183,8 +173,6 @@ ZEPHIR_INIT_FUNCS(leevel_di_container_method_entry) {
 	PHP_ME(Leevel_Di_Container, bind, arginfo_leevel_di_container_bind, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Di_Container, instance, arginfo_leevel_di_container_instance, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Di_Container, singleton, arginfo_leevel_di_container_singleton, ZEND_ACC_PUBLIC)
-	PHP_ME(Leevel_Di_Container, share, arginfo_leevel_di_container_share, ZEND_ACC_PUBLIC)
-	PHP_ME(Leevel_Di_Container, shareClosure, arginfo_leevel_di_container_shareclosure, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Di_Container, alias, arginfo_leevel_di_container_alias, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Di_Container, make, arginfo_leevel_di_container_make, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Di_Container, call, arginfo_leevel_di_container_call, ZEND_ACC_PUBLIC)

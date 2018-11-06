@@ -212,7 +212,7 @@ PHP_METHOD(Leevel_Cache_Load, data) {
 		ZEPHIR_CPY_WRT(&_9, &result);
 	} else {
 		ZEPHIR_MAKE_REF(&result);
-		ZEPHIR_CALL_FUNCTION(&_9, "reset", NULL, 83, &result);
+		ZEPHIR_CALL_FUNCTION(&_9, "reset", NULL, 82, &result);
 		ZEPHIR_UNREF(&result);
 		zephir_check_call_status();
 	}
@@ -336,7 +336,7 @@ PHP_METHOD(Leevel_Cache_Load, dataLoaded) {
 		ZEPHIR_CPY_WRT(&_4, &result);
 	} else {
 		ZEPHIR_MAKE_REF(&result);
-		ZEPHIR_CALL_FUNCTION(&_4, "reset", NULL, 83, &result);
+		ZEPHIR_CALL_FUNCTION(&_4, "reset", NULL, 82, &result);
 		ZEPHIR_UNREF(&result);
 		zephir_check_call_status();
 	}
@@ -701,7 +701,7 @@ PHP_METHOD(Leevel_Cache_Load, parse) {
 	ZEPHIR_INIT_VAR(&_1);
 	array_init(&_1);
 	ZVAL_LONG(&_2, 2);
-	ZEPHIR_CALL_FUNCTION(&temp, "array_pad", NULL, 84, &_0, &_2, &_1);
+	ZEPHIR_CALL_FUNCTION(&temp, "array_pad", NULL, 83, &_0, &_2, &_1);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&tempName);
 	zephir_array_fetch_long(&tempName, &temp, 0, PH_NOISY, "leevel/cache/load.zep", 292 TSRMLS_CC);

@@ -9,6 +9,7 @@
     convertWarningsToExceptions="true"
     processIsolation="false"
     stopOnFailure="false"
+    printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
     syntaxCheck="false">
     <listeners>
         <listener class="NunoMaduro\Collision\Adapters\Phpunit\Listener" />
@@ -27,10 +28,4 @@
             </exclude>
         </whitelist>
     </filter>
-    <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="QUEUE_DRIVER" value="sync"/>
-    </php>
 </phpunit>

@@ -29,7 +29,6 @@ use Leevel\Cookie\ICookie;
  */
 class Cookie implements ICookie
 {
-
     /**
      * 配置
      *

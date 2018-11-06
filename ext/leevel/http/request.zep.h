@@ -39,7 +39,6 @@ PHP_METHOD(Leevel_Http_Request, isRealJson);
 PHP_METHOD(Leevel_Http_Request, isAcceptJson);
 PHP_METHOD(Leevel_Http_Request, isRealAcceptJson);
 PHP_METHOD(Leevel_Http_Request, isAcceptAny);
-PHP_METHOD(Leevel_Http_Request, isMobile);
 PHP_METHOD(Leevel_Http_Request, isHead);
 PHP_METHOD(Leevel_Http_Request, isGet);
 PHP_METHOD(Leevel_Http_Request, isPost);
@@ -260,20 +259,20 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_request_geturlencodedprefix, 0, 0, 2)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_request_offsetexists, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_request_offsetget, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_request_offsetset, 0, 0, 2)
-	ZEND_ARG_INFO(0, offset)
-	ZEND_ARG_INFO(0, value)
+	ZEND_ARG_INFO(0, index)
+	ZEND_ARG_INFO(0, newval)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_request_offsetunset, 0, 0, 1)
-	ZEND_ARG_INFO(0, offset)
+	ZEND_ARG_INFO(0, index)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_request___isset, 0, 0, 1)
@@ -331,7 +330,6 @@ ZEPHIR_INIT_FUNCS(leevel_http_request_method_entry) {
 	PHP_ME(Leevel_Http_Request, isAcceptJson, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Request, isRealAcceptJson, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Request, isAcceptAny, NULL, ZEND_ACC_PUBLIC)
-	PHP_ME(Leevel_Http_Request, isMobile, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Request, isHead, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Request, isGet, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Request, isPost, NULL, ZEND_ACC_PUBLIC)

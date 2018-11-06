@@ -302,20 +302,17 @@ PHP_METHOD(Leevel_Router_Provider_Register, urlClosure) {
 	ZEPHIR_CALL_METHOD(&request, container, "make", NULL, 0, &_0);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_1);
-	zephir_create_array(&_1, 4, 0 TSRMLS_CC);
+	zephir_create_array(&_1, 3, 0 TSRMLS_CC);
 	ZEPHIR_INIT_NVAR(&_0);
 	ZVAL_STRING(&_0, "with_suffix");
 	zephir_array_fast_append(&_1, &_0);
 	ZEPHIR_INIT_NVAR(&_0);
-	ZVAL_STRING(&_0, "html_suffix");
+	ZVAL_STRING(&_0, "suffix");
 	zephir_array_fast_append(&_1, &_0);
 	ZEPHIR_INIT_NVAR(&_0);
-	ZVAL_STRING(&_0, "domain_top");
+	ZVAL_STRING(&_0, "domain");
 	zephir_array_fast_append(&_1, &_0);
-	ZEPHIR_INIT_NVAR(&_0);
-	ZVAL_STRING(&_0, "subdomain_on");
-	zephir_array_fast_append(&_1, &_0);
-	zephir_is_iterable(&_1, 0, "leevel/router/provider/register.zep", 153);
+	zephir_is_iterable(&_1, 0, "leevel/router/provider/register.zep", 152);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_1), _2)
 	{
 		ZEPHIR_INIT_NVAR(&item);
@@ -339,37 +336,32 @@ PHP_METHOD(Leevel_Router_Provider_Register, urlClosure) {
  */
 PHP_METHOD(Leevel_Router_Provider_Register, redirect) {
 
-	zval _5;
-	zend_class_entry *_4;
-	zval _0, _1, _2, _3, _6;
+	zval _3;
+	zend_class_entry *_2;
+	zval _0, _1, _4;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
+	ZVAL_UNDEF(&_4);
 	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_6);
-	ZVAL_UNDEF(&_5);
 
 	ZEPHIR_MM_GROW();
 
 	zephir_read_property(&_0, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-	zephir_read_property(&_1, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-	_4 = zephir_fetch_class_str_ex(SL("Closure"), ZEND_FETCH_CLASS_AUTO);
-	ZEPHIR_INIT_VAR(&_5);
-	zephir_create_array(&_5, 2, 0 TSRMLS_CC);
-	zephir_array_fast_append(&_5, this_ptr);
-	ZEPHIR_INIT_VAR(&_6);
-	ZVAL_STRING(&_6, "redirectClosure");
-	zephir_array_fast_append(&_5, &_6);
-	ZEPHIR_CALL_CE_STATIC(&_3, _4, "fromcallable", NULL, 0, &_5);
+	_2 = zephir_fetch_class_str_ex(SL("Closure"), ZEND_FETCH_CLASS_AUTO);
+	ZEPHIR_INIT_VAR(&_3);
+	zephir_create_array(&_3, 2, 0 TSRMLS_CC);
+	zephir_array_fast_append(&_3, this_ptr);
+	ZEPHIR_INIT_VAR(&_4);
+	ZVAL_STRING(&_4, "redirectClosure");
+	zephir_array_fast_append(&_3, &_4);
+	ZEPHIR_CALL_CE_STATIC(&_1, _2, "fromcallable", NULL, 0, &_3);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(&_2, &_1, "share", NULL, 0, &_3);
-	zephir_check_call_status();
-	ZEPHIR_INIT_NVAR(&_6);
-	ZVAL_STRING(&_6, "redirect");
-	ZEPHIR_CALL_METHOD(NULL, &_0, "bind", NULL, 0, &_6, &_2);
+	ZEPHIR_INIT_NVAR(&_4);
+	ZVAL_STRING(&_4, "redirect");
+	ZEPHIR_CALL_METHOD(NULL, &_0, "singleton", NULL, 0, &_4, &_1);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -506,13 +498,13 @@ PHP_METHOD(Leevel_Router_Provider_Register, responseClosure) {
 	ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 136, &_1, &_2);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_0);
-	ZVAL_STRING(&_0, "view\\action_success");
+	ZVAL_STRING(&_0, "view\\success");
 	ZEPHIR_CALL_METHOD(&_4, &option, "get", NULL, 0, &_0);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_3, &response, "setviewsuccesstemplate", NULL, 137, &_4);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_0);
-	ZVAL_STRING(&_0, "view\\action_fail");
+	ZVAL_STRING(&_0, "view\\fail");
 	ZEPHIR_CALL_METHOD(&_5, &option, "get", NULL, 0, &_0);
 	zephir_check_call_status();
 	ZEPHIR_RETURN_CALL_METHOD(&_3, "setviewfailtemplate", NULL, 0, &_5);

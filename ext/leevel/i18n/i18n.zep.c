@@ -26,7 +26,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.06
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_I18n_I18n) {
@@ -88,7 +88,7 @@ PHP_METHOD(Leevel_I18n_I18n, __construct) {
  *
  * @return string
  */
-PHP_METHOD(Leevel_I18n_I18n, getText) {
+PHP_METHOD(Leevel_I18n_I18n, gettext) {
 
 	zval arr, _0, _1, _2, _3, _11, _4$$4, _5$$4, _6$$4, _7$$4, _8$$4, _9$$5, _10$$5;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
@@ -167,7 +167,7 @@ PHP_METHOD(Leevel_I18n_I18n, __) {
 	zephir_create_array(&_0, 2, 0 TSRMLS_CC);
 	zephir_array_fast_append(&_0, this_ptr);
 	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_STRING(&_1, "getText");
+	ZVAL_STRING(&_1, "gettext");
 	zephir_array_fast_append(&_0, &_1);
 	ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_0, &arr);
 	zephir_check_call_status();
@@ -182,7 +182,7 @@ PHP_METHOD(Leevel_I18n_I18n, __) {
  * @param array $data 语言包数据
  * @return void
  */
-PHP_METHOD(Leevel_I18n_I18n, addText) {
+PHP_METHOD(Leevel_I18n_I18n, addtext) {
 
 	zval data;
 	zval *i18n_param = NULL, *data_param = NULL, _0, _1$$3, _2$$3, _3$$3;

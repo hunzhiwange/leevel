@@ -1,7 +1,7 @@
 {
     "name": "hunzhiwange/leevel-ext",
     "description": "The Leevel Framework.",
-    "keywords": ["framework", "queryphp", "leevel"],
+    "keywords": ["framework", "queryphp", "leevel", "zephir", "swoole", "php"],
     "license": "MIT",
     "homepage": "http://www.queryphp.com",
     "support": {

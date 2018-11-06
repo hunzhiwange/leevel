@@ -97,7 +97,7 @@ PHP_METHOD(Leevel_View_V8js, __construct) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "v8js");
-	ZEPHIR_CALL_FUNCTION(&_1, "extension_loaded", NULL, 70, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "extension_loaded", NULL, 69, &_0);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_1))) {
 		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Please install php v8js extension.", "leevel/view/v8js.zep", 73);
@@ -283,12 +283,12 @@ PHP_METHOD(Leevel_View_V8js, select) {
 	zephir_get_strval(&js, js_param);
 
 
-	ZEPHIR_CALL_FUNCTION(NULL, "ob_start", NULL, 62);
+	ZEPHIR_CALL_FUNCTION(NULL, "ob_start", NULL, 61);
 	zephir_check_call_status();
 	zephir_read_property(&_0, this_ptr, SL("v8js"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(NULL, &_0, "executestring", NULL, 0, &js);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("ob_get_clean", NULL, 164);
+	ZEPHIR_RETURN_CALL_FUNCTION("ob_get_clean", NULL, 163);
 	zephir_check_call_status();
 	RETURN_MM();
 

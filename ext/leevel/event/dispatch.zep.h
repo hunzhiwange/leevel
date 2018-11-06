@@ -4,7 +4,7 @@ extern zend_class_entry *leevel_event_dispatch_ce;
 ZEPHIR_INIT_CLASS(Leevel_Event_Dispatch);
 
 PHP_METHOD(Leevel_Event_Dispatch, __construct);
-PHP_METHOD(Leevel_Event_Dispatch, run);
+PHP_METHOD(Leevel_Event_Dispatch, handle);
 PHP_METHOD(Leevel_Event_Dispatch, register);
 PHP_METHOD(Leevel_Event_Dispatch, get);
 PHP_METHOD(Leevel_Event_Dispatch, has);
@@ -50,7 +50,7 @@ ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(leevel_event_dispatch_method_entry) {
 	PHP_ME(Leevel_Event_Dispatch, __construct, arginfo_leevel_event_dispatch___construct, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-	PHP_ME(Leevel_Event_Dispatch, run, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Event_Dispatch, handle, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Event_Dispatch, register, arginfo_leevel_event_dispatch_register, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Event_Dispatch, get, arginfo_leevel_event_dispatch_get, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Event_Dispatch, has, arginfo_leevel_event_dispatch_has, ZEND_ACC_PUBLIC)

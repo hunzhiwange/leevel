@@ -31,11 +31,11 @@ use InvalidArgumentException;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.24
- * 
+ *
  * @version 1.0
  */
 class Container implements IContainer, ArrayAccess {
-    
+
     /**
      * 注册服务
      *
@@ -188,7 +188,7 @@ class Container implements IContainer, ArrayAccess {
         if ! isset this->services[name] {
             return this->getInjectionObject(name, args);
         }
- 
+
         if typeof this->services[name] != "string" && is_callable(this->services[name]) {
             if empty args {
                 let args = [];
@@ -325,7 +325,7 @@ class Container implements IContainer, ArrayAccess {
         if interface_exists(classname) {
             throw new ContainerInvalidArgumentException(
                 sprintf(
-                    "Interface %s can not be normalize because not binded.",
+                    "Interface %s cannot be normalize because not binded.",
                     classname
                 )
             );
@@ -446,7 +446,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 分析反射参数的类
-     * 
+     *
      * @param \ReflectionParameter $param
      * @return boolean|string
      */
@@ -465,7 +465,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 解析反射参数类实例
-     * 
+     *
      * @param string $argsclass
      * @return array
      */
@@ -495,7 +495,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 从服务容器中获取解析反射参数类实例
-     * 
+     *
      * @param string $argsclass
      * @return boolean|object
      */
@@ -540,7 +540,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 独立类作为解析反射参数类实例
-     * 
+     *
      * @param string $argsclass
      * @return boolean|object
      */
@@ -562,7 +562,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 不同的类型不同的反射
-     * 
+     *
      * @param mixed $injection
      * @return array
      */
@@ -581,7 +581,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 解析闭包反射参数
-     * 
+     *
      * @param Closure $injection
      * @return array
      */
@@ -600,7 +600,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 解析数组回调反射参数
-     * 
+     *
      * @param array&callback $injection
      * @return array
      */
@@ -619,7 +619,7 @@ class Container implements IContainer, ArrayAccess {
 
     /**
      * 解析类反射参数
-     * 
+     *
      * @param string $injection
      * @return array
      */
@@ -674,46 +674,45 @@ class Container implements IContainer, ArrayAccess {
     /**
      * 实现 ArrayAccess::offsetExists
      *
-     * @param string $offset
+     * @param mixed $index
      * @return bool
      */
-    public function offsetExists(var offset)
+    public function offsetExists(var index) -> bool
     {
-        return this->exists(offset);
+        return this->exists(index);
     }
 
     /**
      * 实现 ArrayAccess::offsetGet
      *
-     * @param string $offset
+     * @param mixed $index
      * @return mixed
      */
-    public function offsetGet(var offset)
+    public function offsetGet(var index)
     {
-        return this->make(offset);
+        return this->make(index);
     }
 
     /**
      * 实现 ArrayAccess::offsetSet
      *
-     * @param string $offset
-     * @param mixed $value
-     * @return void
+     * @param mixed $index
+     * @param mixed $newval
      */
-    public function offsetSet(var offset, var value)
+    public function offsetSet(var index, var newval)
     {
-        return this->bind(offset, value);
+        this->bind(index, newval);
     }
 
     /**
      * 实现 ArrayAccess::offsetUnset
      *
-     * @param string $offset
+     * @param string $index
      * @return void
      */
-    public function offsetUnset(var offset)
+    public function offsetUnset(var index)
     {
-        this->remove(offset);
+        this->remove(index);
     }
 
     /**
@@ -742,7 +741,7 @@ class Container implements IContainer, ArrayAccess {
     }
 
     /**
-     * call 
+     * call
      *
      * @param string $method
      * @param array $args

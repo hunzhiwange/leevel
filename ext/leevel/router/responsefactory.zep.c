@@ -427,7 +427,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, json) {
 	} else {
 		ZVAL_BOOL(&_1, 0);
 	}
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54, data, &_0, &headers, &_1);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53, data, &_0, &headers, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1343,7 +1343,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, createApiResponse) {
 	ZEPHIR_MM_GROW();
 
 	object_init_ex(return_value, leevel_http_apiresponse_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 54);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 53);
 	zephir_check_call_status();
 	RETURN_MM();
 

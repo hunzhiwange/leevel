@@ -18,7 +18,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.31
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Event_IDispatch) {
@@ -34,7 +34,7 @@ ZEPHIR_INIT_CLASS(Leevel_Event_IDispatch) {
  *
  * @return void
  */
-ZEPHIR_DOC_METHOD(Leevel_Event_IDispatch, run);
+ZEPHIR_DOC_METHOD(Leevel_Event_IDispatch, handle);
 
 /**
  * 注册监听器

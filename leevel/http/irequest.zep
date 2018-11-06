@@ -156,14 +156,14 @@ interface IRequest
      * @param string $content
      */
     public function reset(array query = [], array request = [], array params = [], array cookies = [], array files = [], array server = [], var content = null) -> void;
-    
+
     /**
      * 全局变量创建一个 Request.
      *
      * @return static
      */
     public static function createFromGlobals();
-    
+
     /**
      * 格式化请求的内容.
      *
@@ -172,7 +172,7 @@ interface IRequest
      * @return \Leevel\Http\Request
      */
     public static function normalizeRequestFromContent(<Request> request) -> <Request>;
-    
+
     /**
      * 获取参数.
      *
@@ -182,7 +182,7 @@ interface IRequest
      * @return mixed
      */
     public function get(string key, var defaults = null);
-    
+
     /**
      * 请求是否包含给定的 key.
      *
@@ -191,35 +191,35 @@ interface IRequest
      * @return bool
      */
     public function exists(key) -> bool;
-    
+
     /**
      * 请求是否包含非空
      *
      * @return bool
      */
     public function has() -> bool;
-    
+
     /**
      * 取得给定的 key 数据
      *
      * @return array
      */
     public function only() -> array;
-    
+
     /**
      * 取得排除给定的 key 数据
      *
      * @return array
      */
     public function except() -> array;
-    
+
     /**
      * 取回输入和文件.
      *
      * @return array
      */
     public function all() -> array;
-    
+
     /**
      * 获取输入数据.
      *
@@ -229,7 +229,7 @@ interface IRequest
      * @return mixed
      */
     public function input(var key = null, var defaults = null);
-    
+
     /**
      * 取回 query.
      *
@@ -239,7 +239,7 @@ interface IRequest
      * @return array|string
      */
     public function query(var key = null, var defaults = null);
-    
+
     /**
      * 请求是否存在 COOKIE.
      *
@@ -248,7 +248,7 @@ interface IRequest
      * @return bool
      */
     public function hasCookie(string key) -> bool;
-    
+
     /**
      * 取回 cookie.
      *
@@ -258,14 +258,14 @@ interface IRequest
      * @return array|string
      */
     public function cookie(var key = null, var defaults = null);
-    
+
     /**
      * 取得所有文件.
      *
      * @return array
      */
     public function allFiles() -> array;
-    
+
     /**
      * 获取文件
      * 数组文件请在末尾加上反斜杆访问.
@@ -276,7 +276,7 @@ interface IRequest
      * @return null|array|\Leevel\Http\UploadedFile
      */
     public function file(string key = null, defaults = null);
-    
+
     /**
      * 文件是否存在已上传的文件
      * 数组文件请在末尾加上反斜杆访问.
@@ -286,7 +286,7 @@ interface IRequest
      * @return bool
      */
     public function hasFile(string key) -> bool;
-    
+
     /**
      * 验证是否为文件实例.
      *
@@ -295,7 +295,7 @@ interface IRequest
      * @return bool
      */
     public function isValidFile(file) -> bool;
-    
+
     /**
      * 取回 header.
      *
@@ -305,7 +305,7 @@ interface IRequest
      * @return array|string
      */
     public function header(var key = null, var defaults = null);
-    
+
     /**
      * 取回 server.
      *
@@ -315,7 +315,7 @@ interface IRequest
      * @return array|string
      */
     public function server(var key = null, var defaults = null);
-    
+
     /**
      * 取回数据项.
      *
@@ -326,21 +326,21 @@ interface IRequest
      * @return array|string
      */
     public function getItem(string source, string key, defaults);
-    
+
     /**
      * 合并输入.
      *
      * @param array $input
      */
     public function merge(array input) -> void;
-    
+
     /**
      * 替换输入.
      *
      * @param array $input
      */
     public function replace(array input) -> void;
-    
+
     /**
      * PHP 运行模式命令行, 兼容 swoole http service
      * Swoole http 服务器也以命令行运行.
@@ -350,7 +350,7 @@ interface IRequest
      * @return bool
      */
     public function isCli() -> bool;
-    
+
     /**
      * PHP 运行模式命令行.
      *
@@ -359,7 +359,7 @@ interface IRequest
      * @return bool
      */
     public function isRealCli() -> bool;
-    
+
     /**
      * PHP 运行模式 cgi.
      *
@@ -368,161 +368,154 @@ interface IRequest
      * @return bool
      */
     public function isCgi() -> bool;
-    
+
     /**
      * 是否为 Ajax 请求行为.
      *
      * @return bool
      */
     public function isAjax() -> bool;
-    
+
     /**
      * 是否为 Ajax 请求行为真实.
      *
      * @return bool
      */
     public function isRealAjax() -> bool;
-    
+
     /**
      * 是否为 Ajax 请求行为真实.
      *
      * @return bool
      */
     public function isXmlHttpRequest() -> bool;
-    
+
     /**
      * 是否为 Pjax 请求行为.
      *
      * @return bool
      */
     public function isPjax() -> bool;
-    
+
     /**
      * 是否为 Pjax 请求行为真实.
      *
      * @return bool
      */
     public function isRealPjax() -> bool;
-    
+
     /**
      * 是否为 json 请求行为.
      *
      * @return bool
      */
     public function isJson() -> bool;
-    
+
     /**
      * 是否为 json 请求行为真实.
      *
      * @return bool
      */
     public function isRealJson() -> bool;
-    
+
     /**
      * 是否为接受 json 请求
      *
      * @return bool
      */
     public function isAcceptJson() -> bool;
-    
+
     /**
      * 是否为接受 json 请求真实.
      *
      * @return bool
      */
     public function isRealAcceptJson() -> bool;
-    
+
     /**
      * 是否为接受任何请求
      *
      * @return bool
      */
     public function isAcceptAny() -> bool;
-    
-    /**
-     * 是否为手机访问.
-     *
-     * @return bool
-     */
-    public function isMobile() -> bool;
-    
+
     /**
      * 是否为 HEAD 请求行为.
      *
      * @return bool
      */
     public function isHead() -> bool;
-    
+
     /**
      * 是否为 GET 请求行为.
      *
      * @return bool
      */
     public function isGet() -> bool;
-    
+
     /**
      * 是否为 POST 请求行为.
      *
      * @return bool
      */
     public function isPost() -> bool;
-    
+
     /**
      * 是否为 PUT 请求行为.
      *
      * @return bool
      */
     public function isPut() -> bool;
-    
+
     /**
      * 是否为 PATCH 请求行为.
      *
      * @return bool
      */
     public function isPatch() -> bool;
-    
+
     /**
      * 是否为 PURGE 请求行为.
      *
      * @return bool
      */
     public function isPurge() -> bool;
-    
+
     /**
      * 是否为 OPTIONS 请求行为.
      *
      * @return bool
      */
     public function isOptions() -> bool;
-    
+
     /**
      * 是否为 TRACE 请求行为.
      *
      * @return bool
      */
     public function isTrace() -> bool;
-    
+
     /**
      * 是否为 CONNECT 请求行为.
      *
      * @return bool
      */
     public function isConnect() -> bool;
-    
+
     /**
      * 获取 IP 地址
      *
      * @return string
      */
     public function getClientIp() -> string;
-    
+
     /**
      * 请求类型.
      *
      * @return string
      */
     public function getMethod() -> string;
-    
+
     /**
      * 设置请求类型.
      *
@@ -531,14 +524,14 @@ interface IRequest
      * @return $this
      */
     public function setMethod(string method);
-    
+
     /**
      * 实际请求类型.
      *
      * @return string
      */
     public function getRealMethod() -> string;
-    
+
     /**
      * 验证是否为指定的方法.
      *
@@ -547,35 +540,35 @@ interface IRequest
      * @return bool
      */
     public function isMethod(string method) -> bool;
-    
+
     /**
      * 取回应用名.
      *
      * @return string
      */
     public function app() -> string;
-    
+
     /**
      * 取回控制器名.
      *
      * @return string
      */
     public function controller() -> string;
-    
+
     /**
      * 取回方法名.
      *
      * @return string
      */
     public function action() -> string;
-    
+
     /**
      * 取得节点.
      *
      * @return string
      */
     public function getNode() -> string;
-    
+
     /**
      * 设置应用名.
      *
@@ -584,7 +577,7 @@ interface IRequest
      * @return $this
      */
     public function setApp(string app);
-    
+
     /**
      * 设置控制器名.
      *
@@ -593,7 +586,7 @@ interface IRequest
      * @return $this
      */
     public function setController(string controller);
-    
+
     /**
      * 设置方法名.
      *
@@ -602,21 +595,21 @@ interface IRequest
      * @return $this
      */
     public function setAction(string action);
-    
+
     /**
      * 返回当前的语言
      *
      * @return null|string
      */
     public function language();
-    
+
     /**
      * 返回当前的语言
      *
      * @return null|string
      */
     public function getLanguage();
-    
+
     /**
      * 设置当前的语言
      *
@@ -625,91 +618,91 @@ interface IRequest
      * @return $this
      */
     public function setLanguage(string language);
-    
+
     /**
      * 取得请求内容.
      *
      * @return resource|string
      */
     public function getContent();
-    
+
     /**
      * 返回 root URL.
      *
      * @return string
      */
     public function getRoot() -> string;
-    
+
     /**
      * 返回入口文件.
      *
      * @return string
      */
     public function getEnter() -> string;
-    
+
     /**
      * 取得脚本名字.
      *
      * @return string
      */
     public function getScriptName() -> string;
-    
+
     /**
      * 是否启用 https.
      *
      * @return bool
      */
     public function isSecure() -> bool;
-    
+
     /**
      * 取得 http host.
      *
      * @return string
      */
     public function getHttpHost() -> string;
-    
+
     /**
      * 获取 host.
      *
      * @return string
      */
     public function getHost() -> string;
-    
+
     /**
      * 取得 Scheme 和 Host.
      *
      * @return string
      */
     public function getSchemeAndHttpHost() -> string;
-    
+
     /**
      * 返回当前 URL 地址
      *
      * @return string
      */
     public function getUri() -> string;
-    
+
     /**
      * 服务器端口.
      *
      * @return int
      */
     public function getPort() -> int;
-    
+
     /**
      * 返回 scheme.
      *
      * @return string
      */
     public function getScheme() -> string;
-    
+
     /**
      * 取回查询参数.
      *
      * @return null|string
      */
     public function getQueryString();
-    
+
     /**
      * 设置 pathInfo.
      *
@@ -718,28 +711,28 @@ interface IRequest
      * @return $this
      */
     public function setPathInfo(string pathInfo);
-    
+
     /**
      * pathInfo 兼容性分析.
      *
      * @return string
      */
     public function getPathInfo() -> string;
-    
+
     /**
      * 获取基础路径.
      *
      * @return string
      */
     public function getBasePath() -> string;
-    
+
     /**
      * 分析基础 url.
      *
      * @return string
      */
     public function getBaseUrl() -> string;
-    
+
     /**
      * 请求参数.
      *
