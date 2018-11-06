@@ -6,10 +6,10 @@
  *    __/ / /  / /_/ /  __/ /  \  / /_/ / / / / /_/ /__
  *      \_\ \_/\____/\___/_/   / / .___/_/ /_/ .___/
  *         \_\                /_/_/         /_/
- * 
+ *
  * The PHP Framework For Code Poem As Free As Wind. <Query Yet Simple>
  * (c) 2010-2018 http://queryphp.com All rights reserved.
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -18,7 +18,8 @@ namespace Leevel\Bootstrap\Bootstrap;
 use Exception;
 use ErrorException;
 use Leevel\Kernel\IProject;
-use Leevel\Bootstrap\Runtime\Runtime;
+use Leevel\Kernel\IRuntime;
+use Leevel\Bootstrap\Runtime;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
@@ -27,7 +28,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.04.25
- * 
+ *
  * @version 1.0
  */
 class RegisterRuntime
@@ -38,10 +39,10 @@ class RegisterRuntime
      * @var \Leevel\Di\IProject
      */
     protected project;
-    
+
     /**
      * 响应
-     * 
+     *
      * @param \Leevel\Kernel\IProject $project
      * @return void
      */
@@ -57,7 +58,7 @@ class RegisterRuntime
 
         if (! test) {
             error_reporting(E_ALL);
-        
+
             set_error_handler([this, "setErrorHandle"]);
 
             set_exception_handler([this, "setExceptionHandler"]);
@@ -69,10 +70,10 @@ class RegisterRuntime
             }
         }
     }
-    
+
     /**
      * 设置错误句柄
-     * 
+     *
      * @param integer $code
      * @param string $description
      * @param string $file
@@ -86,10 +87,10 @@ class RegisterRuntime
         if ! (error_reporting() & code) {
             return;
         }
-        
+
         throw new ErrorException(description, 0, code, file, line);
     }
-    
+
     /**
      * 设置退出句柄
      *
@@ -98,14 +99,14 @@ class RegisterRuntime
     public function registerShutdownFunction()
     {
         var error;
-    
+
         let error = error_get_last();
 
         if error && ! empty error["type"] {
             this->setExceptionHandler(this->formatErrorException(error));
         }
     }
-    
+
     /**
      * 响应异常
      *
@@ -117,7 +118,7 @@ class RegisterRuntime
         var fatalException;
 
         if ! (e instanceof Exception) {
-            let fatalException = new ErrorException(     
+            let fatalException = new ErrorException(
                 e->getMessage(),
                 e->getCode(),
                 E_ERROR,
@@ -140,7 +141,7 @@ class RegisterRuntime
             this->renderHttpResponse(fatalException);
         }
     }
-    
+
     /**
      * 渲染命令行异常并输出
      *
@@ -151,7 +152,7 @@ class RegisterRuntime
     {
         this->getRuntime()->renderForConsole(new ConsoleOutput(), e);
     }
-    
+
     /**
      * 渲染 HTTP 异常并输出
      *
@@ -162,7 +163,7 @@ class RegisterRuntime
     {
         this->getRuntime()->render(this->project->make("request"), e)->send();
     }
-    
+
     /**
      * 格式化致命错误信息
      *
@@ -175,14 +176,14 @@ class RegisterRuntime
             error["message"], error["type"], 0, error["file"], error["line"]
         );
     }
-    
+
     /**
      * 返回运行处理器
-     * 
-     * @return \Leevel\Kernel\Exception\IRuntime
+     *
+     * @return \Leevel\Kernel\IRuntime
      */
-    protected function getRuntime()
+    protected function getRuntime() -> <IRuntime>
     {
-        return this->project->make("Leevel\\Kernel\\Runtime\\IRuntime");
+        return this->project->make("Leevel\\Kernel\\IRuntime");
     }
 }

@@ -185,7 +185,7 @@ PHP_METHOD(Leevel_Bootstrap_Kernel, getRuntime) {
 
 	zephir_read_property(&_0, this_ptr, SL("project"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_STRING(&_1, "Leevel\\Kernel\\Runtime\\IRuntime");
+	ZVAL_STRING(&_1, "Leevel\\Kernel\\IRuntime");
 	ZEPHIR_RETURN_CALL_METHOD(&_0, "make", NULL, 0, &_1);
 	zephir_check_call_status();
 	RETURN_MM();

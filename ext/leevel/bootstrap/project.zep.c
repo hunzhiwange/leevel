@@ -1959,15 +1959,13 @@ PHP_METHOD(Leevel_Bootstrap_Project, registerDeferredProvider) {
 PHP_METHOD(Leevel_Bootstrap_Project, normalizeApp) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *app, app_sub, _0, _1, _2, _3, _4;
+	zval *app, app_sub, _0, _1, _2;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&app_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_4);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &app);
@@ -1977,17 +1975,13 @@ PHP_METHOD(Leevel_Bootstrap_Project, normalizeApp) {
 	ZEPHIR_INIT_VAR(&_0);
 	if (ZEPHIR_IS_TRUE_IDENTICAL(app)) {
 		ZEPHIR_INIT_VAR(&_2);
-		ZVAL_STRING(&_2, "request");
+		ZVAL_STRING(&_2, "app_name");
 		ZEPHIR_CALL_METHOD(&_1, this_ptr, "make", NULL, 0, &_2);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(&_3, &_1, "app", NULL, 0);
-		zephir_check_call_status();
-		if (zephir_is_true(&_3)) {
+		if (zephir_is_true(&_1)) {
 			ZEPHIR_INIT_NVAR(&_2);
-			ZVAL_STRING(&_2, "request");
-			ZEPHIR_CALL_METHOD(&_4, this_ptr, "make", NULL, 0, &_2);
-			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(&_0, &_4, "app", NULL, 0);
+			ZVAL_STRING(&_2, "app_name");
+			ZEPHIR_CALL_METHOD(&_0, this_ptr, "make", NULL, 0, &_2);
 			zephir_check_call_status();
 		} else {
 			ZEPHIR_INIT_NVAR(&_0);

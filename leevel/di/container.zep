@@ -650,18 +650,16 @@ class Container implements IContainer, ArrayAccess {
      * zephir 版本会执行到 newInstanceWithoutConstructor.
      * 例子：Class Tests\Event\ListenerNotExtends does not
      * have a constructor, so you cannot pass any constructor arguments.
-     * 
+     *
      * @param string $classname
      * @param array $args
      * @return mixed
      */
     protected function newInstanceArgs(var classname, var args)
     {
-        var e;
-
         try {
             return (new ReflectionClass(classname))->newInstanceArgs(args);
-        } catch ReflectionException, e {
+        } catch ReflectionException {
             return (new ReflectionClass(classname))->newInstanceWithoutConstructor();
         }
     }

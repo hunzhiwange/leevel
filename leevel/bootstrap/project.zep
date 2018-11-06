@@ -42,35 +42,35 @@ class Project extends Container implements IProject
      * @var static
      */
     protected static project;
-    
+
     /**
      * 项目基础路径.
      *
      * @var string
      */
     protected path;
-    
+
     /**
      * 应用路径.
      *
      * @var string
      */
     protected appPath;
-    
+
     /**
      * 公共路径.
      *
      * @var string
      */
     protected commonPath;
-    
+
     /**
      * 运行时路径.
      *
      * @var string
      */
     protected runtimePath;
-    
+
     /**
      * 存储路径.
      *
@@ -91,56 +91,56 @@ class Project extends Container implements IProject
      * @var string
      */
     protected themesPath;
-    
+
     /**
      * 配置路径.
      *
      * @var string
      */
     protected optionPath;
-    
+
     /**
      * 语言包路径.
      *
      * @var string
      */
     protected i18nPath;
-    
+
     /**
      * 环境变量路径.
      *
      * @var string
      */
     protected envPath;
-    
+
     /**
      * 环境变量文件.
      *
      * @var string
      */
     protected envFile;
-    
+
     /**
      * 延迟载入服务提供者.
      *
      * @var array
      */
     protected deferredProviders = [];
-    
+
     /**
      * 服务提供者引导
      *
      * @var array
      */
     protected providerBootstraps = [];
-    
+
     /**
      * 是否已经初始化引导
      *
      * @var bool
      */
     protected isBootstrap = false;
-    
+
     /**
      * 构造函数
      * 项目中通过 singletons 生成单一实例.
@@ -157,7 +157,7 @@ class Project extends Container implements IProject
 
         this->registerBaseProvider();
     }
-    
+
     /**
      * 禁止克隆.
      */
@@ -165,7 +165,7 @@ class Project extends Container implements IProject
     {
         throw new RuntimeException("Project disallowed clone.");
     }
-    
+
     /**
      * 返回项目.
      *
@@ -183,7 +183,7 @@ class Project extends Container implements IProject
             return self::project;
         }
     }
-    
+
     /**
      * 程序版本.
      *
@@ -193,7 +193,7 @@ class Project extends Container implements IProject
     {
         return self::VERSION;
     }
-    
+
     /**
      * 是否以扩展方式运行.
      *
@@ -203,7 +203,7 @@ class Project extends Container implements IProject
     {
         return extension_loaded("leevel");
     }
-    
+
     /**
      * 是否为 Console.
      *
@@ -217,7 +217,7 @@ class Project extends Container implements IProject
 
         return this->make("request")->isCli();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -231,7 +231,7 @@ class Project extends Container implements IProject
 
         return parent::make(name, args);
     }
-    
+
     /**
      * 设置项目路径.
      *
@@ -241,7 +241,7 @@ class Project extends Container implements IProject
     {
         let this->path = path;
     }
-    
+
     /**
      * 基础路径.
      *
@@ -253,7 +253,7 @@ class Project extends Container implements IProject
     {
         return this->path . this->normalizePath(path);
     }
-    
+
     /**
      * 设置应用路径.
      *
@@ -263,7 +263,7 @@ class Project extends Container implements IProject
     {
         let this->appPath = path;
     }
-    
+
     /**
      * 应用路径.
      *
@@ -278,7 +278,7 @@ class Project extends Container implements IProject
                (app ? DIRECTORY_SEPARATOR . this->normalizeApp(app) : app).
                this->normalizePath(path);
     }
-    
+
     /**
      * 取得应用主题目录.
      *
@@ -290,7 +290,7 @@ class Project extends Container implements IProject
     {
         return this->appPath(app) ."/ui/theme";
     }
-    
+
     /**
      * 设置公共路径.
      *
@@ -300,7 +300,7 @@ class Project extends Container implements IProject
     {
         let this->commonPath = path;
     }
-    
+
     /**
      * 公共路径.
      *
@@ -313,7 +313,7 @@ class Project extends Container implements IProject
         return (this->commonPath ? this->commonPath: this->path . DIRECTORY_SEPARATOR . "common") .
             this->normalizePath(path);
     }
-    
+
     /**
      * 设置运行时路径.
      *
@@ -323,7 +323,7 @@ class Project extends Container implements IProject
     {
         let this->runtimePath = path;
     }
-    
+
     /**
      * 运行路径.
      *
@@ -336,7 +336,7 @@ class Project extends Container implements IProject
         return (this->runtimePath ? this->runtimePath: this->path . DIRECTORY_SEPARATOR . "runtime") .
             this->normalizePath(path);
     }
-    
+
     /**
      * 设置存储路径.
      *
@@ -346,7 +346,7 @@ class Project extends Container implements IProject
     {
         let this->storagePath = path;
     }
-    
+
     /**
      * 附件路径.
      *
@@ -369,7 +369,7 @@ class Project extends Container implements IProject
     {
         let this->publicPath = path;
     }
-    
+
     /**
      * 资源路径.
      *
@@ -392,7 +392,7 @@ class Project extends Container implements IProject
     {
         let this->themesPath = path;
     }
-    
+
     /**
      * 主题路径.
      *
@@ -405,7 +405,7 @@ class Project extends Container implements IProject
         return (this->themesPath ? this->themesPath: this->path . DIRECTORY_SEPARATOR . "themes") .
             this->normalizePath(path);
     }
-    
+
     /**
      * 设置配置路径.
      *
@@ -415,7 +415,7 @@ class Project extends Container implements IProject
     {
         let this->optionPath = path;
     }
-    
+
     /**
      * 配置路径.
      *
@@ -428,7 +428,7 @@ class Project extends Container implements IProject
         return (this->optionPath ? this->optionPath: this->path . DIRECTORY_SEPARATOR . "option") .
             this->normalizePath(path);
     }
-    
+
     /**
      * 设置语言包路径.
      *
@@ -438,7 +438,7 @@ class Project extends Container implements IProject
     {
         let this->i18nPath = path;
     }
-    
+
     /**
      * 语言包路径.
      *
@@ -451,7 +451,7 @@ class Project extends Container implements IProject
         return (this->i18nPath ? this->i18nPath: this->path . DIRECTORY_SEPARATOR . "i18n") .
             this->normalizePath(path);
     }
-    
+
     /**
      * 设置环境变量路径.
      *
@@ -461,7 +461,7 @@ class Project extends Container implements IProject
     {
         let this->envPath = path;
     }
-    
+
     /**
      * 环境变量路径.
      *
@@ -471,7 +471,7 @@ class Project extends Container implements IProject
     {
         return this->envPath ? this->envPath: this->path;
     }
-    
+
     /**
      * 设置环境变量文件.
      *
@@ -481,7 +481,7 @@ class Project extends Container implements IProject
     {
         let this->envFile = file;
     }
-    
+
     /**
      * 取得环境变量文件.
      *
@@ -491,7 +491,7 @@ class Project extends Container implements IProject
     {
         return this->envFile ? this->envFile: self::DEFAULT_ENV;
     }
-    
+
     /**
      * 取得环境变量完整路径.
      *
@@ -501,7 +501,7 @@ class Project extends Container implements IProject
     {
         return this->envPath() . DIRECTORY_SEPARATOR . this->envFile();
     }
-    
+
     /**
      * 返回语言包缓存路径.
      *
@@ -513,7 +513,7 @@ class Project extends Container implements IProject
     {
         return this->runtimePath() . "/i18n/" . i18n . ".php";
     }
-    
+
     /**
      * 是否存在语言包缓存.
      *
@@ -525,7 +525,7 @@ class Project extends Container implements IProject
     {
         return is_file(this->i18nCachedPath(i18n));
     }
-    
+
     /**
      * 返回配置缓存路径.
      *
@@ -535,7 +535,7 @@ class Project extends Container implements IProject
     {
         return this->runtimePath() . "/bootstrap/option.php";
     }
-    
+
     /**
      * 是否存在配置缓存.
      *
@@ -545,7 +545,7 @@ class Project extends Container implements IProject
     {
         return is_file(this->optionCachedPath());
     }
-    
+
     /**
      * 返回路由缓存路径.
      *
@@ -555,7 +555,7 @@ class Project extends Container implements IProject
     {
         return this->runtimePath() . "/bootstrap/router.php";
     }
-    
+
     /**
      * 是否存在路由缓存.
      *
@@ -565,7 +565,7 @@ class Project extends Container implements IProject
     {
         return is_file(this->routerCachedPath());
     }
-    
+
     /**
      * 取得 composer.
      *
@@ -576,7 +576,7 @@ class Project extends Container implements IProject
     {
         return require this->path . "/vendor/autoload.php";
     }
-    
+
     /**
      * 获取命名空间路径.
      *
@@ -588,7 +588,7 @@ class Project extends Container implements IProject
     public function getPathByComposer(string namespaces)
     {
         var prefix, tmp;
-    
+
         let tmp = explode("\\", namespaces);
         let prefix = this->composer()->getPrefixesPsr4();
 
@@ -600,7 +600,7 @@ class Project extends Container implements IProject
 
         return implode("/", tmp);
     }
-    
+
     /**
      * 是否开启 debug.
      *
@@ -610,7 +610,7 @@ class Project extends Container implements IProject
     {
         return this->make("option")->get("debug");
     }
-    
+
     /**
      * 是否为开发环境.
      *
@@ -620,7 +620,7 @@ class Project extends Container implements IProject
     {
         return this->environment() === "development";
     }
-    
+
     /**
      * 运行环境.
      *
@@ -630,7 +630,7 @@ class Project extends Container implements IProject
     {
         return this->make("option")->get("environment");
     }
-    
+
     /**
      * 创建服务提供者.
      *
@@ -642,7 +642,7 @@ class Project extends Container implements IProject
     {
         return new {provider}(this);
     }
-    
+
     /**
      * 执行 bootstrap.
      *
@@ -659,7 +659,7 @@ class Project extends Container implements IProject
             "bootstrap"
         ]);
     }
-    
+
     /**
      * 初始化项目.
      *
@@ -672,12 +672,12 @@ class Project extends Container implements IProject
         if (this->isBootstrap) {
             return;
         }
-    
+
         for value in bootstraps {
             (new {value}())->handle(this);
         }
     }
-    
+
     /**
      * 是否已经初始化引导
      *
@@ -687,7 +687,7 @@ class Project extends Container implements IProject
     {
         return this->isBootstrap;
     }
-    
+
     /**
      * 框架基础提供者 register.
      *
@@ -722,7 +722,7 @@ class Project extends Container implements IProject
 
         return this;
     }
-    
+
     /**
      * 执行框架基础提供者引导
      *
@@ -744,7 +744,7 @@ class Project extends Container implements IProject
 
         return this;
     }
-    
+
     /**
      * 注册服务提供者.
      *
@@ -772,7 +772,7 @@ class Project extends Container implements IProject
 
         return providerInstance;
     }
-    
+
     /**
      * 注册基础服务
      */
@@ -794,14 +794,14 @@ class Project extends Container implements IProject
             "option" : [
                 "Leevel\\Option\\IOption",
                 "Leevel\\Option\\Option"
-            ], 
+            ],
             "i18n" : [
                 "Leevel\\I18n\\I18n",
                 "Leevel\\I18n\\II18n"
             ]
         ]);
     }
-    
+
     /**
      * 注册基础服务提供者.
      *
@@ -815,7 +815,7 @@ class Project extends Container implements IProject
 
         this->register(new RouterProvider(this));
     }
-    
+
     /**
      * 注册延迟载入服务提供者.
      *
@@ -835,7 +835,7 @@ class Project extends Container implements IProject
 
         unset this->deferredProviders[provider];
     }
-    
+
     /**
      * 格式化应用名字.
      *
@@ -845,9 +845,9 @@ class Project extends Container implements IProject
      */
     protected function normalizeApp(var app) -> string
     {
-        return strtolower(app === true ? (this->make("request")->app() ? this->make("request")->app() : "app") : app);
+        return strtolower(app === true ? (this->make("app_name") ? this->make("app_name") : "app") : app);
     }
-    
+
     /**
      * 格式化路径.
      *

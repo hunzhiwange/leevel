@@ -19,6 +19,7 @@ use Exception;
 use Throwable;
 use ErrorException;
 use Leevel\Http\IRequest;
+use Leevel\Kernel\IRuntime;
 use Leevel\Router\IRouter;
 use Leevel\Kernel\IKernel;
 use Leevel\Http\IResponse;
@@ -120,7 +121,7 @@ abstract class Kernel implements IKernel
      */
     protected function getRuntime() -> <IRuntime>
     {
-        return this->project->make("Leevel\\Kernel\\Runtime\\IRuntime");
+        return this->project->make("Leevel\\Kernel\\IRuntime");
     }
 
     /**

@@ -1366,7 +1366,7 @@ PHP_METHOD(Leevel_Di_Container, parseClassReflection) {
  * zephir 版本会执行到 newInstanceWithoutConstructor.
  * 例子：Class Tests\Event\ListenerNotExtends does not
  * have a constructor, so you cannot pass any constructor arguments.
- * 
+ *
  * @param string $classname
  * @param array $args
  * @return mixed
@@ -1374,15 +1374,15 @@ PHP_METHOD(Leevel_Di_Container, parseClassReflection) {
 PHP_METHOD(Leevel_Di_Container, newInstanceArgs) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *classname, classname_sub, *args, args_sub, e, _1, _0$$3, _2$$4;
+	zval *classname, classname_sub, *args, args_sub, _0$$3, _1, _2, _3$$4;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&classname_sub);
 	ZVAL_UNDEF(&args_sub);
-	ZVAL_UNDEF(&e);
-	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_0$$3);
-	ZVAL_UNDEF(&_2$$4);
+	ZVAL_UNDEF(&_1);
+	ZVAL_UNDEF(&_2);
+	ZVAL_UNDEF(&_3$$4);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 2, 0, &classname, &args);
@@ -1406,14 +1406,15 @@ PHP_METHOD(Leevel_Di_Container, newInstanceArgs) {
 		ZEPHIR_INIT_VAR(&_1);
 		ZVAL_OBJ(&_1, EG(exception));
 		Z_ADDREF_P(&_1);
+		ZEPHIR_INIT_VAR(&_2);
 		if (zephir_instance_of_ev(&_1, zephir_get_internal_ce(SL("reflectionexception")) TSRMLS_CC)) {
 			zend_clear_exception(TSRMLS_C);
-			ZEPHIR_CPY_WRT(&e, &_1);
-			ZEPHIR_INIT_VAR(&_2$$4);
-			object_init_ex(&_2$$4, zephir_get_internal_ce(SL("reflectionclass")));
-			ZEPHIR_CALL_METHOD(NULL, &_2$$4, "__construct", NULL, 37, classname);
+			ZEPHIR_CPY_WRT(&_2, &_1);
+			ZEPHIR_INIT_VAR(&_3$$4);
+			object_init_ex(&_3$$4, zephir_get_internal_ce(SL("reflectionclass")));
+			ZEPHIR_CALL_METHOD(NULL, &_3$$4, "__construct", NULL, 37, classname);
 			zephir_check_call_status();
-			ZEPHIR_RETURN_CALL_METHOD(&_2$$4, "newinstancewithoutconstructor", NULL, 41);
+			ZEPHIR_RETURN_CALL_METHOD(&_3$$4, "newinstancewithoutconstructor", NULL, 41);
 			zephir_check_call_status();
 			RETURN_MM();
 		}
@@ -1643,7 +1644,7 @@ PHP_METHOD(Leevel_Di_Container, __call) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 2, &_2);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_0, "leevel/di/container.zep", 761 TSRMLS_CC);
+	zephir_throw_exception_debug(&_0, "leevel/di/container.zep", 759 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
