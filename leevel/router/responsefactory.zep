@@ -136,7 +136,7 @@ class ResponseFactory implements IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function viewError(string message, string url = "", int time = 3, int status = 404, array headers = []) -> <Response>
+    public function viewFail(string message, string url = "", int time = 3, int status = 404, array headers = []) -> <Response>
     {
         var vars;
 

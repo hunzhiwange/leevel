@@ -75,7 +75,7 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function viewError(string message, string url = "", int time = 3, int status = 200, array headers = []) -> <Response>;
+    public function viewFail(string message, string url = "", int time = 3, int status = 200, array headers = []) -> <Response>;
     
     /**
      * 返回 JSON 响应
