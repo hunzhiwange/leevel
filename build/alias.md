@@ -3,7 +3,7 @@
 modify this file ../.git/config add alias and remote,then using git tests manager your subtree repository.
 
 ```
-git testspull
+git tests
 ```
 
 The code below need to be add.
