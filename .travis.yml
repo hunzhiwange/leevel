@@ -125,7 +125,9 @@ script:
           --set-timeout 120
   # Run tests
   - mkdir -p logs
-  - vendor/bin/phpunit
+  - mkdir -p build/logs
+  - php vendor/bin/phinx migrate -e testing
+  - vendor/bin/phpunit -c phpunit.xml.dist
 
 # Uncomment for debug purposes
 # after_failure:
