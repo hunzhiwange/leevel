@@ -627,23 +627,24 @@ PHP_METHOD(Leevel_View_V8js, initLoad) {
 PHP_METHOD(Leevel_View_V8js, initLoadClosure) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *package, package_sub;
+	zval *package, package_sub, tmp;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&package_sub);
+	ZVAL_UNDEF(&tmp);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &package);
 
-	ZEPHIR_SEPARATE_PARAM(package);
 
 
-	zephir_concat_self_str(&package, SL("Package") TSRMLS_CC);
-	if (!((zephir_method_exists(this_ptr, package TSRMLS_CC)  == SUCCESS))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Package is not preset, we just support vue and art.", "leevel/view/v8js.zep", 270);
+	ZEPHIR_INIT_VAR(&tmp);
+	ZEPHIR_CONCAT_VS(&tmp, package, "Package");
+	if (!((zephir_method_exists(this_ptr, &tmp TSRMLS_CC)  == SUCCESS))) {
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Package is not preset, we just support vue and art.", "leevel/view/v8js.zep", 272);
 		return;
 	}
-	ZEPHIR_CALL_METHOD_ZVAL(NULL, this_ptr, package, NULL, 0);
+	ZEPHIR_CALL_METHOD_ZVAL(NULL, this_ptr, &tmp, NULL, 0);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -864,10 +865,10 @@ PHP_METHOD(Leevel_View_V8js, vuePackage) {
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_OBS_VAR(&vue);
-	zephir_array_fetch_string(&vue, &_0, SL("vue_path"), PH_NOISY, "leevel/view/v8js.zep", 343 TSRMLS_CC);
+	zephir_array_fetch_string(&vue, &_0, SL("vue_path"), PH_NOISY, "leevel/view/v8js.zep", 345 TSRMLS_CC);
 	zephir_read_property(&_1, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_OBS_VAR(&renderer);
-	zephir_array_fetch_string(&renderer, &_1, SL("vue_renderer"), PH_NOISY, "leevel/view/v8js.zep", 344 TSRMLS_CC);
+	zephir_array_fetch_string(&renderer, &_1, SL("vue_renderer"), PH_NOISY, "leevel/view/v8js.zep", 346 TSRMLS_CC);
 	ZEPHIR_CALL_FUNCTION(&_2, "is_file", &_3, 26, &vue);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_2))) {
@@ -879,7 +880,7 @@ PHP_METHOD(Leevel_View_V8js, vuePackage) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_4$$3, "__construct", NULL, 3, &_6$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_4$$3, "leevel/view/v8js.zep", 349 TSRMLS_CC);
+		zephir_throw_exception_debug(&_4$$3, "leevel/view/v8js.zep", 351 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -894,7 +895,7 @@ PHP_METHOD(Leevel_View_V8js, vuePackage) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_9$$4, "__construct", NULL, 3, &_11$$4);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_9$$4, "leevel/view/v8js.zep", 355 TSRMLS_CC);
+		zephir_throw_exception_debug(&_9$$4, "leevel/view/v8js.zep", 357 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -937,7 +938,7 @@ PHP_METHOD(Leevel_View_V8js, artPackage) {
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_OBS_VAR(&art);
-	zephir_array_fetch_string(&art, &_0, SL("art_path"), PH_NOISY, "leevel/view/v8js.zep", 370 TSRMLS_CC);
+	zephir_array_fetch_string(&art, &_0, SL("art_path"), PH_NOISY, "leevel/view/v8js.zep", 372 TSRMLS_CC);
 	ZEPHIR_CALL_FUNCTION(&_1, "is_file", NULL, 26, &art);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_1))) {
@@ -949,7 +950,7 @@ PHP_METHOD(Leevel_View_V8js, artPackage) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 3, &_4$$3);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_2$$3, "leevel/view/v8js.zep", 375 TSRMLS_CC);
+		zephir_throw_exception_debug(&_2$$3, "leevel/view/v8js.zep", 377 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}

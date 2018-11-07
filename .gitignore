@@ -52,3 +52,5 @@ build/gccarch
 ide/
 
 .DS_Store
+
+/tests.sh

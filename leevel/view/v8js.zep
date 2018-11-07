@@ -262,15 +262,17 @@ class V8js extends Connect implements IConnect
      */
     protected function initLoadClosure(var package)
     {
-        let package .= "Package";
+        var tmp;
 
-        if ! (method_exists(this, package)) {
+        let tmp = package."Package";
+
+        if ! (method_exists(this, tmp)) {
             throw new RuntimeException(
                 "Package is not preset, we just support vue and art."
             );
         }
 
-        this->{package}();
+        this->{tmp}();
     }
     
     /**
