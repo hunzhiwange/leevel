@@ -88,7 +88,6 @@ zend_class_entry *leevel_cookie_ce;
 zend_class_entry *leevel_cookie_cookie_ce;
 zend_class_entry *leevel_database_ce;
 zend_class_entry *leevel_database_manager_ce;
-zend_class_entry *leevel_database_provider_register_ce;
 zend_class_entry *leevel_db_ce;
 zend_class_entry *leevel_debug_ce;
 zend_class_entry *leevel_di_containerinvalidargumentexception_ce;
@@ -236,7 +235,6 @@ static PHP_MINIT_FUNCTION(leevel)
 	ZEPHIR_INIT(Leevel_Cookie_Cookie);
 	ZEPHIR_INIT(Leevel_Database);
 	ZEPHIR_INIT(Leevel_Database_Manager);
-	ZEPHIR_INIT(Leevel_Database_Provider_Register);
 	ZEPHIR_INIT(Leevel_Db);
 	ZEPHIR_INIT(Leevel_Debug);
 	ZEPHIR_INIT(Leevel_Di_ContainerInvalidArgumentException);

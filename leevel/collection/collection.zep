@@ -19,6 +19,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Closure;
 use Countable;
+use stdClass;
 use JsonSerializable;
 use RuntimeException;
 use BadMethodCallException;
@@ -436,7 +437,11 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
             return elements->jsonSerialize();
         }
 
-        return json_decode(json_encode(elements), true);
+        if is_object(elements) && elements instanceof stdClass {
+            return json_decode(json_encode(elements), true);
+        }
+
+        return [elements];
     }
 
     /**

@@ -67,7 +67,6 @@
 #include "leevel/cookie/cookie.zep.h"
 #include "leevel/database.zep.h"
 #include "leevel/database/manager.zep.h"
-#include "leevel/database/provider/register.zep.h"
 #include "leevel/db.zep.h"
 #include "leevel/debug.zep.h"
 #include "leevel/di/containerinvalidargumentexception.zep.h"

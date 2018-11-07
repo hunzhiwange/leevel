@@ -35,7 +35,6 @@ if (PHP_LEEVEL != "no") {
 	ADD_SOURCES(configure_module_dirname + "/leevel/cache/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/collection", "collection.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/database", "manager.zep.c", "leevel");
-	ADD_SOURCES(configure_module_dirname + "/leevel/database/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/encryption/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/event/provider", "register.zep.c", "leevel");
 	ADD_SOURCES(configure_module_dirname + "/leevel/filesystem/provider", "register.zep.c", "leevel");

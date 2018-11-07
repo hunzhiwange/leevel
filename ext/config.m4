@@ -72,7 +72,6 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/cookie/cookie.zep.c
 	leevel/database.zep.c
 	leevel/database/manager.zep.c
-	leevel/database/provider/register.zep.c
 	leevel/db.zep.c
 	leevel/debug.zep.c
 	leevel/di/containerinvalidargumentexception.zep.c
