@@ -10,7 +10,7 @@
     processIsolation="false"
     stopOnFailure="false"
     printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
-    syntaxCheck="false">
+    >
     <listeners>
         <listener class="NunoMaduro\Collision\Adapters\Phpunit\Listener" />
     </listeners>
