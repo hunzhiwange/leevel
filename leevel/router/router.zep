@@ -285,6 +285,26 @@ class Router implements IRouter, IMacro
     {
         return this->basePaths;
     }
+
+    /**
+     * 设置分组路径.
+     *
+     * @param array $groupPaths
+     */
+    public function setGroupPaths(array groupPaths)
+    {
+        let this->groupPaths = groupPaths;
+    }
+
+    /**
+     * 取得分组路径.
+     *
+     * @return array
+     */
+    public function getGroupPaths() -> array
+    {
+        return this->groupPaths;
+    }
     
     /**
      * 设置路由分组
