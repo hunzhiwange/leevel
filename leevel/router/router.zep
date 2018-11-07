@@ -57,20 +57,6 @@ class Router implements IRouter, IMacro
     protected request;
     
     /**
-     * 全局路由绑定中间件
-     *
-     * @var array
-     */
-    protected globalMiddlewares = [];
-    
-    /**
-     * 当前的中间件
-     *
-     * @var array
-     */
-    protected currentMiddlewares;
-    
-    /**
      * 路由匹配数据
      * 
      * @var array
@@ -84,9 +70,10 @@ class Router implements IRouter, IMacro
      */
     protected static matcheDataInit = [
         "_app" : self::DEFAULT_APP, 
+        "_prefix" : null, 
         "_c" : null, 
         "_a" : null, 
-        "_prefix" : null, 
+        "_bind" : null, 
         "_params" : null, 
         "_middlewares" : null, 
         "_vars" : null
@@ -104,7 +91,14 @@ class Router implements IRouter, IMacro
      *
      * @var array
      */
-    protected basepaths = [];
+    protected basePaths = [];
+
+    /**
+     * 分组路径.
+     *
+     * @var array
+     */
+    protected groupPaths = [];
     
     /**
      * 分组
@@ -205,31 +199,26 @@ class Router implements IRouter, IMacro
      */
     public function throughMiddleware(<IRequest> passed, array passedExtend = [])
     {
-        var method, pipeline;
+        var method, pipeline, middlewares;
     
-        if is_null(this->currentMiddlewares) {
-            let this->currentMiddlewares = this->parseMiddleware();
-        }
-
         let method = empty passedExtend ? "handle" : "terminate";
+        let middlewares = this->matchedMiddlewares();
 
-        if ! this->currentMiddlewares[method] {
+        if empty middlewares[method] {
             return;
         }
 
-        if this->currentMiddlewares[method] {
-            let pipeline = new Pipeline(this->container);
+        let pipeline = new Pipeline(this->container);
 
-            call_user_func([pipeline, "send"], passed);
+        call_user_func([pipeline, "send"], [passed]);
 
-            if ! empty passedExtend {
-                call_user_func([pipeline, "send"], passedExtend);
-            }
-
-            call_user_func([pipeline, "through"], this->currentMiddlewares[method]);
-
-            pipeline->then();
+        if ! empty passedExtend {
+            call_user_func([pipeline, "send"], passedExtend);
         }
+
+        call_user_func([pipeline, "through"], middlewares[method]);
+
+        pipeline->then();
     }
     
     /**
@@ -248,10 +237,9 @@ class Router implements IRouter, IMacro
     /**
      * 返回控制器相对目录
      *
-     * @param string $controllerDir
      * @return void
      */
-    public function getControllerDir()
+    public function getControllerDir() -> string
     {
         return this->controllerDir;
     }
@@ -280,23 +268,12 @@ class Router implements IRouter, IMacro
     /**
      * 设置基础路径
      *
-     * @param array $basepaths
+     * @param array $basePaths
      * @return void
      */
-    public function setBasepaths(array basepaths)
+    public function setBasePaths(array basePaths)
     {
-        let this->basepaths = basepaths;
-    }
-    
-    /**
-     * 添加基础路径
-     *
-     * @param array $basepaths
-     * @return void
-     */
-    public function addBasepaths(array basepaths)
-    {
-        let this->basepaths = array_unique(array_merge(this->basepaths, basepaths));
+        let this->basePaths = basePaths;
     }
     
     /**
@@ -304,9 +281,9 @@ class Router implements IRouter, IMacro
      *
      * @return array
      */
-    public function getBasepaths() -> array
+    public function getBasePaths() -> array
     {
-        return this->basepaths;
+        return this->basePaths;
     }
     
     /**
@@ -319,18 +296,7 @@ class Router implements IRouter, IMacro
     {
         let this->groups = groups;
     }
-    
-    /**
-     * 添加路由分组
-     *
-     * @param array $groups
-     * @return void
-     */
-    public function addGroups(array groups)
-    {
-        let this->groups = array_unique(array_merge(this->groups, groups));
-    }
-    
+
     /**
      * 取得路由分组
      *
@@ -363,27 +329,6 @@ class Router implements IRouter, IMacro
     }
     
     /**
-     * 设置全局中间件
-     *
-     * @param array $middlewares
-     * @return void
-     */
-    public function setGlobalMiddlewares(array middlewares)
-    {
-        let this->globalMiddlewares = middlewares;
-    }
-    
-    /**
-     * 取得全局中间件
-     *
-     * @return array
-     */
-    public function getGlobalMiddlewares() -> array
-    {
-        return this->globalMiddlewares;
-    }
-    
-    /**
      * 设置中间件别名
      *
      * @param array $middlewareAlias
@@ -402,93 +347,6 @@ class Router implements IRouter, IMacro
     public function getMiddlewareAlias() -> array
     {
         return this->middlewareAlias;
-    }
-    
-    /**
-     * 匹配路径.
-     *
-     * @param string $path
-     * @param bool   $ignoreMiddleware
-     *
-     * @return array
-     */
-    public function matchePath(string path, bool ignoreMiddleware = false) -> array
-    {
-        var result, query, tmpListPathQuery, item, basepath, paths, params, tmpListPathsParams, tmpPath, option;
-        array baseOptions;
-    
-        let result = [];
-
-        if strpos(path, "?") !== false {
-            let tmpListPathQuery = explode("?", path);
-            let tmpPath = tmpListPathQuery[0];
-            let query = tmpListPathQuery[1];
-
-            if query {
-                for item in explode("&", query) {
-                    let item = explode("=", item);
-                    let result[self::PARAMS][item[0]] = item[1];
-                }
-            }
-        } else {
-            let tmpPath = path;
-        }
-
-        // 匹配基础路径
-        let basepath = "";
-        let baseOptions = [];
-
-        for item, option in this->getBasepaths() {
-            if strpos(tmpPath, item) === 0 {
-                let tmpPath = substr(path, strlen(item) + 1);
-                let basepath = item;
-                let baseOptions = option;
-                break;
-            }
-        }
-
-        let tmpPath = trim(tmpPath, "/");
-        let paths = tmpPath ? explode("/", tmpPath) : [];
-
-        // 应用
-        if paths && this->findApp(paths[0]) {
-            let result[self::APP] = substr(array_shift(paths), 1);
-        }
-
-        if ! paths {
-            let result[IRouter::CONTROLLER] = IRouter::DEFAULT_HOME_CONTROLLER;
-
-            return result;
-        }
-
-        let tmpListPathsParams = this->normalizePathsAndParams(paths);
-        let paths = tmpListPathsParams[0];
-        let params = tmpListPathsParams[1];
-
-        if count(paths) == 1 {
-            let result[self::CONTROLLER] = array_pop(paths);
-        } else {
-            if paths {
-                let result[self::ACTION] = array_pop(paths);
-            }
-
-            if paths {
-                let result[self::CONTROLLER] = array_pop(paths);
-            }
-
-            if paths {
-                let result[self::PREFIX] = implode("\\", this->normalizePrefix(paths));
-            }
-        }
-
-        let result[self::PARAMS] = array_merge(isset result[self::PARAMS] ? result[self::PARAMS] : [], params);
-        let result[self::PARAMS][self::BASEPATH] = basepath ? basepath : null;
-
-        if ! ignoreMiddleware {
-            let result[self::MIDDLEWARES] = isset baseOptions["middlewares"] ? baseOptions["middlewares"] : [];
-        }
-
-        return result;
     }
 
     /**
@@ -580,44 +438,7 @@ class Router implements IRouter, IMacro
 
         return result;
     }
-    
-    /**
-     * 是否找到 app
-     * 
-     * @param string $app
-     * @return boolean
-     */
-    protected function findApp(string app) -> boolean
-    {
-        return strpos(app, ":") === 0;
-    }
-    
-    /**
-     * 解析路径和参数
-     * 
-     * @param array $data
-     * @return array
-     */
-    protected function normalizePathsAndParams(array data) -> array
-    {
-        var paths, params, k, item;
-    
-        let paths = [];
-        let params = [];
 
-        let k = 0;
-        for item in data {
-            if is_numeric(item) {
-                let params["_param" . k] = item;
-                let k++;
-            } else {
-                let paths[] = item;
-            }
-        }
-
-        return [paths, params];
-    }
-    
     /**
      * 路由匹配
      * 高效匹配，如果默认 PathInfo 路由能够匹配上则忽略 OpenApi 路由匹配.
@@ -640,23 +461,23 @@ class Router implements IRouter, IMacro
         let bind = this->normalizeRouterBind();
 
         if bind === false {
-            let bind = this->urlRouterBind(dataPathInfo);
+            let bind = this->annotationRouterBind(dataPathInfo);
         }
 
         return bind;
     }
     
     /**
-     * URL 路由绑定
+     * 注解路由绑定.
      *
      * @param array $dataPathInfo 
      * @return mixed
      */
-    protected function urlRouterBind(array dataPathInfo)
+    protected function annotationRouterBind(array dataPathInfo)
     {
         var data;
     
-        let data = this->normalizeMatchedData("Url");
+        let data = this->normalizeMatchedData("Annotation");
 
         if ! (data) {
             let data = dataPathInfo;
@@ -720,7 +541,7 @@ class Router implements IRouter, IMacro
     {
         this->completeRequest();
 
-        return this->parseDefaultBind();
+        return this->parseMatchedBind();
     }
     
     /**
@@ -779,6 +600,14 @@ class Router implements IRouter, IMacro
      */
     protected function makeRouterNode() -> string
     {
+        var matchedBind;
+
+        let matchedBind = this->matchedBind();
+
+        if matchedBind {
+            return matchedBind;
+        }
+
         return this->matchedApp() . "\\" .
             this->parseControllerDir() . "\\" .
             this->matchedController() . "::" .
@@ -797,7 +626,7 @@ class Router implements IRouter, IMacro
         let result = this->getControllerDir();
 
         if this->matchedPrefix() {
-            let result = result . "\\" . this->matchedPrefix();
+            let result .= "\\" . this->matchedPrefix();
         }
 
         return result;
@@ -810,16 +639,9 @@ class Router implements IRouter, IMacro
      */
     protected function completeRequest()
     {
-        var type, matchedType;
-    
         this->pathinfoRestful();
 
-        for type in ["App", "Controller", "Action"] {
-            let matchedType = "matched" . type;
-            let type = "set" . type;
-
-            this->request->{type}(this->{matchedType}());
-        }
+        this->container->instance("app_name", this->matchedApp());
 
         this->request->params->replace(this->matchedParams());
     }
@@ -856,34 +678,60 @@ class Router implements IRouter, IMacro
     }
     
     /**
-     * 分析默认控制器
+     * 分析匹配绑定路由.
      *
      * @return false|callable
      */
-    protected function parseDefaultBind()
+    protected function parseMatchedBind()
     {
-        var app, controller, action, controllerClass, method;
-    
-        let app = this->matchedApp();
-        let controller = this->matchedController();
-        let action = this->matchedAction();
+        var matchedApp, matchedController, matchedAction, controllerClass, method,
+            matchedBind, tmpBind, bindClass, controller;
 
-        // 尝试直接读取方法控制器类
-        let controllerClass = app . "\\" . this->parseControllerDir() . "\\" . controller . "\\" . ucfirst(action);
+        let matchedBind = this->matchedBind();
 
-        if class_exists(controllerClass) {
-            let controller = this->container->make(controllerClass);
-            let method = method_exists(controller, "handle") ? "handle" : "run";
-        } else {
-            let controllerClass = app . "\\" . this->parseControllerDir() . "\\" . controller;
-            if ! (class_exists(controllerClass)) {
-                return false;
+        if matchedBind {
+            if false !== strpos(matchedBind, "@") {
+                let tmpBind = explode("@", matchedBind);
+                let bindClass = tmpBind[0];
+                let method = tmpBind[1];
+
+                if !class_exists(bindClass) {
+                    return false;
+                }
+                
+                let controller = this->container->make(bindClass);
+            } else {
+                if !class_exists(matchedBind) {
+                    return false;
+                }
+
+                let controller = this->container->make(matchedBind);
+                let method = "handle";
             }
+        } else {
+            let matchedApp = this->matchedApp();
+            let matchedController = this->matchedController();
+            let matchedAction = this->matchedAction();
 
-            let controller = this->container->make(controllerClass);
-            let method = action;
+            // 尝试直接读取方法控制器类
+            let controllerClass = matchedApp . "\\" . this->parseControllerDir() . "\\" .
+                matchedController . "\\" . ucfirst(matchedAction);
+
+            if class_exists(controllerClass) {
+                let controller = this->container->make(controllerClass);
+                let method = "handle";
+            } else {
+                let controllerClass = matchedApp . "\\" . this->parseControllerDir() . "\\" . matchedController;
+
+                if ! (class_exists(controllerClass)) {
+                    return false;
+                }
+
+                let controller = this->container->make(controllerClass);
+                let method = matchedAction;
+            }
         }
-        
+            
         if is_object(controller) && controller instanceof IController {
             controller->setView(this->container->make("Leevel\\Mvc\\IView"));
         }
@@ -892,34 +740,31 @@ class Router implements IRouter, IMacro
             return false;
         }
 
-        return [
-            controller,
-            method
-        ];
+        return [controller, method];
     }
-    
+
     /**
-     * 获取绑定的中间件
-     * 暂时不做重复过滤，允许中间件多次执行
+     * 取回控制器前缀
      *
-     * @return array
+     * @return null|string
      */
-    protected function parseMiddleware() -> array
+    protected function matchedPrefix()
     {
-        var matchedMiddlewares;
+        var prefix, tmp, v;
 
-        let matchedMiddlewares = this->matchedMiddlewares();
+        let prefix = this->matchedData[self::PREFIX];
 
-        return [
-            "handle" : array_merge(
-                isset this->globalMiddlewares["handle"] ? this->globalMiddlewares["handle"] : [],
-                isset matchedMiddlewares["handle"] ? matchedMiddlewares["handle"] : []
-            ), 
-            "terminate" : array_merge(
-                isset this->globalMiddlewares["terminate"] ? this->globalMiddlewares["terminate"] : [],
-                isset matchedMiddlewares["terminate"] ? matchedMiddlewares["terminate"] : []
-            )
-        ];
+        if !prefix || is_scalar(prefix) {
+            return prefix;
+        }
+
+        for v in prefix {
+            let tmp .= this->convertMatched(ucfirst(v));
+        }
+
+        let this->matchedData[self::PREFIX] = implode("\\", tmp);
+
+        return this->matchedData[self::PREFIX];
     }
     
     /**
@@ -939,7 +784,7 @@ class Router implements IRouter, IMacro
      */
     protected function matchedController() -> string
     {
-        return ucfirst(this->matchedData[self::CONTROLLER]);
+        return this->convertMatched(ucfirst(this->matchedData[self::CONTROLLER]));
     }
     
     /**
@@ -949,30 +794,42 @@ class Router implements IRouter, IMacro
      */
     protected function matchedAction() -> string
     {
-        var action;
-
-        let action = this->matchedData[self::ACTION];
-
-        if strpos(action, "-") !== false {
-            let action = str_replace("-", "_", action);
-        }
-
-        if strpos(action, "_") !== false {
-            let action = "_" . str_replace("_", " ", action);
-            let action = ltrim(str_replace(" ", "", ucwords(action)), "_");
-        }
-
-        return action;
+        return this->convertMatched(this->matchedData[self::ACTION]);
     }
-    
+
     /**
-     * 取回控制器前缀
+     * 转换匹配资源.
      *
-     * @return string|null
+     * @param string $matched
+     *
+     * @return string
      */
-    protected function matchedPrefix()
+    protected function convertMatched(string matched)
     {
-        return this->matchedData[self::PREFIX];
+        var tmp;
+
+        let tmp = matched;
+
+        if false !== strpos(matched, "-") {
+            let tmp = str_replace("-", "_", matched);
+        }
+
+        if false !== strpos(matched, "_") {
+            let tmp = "_".str_replace("_", " ", tmp);
+            let tmp = ltrim(str_replace(" ", "", ucwords(tmp)), "_");
+        }
+
+        return tmp;
+    }
+
+    /**
+     * 取回绑定资源.
+     *
+     * @return null|string
+     */
+    protected function matchedBind()
+    {
+        return this->matchedData[self::BIND];
     }
     
     /**

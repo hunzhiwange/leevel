@@ -15,6 +15,12 @@
  */
 namespace Leevel\Router;
 
+use Leevel\Http\ApiResponse;
+use Leevel\Http\FileResponse;
+use Leevel\Http\JsonResponse;
+use Leevel\Http\RedirectResponse;
+use Leevel\Http\Response;
+
 /**
  * 响应工厂接口
  *
@@ -33,7 +39,7 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function make(string content = "", int status = 200, array headers = []);
+    public function make(string content = "", int status = 200, array headers = []) -> <Response>;
     
     /**
      * 返回视图响应
@@ -45,10 +51,10 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function view(var file = null, array vars = [], var ext = null, int status = 200, array headers = []);
+    public function view(var file, array vars = [], var ext = null, int status = 200, array headers = []) -> <Response>;
     
     /**
-     * 返回视图正确消息
+     * 返回视图成功消息
      *
      * @param string $message
      * @param string $url
@@ -57,10 +63,10 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function viewSuccess(string message = "", string url = "", int time = 1, int status = 200, array headers = []);
+    public function viewSuccess(string message, string url = "", int time = 1, int status = 200, array headers = []) -> <Response>;
     
     /**
-     * 返回视图错误消息
+     * 返回视图失败消息
      *
      * @param string $message
      * @param string $url
@@ -69,7 +75,7 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function viewError(string message = "", string url = "", int time = 3, int status = 200, array headers = []);
+    public function viewError(string message, string url = "", int time = 3, int status = 200, array headers = []) -> <Response>;
     
     /**
      * 返回 JSON 响应
@@ -80,7 +86,7 @@ interface IResponseFactory
      * @param bool $json
      * @return \Leevel\Http\JsonResponse
      */
-    public function json(var data = null, int status = 200, array headers = [], boolean json = false);
+    public function json(var data = null, int status = 200, array headers = [], boolean json = false) -> <JsonResponse>;
     
     /**
      * 返回 JSONP 响应
@@ -92,7 +98,7 @@ interface IResponseFactory
      * @param bool $json
      * @return \Leevel\Http\JsonResponse
      */
-    public function jsonp(string callback, var data = null, int status = 200, array headers = [], boolean json = false);
+    public function jsonp(string callback, var data = null, int status = 200, array headers = [], boolean json = false) -> <JsonResponse>;
     
     /**
      * 返回下载响应
@@ -105,7 +111,7 @@ interface IResponseFactory
      * @param bool $autoLastModified
      * @return \Leevel\Http\FileResponse
      */
-    public function download(var file, var name = null, int status = 200, array headers = [], boolean autoEtag = false, boolean autoLastModified = true);
+    public function download(var file, var name = null, int status = 200, array headers = [], boolean autoEtag = false, boolean autoLastModified = true) -> <FileResponse>;
     
     /**
      * 返回文件响应
@@ -117,7 +123,7 @@ interface IResponseFactory
      * @param bool $autoLastModified
      * @return \Leevel\Http\FileResponse
      */
-    public function file(var file, int status = 200, array headers = [], boolean autoEtag = false, boolean autoLastModified = true);
+    public function file(var file, int status = 200, array headers = [], boolean autoEtag = false, boolean autoLastModified = true) -> <FileResponse>;
     
     /*
      * 返回一个 URL 生成跳转响应
@@ -130,7 +136,7 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\RedirectResponse
      */
-    public function redirect(string url, array params = [], string subdomain = "www", var suffix = false, int status = 302, array headers = []);
+    public function redirect(string url, array params = [], string subdomain = "www", var suffix = false, int status = 302, array headers = []) -> <RedirectResponse>;
     
     /**
      * 返回一个跳转响应
@@ -140,26 +146,26 @@ interface IResponseFactory
      * @param array $headers
      * @return \Leevel\Http\RedirectResponse
      */
-    public function redirectRaw(string url, int status = 302, array headers = []);
+    public function redirectRaw(string url, int status = 302, array headers = []) -> <RedirectResponse>;
     
     /**
      * 请求成功
-     * 一般用于GET与POST请求： 200
+     * 一般用于GET与POST请求: 200
      * 
      * @param mixed $content
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiOk(var content = "", var text = null);
+    public function apiOk(var content = "", var text = null) -> <ApiResponse>;
     
     /**
      * 已创建
      * 成功请求并创建了新的资源: 201
      *
      * @param null|string $location
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiCreated(var location = "", var content = "");
+    public function apiCreated(var location = "", var content = "") -> <ApiResponse>;
     
     /**
      * 已接受
@@ -167,17 +173,17 @@ interface IResponseFactory
      *
      * @param null|string $location
      * @param mixed $content
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiAccepted(var location = null, var content = "");
+    public function apiAccepted(var location = null, var content = "") -> <ApiResponse>;
     
     /**
      * 无内容
      * 服务器成功处理，但未返回内容: 204
      *
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiNoContent();
+    public function apiNoContent() -> <ApiResponse>;
     
     /**
      * 错误请求
@@ -186,9 +192,9 @@ interface IResponseFactory
      * @param string $message
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiError(string message, var statusCode, var text = null);
+    public function apiError(string message, var statusCode, var text = null) -> <ApiResponse>;
     
     /**
      * 错误请求
@@ -196,9 +202,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiBadRequest(var message = null, var text = null);
+    public function apiBadRequest(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 未授权
@@ -206,9 +212,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiUnauthorized(var message = null, var text = null);
+    public function apiUnauthorized(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 禁止
@@ -216,9 +222,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiForbidden(var message = null, var text = null);
+    public function apiForbidden(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 未找到
@@ -226,9 +232,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiNotFound(var message = null, var text = null);
+    public function apiNotFound(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 方法禁用
@@ -236,9 +242,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiMethodNotAllowed(var message = null, var text = null);
+    public function apiMethodNotAllowed(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 无法处理的实体
@@ -247,9 +253,9 @@ interface IResponseFactory
      * @param array $errors
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiUnprocessableEntity(array errors = null, var message = null, var text = null);
+    public function apiUnprocessableEntity(array errors = null, var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 太多请求
@@ -257,9 +263,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiTooManyRequests(var message = null, var text = null);
+    public function apiTooManyRequests(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 服务器内部错误
@@ -267,9 +273,9 @@ interface IResponseFactory
      * 
      * @param string $message
      * @param string $text
-     * @return $this
+     * @return \Leevel\Http\ApiResponse
      */
-    public function apiInternalServerError(var message = null, var text = null);
+    public function apiInternalServerError(var message = null, var text = null) -> <ApiResponse>;
     
     /**
      * 设置视图正确模板

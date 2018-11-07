@@ -15,6 +15,8 @@
  */
 namespace Leevel\Pipeline;
 
+use Closure;
+
 /**
  * ipipeline 接口
  *
@@ -29,23 +31,28 @@ interface IPipeline
     /**
      * 将传输对象传入管道
      *
+     * @param array $passed
+     *
      * @return $this
      */
-    public function send();
+    public function send(array passed);
 
     /**
      * 设置管道中的执行工序
      *
+     * @param array $stage
+     *
      * @return $this
      */
-    public function through();
+    public function through(array stage);
 
     /**
      * 执行管道工序响应结果
      *
-     * @param callable|null $end
+     * @param \Closure $end
      * @since 2018.01.03
+     * 
      * @return mixed
      */
-    public function then(var end = null);
+    public function then(<Closure> end = null);
 }

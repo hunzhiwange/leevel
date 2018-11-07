@@ -50,14 +50,14 @@ ZEPHIR_INIT_CLASS(Leevel_Router_ResponseFactory) {
 	 *
 	 * @var string
 	 */
-	zend_declare_property_string(leevel_router_responsefactory_ce, SL("viewSuccessTemplate"), "public+success", ZEND_ACC_PROTECTED TSRMLS_CC);
+	zend_declare_property_string(leevel_router_responsefactory_ce, SL("viewSuccessTemplate"), "success", ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 视图错误模板
 	 *
 	 * @var string
 	 */
-	zend_declare_property_string(leevel_router_responsefactory_ce, SL("viewFailTemplate"), "public+fail", ZEND_ACC_PROTECTED TSRMLS_CC);
+	zend_declare_property_string(leevel_router_responsefactory_ce, SL("viewFailTemplate"), "fail", ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	zend_class_implements(leevel_router_responsefactory_ce TSRMLS_CC, 1, leevel_router_iresponsefactory_ce);
 	return SUCCESS;
@@ -90,7 +90,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, __construct) {
 
 /**
  * 返回一个响应
- * 
+ *
  * @param string $content
  * @param integer $status
  * @param array $headers
@@ -152,10 +152,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, view) {
 
 	zend_long status, ZEPHIR_LAST_CALL_STATUS;
 	zval vars, headers;
-	zval *file = NULL, file_sub, *vars_param = NULL, *ext = NULL, ext_sub, *status_param = NULL, *headers_param = NULL, __$null, _0, _1, _2;
+	zval *file_param = NULL, *vars_param = NULL, *ext = NULL, ext_sub, *status_param = NULL, *headers_param = NULL, __$null, _0, _1, _2;
+	zval file;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&file_sub);
+	ZVAL_UNDEF(&file);
 	ZVAL_UNDEF(&ext_sub);
 	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&_0);
@@ -165,12 +166,9 @@ PHP_METHOD(Leevel_Router_ResponseFactory, view) {
 	ZVAL_UNDEF(&headers);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 5, &file, &vars_param, &ext, &status_param, &headers_param);
+	zephir_fetch_params(1, 1, 4, &file_param, &vars_param, &ext, &status_param, &headers_param);
 
-	if (!file) {
-		file = &file_sub;
-		file = &__$null;
-	}
+	zephir_get_strval(&file, file_param);
 	if (!vars_param) {
 		ZEPHIR_INIT_VAR(&vars);
 		array_init(&vars);
@@ -195,7 +193,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, view) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("view"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(&_1, &_0, "display", NULL, 0, file, &vars, ext);
+	ZEPHIR_CALL_METHOD(&_1, &_0, "display", NULL, 0, &file, &vars, ext);
 	zephir_check_call_status();
 	ZVAL_LONG(&_2, status);
 	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "make", NULL, 0, &_1, &_2, &headers);
@@ -205,7 +203,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, view) {
 }
 
 /**
- * 返回视图正确消息
+ * 返回视图成功消息
  *
  * @param string $message
  * @param string $url
@@ -232,14 +230,9 @@ PHP_METHOD(Leevel_Router_ResponseFactory, viewSuccess) {
 	ZVAL_UNDEF(&headers);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 5, &message_param, &url_param, &time_param, &status_param, &headers_param);
+	zephir_fetch_params(1, 1, 4, &message_param, &url_param, &time_param, &status_param, &headers_param);
 
-	if (!message_param) {
-		ZEPHIR_INIT_VAR(&message);
-		ZVAL_STRING(&message, "");
-	} else {
-		zephir_get_strval(&message, message_param);
-	}
+	zephir_get_strval(&message, message_param);
 	if (!url_param) {
 		ZEPHIR_INIT_VAR(&url);
 		ZVAL_STRING(&url, "");
@@ -266,30 +259,22 @@ PHP_METHOD(Leevel_Router_ResponseFactory, viewSuccess) {
 
 	ZEPHIR_INIT_VAR(&vars);
 	zephir_create_array(&vars, 3, 0 TSRMLS_CC);
-	ZEPHIR_INIT_VAR(&_0);
-	if (!(Z_TYPE_P(&message) == IS_UNDEF) && Z_STRLEN_P(&message)) {
-		ZEPHIR_CPY_WRT(&_0, &message);
-	} else {
-		ZEPHIR_INIT_NVAR(&_0);
-		ZVAL_STRING(&_0, "Succeed");
-	}
-	zephir_array_update_string(&vars, SL("message"), &_0, PH_COPY | PH_SEPARATE);
+	zephir_array_update_string(&vars, SL("message"), &message, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(&vars, SL("url"), &url, PH_COPY | PH_SEPARATE);
-	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_LONG(&_1, time);
-	zephir_array_update_string(&vars, SL("time"), &_1, PH_COPY | PH_SEPARATE);
-	zephir_read_property(&_2, this_ptr, SL("viewSuccessTemplate"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_INIT_NVAR(&_1);
-	ZVAL_STRING(&_1, "");
+	ZEPHIR_INIT_VAR(&_0);
+	ZVAL_LONG(&_0, time);
+	zephir_array_update_string(&vars, SL("time"), &_0, PH_COPY | PH_SEPARATE);
+	zephir_read_property(&_1, this_ptr, SL("viewSuccessTemplate"), PH_NOISY_CC | PH_READONLY);
+	ZVAL_NULL(&_2);
 	ZVAL_LONG(&_3, status);
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "view", NULL, 0, &_2, &vars, &_1, &_3, &headers);
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "view", NULL, 0, &_1, &vars, &_2, &_3, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
 }
 
 /**
- * 返回视图错误消息
+ * 返回视图失败消息
  *
  * @param string $message
  * @param string $url
@@ -316,14 +301,9 @@ PHP_METHOD(Leevel_Router_ResponseFactory, viewError) {
 	ZVAL_UNDEF(&headers);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 5, &message_param, &url_param, &time_param, &status_param, &headers_param);
+	zephir_fetch_params(1, 1, 4, &message_param, &url_param, &time_param, &status_param, &headers_param);
 
-	if (!message_param) {
-		ZEPHIR_INIT_VAR(&message);
-		ZVAL_STRING(&message, "");
-	} else {
-		zephir_get_strval(&message, message_param);
-	}
+	zephir_get_strval(&message, message_param);
 	if (!url_param) {
 		ZEPHIR_INIT_VAR(&url);
 		ZVAL_STRING(&url, "");
@@ -336,7 +316,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, viewError) {
 		time = zephir_get_intval(time_param);
 	}
 	if (!status_param) {
-		status = 200;
+		status = 404;
 	} else {
 		status = zephir_get_intval(status_param);
 	}
@@ -350,23 +330,15 @@ PHP_METHOD(Leevel_Router_ResponseFactory, viewError) {
 
 	ZEPHIR_INIT_VAR(&vars);
 	zephir_create_array(&vars, 3, 0 TSRMLS_CC);
-	ZEPHIR_INIT_VAR(&_0);
-	if (!(Z_TYPE_P(&message) == IS_UNDEF) && Z_STRLEN_P(&message)) {
-		ZEPHIR_CPY_WRT(&_0, &message);
-	} else {
-		ZEPHIR_INIT_NVAR(&_0);
-		ZVAL_STRING(&_0, "Failed");
-	}
-	zephir_array_update_string(&vars, SL("message"), &_0, PH_COPY | PH_SEPARATE);
+	zephir_array_update_string(&vars, SL("message"), &message, PH_COPY | PH_SEPARATE);
 	zephir_array_update_string(&vars, SL("url"), &url, PH_COPY | PH_SEPARATE);
-	ZEPHIR_INIT_VAR(&_1);
-	ZVAL_LONG(&_1, time);
-	zephir_array_update_string(&vars, SL("time"), &_1, PH_COPY | PH_SEPARATE);
-	zephir_read_property(&_2, this_ptr, SL("viewFailTemplate"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_INIT_NVAR(&_1);
-	ZVAL_STRING(&_1, "");
+	ZEPHIR_INIT_VAR(&_0);
+	ZVAL_LONG(&_0, time);
+	zephir_array_update_string(&vars, SL("time"), &_0, PH_COPY | PH_SEPARATE);
+	zephir_read_property(&_1, this_ptr, SL("viewFailTemplate"), PH_NOISY_CC | PH_READONLY);
+	ZVAL_NULL(&_2);
 	ZVAL_LONG(&_3, status);
-	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "view", NULL, 0, &_2, &vars, &_1, &_3, &headers);
+	ZEPHIR_RETURN_CALL_METHOD(this_ptr, "view", NULL, 0, &_1, &vars, &_2, &_3, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -767,11 +739,12 @@ PHP_METHOD(Leevel_Router_ResponseFactory, redirectRaw) {
 
 /**
  * 请求成功
- * 一般用于GET与POST请求： 200
- * 
+ * 一般用于GET与POST请求: 200
+ *
  * @param mixed $content
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiOk) {
 
@@ -811,7 +784,8 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiOk) {
  * 成功请求并创建了新的资源: 201
  *
  * @param null|string $location
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiCreated) {
 
@@ -852,7 +826,8 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiCreated) {
  *
  * @param null|string $location
  * @param mixed $content
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiAccepted) {
 
@@ -891,7 +866,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiAccepted) {
  * 无内容
  * 服务器成功处理，但未返回内容: 204
  *
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiNoContent) {
 
@@ -913,29 +888,31 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiNoContent) {
 
 /**
  * 错误请求
- * 
+ *
  * @param string $message
- * @param string $message
+ * @param int $statusCode
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiError) {
 
-	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *message_param = NULL, *statusCode, statusCode_sub, *text = NULL, text_sub, __$null, _0;
+	zend_long statusCode, ZEPHIR_LAST_CALL_STATUS;
+	zval *message_param = NULL, *statusCode_param = NULL, *text = NULL, text_sub, __$null, _0, _1;
 	zval message;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&message);
-	ZVAL_UNDEF(&statusCode_sub);
 	ZVAL_UNDEF(&text_sub);
 	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 2, 1, &message_param, &statusCode, &text);
+	zephir_fetch_params(1, 2, 1, &message_param, &statusCode_param, &text);
 
 	zephir_get_strval(&message, message_param);
+	statusCode = zephir_get_intval(statusCode_param);
 	if (!text) {
 		text = &text_sub;
 		text = &__$null;
@@ -944,7 +921,8 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiError) {
 
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "createapiresponse", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_METHOD(&_0, "error", NULL, 0, &message, statusCode, text);
+	ZVAL_LONG(&_1, statusCode);
+	ZEPHIR_RETURN_CALL_METHOD(&_0, "error", NULL, 0, &message, &_1, text);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -953,10 +931,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiError) {
 /**
  * 错误请求
  * 服务器不理解请求的语法: 400
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiBadRequest) {
 
@@ -993,10 +972,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiBadRequest) {
 /**
  * 未授权
  * 对于需要登录的网页，服务器可能返回此响应: 401
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiUnauthorized) {
 
@@ -1033,10 +1013,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiUnauthorized) {
 /**
  * 禁止
  * 服务器拒绝请求: 403
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiForbidden) {
 
@@ -1073,10 +1054,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiForbidden) {
 /**
  * 未找到
  * 用户发出的请求针对的是不存在的记录: 404
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiNotFound) {
 
@@ -1113,10 +1095,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiNotFound) {
 /**
  * 方法禁用
  * 禁用请求中指定的方法: 405
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiMethodNotAllowed) {
 
@@ -1153,11 +1136,12 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiMethodNotAllowed) {
 /**
  * 无法处理的实体
  * 请求格式正确，但是由于含有语义错误，无法响应: 422
- * 
+ *
  * @param array $errors
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiUnprocessableEntity) {
 
@@ -1202,10 +1186,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiUnprocessableEntity) {
 /**
  * 太多请求
  * 用户在给定的时间内发送了太多的请求: 429
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiTooManyRequests) {
 
@@ -1242,10 +1227,11 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiTooManyRequests) {
 /**
  * 服务器内部错误
  * 服务器遇到错误，无法完成请求: 500
- * 
+ *
  * @param string $message
  * @param string $text
- * @return $this
+ *
+ * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, apiInternalServerError) {
 
@@ -1281,7 +1267,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiInternalServerError) {
 
 /**
  * 设置视图正确模板
- * 
+ *
  * @param string $template
  * @return $this
  */
@@ -1306,7 +1292,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, setViewSuccessTemplate) {
 
 /**
  * 设置视图错误模板
- * 
+ *
  * @param string $template
  * @return $this
  */
@@ -1331,7 +1317,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, setViewFailTemplate) {
 
 /**
  * 创建基础 API 响应
- * 
+ *
  * @return \Leevel\Http\ApiResponse
  */
 PHP_METHOD(Leevel_Router_ResponseFactory, createApiResponse) {

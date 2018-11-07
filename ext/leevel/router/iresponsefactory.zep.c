@@ -51,7 +51,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, make);
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, view);
 
 /**
- * 返回视图正确消息
+ * 返回视图成功消息
  *
  * @param string $message
  * @param string $url
@@ -63,7 +63,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, view);
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, viewSuccess);
 
 /**
- * 返回视图错误消息
+ * 返回视图失败消息
  *
  * @param string $message
  * @param string $url
@@ -136,11 +136,11 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, redirectRaw);
 
 /**
  * 请求成功
- * 一般用于GET与POST请求： 200
+ * 一般用于GET与POST请求: 200
  * 
  * @param mixed $content
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiOk);
 
@@ -149,7 +149,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiOk);
  * 成功请求并创建了新的资源: 201
  *
  * @param null|string $location
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiCreated);
 
@@ -159,7 +159,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiCreated);
  *
  * @param null|string $location
  * @param mixed $content
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiAccepted);
 
@@ -167,7 +167,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiAccepted);
  * 无内容
  * 服务器成功处理，但未返回内容: 204
  *
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiNoContent);
 
@@ -178,7 +178,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiNoContent);
  * @param string $message
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiError);
 
@@ -188,7 +188,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiError);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiBadRequest);
 
@@ -198,7 +198,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiBadRequest);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiUnauthorized);
 
@@ -208,7 +208,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiUnauthorized);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiForbidden);
 
@@ -218,7 +218,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiForbidden);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiNotFound);
 
@@ -228,7 +228,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiNotFound);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiMethodNotAllowed);
 
@@ -239,7 +239,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiMethodNotAllowed);
  * @param array $errors
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiUnprocessableEntity);
 
@@ -249,7 +249,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiUnprocessableEntity);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiTooManyRequests);
 
@@ -259,7 +259,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiTooManyRequests);
  * 
  * @param string $message
  * @param string $text
- * @return $this
+ * @return \Leevel\Http\ApiResponse
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiInternalServerError);
 

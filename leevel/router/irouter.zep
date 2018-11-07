@@ -36,6 +36,13 @@ interface IRouter
      * @var string
      */
     const APP = "_app";
+
+    /**
+     * 控制器前缀
+     *
+     * @var string
+     */
+    const PREFIX = "_prefix";
     
     /**
      * 控制器参数名
@@ -50,6 +57,13 @@ interface IRouter
      * @var string
      */
     const ACTION = "_a";
+
+    /**
+     * 绑定资源.
+     *
+     * @var string
+     */
+    const BIND = "_bind";
     
     /**
      * 解析参数名
@@ -71,21 +85,7 @@ interface IRouter
      * @var string
      */
     const MIDDLEWARES = "_middlewares";
-    
-    /**
-     * 控制器前缀
-     *
-     * @var string
-     */
-    const PREFIX = "_prefix";
-    
-    /**
-     * 匹配基础路径
-     *
-     * @var string
-     */
-    const BASEPATH = "_basepath";
-    
+
     /**
      * restful show
      *
@@ -126,28 +126,14 @@ interface IRouter
      *
      * @var string
      */
-    const DEFAULT_HOME_CONTROLLER = "home";
-    
-    /**
-     * 默认首页方法
-     *
-     * @var string
-     */
-    const DEFAULT_HOME_ACTION = "handle";
-    
+    const DEFAULT_CONTROLLER = "home";
+
     /**
      * 默认替换参数[字符串]
      *
      * @var string
      */
     const DEFAULT_REGEX = "\\S+";
-    
-    /**
-     * 默认严格匹配模式
-     *
-     * @var string
-     */
-    const DEFAULT_STRICT = true;
 
     /**
      * 分发请求到路由.
@@ -188,10 +174,8 @@ interface IRouter
     
     /**
      * 返回控制器相对目录.
-     *
-     * @param string $controllerDir
      */
-    public function getControllerDir() -> void;
+    public function getControllerDir() -> string;
     
     /**
      * 设置路由.
@@ -210,23 +194,16 @@ interface IRouter
     /**
      * 设置基础路径.
      *
-     * @param array $basepaths
+     * @param array $basePaths
      */
-    public function setBasepaths(array basepaths) -> void;
-    
-    /**
-     * 添加基础路径.
-     *
-     * @param array $basepaths
-     */
-    public function addBasepaths(array basepaths) -> void;
+    public function setBasePaths(array basePaths) -> void;
     
     /**
      * 取得基础路径.
      *
      * @return array
      */
-    public function getBasepaths() -> array;
+    public function getBasePaths() -> array;
     
     /**
      * 设置路由分组.
@@ -234,13 +211,6 @@ interface IRouter
      * @param array $groups
      */
     public function setGroups(array groups) -> void;
-    
-    /**
-     * 添加路由分组.
-     *
-     * @param array $groups
-     */
-    public function addGroups(array groups) -> void;
     
     /**
      * 取得路由分组.
@@ -264,20 +234,6 @@ interface IRouter
     public function getMiddlewareGroups() -> array;
     
     /**
-     * 设置全局中间件.
-     *
-     * @param array $middlewares
-     */
-    public function setGlobalMiddlewares(array middlewares) -> void;
-    
-    /**
-     * 取得全局中间件.
-     *
-     * @return array
-     */
-    public function getGlobalMiddlewares() -> array;
-    
-    /**
      * 设置中间件别名.
      *
      * @param array $middlewareAlias
@@ -290,14 +246,4 @@ interface IRouter
      * @return array
      */
     public function getMiddlewareAlias() -> array;
-    
-    /**
-     * 匹配路径.
-     *
-     * @param string $path
-     * @param bool   $ignoreMiddleware
-     *
-     * @return array
-     */
-    public function matchePath(string path, bool ignoreMiddleware = false) -> array;
 }

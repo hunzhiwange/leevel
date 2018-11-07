@@ -17,7 +17,6 @@ namespace Leevel\Pipeline;
 
 use Closure;
 use Generator;
-use BadMethodCallException;
 use InvalidArgumentException;
 use Leevel\Di\IContainer;
 use Leevel\Pipeline\IPipeline;
@@ -76,19 +75,13 @@ class Pipeline implements IPipeline
     /**
      * 将传输对象传入管道
      *
+     * @param array $passed
+     *
      * @return $this
      */
-    public function send()
+    public function send(array passed)
     {
-        var item, args = [], passed;
-
-        let args = func_get_args();
-
-        if empty args {
-            throw new BadMethodCallException("Wrong number of parameters");
-        }
-
-        let passed = typeof args[0] === "array" ? args[0] : args;
+        var item;
 
         for item in passed {
             let this->passed[] = item;
@@ -100,19 +93,13 @@ class Pipeline implements IPipeline
     /**
      * 设置管道中的执行工序
      *
+     * @param array $stage
+     *
      * @return $this
      */
-    public function through()
+    public function through(array stage)
     {
-        var item, stage, args = [];
-
-        let args = func_get_args();
-
-        if empty args {
-            throw new BadMethodCallException("Wrong number of parameters");
-        }
-
-        let stage = typeof args[0] === "array" ? args[0] : args;
+        var item;
 
         for item in stage {
             let this->stage[] = item;
@@ -123,22 +110,19 @@ class Pipeline implements IPipeline
 
     /**
      * 执行管道工序响应结果
-     * 
-     * @param callable|null $end
+     *
+     * @param \Closure $end
      * @since 2018.01.03
+     *
      * @return mixed
      */
-    public function then(var end = null)
+    public function then(<Closure> end = null)
     {
         var stage;
 
         let stage = this->stage;
 
         if end {
-            if ! is_callable(end) {
-                throw new InvalidArgumentException("Pipeline then must be a callable.");
-            }
-            
             let stage[] = end;
         }
 
@@ -179,7 +163,7 @@ class Pipeline implements IPipeline
                 let args[] = item;
             }
         }
-        
+
         return call_user_func_array(current, args);
     }
 
@@ -223,7 +207,7 @@ class Pipeline implements IPipeline
      * @return null|callable
      */
     protected function stageCallback(var stages)
-    {   
+    {
         var stage, params, method, temp;
 
         if is_null(stages) {

@@ -18,8 +18,16 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_pipeline_pipeline___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, container, Leevel\\Di\\IContainer, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_pipeline_pipeline_send, 0, 0, 1)
+	ZEND_ARG_ARRAY_INFO(0, passed, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_pipeline_pipeline_through, 0, 0, 1)
+	ZEND_ARG_ARRAY_INFO(0, stage, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_pipeline_pipeline_then, 0, 0, 0)
-	ZEND_ARG_INFO(0, end)
+	ZEND_ARG_OBJ_INFO(0, end, Closure, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_pipeline_pipeline_stagegenerator, 0, 0, 1)
@@ -36,8 +44,8 @@ ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(leevel_pipeline_pipeline_method_entry) {
 	PHP_ME(Leevel_Pipeline_Pipeline, __construct, arginfo_leevel_pipeline_pipeline___construct, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-	PHP_ME(Leevel_Pipeline_Pipeline, send, NULL, ZEND_ACC_PUBLIC)
-	PHP_ME(Leevel_Pipeline_Pipeline, through, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Pipeline_Pipeline, send, arginfo_leevel_pipeline_pipeline_send, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Pipeline_Pipeline, through, arginfo_leevel_pipeline_pipeline_through, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Pipeline_Pipeline, then, arginfo_leevel_pipeline_pipeline_then, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Pipeline_Pipeline, traverseGenerator, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Pipeline_Pipeline, makeNextClosure, NULL, ZEND_ACC_PROTECTED)

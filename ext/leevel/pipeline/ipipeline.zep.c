@@ -31,12 +31,16 @@ ZEPHIR_INIT_CLASS(Leevel_Pipeline_IPipeline) {
 /**
  * 将传输对象传入管道
  *
+ * @param array $passed
+ *
  * @return $this
  */
 ZEPHIR_DOC_METHOD(Leevel_Pipeline_IPipeline, send);
 
 /**
  * 设置管道中的执行工序
+ *
+ * @param array $stage
  *
  * @return $this
  */
@@ -45,8 +49,9 @@ ZEPHIR_DOC_METHOD(Leevel_Pipeline_IPipeline, through);
 /**
  * 执行管道工序响应结果
  *
- * @param callable|null $end
+ * @param \Closure $end
  * @since 2018.01.03
+ * 
  * @return mixed
  */
 ZEPHIR_DOC_METHOD(Leevel_Pipeline_IPipeline, then);

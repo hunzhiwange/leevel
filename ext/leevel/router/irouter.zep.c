@@ -33,6 +33,13 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IRouter) {
 	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("APP"), "_app");
 
 	/**
+	 * 控制器前缀
+	 *
+	 * @var string
+	 */
+	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("PREFIX"), "_prefix");
+
+	/**
 	 * 控制器参数名
 	 *
 	 * @var string
@@ -45,6 +52,13 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IRouter) {
 	 * @var string
 	 */
 	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("ACTION"), "_a");
+
+	/**
+	 * 绑定资源.
+	 *
+	 * @var string
+	 */
+	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("BIND"), "_bind");
 
 	/**
 	 * 解析参数名
@@ -66,20 +80,6 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IRouter) {
 	 * @var string
 	 */
 	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("MIDDLEWARES"), "_middlewares");
-
-	/**
-	 * 控制器前缀
-	 *
-	 * @var string
-	 */
-	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("PREFIX"), "_prefix");
-
-	/**
-	 * 匹配基础路径
-	 *
-	 * @var string
-	 */
-	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("BASEPATH"), "_basepath");
 
 	/**
 	 * restful show
@@ -121,14 +121,7 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IRouter) {
 	 *
 	 * @var string
 	 */
-	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("DEFAULT_HOME_CONTROLLER"), "home");
-
-	/**
-	 * 默认首页方法
-	 *
-	 * @var string
-	 */
-	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("DEFAULT_HOME_ACTION"), "handle");
+	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("DEFAULT_CONTROLLER"), "home");
 
 	/**
 	 * 默认替换参数[字符串]
@@ -136,13 +129,6 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IRouter) {
 	 * @var string
 	 */
 	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("DEFAULT_REGEX"), "\\S+");
-
-	/**
-	 * 默认严格匹配模式
-	 *
-	 * @var string
-	 */
-	zephir_declare_class_constant_bool(leevel_router_irouter_ce, SL("DEFAULT_STRICT"), 1);
 
 	return SUCCESS;
 
@@ -187,8 +173,6 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setControllerDir);
 
 /**
  * 返回控制器相对目录.
- *
- * @param string $controllerDir
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getControllerDir);
 
@@ -209,23 +193,16 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getRouters);
 /**
  * 设置基础路径.
  *
- * @param array $basepaths
+ * @param array $basePaths
  */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setBasepaths);
-
-/**
- * 添加基础路径.
- *
- * @param array $basepaths
- */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, addBasepaths);
+ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setBasePaths);
 
 /**
  * 取得基础路径.
  *
  * @return array
  */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getBasepaths);
+ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getBasePaths);
 
 /**
  * 设置路由分组.
@@ -233,13 +210,6 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getBasepaths);
  * @param array $groups
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setGroups);
-
-/**
- * 添加路由分组.
- *
- * @param array $groups
- */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, addGroups);
 
 /**
  * 取得路由分组.
@@ -263,20 +233,6 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setMiddlewareGroups);
 ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getMiddlewareGroups);
 
 /**
- * 设置全局中间件.
- *
- * @param array $middlewares
- */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setGlobalMiddlewares);
-
-/**
- * 取得全局中间件.
- *
- * @return array
- */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getGlobalMiddlewares);
-
-/**
  * 设置中间件别名.
  *
  * @param array $middlewareAlias
@@ -289,14 +245,4 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setMiddlewareAlias);
  * @return array
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getMiddlewareAlias);
-
-/**
- * 匹配路径.
- *
- * @param string $path
- * @param bool   $ignoreMiddleware
- *
- * @return array
- */
-ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, matchePath);
 

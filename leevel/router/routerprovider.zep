@@ -6,10 +6,10 @@
  *    __/ / /  / /_/ /  __/ /  \  / /_/ / / / / /_/ /__
  *      \_\ \_/\____/\___/_/   / / .___/_/ /_/ .___/
  *         \_\                /_/_/         /_/
- * 
+ *
  * The PHP Framework For Code Poem As Free As Wind. <Query Yet Simple>
  * (c) 2010-2018 http://queryphp.com All rights reserved.
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -29,11 +29,11 @@ abstract class RouterProvider extends Provider
 {
     /**
      * 控制器相对目录
-     * 
+     *
      * @var string
      */
     protected controllerDir;
-    
+
     /**
      * 中间件分组
      * 分组可以很方便地批量调用组件
@@ -41,7 +41,7 @@ abstract class RouterProvider extends Provider
      * @var array
      */
     protected middlewareGroups;
-    
+
     /**
      * 中间件别名
      * HTTP 中间件提供一个方便的机制来过滤进入应用程序的 HTTP 请求
@@ -50,7 +50,7 @@ abstract class RouterProvider extends Provider
      * @var array
      */
     protected middlewareAlias;
-    
+
     /**
      * bootstrap
      *
@@ -68,7 +68,7 @@ abstract class RouterProvider extends Provider
             this->loadRouters();
         }
     }
-    
+
     /**
      * 注册一个提供者
      *
@@ -90,17 +90,17 @@ abstract class RouterProvider extends Provider
             "Leevel\\Router\\RouterProvider"
         ];
     }
-    
+
     /**
      * 返回路由
-     * 
+     *
      * @return array
      */
     public function getRouters() -> array
     {
         return (new ScanRouter(this->makeMiddlewareParser()))->handle();
     }
-    
+
     /**
      * 全局中间件
      *
@@ -110,7 +110,7 @@ abstract class RouterProvider extends Provider
     {
         return [];
     }
-    
+
     /**
      * 导入路由缓存
      *
@@ -119,13 +119,12 @@ abstract class RouterProvider extends Provider
     protected function importCachedRouters()
     {
         var routers;
- 
-        let routers = (array)require this->getRouterCachePath();
 
-        //this->setGlobalMiddlewares(routers["middlewares"]);
+        let routers = require this->getRouterCachePath();
+
         this->setRoutersData(routers);
     }
-    
+
     /**
      * 注册路由
      *
@@ -133,35 +132,19 @@ abstract class RouterProvider extends Provider
      */
     protected function loadRouters()
     {
-        var routers;
-    
-        let routers = this->getRouters();
-
-        //this->setGlobalMiddlewares(middlewares);
-        this->setRoutersData(routers);
+        this->setRoutersData(this->getRouters());
     }
-    
+
     /**
      * 生成中间件分析器
-     * 
+     *
      * @return \Leevel\Router\MiddlewareParser
      */
     protected function makeMiddlewareParser()
     {
         return new MiddlewareParser(this->container->make("router"));
     }
-    
-    /**
-     * 设置全局中间件数据
-     *
-     * @param array $middlewares
-     * @return void
-     */
-    protected function setGlobalMiddlewares(array middlewares)
-    {
-        this->container->make("router")->setGlobalMiddlewares(middlewares);
-    }
-    
+
     /**
      * 设置路由数据
      *
@@ -174,13 +157,12 @@ abstract class RouterProvider extends Provider
 
         let router = this->container->make("router");
 
-        router->setBasepaths(routers["basepaths"]);
-
+        router->setGroups(routers["base_paths"]);
+        router->setGroups(routers["group_paths"]);
         router->setGroups(routers["groups"]);
-
         router->setRouters(routers["routers"]);
     }
-    
+
     /**
      * 路由是否已经缓存
      *
@@ -190,7 +172,7 @@ abstract class RouterProvider extends Provider
     {
         return file_exists(this->getRouterCachePath());
     }
-    
+
     /**
      * 获取路由缓存地址
      *
@@ -200,7 +182,7 @@ abstract class RouterProvider extends Provider
     {
         return this->container->routerCachedPath();
     }
-    
+
     /**
      * 设置应用控制器目录
      *
@@ -212,9 +194,9 @@ abstract class RouterProvider extends Provider
             this->container->make("router")->setControllerDir(this->controllerDir);
         }
     }
-    
+
     /**
-     * 设置中间件 
+     * 设置中间件
      *
      * @return void
      */

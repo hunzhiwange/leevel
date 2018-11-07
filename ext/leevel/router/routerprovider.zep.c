@@ -35,7 +35,7 @@ ZEPHIR_INIT_CLASS(Leevel_Router_RouterProvider) {
 
 	/**
 	 * 控制器相对目录
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_router_routerprovider_ce, SL("controllerDir"), ZEND_ACC_PROTECTED TSRMLS_CC);
@@ -142,7 +142,7 @@ PHP_METHOD(Leevel_Router_RouterProvider, providers) {
 
 /**
  * 返回路由
- * 
+ *
  * @return array
  */
 PHP_METHOD(Leevel_Router_RouterProvider, getRouters) {
@@ -196,7 +196,6 @@ PHP_METHOD(Leevel_Router_RouterProvider, getMiddlewares) {
  */
 PHP_METHOD(Leevel_Router_RouterProvider, importCachedRouters) {
 
-	zval _2;
 	zval routers, _0, _1;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *this_ptr = getThis();
@@ -204,7 +203,6 @@ PHP_METHOD(Leevel_Router_RouterProvider, importCachedRouters) {
 	ZVAL_UNDEF(&routers);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
 
 	ZEPHIR_MM_GROW();
 
@@ -214,8 +212,7 @@ PHP_METHOD(Leevel_Router_RouterProvider, importCachedRouters) {
 	if (zephir_require_zval_ret(&_1, &_0 TSRMLS_CC) == FAILURE) {
 		RETURN_MM_NULL();
 	}
-	zephir_get_arrval(&_2, &_1);
-	ZEPHIR_CPY_WRT(&routers, &_2);
+	ZEPHIR_CPY_WRT(&routers, &_1);
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setroutersdata", NULL, 0, &routers);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
@@ -229,17 +226,17 @@ PHP_METHOD(Leevel_Router_RouterProvider, importCachedRouters) {
  */
 PHP_METHOD(Leevel_Router_RouterProvider, loadRouters) {
 
-	zval routers;
+	zval _0;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&routers);
+	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
 
-	ZEPHIR_CALL_METHOD(&routers, this_ptr, "getrouters", NULL, 0);
+	ZEPHIR_CALL_METHOD(&_0, this_ptr, "getrouters", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setroutersdata", NULL, 0, &routers);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setroutersdata", NULL, 0, &_0);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -247,7 +244,7 @@ PHP_METHOD(Leevel_Router_RouterProvider, loadRouters) {
 
 /**
  * 生成中间件分析器
- * 
+ *
  * @return \Leevel\Router\MiddlewareParser
  */
 PHP_METHOD(Leevel_Router_RouterProvider, makeMiddlewareParser) {
@@ -281,41 +278,6 @@ PHP_METHOD(Leevel_Router_RouterProvider, makeMiddlewareParser) {
 }
 
 /**
- * 设置全局中间件数据
- *
- * @param array $middlewares
- * @return void
- */
-PHP_METHOD(Leevel_Router_RouterProvider, setGlobalMiddlewares) {
-
-	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *middlewares_param = NULL, _0, _1, _2;
-	zval middlewares;
-	zval *this_ptr = getThis();
-
-	ZVAL_UNDEF(&middlewares);
-	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
-
-	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 1, 0, &middlewares_param);
-
-	zephir_get_arrval(&middlewares, middlewares_param);
-
-
-	zephir_read_property(&_0, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_INIT_VAR(&_2);
-	ZVAL_STRING(&_2, "router");
-	ZEPHIR_CALL_METHOD(&_1, &_0, "make", NULL, 0, &_2);
-	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_1, "setglobalmiddlewares", NULL, 0, &middlewares);
-	zephir_check_call_status();
-	ZEPHIR_MM_RESTORE();
-
-}
-
-/**
  * 设置路由数据
  *
  * @param array $routers
@@ -324,7 +286,7 @@ PHP_METHOD(Leevel_Router_RouterProvider, setGlobalMiddlewares) {
 PHP_METHOD(Leevel_Router_RouterProvider, setRoutersData) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *routers_param = NULL, router, _0, _1, _2, _3, _4;
+	zval *routers_param = NULL, router, _0, _1, _2, _3, _4, _5;
 	zval routers;
 	zval *this_ptr = getThis();
 
@@ -335,6 +297,7 @@ PHP_METHOD(Leevel_Router_RouterProvider, setRoutersData) {
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
 	ZVAL_UNDEF(&_4);
+	ZVAL_UNDEF(&_5);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &routers_param);
@@ -347,14 +310,17 @@ PHP_METHOD(Leevel_Router_RouterProvider, setRoutersData) {
 	ZVAL_STRING(&_1, "router");
 	ZEPHIR_CALL_METHOD(&router, &_0, "make", NULL, 0, &_1);
 	zephir_check_call_status();
-	zephir_array_fetch_string(&_2, &routers, SL("basepaths"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 177 TSRMLS_CC);
-	ZEPHIR_CALL_METHOD(NULL, &router, "setbasepaths", NULL, 0, &_2);
+	zephir_array_fetch_string(&_2, &routers, SL("base_paths"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 160 TSRMLS_CC);
+	ZEPHIR_CALL_METHOD(NULL, &router, "setgroups", NULL, 0, &_2);
 	zephir_check_call_status();
-	zephir_array_fetch_string(&_3, &routers, SL("groups"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 179 TSRMLS_CC);
+	zephir_array_fetch_string(&_3, &routers, SL("group_paths"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 161 TSRMLS_CC);
 	ZEPHIR_CALL_METHOD(NULL, &router, "setgroups", NULL, 0, &_3);
 	zephir_check_call_status();
-	zephir_array_fetch_string(&_4, &routers, SL("routers"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 181 TSRMLS_CC);
-	ZEPHIR_CALL_METHOD(NULL, &router, "setrouters", NULL, 0, &_4);
+	zephir_array_fetch_string(&_4, &routers, SL("groups"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 162 TSRMLS_CC);
+	ZEPHIR_CALL_METHOD(NULL, &router, "setgroups", NULL, 0, &_4);
+	zephir_check_call_status();
+	zephir_array_fetch_string(&_5, &routers, SL("routers"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 163 TSRMLS_CC);
+	ZEPHIR_CALL_METHOD(NULL, &router, "setrouters", NULL, 0, &_5);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -438,7 +404,7 @@ PHP_METHOD(Leevel_Router_RouterProvider, setControllerDir) {
 }
 
 /**
- * 设置中间件 
+ * 设置中间件
  *
  * @return void
  */

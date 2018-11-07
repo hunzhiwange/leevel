@@ -1440,7 +1440,7 @@ PHP_METHOD(Leevel_Session_Session, generateSessionId) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_5);
 	ZEPHIR_CONCAT_VSVSV(&_5, &_0, ".", &_1, ".", &_2);
-	ZEPHIR_RETURN_CALL_FUNCTION("sha1", NULL, 150, &_5);
+	ZEPHIR_RETURN_CALL_FUNCTION("sha1", NULL, 149, &_5);
 	zephir_check_call_status();
 	RETURN_MM();
 
