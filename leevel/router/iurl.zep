@@ -53,4 +53,11 @@ interface IUrl
      * @return $this
      */
     public function setOption(var name, var value);
+
+    /**
+     * 获取域名.
+     *
+     * @return string
+     */
+    public function getDomain();
 }

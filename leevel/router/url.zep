@@ -108,6 +108,16 @@ class Url implements IUrl
 
         return this;
     }
+
+    /**
+     * 获取域名.
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        return this->option["domain"];
+    }
     
     /**
      * 自定义 URL
