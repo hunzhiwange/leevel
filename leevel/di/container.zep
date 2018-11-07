@@ -246,7 +246,7 @@ class Container implements IContainer, ArrayAccess {
             }
 
             if ! isset callback[1] || empty callback[1] {
-                let callback[1] = method_exists(callback[0], "handle") ? "handle" : "run";
+                let callback[1] = "handle";
             }
         }
 

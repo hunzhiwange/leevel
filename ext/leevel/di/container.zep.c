@@ -425,11 +425,11 @@ PHP_METHOD(Leevel_Di_Container, call) {
 	zend_bool isStatic, _6, _11$$6;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval args;
-	zval *callback = NULL, callback_sub, *args_param = NULL, _15, _0$$3, _1$$3, _2$$3, _3$$3, _4$$4, _5$$5, _7$$6, _12$$6, _8$$7, _9$$7, _10$$7, _13$$9, _14$$9;
+	zval *callback = NULL, callback_sub, *args_param = NULL, _14, _0$$3, _1$$3, _2$$3, _3$$3, _4$$4, _5$$5, _7$$6, _12$$6, _8$$7, _9$$7, _10$$7, _13$$9;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&callback_sub);
-	ZVAL_UNDEF(&_15);
+	ZVAL_UNDEF(&_14);
 	ZVAL_UNDEF(&_0$$3);
 	ZVAL_UNDEF(&_1$$3);
 	ZVAL_UNDEF(&_2$$3);
@@ -442,7 +442,6 @@ PHP_METHOD(Leevel_Di_Container, call) {
 	ZVAL_UNDEF(&_9$$7);
 	ZVAL_UNDEF(&_10$$7);
 	ZVAL_UNDEF(&_13$$9);
-	ZVAL_UNDEF(&_14$$9);
 	ZVAL_UNDEF(&args);
 
 	ZEPHIR_MM_GROW();
@@ -502,20 +501,13 @@ PHP_METHOD(Leevel_Di_Container, call) {
 		}
 		if (_11$$6) {
 			ZEPHIR_INIT_VAR(&_13$$9);
-			zephir_array_fetch_long(&_14$$9, callback, 0, PH_NOISY | PH_READONLY, "leevel/di/container.zep", 249 TSRMLS_CC);
-			if ((zephir_method_exists_ex(&_14$$9, SL("handle") TSRMLS_CC) == SUCCESS)) {
-				ZEPHIR_INIT_NVAR(&_13$$9);
-				ZVAL_STRING(&_13$$9, "handle");
-			} else {
-				ZEPHIR_INIT_NVAR(&_13$$9);
-				ZVAL_STRING(&_13$$9, "run");
-			}
+			ZVAL_STRING(&_13$$9, "handle");
 			zephir_array_update_long(callback, 1, &_13$$9, PH_COPY | PH_SEPARATE ZEPHIR_DEBUG_PARAMS_DUMMY);
 		}
 	}
-	ZEPHIR_CALL_METHOD(&_15, this_ptr, "normalizeinjectionargs", NULL, 0, callback, &args);
+	ZEPHIR_CALL_METHOD(&_14, this_ptr, "normalizeinjectionargs", NULL, 0, callback, &args);
 	zephir_check_call_status();
-	ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, callback, &_15);
+	ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, callback, &_14);
 	zephir_check_call_status();
 	RETURN_MM();
 
