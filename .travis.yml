@@ -59,7 +59,7 @@ env:
 
 before_install:
   - mysql -e "create database IF NOT EXISTS test;" -uroot
-  - phpenv config-add build/redis.ini
+  - phpenv config-add ci/redis.ini
   - if [[ ! -z "${GH_TOKEN}" ]]; then composer config github-oauth.github.com ${GH_TOKEN}; echo "Configured Github token"; fi;
   - export PHP_MAJOR="$(`phpenv which php` -r 'echo phpversion();' | cut -d '.' -f 1)"
   - export PHP_MINOR="$(`phpenv which php` -r 'echo phpversion();' | cut -d '.' -f 2)"
