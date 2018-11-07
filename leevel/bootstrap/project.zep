@@ -177,7 +177,7 @@ class Project extends Container implements IProject
     public static function singletons(var path = null)
     {
         dump(self::project);
-        if self::project !== null {
+        if self::project {
             dump(1);
             dump(self::project);
             return self::project;
