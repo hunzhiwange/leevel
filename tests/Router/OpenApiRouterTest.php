@@ -38,18 +38,18 @@ class OpenApiRouterTest extends TestCase
 {
     public function testBaseUse()
     {
-        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn', 'Tests\Router\Apps');
+        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn');
 
         $scandir = __DIR__.'/Apps/Petstore30';
 
         $openApiRouter->addScandir($scandir);
         $result = $openApiRouter->handle();
 
-        $data = file_get_contents($scandir.'/router.data');
+        $data = file_get_contents($scandir.'/router.json');
 
         $this->assertSame(
-            $data,
-            $this->varExport(
+            trim($data),
+            $this->varJson(
                 $result
             )
         );
@@ -57,18 +57,18 @@ class OpenApiRouterTest extends TestCase
 
     public function testWithoutLeevelBasepaths()
     {
-        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn', 'Tests\Router\Apps');
+        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn');
 
         $scandir = __DIR__.'/Apps/AppWithoutLeevelBasepaths';
 
         $openApiRouter->addScandir($scandir);
         $result = $openApiRouter->handle();
 
-        $data = file_get_contents($scandir.'/router.data');
+        $data = file_get_contents($scandir.'/router.json');
 
         $this->assertSame(
-            $data,
-            $this->varExport(
+            trim($data),
+            $this->varJson(
                 $result
             )
         );
@@ -76,37 +76,18 @@ class OpenApiRouterTest extends TestCase
 
     public function testAppWithControllerDirMatche()
     {
-        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn', 'Tests\Router\Apps');
+        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn');
 
         $scandir = __DIR__.'/Apps/AppWithControllerDirNotMatche';
 
         $openApiRouter->addScandir($scandir);
         $result = $openApiRouter->handle();
 
-        $data = file_get_contents($scandir.'/router.data');
+        $data = file_get_contents($scandir.'/router.json');
 
         $this->assertSame(
-            $data,
-            $this->varExport(
-                $result
-            )
-        );
-    }
-
-    public function testAppWithControllerDirNotMatche()
-    {
-        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn', 'TestsNotFound\Router\Apps');
-
-        $scandir = __DIR__.'/Apps/AppWithControllerDirNotMatche';
-
-        $openApiRouter->addScandir($scandir);
-        $result = $openApiRouter->handle();
-
-        $data = file_get_contents($scandir.'/router_not_matche.data');
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
+            trim($data),
+            $this->varJson(
                 $result
             )
         );
@@ -114,18 +95,18 @@ class OpenApiRouterTest extends TestCase
 
     public function testAppWithoutExternalDocs()
     {
-        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn', 'Tests\Router\Apps');
+        $openApiRouter = new OpenApiRouter($this->createMiddlewareParser(), 'queryphp.cn');
 
         $scandir = __DIR__.'/Apps/AppWithoutExternalDocs';
 
         $openApiRouter->addScandir($scandir);
         $result = $openApiRouter->handle();
 
-        $data = file_get_contents($scandir.'/router.data');
+        $data = file_get_contents($scandir.'/router.json');
 
         $this->assertSame(
-            $data,
-            $this->varExport(
+            trim($data),
+            $this->varJson(
                 $result
             )
         );

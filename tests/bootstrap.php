@@ -37,6 +37,8 @@ $vendorDir = __DIR__.'/../vendor';
 
 require_once __DIR__.'/function.php';
 
+require_once __DIR__.'/config.php';
+
 if (false === is_file($vendorDir.'/autoload.php')) {
     throw new Exception('You must set up the project dependencies, run the following commands:
         wget http://getcomposer.org/composer.phar
@@ -44,13 +46,6 @@ if (false === is_file($vendorDir.'/autoload.php')) {
 }
 
 include $vendorDir.'/autoload.php';
-
-// Do not use composer.autoload.files.
-if (is_file($path = __DIR__.'/../src/Leevel/Bootstrap/function.php')) {
-    require_once $path;
-} else {
-    require_once $vendorDir.'/hunzhiwange/framework/src/Leevel/Bootstrap/function.php';
-}
 
 spl_autoload_register(function ($class) {
     if (0 === stripos($class, 'Tests\\')) {

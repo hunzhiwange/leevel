@@ -41,14 +41,15 @@ class TruncateTest extends TestCase
         $connect = $this->createConnect();
 
         $sql = <<<'eot'
-array (
-  0 => 'TRUNCATE TABLE `test`',
-)
+[
+    "TRUNCATE TABLE `test`",
+    []
+]
 eot;
 
         $this->assertSame(
             $sql,
-            $this->varExport(
+            $this->varJson(
                 $connect->sql()->
 
                 table('test')->

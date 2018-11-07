@@ -87,18 +87,41 @@ trait Helper
         return $method;
     }
 
-    protected function varExport(array $data)
-    {
-        file_put_contents(
-            dirname(__DIR__).'/logs/trace.log',
-            var_export($data, true)
-        );
-
-        return var_export($data, true);
-    }
-
     protected function normalizeContent(string $content): string
     {
         return str_replace([' ', "\t", "\n", "\r"], '', $content);
+    }
+
+    protected function varJson(array $data, ?int $id = null)
+    {
+        $method = debug_backtrace()[1]['function'].$id;
+
+        list($traceDir, $className) = $this->makeLogsDir();
+
+        file_put_contents(
+            $traceDir.'/'.sprintf('%s::%s.json', $className, $method),
+            $result = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+        );
+
+        return $result;
+    }
+
+    protected function makeLogsDir(): array
+    {
+        $tmp = explode('\\', static::class);
+        array_shift($tmp);
+        $className = array_pop($tmp);
+        $traceDir = dirname(__DIR__).'/logs/tests/'.implode('/', $tmp);
+
+        if (!is_dir($traceDir)) {
+            mkdir($traceDir, 0777, true);
+        }
+
+        return [$traceDir, $className];
+    }
+
+    protected function assertTimeRange($data, ...$timeRange)
+    {
+        return $this->assertTrue(in_array($data, $timeRange, true));
     }
 }

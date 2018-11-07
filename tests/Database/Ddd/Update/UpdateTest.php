@@ -20,14 +20,11 @@ declare(strict_types=1);
 
 namespace Tests\Database\Ddd\Update;
 
-use Closure;
 use Leevel\Database\Ddd\Entity;
 use Tests\Database\Ddd\Entity\TestEntity;
-use Tests\Database\Ddd\Entity\TestFillBlackEntity;
-use Tests\Database\Ddd\Entity\TestFillWhiteEntity;
 use Tests\Database\Ddd\Entity\TestReadonlyUpdateEntity;
 use Tests\Database\Ddd\Entity\TestUpdateAutoFillEntity;
-use Tests\Database\Ddd\Entity\TestUpdateFillWhiteEntity;
+use Tests\Database\Ddd\Entity\TestUpdatePropWhiteEntity;
 use Tests\TestCase;
 
 /**
@@ -43,215 +40,138 @@ class UpdateTest extends TestCase
 {
     public function testBaseUse()
     {
-        $entity = new TestEntity();
+        $entity = new TestEntity(['id' => 1], true);
 
         $this->assertInstanceof(Entity::class, $entity);
 
-        $entity->id = 123;
         $entity->name = 'foo';
 
-        $this->assertSame(123, $entity->id);
+        $this->assertSame(1, $entity->id);
         $this->assertSame('foo', $entity->name);
 
-        $this->assertSame(['id', 'name'], $entity->getChanged());
+        $this->assertSame(['name'], $entity->changed());
+        $this->assertNull($entity->flushData());
 
-        $this->assertNull($entity->getFlush());
-        $this->assertNull($entity->getFlushData());
-
-        // 此时暂未写入数据库
         $entity->save();
 
-        $this->assertInstanceof(Closure::class, $entity->getFlush());
-
         $data = <<<'eot'
-array (
-  0 => 
-  array (
-    'id' => 123,
-  ),
-  1 => 
-  array (
-    'name' => 'foo',
-  ),
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->getFlushData()
-            )
-        );
-
-        // 尝试写入，接管框架提供的数据库持久层方便测试
-        $entity->setFlush(function (...$args) use ($data, $entity) {
-            $this->assertSame(
-                $data,
-                $this->varExport(
-                    $entity->getFlushData()
-                )
-            );
-
-            // 此处应该将写入数据库了，做持久化存储实体
-            // ...
-        });
-
-        $entity->flush();
-    }
-
-    public function testFillBlackAndWhite()
+[
     {
-        $entity = new TestFillWhiteEntity();
-
-        $entity->id = 5;
-        $entity->name = 'world';
-        $entity->description = 'bar';
-
-        $entity->save();
-
-        $data = <<<'eot'
-array (
-  0 => 
-  array (
-    'id' => 5,
-  ),
-  1 => 
-  array (
-    'name' => 'world',
-  ),
-)
+        "id": 1
+    },
+    {
+        "name": "foo"
+    }
+]
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
-                $entity->getFlushData() ?: []
-            )
-        );
-
-        $entity = new TestFillBlackEntity();
-
-        $entity->id = 5;
-        $entity->name = 'world';
-        $entity->description = 'bar';
-
-        $entity->save();
-
-        $data = <<<'eot'
-array (
-  0 => 
-  array (
-    'id' => 5,
-  ),
-  1 => 
-  array (
-    'description' => 'bar',
-  ),
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->getFlushData()
+            $this->varJson(
+                $entity->flushData()
             )
         );
     }
 
-    public function testUpdateFillBlackAndWhite()
+    public function testUpdatePropBlackAndWhite()
     {
-        $entity = new TestUpdateFillWhiteEntity();
+        $entity = new TestUpdatePropWhiteEntity(['id' => 5], true);
 
-        $entity->id = 5;
         $entity->name = 'foo';
         $entity->description = 'hello description';
 
         $entity->save();
 
         $data = <<<'eot'
-array (
-  0 => 
-  array (
-    'id' => 5,
-  ),
-  1 => 
-  array (
-    'name' => 'foo',
-  ),
-)
+[
+    {
+        "id": 5
+    },
+    {
+        "name": "foo"
+    }
+]
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
-                $entity->getFlushData()
+            $this->varJson(
+                $entity->flushData()
             )
         );
     }
 
     public function testUpdateReadonly()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot set a read-only prop `name` on entity `Tests\\Database\\Ddd\\Entity\\TestReadonlyUpdateEntity`.');
+
         $entity = new TestReadonlyUpdateEntity();
 
         $entity->name = 'foo';
-        $entity->description = 'bar';
-
-        $this->assertSame(['description'], $entity->getChanged());
     }
 
     public function testAutoFile()
     {
-        $entity = new TestUpdateAutoFillEntity();
-
-        $entity->id = 5;
+        $entity = new TestUpdateAutoFillEntity(['id' => 5], true);
 
         $entity->save();
 
+        $this->assertNull($entity->flushData());
+    }
+
+    public function testAutoFileWithAll()
+    {
+        $entity = new TestUpdateAutoFillEntity(['id' => 5], true);
+
+        $entity->save([], []);
+
         $data = <<<'eot'
-array (
-  0 => 
-  array (
-    'id' => 5,
-  ),
-  1 => 
-  array (
-    'name' => 'name for update_fill',
-    'description' => 'set description.',
-    'address' => 'address is set now.',
-    'foo_bar' => 'foo bar.',
-    'hello' => 'hello field.',
-  ),
-)
+[
+    {
+        "id": 5
+    },
+    {
+        "name": "name for update_fill",
+        "description": "set description.",
+        "address": "address is set now.",
+        "foo_bar": "foo bar.",
+        "hello": "hello field."
+    }
+]
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
-                $entity->getFlushData()
+            $this->varJson(
+                $entity->flushData()
             )
         );
     }
 
-    public function testSetAutoFile()
+    public function testAutoFileWithCustomField()
     {
-        $entity = new TestUpdateAutoFillEntity();
+        $entity = new TestUpdateAutoFillEntity(['id' => 5], true);
 
-        $entity->id = 5;
+        $entity->save([], ['address', 'hello']);
 
-        $entity->autoFill(false);
+        $data = <<<'eot'
+[
+    {
+        "id": 5
+    },
+    {
+        "address": "address is set now.",
+        "hello": "hello field."
+    }
+]
+eot;
 
-        $entity->save();
-
-        $this->assertNull($entity->getFlushData());
-
-        $entity = new TestUpdateAutoFillEntity();
-
-        $entity->id = 5;
-
-        $entity->UpdateFill(false);
-
-        $entity->save();
-
-        $this->assertNull($entity->getFlushData());
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->flushData()
+            )
+        );
     }
 }

@@ -405,6 +405,8 @@ class ResponseTest extends TestCase
 
     public function testCookieResolverNotSet()
     {
+        Response::setCookieResolver(null);
+
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Cookie resolver is not set.'
@@ -1336,8 +1338,12 @@ class MyJson implements IJson
      *
      * @return string
      */
-    public function toJson($option = JSON_UNESCAPED_UNICODE)
+    public function toJson($option = null)
     {
+        if (null === $option) {
+            $option = JSON_UNESCAPED_UNICODE;
+        }
+
         return json_encode(['hello' => 'IJson'], $option);
     }
 }

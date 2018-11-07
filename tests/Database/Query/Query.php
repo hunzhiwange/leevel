@@ -20,9 +20,12 @@ declare(strict_types=1);
 
 namespace Tests\Database\Query;
 
-use Leevel\Cache\ICache;
+use Leevel\Database\Manager;
 use Leevel\Database\Mysql;
-use Leevel\Log\ILog;
+use Leevel\Di\Container;
+use Leevel\Di\IContainer;
+use Leevel\Option\Option;
+use PDO;
 
 /**
  * query trait.
@@ -35,12 +38,101 @@ use Leevel\Log\ILog;
  */
 trait Query
 {
-    protected function createConnect()
+    protected function createConnect(array $option = [])
     {
-        $log = $this->createMock(ILog::class);
+        return new Mysql($option);
+    }
 
-        $cache = $this->createMock(ICache::class);
+    protected function createConnectTest()
+    {
+        return $this->createConnect([
+            'driver'             => 'mysql',
+            'separate'           => false,
+            'distributed'        => false,
+            'master'             => [
+                'host'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['HOST'],
+                'port'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['PORT'],
+                'name'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['NAME'],
+                'user'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['USER'],
+                'password' => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['PASSWORD'],
+                'charset'  => 'utf8',
+                'options'  => [
+                    PDO::ATTR_PERSISTENT => false,
+                ],
+            ],
+            'slave' => [],
+        ]);
+    }
 
-        return new Mysql($log, $cache, []);
+    protected function truncate(string $table)
+    {
+        $connect = $this->createConnectTest();
+
+        $sql = <<<'eot'
+[
+    "TRUNCATE TABLE `%s`",
+    []
+]
+eot;
+
+        $this->assertSame(
+            sprintf($sql, $table),
+            $this->varJson(
+                $connect->sql()->
+
+                table($table)->
+
+                truncate()
+            )
+        );
+
+        // 清理表数据
+        $connect->
+
+        table($table)->
+
+        truncate();
+
+        // 释放数据库连接，否则会出现 Mysql 连接数过多
+        // PDOException: PDO::__construct(): MySQL server has gone away
+        $connect->__destruct();
+    }
+
+    protected function createManager()
+    {
+        $container = new Container();
+
+        $manager = new Manager($container);
+
+        $this->assertInstanceof(IContainer::class, $manager->container());
+        $this->assertInstanceof(Container::class, $manager->container());
+
+        $option = new Option([
+            'database' => [
+                'default' => 'mysql',
+                'connect' => [
+                    'mysql' => [
+                        'driver'   => 'mysql',
+                        'host'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['HOST'],
+                        'port'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['PORT'],
+                        'name'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['NAME'],
+                        'user'     => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['USER'],
+                        'password' => $GLOBALS['LEEVEL_ENV']['DATABASE']['MYSQL']['PASSWORD'],
+                        'charset'  => 'utf8',
+                        'options'  => [
+                            PDO::ATTR_PERSISTENT => false,
+                        ],
+                        'separate'           => false,
+                        'distributed'        => false,
+                        'master'             => [],
+                        'slave'              => [],
+                    ],
+                ],
+            ],
+        ]);
+
+        $container->singleton('option', $option);
+
+        return $manager;
     }
 }

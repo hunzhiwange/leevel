@@ -225,7 +225,7 @@ class SafeTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage(
-            'You IP 127.0.0.1 are banned,you can not access this.'
+            'You IP 127.0.0.1 are banned,you cannot access this.'
         );
 
         Safe::limitIp('127.0.0.1', ['127.0.0.1']);
@@ -407,5 +407,31 @@ class SafeTest extends TestCase
         $out = ' ';
 
         $this->assertSame($out, Safe::bigCheck($strings, 5));
+    }
+
+    public function testSignature()
+    {
+        $query = [
+            'foo'   => 'bar',
+            'hello' => 'world',
+        ];
+
+        $signature = Safe::signature($query, '123456');
+
+        $this->assertSame('dc6cfa1e1f6eaf29c73622f4d4c54be57d545c1d7c377dade88faccb5a79d2d8', $signature);
+    }
+
+    public function testSignatureWithIgnore()
+    {
+        $query = [
+            'foo'       => 'bar',
+            'hello'     => 'world',
+            'signature' => 'dc6cfa1e1f6eaf29c73622f4d4c54be57d545c1d7c377dade88faccb5a79d2d8',
+            'timestamp' => 1541312367,
+        ];
+
+        $signature = Safe::signature($query, '123456', ['signature', 'timestamp']);
+
+        $this->assertSame('dc6cfa1e1f6eaf29c73622f4d4c54be57d545c1d7c377dade88faccb5a79d2d8', $signature);
     }
 }

@@ -21,7 +21,9 @@ declare(strict_types=1);
 namespace Tests\Database\Ddd;
 
 use Leevel\Database\Ddd\Entity;
+use Tests\Database\Ddd\Entity\TestToArrayBlackEntity;
 use Tests\Database\Ddd\Entity\TestToArrayEntity;
+use Tests\Database\Ddd\Entity\TestToArrayWhiteEntity;
 use Tests\TestCase;
 
 /**
@@ -40,745 +42,271 @@ class ToArrayTest extends TestCase
         $entity = $this->makeEntity();
 
         $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
+{
+    "name": "实体名字",
+    "description": "goods name",
+    "address": "四川成都",
+    "foo_bar": "foo",
+    "hello": "hello world"
+}
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
+            $this->varJson(
                 $entity->toArray()
             )
         );
     }
 
-    public function testWithAppend()
+    public function testWithWhite()
     {
         $entity = $this->makeEntity();
 
         $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
+{
+    "name": "实体名字",
+    "description": "goods name",
+    "address": "四川成都",
+    "foo_bar": "foo",
+    "hello": "hello world"
+}
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
+            $this->varJson(
                 $entity->toArray()
             )
-        );
-
-        $entity->append('append1');
-
-        $this->assertSame(
-            ['append1'],
-            $entity->getAppend()
         );
 
         $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append1' => 'append 1',
-)
+{
+    "name": "实体名字"
+}
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
-                $entity->toArray()
+            $this->varJson(
+                $entity->toArray(['name']),
+                1
             )
-        );
-
-        // 第二种方式
-        $entity->append('append1', 'append2');
-
-        $this->assertSame(
-            ['append1', 'append2'],
-            $entity->getAppend()
         );
 
         $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append1' => 'append 1',
-  'append2' => 'append 2',
-)
+{
+    "name": "实体名字",
+    "description": "goods name"
+}
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
+            $this->varJson(
+                $entity->toArray(['name', 'description']),
+                2
+            )
+        );
+
+        $data = <<<'eot'
+{
+    "name": "实体名字",
+    "description": "goods name",
+    "hello": "hello world"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray(['name', 'description', 'hello']),
+                3
+            )
+        );
+    }
+
+    public function testWithBlack()
+    {
+        $entity = $this->makeEntity();
+
+        $data = <<<'eot'
+{
+    "name": "实体名字",
+    "description": "goods name",
+    "address": "四川成都",
+    "foo_bar": "foo",
+    "hello": "hello world"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
                 $entity->toArray()
             )
         );
 
-        // 数组方式
-        $entity->append(['append1', 'append2']);
-
-        $this->assertSame(
-            ['append1', 'append2'],
-            $entity->getAppend()
-        );
+        $data = <<<'eot'
+{
+    "description": "goods name",
+    "address": "四川成都",
+    "foo_bar": "foo",
+    "hello": "hello world"
+}
+eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
+            $this->varJson(
+                $entity->toArray([], ['name']),
+                1
+            )
+        );
+
+        $data = <<<'eot'
+{
+    "address": "四川成都",
+    "foo_bar": "foo",
+    "hello": "hello world"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray([], ['name', 'description']),
+                2
+            )
+        );
+
+        $data = <<<'eot'
+{
+    "description": "goods name",
+    "hello": "hello world"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray([], ['foo_bar', 'name', 'address']),
+                3
+            )
+        );
+    }
+
+    public function testWithWhiteAndBlack()
+    {
+        $entity = $this->makeEntity();
+
+        $data = <<<'eot'
+{
+    "name": "实体名字",
+    "description": "goods name",
+    "address": "四川成都",
+    "foo_bar": "foo",
+    "hello": "hello world"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray()
+            )
+        );
+
+        $data = <<<'eot'
+{
+    "hello": "hello world"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray(['hello'], ['description']),
+                1
+            )
+        );
+    }
+
+    public function testWithWhiteEntity()
+    {
+        $entity = $this->makeWhiteEntity();
+
+        $data = <<<'eot'
+{
+    "description": "goods name",
+    "foo_bar": "foo"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
                 $entity->toArray()
             )
         );
     }
 
-    public function testWithAddAppend()
+    public function testWithBlackEntity()
     {
-        $entity = $this->makeEntity();
+        $entity = $this->makeBlackEntity();
 
         $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
+{
+    "name": "实体名字",
+    "address": "四川成都",
+    "hello": "hello world"
+}
 eot;
 
         $this->assertSame(
             $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addAppend('append1');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append1' => 'append 1',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addAppend(['append2']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append1' => 'append 1',
-  'append2' => 'append 2',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity = $this->makeEntity();
-
-        $entity->addAppend('append1', 'append2');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append1' => 'append 1',
-  'append2' => 'append 2',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
+            $this->varJson(
                 $entity->toArray()
             )
         );
     }
 
-    public function testWithRemoveAppend()
+    protected function makeWhiteEntity()
     {
-        $entity = $this->makeEntity();
+        $entity = new TestToArrayWhiteEntity();
 
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
+        $this->assertInstanceof(Entity::class, $entity);
 
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
+        $entity->name = '实体名字';
 
-        $entity->addAppend(['append2', 'append1']);
+        $entity->description = 'goods name';
 
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append2' => 'append 2',
-  'append1' => 'append 1',
-)
-eot;
+        $entity->address = '四川成都';
 
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
+        $entity->foo_bar = 'foo';
 
-        $entity->removeAppend('append2');
+        $entity->hello = 'hello world';
 
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append1' => 'append 1',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->removeAppend('append1');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addAppend(['append2', 'append1']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-  'append2' => 'append 2',
-  'append1' => 'append 1',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->removeAppend(['append1', 'append2']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
+        return $entity;
     }
 
-    public function testWithVisible()
+    protected function makeBlackEntity()
     {
-        $entity = $this->makeEntity();
+        $entity = new TestToArrayBlackEntity();
 
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
+        $this->assertInstanceof(Entity::class, $entity);
 
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
+        $entity->name = '实体名字';
 
-        $entity->visible('name');
+        $entity->description = 'goods name';
 
-        $this->assertSame(
-            ['name'],
-            $entity->getVisible()
-        );
+        $entity->address = '四川成都';
 
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-)
-eot;
+        $entity->foo_bar = 'foo';
 
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
+        $entity->hello = 'hello world';
 
-        // 第二种方式
-        $entity->visible('description', 'address');
-
-        $this->assertSame(
-            ['description', 'address'],
-            $entity->getVisible()
-        );
-
-        $data = <<<'eot'
-array (
-  'description' => 'goods name',
-  'address' => '四川成都',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        // 数组方式
-        $entity->visible(['foo_bar', 'name']);
-
-        $this->assertSame(
-            ['foo_bar', 'name'],
-            $entity->getVisible()
-        );
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'foo_bar' => 'foo',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-    }
-
-    public function testWithAddVisible()
-    {
-        $entity = $this->makeEntity();
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addVisible('name');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addVisible(['description']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity = $this->makeEntity();
-
-        $entity->addVisible('name', 'description', 'hello');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-    }
-
-    public function testWithRemoveVisible()
-    {
-        $entity = $this->makeEntity();
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addVisible(['name', 'description', 'hello']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->removeVisible('description');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->removeVisible('hello');
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addVisible(['description', 'hello']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->removeVisible(['description']);
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-    }
-
-    public function testWithHidden()
-    {
-        $entity = $this->makeEntity();
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->hidden('description');
-
-        $this->assertSame(
-            ['description'],
-            $entity->getHidden()
-        );
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        // 第二种方式
-        $entity->hidden('foo_bar', 'hello');
-
-        $this->assertSame(
-            ['foo_bar', 'hello'],
-            $entity->getHidden()
-        );
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        // 数组方式
-        $entity->hidden(['name', 'address']);
-
-        $this->assertSame(
-            ['name', 'address'],
-            $entity->getHidden()
-        );
-
-        $data = <<<'eot'
-array (
-  'description' => 'goods name',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-    }
-
-    public function testWithAddHidden()
-    {
-        $entity = $this->makeEntity();
-
-        $data = <<<'eot'
-array (
-  'name' => '实体名字',
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addHidden('name');
-
-        $data = <<<'eot'
-array (
-  'description' => 'goods name',
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity->addHidden(['description']);
-
-        $data = <<<'eot'
-array (
-  'address' => '四川成都',
-  'foo_bar' => 'foo',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
-
-        $entity = $this->makeEntity();
-
-        $entity->addHidden('foo_bar', 'name', 'address');
-
-        $data = <<<'eot'
-array (
-  'description' => 'goods name',
-  'hello' => 'hello world',
-)
-eot;
-
-        $this->assertSame(
-            $data,
-            $this->varExport(
-                $entity->toArray()
-            )
-        );
+        return $entity;
     }
 
     protected function makeEntity()

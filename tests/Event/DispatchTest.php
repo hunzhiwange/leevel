@@ -50,7 +50,7 @@ class DispatchTest extends TestCase
 
         $dispatch->register('event', Listener1::class);
 
-        $dispatch->run('event');
+        $dispatch->handle('event');
 
         $this->assertSame($_SERVER['test'], 'hello');
         $this->assertSame($_SERVER['event_name'], 'event');
@@ -68,7 +68,7 @@ class DispatchTest extends TestCase
 
         $dispatch->register('event', new Listener2('arg_foo'));
 
-        $dispatch->run('event');
+        $dispatch->handle('event');
 
         $this->assertSame($_SERVER['test'], 'arg_foo');
 
@@ -85,7 +85,7 @@ class DispatchTest extends TestCase
 
         $dispatch->register($event = new Event1('event_arg_foo'), Listener3::class);
 
-        $dispatch->run($event);
+        $dispatch->handle($event);
 
         $this->assertSame($_SERVER['test'], 'event_arg_foo');
 
@@ -100,7 +100,7 @@ class DispatchTest extends TestCase
 
         $dispatch->register([$event], Listener3::class);
 
-        $dispatch->run($event);
+        $dispatch->handle($event);
 
         $this->assertSame($_SERVER['test'], 'event_arg_foo');
 
@@ -114,7 +114,7 @@ class DispatchTest extends TestCase
         $dispatch->register('foo', Listener4::class);
         $dispatch->register('foo', Listener5::class);
 
-        $dispatch->run('foo');
+        $dispatch->handle('foo');
 
         $this->assertSame($_SERVER['test'], 'l5');
 
@@ -124,7 +124,7 @@ class DispatchTest extends TestCase
         $dispatch->register('foo', Listener4::class, 5);
         $dispatch->register('foo', Listener5::class, 4);
 
-        $dispatch->run('foo');
+        $dispatch->handle('foo');
 
         $this->assertSame($_SERVER['test'], 'l4');
         unset($_SERVER['test']);
@@ -134,7 +134,7 @@ class DispatchTest extends TestCase
     {
         $dispatch = new Dispatch(new Container());
 
-        $this->assertNull($dispatch->run('notFound'));
+        $this->assertNull($dispatch->handle('notFound'));
     }
 
     public function testWildcards()
@@ -143,17 +143,17 @@ class DispatchTest extends TestCase
 
         $dispatch->register('wildcards*event', WildcardsListener::class);
 
-        $dispatch->run('wildcards123456event');
+        $dispatch->handle('wildcards123456event');
 
         $this->assertSame($_SERVER['wildcard'], 'wildcard');
         unset($_SERVER['wildcard']);
 
-        $dispatch->run('wildcards7896event');
+        $dispatch->handle('wildcards7896event');
 
         $this->assertSame($_SERVER['wildcard'], 'wildcard');
         unset($_SERVER['wildcard']);
 
-        $dispatch->run('wildcards_foobar_event');
+        $dispatch->handle('wildcards_foobar_event');
 
         $this->assertSame($_SERVER['wildcard'], 'wildcard');
         unset($_SERVER['wildcard']);
@@ -165,14 +165,14 @@ class DispatchTest extends TestCase
 
         $dispatch->register('testevent', ForRemoveListener::class);
 
-        $dispatch->run('testevent');
+        $dispatch->handle('testevent');
 
         $this->assertSame($_SERVER['remove'], 'remove');
         unset($_SERVER['remove']);
 
         $dispatch->delete('testevent');
 
-        $dispatch->run('testevent');
+        $dispatch->handle('testevent');
 
         $this->assertFalse(isset($_SERVER['remove']));
     }
@@ -183,14 +183,14 @@ class DispatchTest extends TestCase
 
         $dispatch->register('wildcards*event', WildcardsListener::class);
 
-        $dispatch->run('wildcards123456event');
+        $dispatch->handle('wildcards123456event');
 
         $this->assertSame($_SERVER['wildcard'], 'wildcard');
         unset($_SERVER['wildcard']);
 
         $dispatch->delete('wildcards*event');
 
-        $dispatch->run('wildcards7896event');
+        $dispatch->handle('wildcards7896event');
 
         $this->assertFalse(isset($_SERVER['wildcard']));
     }
@@ -210,44 +210,84 @@ class DispatchTest extends TestCase
 
     public function testListenerWithoutRunOrHandleMethod()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Observer Tests\Event\ListenerWithoutRunOrHandleMethod must has run or handle method.'
+            'Observer Tests\Event\ListenerWithoutRunOrHandleMethod must has handle method.'
         );
 
         $dispatch = new Dispatch(new Container());
 
         $dispatch->register('testevent', ListenerWithoutRunOrHandleMethod::class);
 
-        $dispatch->run('testevent');
+        $dispatch->handle('testevent');
     }
 
     public function testListenerIsInvalid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Observer is invalid.'
+            'Observer `Tests\\Event\\NotFoundListener` is invalid.'
         );
 
         $dispatch = new Dispatch(new Container());
 
         $dispatch->register('testevent', 'Tests\Event\NotFoundListener');
 
-        $dispatch->run('testevent');
+        $dispatch->handle('testevent');
     }
 
-    public function testListenerNotInstanceofSplObserver()
+    public function testListenerNotInstanceofSplObserverWillAuthChange()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'Invalid observer argument because it not instanceof SplObserver.'
-        );
-
         $dispatch = new Dispatch(new Container());
 
         $dispatch->register('testevent', ListenerNotExtends::class);
 
-        $dispatch->run('testevent');
+        $dispatch->handle('testevent');
+
+        $this->assertSame($_SERVER['autochange'], 'autochange');
+        unset($_SERVER['autochange']);
+    }
+
+    public function testListenerNotInstanceofSplObserverWithoutHandle()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Observer `Tests\\Event\\ListenerNotExtendsWithoutHandle` is invalid.'
+        );
+
+        $dispatch = new Dispatch(new Container());
+
+        $dispatch->register('testevent', ListenerNotExtendsWithoutHandle::class);
+
+        $dispatch->handle('testevent');
+    }
+
+    public function testListenerWithoutSetHandleMustSetHandleClosure()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Observer Leevel\\Event\\Observer must has handle method.'
+        );
+
+        $dispatch = new Dispatch(new Container());
+
+        $dispatch->register('testevent', new Observer());
+
+        $dispatch->handle('testevent');
+    }
+
+    public function testListenerIsClosure()
+    {
+        $dispatch = new Dispatch(new Container());
+
+        $dispatch->register('testevent', function () {
+            $_SERVER['isclosure'] = 'isclosure';
+        });
+
+        $dispatch->handle('testevent');
+
+        $this->assertSame($_SERVER['isclosure'], 'isclosure');
+        unset($_SERVER['isclosure']);
     }
 }
 
@@ -257,7 +297,7 @@ abstract class Listener extends Observer
 
 class Listener1 extends Listener
 {
-    public function run($event)
+    public function handle($event)
     {
         $_SERVER['event_name'] = $event;
         $_SERVER['test'] = 'hello';
@@ -273,7 +313,7 @@ class Listener2 extends Listener
         $this->arg1 = $arg1;
     }
 
-    public function run()
+    public function handle()
     {
         $_SERVER['test'] = $this->arg1;
     }
@@ -281,7 +321,7 @@ class Listener2 extends Listener
 
 class Listener3 extends Listener
 {
-    public function run($event)
+    public function handle($event)
     {
         $_SERVER['test'] = $event->arg1;
     }
@@ -289,7 +329,7 @@ class Listener3 extends Listener
 
 class Listener4 extends Listener
 {
-    public function run($event)
+    public function handle($event)
     {
         $_SERVER['test'] = 'l4';
     }
@@ -297,7 +337,7 @@ class Listener4 extends Listener
 
 class Listener5 extends Listener
 {
-    public function run($event)
+    public function handle($event)
     {
         $_SERVER['test'] = 'l5';
     }
@@ -305,7 +345,7 @@ class Listener5 extends Listener
 
 class WildcardsListener extends Listener
 {
-    public function run($event)
+    public function handle($event)
     {
         $_SERVER['wildcard'] = 'wildcard';
     }
@@ -313,7 +353,7 @@ class WildcardsListener extends Listener
 
 class ForRemoveListener extends Listener
 {
-    public function run($event)
+    public function handle($event)
     {
         $_SERVER['remove'] = 'remove';
     }
@@ -328,9 +368,14 @@ class ListenerWithoutRunOrHandleMethod extends Listener
 
 class ListenerNotExtends
 {
-    public function run()
+    public function handle()
     {
+        $_SERVER['autochange'] = 'autochange';
     }
+}
+
+class ListenerNotExtendsWithoutHandle
+{
 }
 
 class Event1

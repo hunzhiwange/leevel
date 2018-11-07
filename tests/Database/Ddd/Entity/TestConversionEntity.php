@@ -20,7 +20,9 @@ declare(strict_types=1);
 
 namespace Tests\Database\Ddd\Entity;
 
+use Leevel\Collection\Collection;
 use Leevel\Database\Ddd\Entity;
+use stdClass;
 
 /**
  * TestConversionEntity.
@@ -35,505 +37,290 @@ class TestConversionEntity extends Entity
 {
     const TABLE = 'test';
 
-    /**
-     * 存在复合主键.
-     *
-     * @var array
-     */
-    const PRIMARY_KEY = [
-        'id',
-    ];
+    const ID = 'id';
 
-    const AUTO_INCREMENT = 'id';
+    const AUTO = 'id';
 
     const STRUCT = [
         'id' => [
-            'name'              => 'id', // database
-            'type'              => 'int', // database
-            'length'            => 11, // database
-            'primary_key'       => true, // database
-            'auto_increment'    => true, // database
-            'default'           => null, // database
+            'readonly' => true,
         ],
-        'int1' => [
-            // int = integer
-            'name'              => 'int1',
-            'type'              => 'varchar',
-            'length'            => 45,
-            'primary_key'       => false,
-            'auto_increment'    => false,
-            'default'           => null,
-            'conversion'        => 'int',
-        ],
-        'integer1' => [
-            'name'           => 'integer1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'integer',
-        ],
-        'real1' => [
-            // real = float = double
-            'name'           => 'real1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'real',
-        ],
-        'float1' => [
-            'name'           => 'float1',
-            'type'           => 'int',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'float',
-        ],
-        'double1' => [
-            'name'           => 'double1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'double',
-        ],
-        'string1' => [
-            // string = str
-            'name'           => 'string1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'string',
-        ],
-        'str1' => [
-            'name'           => 'str1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'str',
-        ],
-        'bool1' => [
-            // bool = boolean
-            'name'           => 'bool1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'bool',
-        ],
-        'boolean1' => [
-            'name'           => 'boolean1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'boolean',
-        ],
-        'obj1' => [
-            // obj = object
-            'name'           => 'obj1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'obj',
-        ],
-        'obj2' => [
-            'name'           => 'obj2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'obj',
-        ],
-        'object1' => [
-            'name'           => 'object1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'object',
-        ],
-        'object2' => [
-            'name'           => 'object2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'object',
-        ],
-        'arr1' => [
-            // arr = array = json
-            'name'           => 'arr1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'arr',
-        ],
-        'arr2' => [
-            'name'           => 'arr2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'arr',
-        ],
-        'array1' => [
-            'name'           => 'array1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'array',
-        ],
-        'array2' => [
-            'name'           => 'array2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'array',
-        ],
-        'json1' => [
-            'name'           => 'json1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'json',
-        ],
-        'json2' => [
-            'name'           => 'json2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'json',
-        ],
-        'coll1' => [
-            'name'           => 'coll1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'collection',
-        ],
-        'coll2' => [
-            'name'           => 'coll2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'collection',
-        ],
-        'collection1' => [
-            'name'           => 'collection1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'collection',
-        ],
-        'collection2' => [
-            'name'           => 'collection2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'collection',
-        ],
-        'date1' => [
-            'name'           => 'date1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'date',
-        ],
-        'date2' => [
-            'name'           => 'date2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'date',
-        ],
-        'date3' => [
-            'name'           => 'date3',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'date',
-        ],
-        'date4' => [
-            'name'           => 'date4',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'date',
-        ],
-        'date5' => [
-            'name'           => 'date5',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'date',
-        ],
-        'datetime1' => [
-            'name'           => 'datetime1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'datetime',
-        ],
-        'datetime2' => [
-            'name'           => 'datetime2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'datetime',
-        ],
-        'datetime3' => [
-            'name'           => 'datetime3',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'datetime',
-        ],
-        'datetime4' => [
-            'name'           => 'datetime4',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'datetime',
-        ],
-        'datetime5' => [
-            'name'           => 'datetime5',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'datetime',
-        ],
-        'time1' => [
-            'name'           => 'time1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'time',
-        ],
-        'time2' => [
-            'name'           => 'time2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'time',
-        ],
-        'time3' => [
-            'name'           => 'time3',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'time',
-        ],
-        'time4' => [
-            'name'           => 'time4',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'time',
-        ],
-        'time5' => [
-            'name'           => 'time',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'time',
-        ],
-        'timestamp1' => [
-            'name'           => 'timestamp1',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'timestamp',
-        ],
-        'timestamp2' => [
-            'name'           => 'timestamp2',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'timestamp',
-        ],
-        'timestamp3' => [
-            'name'           => 'timestamp3',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'timestamp',
-        ],
-        'timestamp4' => [
-            'name'           => 'timestamp4',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'timestamp',
-        ],
-        'timestamp5' => [
-            'name'           => 'timestamp5',
-            'type'           => 'varchar',
-            'length'         => 225,
-            'primary_key'    => false,
-            'auto_increment' => false,
-            'default'        => null,
-            'conversion'     => 'timestamp',
-        ],
+        'int1'    => [],
+        'int2'    => [],
+        'float1'  => [],
+        'float2'  => [],
+        'float3'  => [],
+        'string1' => [],
+        'string2' => [],
+        'bool1'   => [],
+        'bool2'   => [],
+        'bool3'   => [],
+        'bool4'   => [],
+        'obj1'    => [],
+        'obj2'    => [],
+        'obj3'    => [],
+        'arr1'    => [],
+        'arr2'    => [],
+        'json1'   => [],
+        'json2'   => [],
+        'coll1'   => [],
+        'coll2'   => [],
     ];
-    protected $id;
 
-    protected $int1;
+    private $id;
 
-    protected $integer1;
+    private $int1;
 
-    protected $real1;
+    private $int2;
 
-    protected $float1;
+    private $int3;
 
-    protected $double1;
+    private $float1;
 
-    protected $string1;
+    private $float2;
 
-    protected $str1;
+    private $float3;
 
-    protected $bool1;
+    private $string1;
 
-    protected $boolean1;
+    private $string2;
 
-    protected $obj1;
+    private $bool1;
 
-    protected $obj2;
+    private $bool2;
 
-    protected $object1;
+    private $bool3;
 
-    protected $object2;
+    private $bool4;
 
-    protected $arr1;
+    private $obj1;
 
-    protected $arr2;
+    private $obj2;
 
-    protected $array1;
+    private $obj3;
 
-    protected $array2;
+    private $arr1;
 
-    protected $json1;
+    private $arr2;
 
-    protected $json2;
+    private $json1;
 
-    protected $coll1;
+    private $json2;
 
-    protected $coll2;
+    private $coll1;
 
-    protected $collection1;
+    private $coll2;
 
-    protected $collection2;
+    public function setInt1($value)
+    {
+        $this->int1 = (int) $value;
+    }
 
-    protected $date1;
+    public function getInt1(): int
+    {
+        return $this->int1 + 1;
+    }
 
-    protected $date2;
+    public function setInt2(int $value)
+    {
+        $this->int2 = $value;
+    }
 
-    protected $date3;
+    public function getInt2(): int
+    {
+        return $this->int2;
+    }
 
-    protected $date4;
+    public function setFloat1($value)
+    {
+        $this->float1 = (float) $value;
+    }
 
-    protected $date5;
+    public function getFloat1(): float
+    {
+        return $this->float1 + 1;
+    }
 
-    protected $datetime1;
+    public function setFloat2(float $value)
+    {
+        $this->float2 = $value;
+    }
 
-    protected $datetime2;
+    public function getFloat2(): float
+    {
+        return $this->float2;
+    }
 
-    protected $datetime3;
+    public function setFloat3(float $value)
+    {
+        $this->float3 = $value;
+    }
 
-    protected $datetime4;
+    public function getFloat3(): float
+    {
+        return $this->float3;
+    }
 
-    protected $datetime5;
+    public function setString1($value)
+    {
+        $this->string1 = (string) $value;
+    }
 
-    protected $time1;
+    public function getString1(): string
+    {
+        return $this->string1;
+    }
 
-    protected $time2;
+    public function setString2(string $value)
+    {
+        $this->string2 = $value;
+    }
 
-    protected $time3;
+    public function getString2(): string
+    {
+        return $this->string2;
+    }
 
-    protected $time4;
+    public function setBool1($value)
+    {
+        $this->bool1 = (bool) $value;
+    }
 
-    protected $time5;
+    public function getBool1(): bool
+    {
+        return $this->bool1;
+    }
 
-    protected $timestamp1;
+    public function setBool2($value)
+    {
+        $this->bool2 = (bool) $value;
+    }
 
-    protected $timestamp2;
+    public function getBool2(): bool
+    {
+        return $this->bool2;
+    }
 
-    protected $timestamp3;
+    public function setBool3(bool $value)
+    {
+        $this->bool3 = $value;
+    }
 
-    protected $timestamp4;
+    public function getBool3(): bool
+    {
+        return $this->bool3;
+    }
 
-    protected $timestamp5;
+    public function setBool4(bool $value)
+    {
+        $this->bool4 = $value;
+    }
+
+    public function getBool4(): bool
+    {
+        return $this->bool4;
+    }
+
+    public function setObj1($value)
+    {
+        $this->obj1 = json_encode($value, JSON_FORCE_OBJECT);
+    }
+
+    public function getObj1(): stdClass
+    {
+        return json_decode($this->obj1);
+    }
+
+    public function setObj2(string $value)
+    {
+        $value = json_decode($value, true);
+        $this->obj2 = json_encode($value, JSON_FORCE_OBJECT);
+    }
+
+    public function getObj2(): stdClass
+    {
+        return json_decode($this->obj2);
+    }
+
+    public function setObj3(stdClass $value)
+    {
+        $this->obj3 = json_encode($value);
+    }
+
+    public function getObj3(): stdClass
+    {
+        return json_decode($this->obj3);
+    }
+
+    public function setArr1(array $value)
+    {
+        $this->arr1 = json_encode($value);
+    }
+
+    public function getArr1(): array
+    {
+        return json_decode($this->arr1, true);
+    }
+
+    public function setArr2(string $value)
+    {
+        $this->arr2 = $value;
+    }
+
+    public function getArr2(): array
+    {
+        return json_decode($this->arr2, true);
+    }
+
+    public function setJson1(array $value)
+    {
+        $this->json1 = json_encode($value);
+    }
+
+    public function getJson1(): array
+    {
+        return json_decode($this->json1, true);
+    }
+
+    public function setJson2(string $value)
+    {
+        $this->json2 = $value;
+    }
+
+    public function getJson2(): array
+    {
+        return json_decode($this->json2, true);
+    }
+
+    public function setColl1(string $value)
+    {
+        $this->coll1 = $value;
+    }
+
+    public function getColl1(): Collection
+    {
+        return new Collection(json_decode($this->coll1, true));
+    }
+
+    public function setColl2(array $value)
+    {
+        $this->coll2 = json_encode($value);
+    }
+
+    public function getColl2(): Collection
+    {
+        return new Collection(json_decode($this->coll2, true));
+    }
+
+    public function setter(string $prop, $value)
+    {
+        $this->{$this->prop($prop)} = $value;
+
+        return $this;
+    }
+
+    public function getter(string $prop)
+    {
+        return $this->{$this->prop($prop)};
+    }
 }

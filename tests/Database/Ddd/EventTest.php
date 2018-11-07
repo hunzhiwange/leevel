@@ -21,6 +21,9 @@ declare(strict_types=1);
 namespace Tests\Database\Ddd;
 
 use Leevel\Database\Ddd\Entity;
+use Leevel\Database\Ddd\IEntity;
+use Leevel\Di\Container;
+use Leevel\Event\Dispatch;
 use Tests\Database\Ddd\Entity\TestEventEntity;
 use Tests\TestCase;
 
@@ -29,7 +32,7 @@ use Tests\TestCase;
  *
  * @author Xiangmin Liu <635750556@qq.com>
  *
- * @since 2018.07.05
+ * @since 2018.11.06
  *
  * @version 1.0
  */
@@ -37,69 +40,32 @@ class EventTest extends TestCase
 {
     public function testBaseUse()
     {
-        $entity = $this->makeEntity();
+        $dispatch = new Dispatch(new Container());
 
-        $events = [
-            'model_runEventSaveing',
-            'model_runEventCreating',
-            'model_runEventCreated',
-            'model_runEventSaved',
-        ];
+        Entity::withEventDispatch($dispatch);
 
-        foreach ($events as $item) {
-            if (isset($_SERVER[$item])) {
-                unset($_SERVER[$item]);
-            }
-        }
+        $test = new TestEventEntity(['name' => 'foo']);
 
-        $entity->save()->flush();
+        TestEventEntity::event(IEntity::BEFORE_CREATE_EVENT, function () {
+            $_SERVER['ENTITY.BEFORE_CREATE_EVENT'] = 'BEFORE_CREATE_EVENT';
+        });
 
-        foreach ($events as $item) {
-            $this->assertTrue($_SERVER[$item]);
-        }
+        TestEventEntity::event(IEntity::AFTER_CREATE_EVENT, function () {
+            $_SERVER['ENTITY.AFTER_CREATE_EVENT'] = 'AFTER_CREATE_EVENT';
+        });
 
-        foreach ($events as $item) {
-            unset($_SERVER[$item]);
-        }
-    }
+        $this->assertFalse(isset($_SERVER['ENTITY.BEFORE_CREATE_EVENT']));
+        $this->assertFalse(isset($_SERVER['ENTITY.AFTER_CREATE_EVENT']));
 
-    public function testUpdateUse()
-    {
-        $entity = $this->makeEntity();
+        $test->create()->flush();
 
-        $entity->id = 5;
-        $entity->name = 'hello';
+        $this->assertTrue(isset($_SERVER['ENTITY.BEFORE_CREATE_EVENT']));
+        $this->assertTrue(isset($_SERVER['ENTITY.AFTER_CREATE_EVENT']));
+        $this->assertSame('BEFORE_CREATE_EVENT', $_SERVER['ENTITY.BEFORE_CREATE_EVENT']);
+        $this->assertSame('AFTER_CREATE_EVENT', $_SERVER['ENTITY.AFTER_CREATE_EVENT']);
 
-        $events = [
-            'model_runEventSaveing',
-            'model_runEventUpdating',
-            'model_runEventUpdated',
-            'model_runEventSaved',
-        ];
+        unset($_SERVER['ENTITY.BEFORE_CREATE_EVENT'], $_SERVER['ENTITY.AFTER_CREATE_EVENT']);
 
-        foreach ($events as $item) {
-            if (isset($_SERVER[$item])) {
-                unset($_SERVER[$item]);
-            }
-        }
-
-        $entity->update()->flush();
-
-        foreach ($events as $item) {
-            $this->assertTrue($_SERVER[$item]);
-        }
-
-        foreach ($events as $item) {
-            unset($_SERVER[$item]);
-        }
-    }
-
-    protected function makeEntity()
-    {
-        $entity = new TestEventEntity();
-
-        $this->assertInstanceof(Entity::class, $entity);
-
-        return $entity;
+        Entity::withEventDispatch(null);
     }
 }

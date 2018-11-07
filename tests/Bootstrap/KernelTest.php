@@ -24,7 +24,7 @@ use Error;
 use Exception;
 use Leevel\Bootstrap\Kernel;
 use Leevel\Bootstrap\Project as Projects;
-use Leevel\Bootstrap\Runtime\Runtime;
+use Leevel\Bootstrap\Runtime;
 use Leevel\Http\ApiResponse;
 use Leevel\Http\IRequest;
 use Leevel\Http\IResponse;
@@ -32,7 +32,7 @@ use Leevel\Http\JsonResponse;
 use Leevel\Http\Response;
 use Leevel\Kernel\IKernel;
 use Leevel\Kernel\IProject;
-use Leevel\Kernel\Runtime\IRuntime;
+use Leevel\Kernel\IRuntime;
 use Leevel\Log\ILog;
 use Leevel\Option\IOption;
 use Leevel\Router\IRouter;
@@ -98,7 +98,7 @@ class KernelTest extends TestCase
         $this->assertInstanceof(IProject::class, $kernel->getProject());
 
         $this->assertInstanceof(IResponse::class, $resultResponse = $kernel->handle($request));
-        $this->assertContains('{"foo":"bar","_TRACE":{"LOADED.FILE', $resultResponse->getContent());
+        $this->assertSame('{"foo":"bar"}', $resultResponse->getContent());
     }
 
     public function testWithResponseIsJson2()
@@ -118,7 +118,7 @@ class KernelTest extends TestCase
         $this->assertInstanceof(IProject::class, $kernel->getProject());
 
         $this->assertInstanceof(IResponse::class, $resultResponse = $kernel->handle($request));
-        $this->assertContains('{"foo":"bar","_TRACE":{"LOADED.FILE', $resultResponse->getContent());
+        $this->assertSame('{"foo":"bar"}', $resultResponse->getContent());
     }
 
     public function testWithResponseIsJson3()
@@ -138,7 +138,7 @@ class KernelTest extends TestCase
         $this->assertInstanceof(IProject::class, $kernel->getProject());
 
         $this->assertInstanceof(IResponse::class, $resultResponse = $kernel->handle($request));
-        $this->assertContains('{"foo":"bar","_TRACE":{"LOADED.FILE', $resultResponse->getContent());
+        $this->assertSame('{"foo":"bar"}', $resultResponse->getContent());
     }
 
     public function testRouterWillThrowException()
