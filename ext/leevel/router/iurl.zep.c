@@ -55,3 +55,10 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IUrl, getRequest);
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IUrl, setOption);
 
+/**
+ * 获取域名.
+ *
+ * @return string
+ */
+ZEPHIR_DOC_METHOD(Leevel_Router_IUrl, getDomain);
+

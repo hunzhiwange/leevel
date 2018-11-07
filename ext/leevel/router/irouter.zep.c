@@ -205,6 +205,20 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setBasePaths);
 ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getBasePaths);
 
 /**
+ * 设置分组路径.
+ *
+ * @param array $groupPaths
+ */
+ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, setGroupPaths);
+
+/**
+ * 取得分组路径.
+ *
+ * @return array
+ */
+ZEPHIR_DOC_METHOD(Leevel_Router_IRouter, getGroupPaths);
+
+/**
  * 设置路由分组.
  *
  * @param array $groups

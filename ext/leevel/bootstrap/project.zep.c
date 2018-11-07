@@ -229,7 +229,7 @@ PHP_METHOD(Leevel_Bootstrap_Project, singletons) {
 
 
 	zephir_read_static_property_ce(&_0, leevel_bootstrap_project_ce, SL("project"), PH_NOISY_CC | PH_READONLY);
-	if (Z_TYPE_P(&_0) != IS_NULL) {
+	if (zephir_is_true(&_0)) {
 		zephir_read_static_property_ce(&_1$$3, leevel_bootstrap_project_ce, SL("project"), PH_NOISY_CC | PH_READONLY);
 		RETURN_CTOR(&_1$$3);
 	} else {

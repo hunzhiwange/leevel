@@ -91,7 +91,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, __construct) {
 /**
  * 返回一个响应
  *
- * @param string $content
+ * @param mixed $content
  * @param integer $status
  * @param array $headers
  * @return \Leevel\Http\Response
@@ -100,22 +100,20 @@ PHP_METHOD(Leevel_Router_ResponseFactory, make) {
 
 	zval headers;
 	zend_long status, ZEPHIR_LAST_CALL_STATUS;
-	zval *content_param = NULL, *status_param = NULL, *headers_param = NULL, _0;
-	zval content;
+	zval *content = NULL, content_sub, *status_param = NULL, *headers_param = NULL, _0;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&content);
+	ZVAL_UNDEF(&content_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&headers);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 3, &content_param, &status_param, &headers_param);
+	zephir_fetch_params(1, 0, 3, &content, &status_param, &headers_param);
 
-	if (!content_param) {
-		ZEPHIR_INIT_VAR(&content);
-		ZVAL_STRING(&content, "");
-	} else {
-		zephir_get_strval(&content, content_param);
+	if (!content) {
+		content = &content_sub;
+		ZEPHIR_INIT_VAR(content);
+		ZVAL_STRING(content, "");
 	}
 	if (!status_param) {
 		status = 200;
@@ -132,7 +130,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, make) {
 
 	object_init_ex(return_value, leevel_http_response_ce);
 	ZVAL_LONG(&_0, status);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 18, &content, &_0, &headers);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 18, content, &_0, &headers);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -283,7 +281,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, viewSuccess) {
  * @param array $headers
  * @return \Leevel\Http\Response
  */
-PHP_METHOD(Leevel_Router_ResponseFactory, viewError) {
+PHP_METHOD(Leevel_Router_ResponseFactory, viewFail) {
 
 	zval headers;
 	zend_long time, status, ZEPHIR_LAST_CALL_STATUS;
@@ -790,11 +788,12 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiOk) {
 PHP_METHOD(Leevel_Router_ResponseFactory, apiCreated) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *location = NULL, location_sub, *content = NULL, content_sub, _0;
+	zval *location = NULL, location_sub, *content = NULL, content_sub, __$null, _0;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&location_sub);
 	ZVAL_UNDEF(&content_sub);
+	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
@@ -802,8 +801,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, apiCreated) {
 
 	if (!location) {
 		location = &location_sub;
-		ZEPHIR_INIT_VAR(location);
-		ZVAL_STRING(location, "");
+		location = &__$null;
 	}
 	if (!content) {
 		content = &content_sub;

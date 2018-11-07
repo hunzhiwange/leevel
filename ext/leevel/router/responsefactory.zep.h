@@ -7,7 +7,7 @@ PHP_METHOD(Leevel_Router_ResponseFactory, __construct);
 PHP_METHOD(Leevel_Router_ResponseFactory, make);
 PHP_METHOD(Leevel_Router_ResponseFactory, view);
 PHP_METHOD(Leevel_Router_ResponseFactory, viewSuccess);
-PHP_METHOD(Leevel_Router_ResponseFactory, viewError);
+PHP_METHOD(Leevel_Router_ResponseFactory, viewFail);
 PHP_METHOD(Leevel_Router_ResponseFactory, json);
 PHP_METHOD(Leevel_Router_ResponseFactory, jsonp);
 PHP_METHOD(Leevel_Router_ResponseFactory, download);
@@ -58,7 +58,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_responsefactory_viewsuccess, 0, 0, 
 	ZEND_ARG_ARRAY_INFO(0, headers, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_responsefactory_viewerror, 0, 0, 1)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_responsefactory_viewfail, 0, 0, 1)
 	ZEND_ARG_INFO(0, message)
 	ZEND_ARG_INFO(0, url)
 	ZEND_ARG_INFO(0, time)
@@ -188,7 +188,7 @@ ZEPHIR_INIT_FUNCS(leevel_router_responsefactory_method_entry) {
 	PHP_ME(Leevel_Router_ResponseFactory, make, arginfo_leevel_router_responsefactory_make, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_ResponseFactory, view, arginfo_leevel_router_responsefactory_view, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_ResponseFactory, viewSuccess, arginfo_leevel_router_responsefactory_viewsuccess, ZEND_ACC_PUBLIC)
-	PHP_ME(Leevel_Router_ResponseFactory, viewError, arginfo_leevel_router_responsefactory_viewerror, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Router_ResponseFactory, viewFail, arginfo_leevel_router_responsefactory_viewfail, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_ResponseFactory, json, arginfo_leevel_router_responsefactory_json, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_ResponseFactory, jsonp, arginfo_leevel_router_responsefactory_jsonp, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_ResponseFactory, download, arginfo_leevel_router_responsefactory_download, ZEND_ACC_PUBLIC)

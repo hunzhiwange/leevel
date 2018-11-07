@@ -157,8 +157,8 @@ abstract class RouterProvider extends Provider
 
         let router = this->container->make("router");
 
-        router->setGroups(routers["base_paths"]);
-        router->setGroups(routers["group_paths"]);
+        router->setBasePaths(routers["base_paths"]);
+        router->setGroupPaths(routers["group_paths"]);
         router->setGroups(routers["groups"]);
         router->setRouters(routers["routers"]);
     }

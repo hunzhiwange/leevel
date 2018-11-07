@@ -7,6 +7,7 @@ PHP_METHOD(Leevel_Router_Url, __construct);
 PHP_METHOD(Leevel_Router_Url, make);
 PHP_METHOD(Leevel_Router_Url, getRequest);
 PHP_METHOD(Leevel_Router_Url, setOption);
+PHP_METHOD(Leevel_Router_Url, getDomain);
 PHP_METHOD(Leevel_Router_Url, makeUrl);
 PHP_METHOD(Leevel_Router_Url, matchVar);
 PHP_METHOD(Leevel_Router_Url, withDomain);
@@ -61,6 +62,7 @@ ZEPHIR_INIT_FUNCS(leevel_router_url_method_entry) {
 	PHP_ME(Leevel_Router_Url, make, arginfo_leevel_router_url_make, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Url, getRequest, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Url, setOption, arginfo_leevel_router_url_setoption, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Router_Url, getDomain, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Url, makeUrl, arginfo_leevel_router_url_makeurl, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Router_Url, matchVar, arginfo_leevel_router_url_matchvar, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Router_Url, withDomain, arginfo_leevel_router_url_withdomain, ZEND_ACC_PROTECTED)

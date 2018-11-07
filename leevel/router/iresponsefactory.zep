@@ -165,7 +165,7 @@ interface IResponseFactory
      * @param null|string $location
      * @return \Leevel\Http\ApiResponse
      */
-    public function apiCreated(var location = "", var content = "") -> <ApiResponse>;
+    public function apiCreated(var location = null, var content = "") -> <ApiResponse>;
     
     /**
      * 已接受

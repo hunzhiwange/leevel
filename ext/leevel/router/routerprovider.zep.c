@@ -311,10 +311,10 @@ PHP_METHOD(Leevel_Router_RouterProvider, setRoutersData) {
 	ZEPHIR_CALL_METHOD(&router, &_0, "make", NULL, 0, &_1);
 	zephir_check_call_status();
 	zephir_array_fetch_string(&_2, &routers, SL("base_paths"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 160 TSRMLS_CC);
-	ZEPHIR_CALL_METHOD(NULL, &router, "setgroups", NULL, 0, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &router, "setbasepaths", NULL, 0, &_2);
 	zephir_check_call_status();
 	zephir_array_fetch_string(&_3, &routers, SL("group_paths"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 161 TSRMLS_CC);
-	ZEPHIR_CALL_METHOD(NULL, &router, "setgroups", NULL, 0, &_3);
+	ZEPHIR_CALL_METHOD(NULL, &router, "setgrouppaths", NULL, 0, &_3);
 	zephir_check_call_status();
 	zephir_array_fetch_string(&_4, &routers, SL("groups"), PH_NOISY | PH_READONLY, "leevel/router/routerprovider.zep", 162 TSRMLS_CC);
 	ZEPHIR_CALL_METHOD(NULL, &router, "setgroups", NULL, 0, &_4);

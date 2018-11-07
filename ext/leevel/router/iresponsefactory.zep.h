@@ -25,7 +25,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_iresponsefactory_viewsuccess, 0, 0,
 	ZEND_ARG_ARRAY_INFO(0, headers, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_iresponsefactory_viewerror, 0, 0, 1)
+ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_iresponsefactory_viewfail, 0, 0, 1)
 	ZEND_ARG_INFO(0, message)
 	ZEND_ARG_INFO(0, url)
 	ZEND_ARG_INFO(0, time)
@@ -154,7 +154,7 @@ ZEPHIR_INIT_FUNCS(leevel_router_iresponsefactory_method_entry) {
 	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, make, arginfo_leevel_router_iresponsefactory_make)
 	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, view, arginfo_leevel_router_iresponsefactory_view)
 	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, viewSuccess, arginfo_leevel_router_iresponsefactory_viewsuccess)
-	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, viewError, arginfo_leevel_router_iresponsefactory_viewerror)
+	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, viewFail, arginfo_leevel_router_iresponsefactory_viewfail)
 	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, json, arginfo_leevel_router_iresponsefactory_json)
 	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, jsonp, arginfo_leevel_router_iresponsefactory_jsonp)
 	PHP_ABSTRACT_ME(Leevel_Router_IResponseFactory, download, arginfo_leevel_router_iresponsefactory_download)

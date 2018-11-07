@@ -204,7 +204,7 @@ class Router implements IRouter, IMacro
         let method = empty passedExtend ? "handle" : "terminate";
         let middlewares = this->matchedMiddlewares();
 
-        if empty middlewares[method] {
+        if !isset middlewares[method] || empty middlewares[method] {
             return;
         }
 
@@ -770,7 +770,8 @@ class Router implements IRouter, IMacro
      */
     protected function matchedPrefix()
     {
-        var prefix, tmp, v;
+        var prefix, v;
+        array tmp = [];
 
         let prefix = this->matchedData[self::PREFIX];
 
@@ -779,7 +780,7 @@ class Router implements IRouter, IMacro
         }
 
         for v in prefix {
-            let tmp .= this->convertMatched(ucfirst(v));
+            let tmp[] = this->convertMatched(ucfirst(v));
         }
 
         let this->matchedData[self::PREFIX] = implode("\\", tmp);
@@ -826,20 +827,16 @@ class Router implements IRouter, IMacro
      */
     protected function convertMatched(string matched)
     {
-        var tmp;
-
-        let tmp = matched;
-
         if false !== strpos(matched, "-") {
-            let tmp = str_replace("-", "_", matched);
+            let matched = str_replace("-", "_", matched);
         }
 
         if false !== strpos(matched, "_") {
-            let tmp = "_".str_replace("_", " ", tmp);
-            let tmp = ltrim(str_replace(" ", "", ucwords(tmp)), "_");
+            let matched = "_".str_replace("_", " ", matched);
+            let matched = ltrim(str_replace(" ", "", ucwords(matched)), "_");
         }
 
-        return tmp;
+        return matched;
     }
 
     /**
@@ -869,10 +866,9 @@ class Router implements IRouter, IMacro
      */
     protected function matchedMiddlewares() -> array
     {
-        return ! is_null(this->matchedData[self::MIDDLEWARES]) ? this->matchedData[self::MIDDLEWARES] : [
-            "handle" : [],
-            "terminate" : []
-        ];
+        return ! is_null(this->matchedData[self::MIDDLEWARES]) ?
+            this->matchedData[self::MIDDLEWARES] : 
+            ["handle" : [], "terminate" : []];
     }
     
     /**

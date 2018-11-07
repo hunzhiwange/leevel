@@ -78,12 +78,12 @@ class ResponseFactory implements IResponseFactory
     /**
      * 返回一个响应
      *
-     * @param string $content
+     * @param mixed $content
      * @param integer $status
      * @param array $headers
      * @return \Leevel\Http\Response
      */
-    public function make(string content = "", int status = 200, array headers = []) -> <Response>
+    public function make(var content = "", int status = 200, array headers = []) -> <Response>
     {
         return new Response(content, status, headers);
     }
@@ -268,7 +268,7 @@ class ResponseFactory implements IResponseFactory
      *
      * @return \Leevel\Http\ApiResponse
      */
-    public function apiCreated(var location = "", var content = "") -> <ApiResponse>
+    public function apiCreated(var location = null, var content = "") -> <ApiResponse>
     {
         return this->createApiResponse()->created(location, content);
     }

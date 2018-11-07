@@ -19,5 +19,6 @@ ZEPHIR_INIT_FUNCS(leevel_router_iurl_method_entry) {
 	PHP_ABSTRACT_ME(Leevel_Router_IUrl, make, arginfo_leevel_router_iurl_make)
 	PHP_ABSTRACT_ME(Leevel_Router_IUrl, getRequest, NULL)
 	PHP_ABSTRACT_ME(Leevel_Router_IUrl, setOption, arginfo_leevel_router_iurl_setoption)
+	PHP_ABSTRACT_ME(Leevel_Router_IUrl, getDomain, NULL)
 	PHP_FE_END
 };

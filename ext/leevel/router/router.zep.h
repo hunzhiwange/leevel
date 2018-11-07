@@ -14,6 +14,8 @@ PHP_METHOD(Leevel_Router_Router, setRouters);
 PHP_METHOD(Leevel_Router_Router, getRouters);
 PHP_METHOD(Leevel_Router_Router, setBasePaths);
 PHP_METHOD(Leevel_Router_Router, getBasePaths);
+PHP_METHOD(Leevel_Router_Router, setGroupPaths);
+PHP_METHOD(Leevel_Router_Router, getGroupPaths);
 PHP_METHOD(Leevel_Router_Router, setGroups);
 PHP_METHOD(Leevel_Router_Router, getGroups);
 PHP_METHOD(Leevel_Router_Router, setMiddlewareGroups);
@@ -78,6 +80,10 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_router_setbasepaths, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0, basePaths, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_router_setgrouppaths, 0, 0, 1)
+	ZEND_ARG_ARRAY_INFO(0, groupPaths, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_router_router_setgroups, 0, 0, 1)
@@ -152,6 +158,8 @@ ZEPHIR_INIT_FUNCS(leevel_router_router_method_entry) {
 	PHP_ME(Leevel_Router_Router, getRouters, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Router, setBasePaths, arginfo_leevel_router_router_setbasepaths, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Router, getBasePaths, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Router_Router, setGroupPaths, arginfo_leevel_router_router_setgrouppaths, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Router_Router, getGroupPaths, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Router, setGroups, arginfo_leevel_router_router_setgroups, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Router, getGroups, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Router_Router, setMiddlewareGroups, arginfo_leevel_router_router_setmiddlewaregroups, ZEND_ACC_PUBLIC)

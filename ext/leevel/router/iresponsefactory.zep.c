@@ -72,7 +72,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, viewSuccess);
  * @param array $headers
  * @return \Leevel\Http\Response
  */
-ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, viewError);
+ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, viewFail);
 
 /**
  * 返回 JSON 响应
