@@ -15,8 +15,6 @@
 #include "kernel/object.h"
 #include "kernel/memory.h"
 #include "kernel/fcall.h"
-#include "kernel/array.h"
-#include "kernel/main.h"
 #include "kernel/operators.h"
 #include "ext/spl/spl_exceptions.h"
 #include "kernel/exception.h"
@@ -183,37 +181,29 @@ PHP_METHOD(Leevel_Mvc_Controller, getAssign) {
 /**
  * 删除变量值
  *
- * @param mixed $name
+ * @param array $name
  * @return $this
  */
 PHP_METHOD(Leevel_Mvc_Controller, deleteAssign) {
 
-	zval _1;
-	zval _0, _2, _3;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *name_param = NULL, _0;
+	zval name;
 	zval *this_ptr = getThis();
 
+	ZVAL_UNDEF(&name);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &name_param);
+
+	zephir_get_arrval(&name, name_param);
+
 
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "checkview", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&_0);
-	ZEPHIR_INIT_VAR(&_1);
-	zephir_create_array(&_1, 2, 0 TSRMLS_CC);
-	ZEPHIR_OBS_VAR(&_2);
-	zephir_read_property(&_2, this_ptr, SL("view"), PH_NOISY_CC);
-	zephir_array_fast_append(&_1, &_2);
-	ZEPHIR_INIT_VAR(&_3);
-	ZVAL_STRING(&_3, "deleteAssign");
-	zephir_array_fast_append(&_1, &_3);
-	ZEPHIR_INIT_NVAR(&_3);
-	zephir_get_args(&_3);
-	ZEPHIR_CALL_USER_FUNC_ARRAY(&_0, &_1, &_3);
+	zephir_read_property(&_0, this_ptr, SL("view"), PH_NOISY_CC | PH_READONLY);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "deleteassign", NULL, 0, &name);
 	zephir_check_call_status();
 	RETURN_THIS();
 
@@ -305,7 +295,7 @@ PHP_METHOD(Leevel_Mvc_Controller, checkView) {
 
 	zephir_read_property(&_0, this_ptr, SL("view"), PH_NOISY_CC | PH_READONLY);
 	if (!(zephir_is_true(&_0))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STRW(spl_ce_RuntimeException, "View is not set in controller.", "leevel/mvc/controller.zep", 158);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STRW(spl_ce_RuntimeException, "View is not set in controller.", "leevel/mvc/controller.zep", 154);
 		return;
 	}
 

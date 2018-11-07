@@ -45,7 +45,7 @@ ZEPHIR_INIT_CLASS(Leevel_View_Twig) {
 	/**
 	 * 解析 parse.
 	 *
-	 * @var callable
+	 * @var \Closure
 	 */
 	zend_declare_property_null(leevel_view_twig_ce, SL("parseResolver"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
@@ -133,7 +133,7 @@ PHP_METHOD(Leevel_View_Twig, display) {
 /**
  * 设置 parse 解析回调.
  *
- * @param callable $parseResolver
+ * @param \Closure $parseResolver
  */
 PHP_METHOD(Leevel_View_Twig, setParseResolver) {
 
@@ -167,7 +167,7 @@ PHP_METHOD(Leevel_View_Twig, resolverParser) {
 
 	zephir_read_property(&_0, this_ptr, SL("parseResolver"), PH_NOISY_CC | PH_READONLY);
 	if (!(zephir_is_true(&_0))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STRW(spl_ce_RuntimeException, "Twig theme not set parse resolver.", "leevel/view/twig.zep", 104);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STRW(spl_ce_RuntimeException, "Twig theme not set parse resolver.", "leevel/view/twig.zep", 105);
 		return;
 	}
 	zephir_read_property(&_1, this_ptr, SL("parseResolver"), PH_NOISY_CC | PH_READONLY);

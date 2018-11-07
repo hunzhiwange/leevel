@@ -101,20 +101,13 @@ abstract class Connect
     /**
      * 删除变量值
      *
+     * @param array $name
      * @return $this
      */
-    public function deleteVar()
+    public function deleteVar(array name)
     {
-        var item, name, args = [];
-
-        let args = func_get_args();
-
-        if empty args {
-            throw new BadMethodCallException("Wrong number of parameters");
-        }
-
-        let name = typeof args[0] === "array" ? args[0] : args;
-
+        var item;
+        
         for item in name {
             if isset this->vars[item] {
                 unset(this->vars[item]);

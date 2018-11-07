@@ -15,6 +15,8 @@
  */
 namespace Leevel\Support;
 
+use Closure;
+
 /**
  * 实现类的无限扩展功能
  *
@@ -30,10 +32,10 @@ interface IMacro
      * 注册一个扩展
      *
      * @param string $name
-     * @param callable $macro
+     * @param \Closure $macro
      * @return void
      */
-    public static function macro(string name, var macro);
+    public static function macro(string name, <Closure> macro);
     
     /**
      * 判断一个扩展是否注册

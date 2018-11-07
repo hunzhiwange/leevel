@@ -19,7 +19,6 @@
 #include "kernel/operators.h"
 #include "kernel/exception.h"
 #include "ext/spl/spl_exceptions.h"
-#include "kernel/main.h"
 #include "kernel/string.h"
 #include "kernel/concat.h"
 #include "kernel/time.h"
@@ -927,36 +926,23 @@ PHP_METHOD(Leevel_Session_Session, rebuildFlash) {
 /**
  * 保持闪存数据.
  *
- * @param mixed $keys
+ * @param array $keys
  */
 PHP_METHOD(Leevel_Session_Session, keepFlash) {
 
-	zval keys, args, _0;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *keys_param = NULL;
+	zval keys;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&keys);
-	ZVAL_UNDEF(&args);
-	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &keys_param);
 
-	ZEPHIR_INIT_VAR(&args);
-	array_init(&args);
-	ZEPHIR_INIT_NVAR(&args);
-	zephir_get_args(&args);
-	if (ZEPHIR_IS_EMPTY(&args)) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_BadMethodCallException, "Wrong number of parameters.", "leevel/session/session.zep", 421);
-		return;
-	}
-	ZEPHIR_OBS_VAR(&_0);
-	zephir_array_fetch_long(&_0, &args, 0, PH_NOISY, "leevel/session/session.zep", 424 TSRMLS_CC);
-	if (Z_TYPE_P(&_0) == IS_ARRAY) {
-		ZEPHIR_OBS_VAR(&keys);
-		zephir_array_fetch_long(&keys, &args, 0, PH_NOISY, "leevel/session/session.zep", 424 TSRMLS_CC);
-	} else {
-		ZEPHIR_CPY_WRT(&keys, &args);
-	}
+	zephir_get_arrval(&keys, keys_param);
+
+
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "mergenewflash", NULL, 0, &keys);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "popoldflash", NULL, 0, &keys);
@@ -1021,47 +1007,34 @@ PHP_METHOD(Leevel_Session_Session, getFlash) {
 /**
  * 删除闪存数据.
  *
- * @param mixed $keys
+ * @param array keys
  */
 PHP_METHOD(Leevel_Session_Session, deleteFlash) {
 
-	zval item, keys, args, _0, *_1, _2$$4;
-	zephir_fcall_cache_entry *_3 = NULL, *_4 = NULL;
+	zephir_fcall_cache_entry *_2 = NULL, *_3 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *keys_param = NULL, item, *_0, _1$$3;
+	zval keys;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&item);
 	ZVAL_UNDEF(&keys);
-	ZVAL_UNDEF(&args);
-	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_2$$4);
+	ZVAL_UNDEF(&item);
+	ZVAL_UNDEF(&_1$$3);
 
 	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &keys_param);
 
-	ZEPHIR_INIT_VAR(&args);
-	array_init(&args);
-	ZEPHIR_INIT_NVAR(&args);
-	zephir_get_args(&args);
-	if (ZEPHIR_IS_EMPTY(&args)) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_BadMethodCallException, "Wrong number of parameters.", "leevel/session/session.zep", 459);
-		return;
-	}
-	ZEPHIR_OBS_VAR(&_0);
-	zephir_array_fetch_long(&_0, &args, 0, PH_NOISY, "leevel/session/session.zep", 462 TSRMLS_CC);
-	if (Z_TYPE_P(&_0) == IS_ARRAY) {
-		ZEPHIR_OBS_VAR(&keys);
-		zephir_array_fetch_long(&keys, &args, 0, PH_NOISY, "leevel/session/session.zep", 462 TSRMLS_CC);
-	} else {
-		ZEPHIR_CPY_WRT(&keys, &args);
-	}
-	zephir_is_iterable(&keys, 0, "leevel/session/session.zep", 468);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&keys), _1)
+	zephir_get_arrval(&keys, keys_param);
+
+
+	zephir_is_iterable(&keys, 0, "leevel/session/session.zep", 450);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&keys), _0)
 	{
 		ZEPHIR_INIT_NVAR(&item);
-		ZVAL_COPY(&item, _1);
-		ZEPHIR_CALL_METHOD(&_2$$4, this_ptr, "flashdatakey", &_3, 0, &item);
+		ZVAL_COPY(&item, _0);
+		ZEPHIR_CALL_METHOD(&_1$$3, this_ptr, "flashdatakey", &_2, 0, &item);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, this_ptr, "delete", &_4, 0, &_2$$4);
+		ZEPHIR_CALL_METHOD(NULL, this_ptr, "delete", &_3, 0, &_1$$3);
 		zephir_check_call_status();
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
@@ -1078,42 +1051,24 @@ PHP_METHOD(Leevel_Session_Session, deleteFlash) {
  */
 PHP_METHOD(Leevel_Session_Session, clearFlash) {
 
-	zval _3$$3;
-	zval item, newKey, _0, _1, *_2, _4$$3;
-	zephir_fcall_cache_entry *_5 = NULL;
+	zval _0, _1, _2;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&item);
-	ZVAL_UNDEF(&newKey);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_4$$3);
-	ZVAL_UNDEF(&_3$$3);
+	ZVAL_UNDEF(&_2);
 
 	ZEPHIR_MM_GROW();
 
-	ZEPHIR_CALL_METHOD(&_0, this_ptr, "flashnewkey", NULL, 0);
+	ZEPHIR_CALL_METHOD(&_1, this_ptr, "flashnewkey", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&_1);
-	array_init(&_1);
-	ZEPHIR_CALL_METHOD(&newKey, this_ptr, "get", NULL, 0, &_0, &_1);
+	ZEPHIR_INIT_VAR(&_2);
+	array_init(&_2);
+	ZEPHIR_CALL_METHOD(&_0, this_ptr, "get", NULL, 0, &_1, &_2);
 	zephir_check_call_status();
-	zephir_is_iterable(&newKey, 0, "leevel/session/session.zep", 484);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&newKey), _2)
-	{
-		ZEPHIR_INIT_NVAR(&item);
-		ZVAL_COPY(&item, _2);
-		ZEPHIR_INIT_NVAR(&_3$$3);
-		zephir_create_array(&_3$$3, 2, 0 TSRMLS_CC);
-		zephir_array_fast_append(&_3$$3, this_ptr);
-		ZEPHIR_INIT_NVAR(&_4$$3);
-		ZVAL_STRING(&_4$$3, "deleteFlash");
-		zephir_array_fast_append(&_3$$3, &_4$$3);
-		ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 12, &_3$$3, &item);
-		zephir_check_call_status();
-	} ZEND_HASH_FOREACH_END();
-	ZEPHIR_INIT_NVAR(&item);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "deleteflash", NULL, 0, &_0);
+	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
 }
@@ -1153,7 +1108,7 @@ PHP_METHOD(Leevel_Session_Session, unregisterFlash) {
 	array_init(&_6);
 	ZEPHIR_CALL_METHOD(&old, this_ptr, "get", &_3, 0, &_4, &_6);
 	zephir_check_call_status();
-	zephir_is_iterable(&old, 0, "leevel/session/session.zep", 500);
+	zephir_is_iterable(&old, 0, "leevel/session/session.zep", 476);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&old), _7)
 	{
 		ZEPHIR_INIT_NVAR(&item);
@@ -1470,9 +1425,9 @@ PHP_METHOD(Leevel_Session_Session, parseMicrotime) {
 	ZEPHIR_INIT_VAR(&tmpListUsecSec);
 	zephir_fast_explode_str(&tmpListUsecSec, SL(" "), &_0, LONG_MAX TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&usec);
-	zephir_array_fetch_long(&usec, &tmpListUsecSec, 0, PH_NOISY, "leevel/session/session.zep", 628 TSRMLS_CC);
+	zephir_array_fetch_long(&usec, &tmpListUsecSec, 0, PH_NOISY, "leevel/session/session.zep", 604 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&sec);
-	zephir_array_fetch_long(&sec, &tmpListUsecSec, 1, PH_NOISY, "leevel/session/session.zep", 629 TSRMLS_CC);
+	zephir_array_fetch_long(&sec, &tmpListUsecSec, 1, PH_NOISY, "leevel/session/session.zep", 605 TSRMLS_CC);
 	ZVAL_DOUBLE(&_1, (zephir_get_doubleval(&usec) + zephir_get_doubleval(&sec)));
 	ZEPHIR_RETURN_CALL_FUNCTION("strval", NULL, 15, &_1);
 	zephir_check_call_status();
@@ -1742,7 +1697,7 @@ PHP_METHOD(Leevel_Session_Session, getPartData) {
 		if (!(zephir_is_true(&_3$$4))) {
 			ZEPHIR_INIT_VAR(&_4$$5);
 			if (zephir_array_key_exists(&value, &name TSRMLS_CC)) {
-				zephir_array_fetch(&_4$$5, &value, &name, PH_NOISY, "leevel/session/session.zep", 728 TSRMLS_CC);
+				zephir_array_fetch(&_4$$5, &value, &name, PH_NOISY, "leevel/session/session.zep", 704 TSRMLS_CC);
 			} else {
 				ZEPHIR_CPY_WRT(&_4$$5, defaults);
 			}
@@ -1750,7 +1705,7 @@ PHP_METHOD(Leevel_Session_Session, getPartData) {
 		}
 		ZEPHIR_INIT_VAR(&parts);
 		zephir_fast_explode_str(&parts, SL("."), &name, LONG_MAX TSRMLS_CC);
-		zephir_is_iterable(&parts, 0, "leevel/session/session.zep", 741);
+		zephir_is_iterable(&parts, 0, "leevel/session/session.zep", 717);
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&parts), _5$$4)
 		{
 			ZEPHIR_INIT_NVAR(&part);
@@ -1759,7 +1714,7 @@ PHP_METHOD(Leevel_Session_Session, getPartData) {
 				RETVAL_ZVAL(defaults, 1, 0);
 				RETURN_MM();
 			}
-			zephir_array_fetch(&_6$$6, &value, &part, PH_NOISY | PH_READONLY, "leevel/session/session.zep", 738 TSRMLS_CC);
+			zephir_array_fetch(&_6$$6, &value, &part, PH_NOISY | PH_READONLY, "leevel/session/session.zep", 714 TSRMLS_CC);
 			ZEPHIR_CPY_WRT(&value, &_6$$6);
 		} ZEND_HASH_FOREACH_END();
 		ZEPHIR_INIT_NVAR(&part);

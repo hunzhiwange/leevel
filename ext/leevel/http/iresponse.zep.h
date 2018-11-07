@@ -107,6 +107,7 @@ ZEND_END_ARG_INFO()
 ZEPHIR_INIT_FUNCS(leevel_http_iresponse_method_entry) {
 	ZEND_FENTRY(create, NULL, arginfo_leevel_http_iresponse_create, ZEND_ACC_STATIC|ZEND_ACC_ABSTRACT|ZEND_ACC_PUBLIC)
 	ZEND_FENTRY(setCookieResolver, NULL, arginfo_leevel_http_iresponse_setcookieresolver, ZEND_ACC_STATIC|ZEND_ACC_ABSTRACT|ZEND_ACC_PUBLIC)
+	ZEND_FENTRY(resolveCookie, NULL, NULL, ZEND_ACC_STATIC|ZEND_ACC_ABSTRACT|ZEND_ACC_PUBLIC)
 	PHP_ABSTRACT_ME(Leevel_Http_IResponse, send, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IResponse, sendHeaders, NULL)
 	PHP_ABSTRACT_ME(Leevel_Http_IResponse, sendContent, NULL)

@@ -69,6 +69,7 @@ class HeaderBag extends Bag
         var headers, content, name, value;
     
         let headers = this->all();
+        
         if ! (headers) {
             return "";
         }

@@ -409,20 +409,10 @@ class Session implements ISession
     /**
      * 保持闪存数据.
      *
-     * @param mixed $keys
+     * @param array $keys
      */
-    public function keepFlash() -> void
+    public function keepFlash(array keys) -> void
     {
-        var keys, args = [];
-
-        let args = func_get_args();
-
-        if empty args {
-            throw new BadMethodCallException("Wrong number of parameters.");
-        }
-
-        let keys = typeof args[0] === "array" ? args[0] : args;
-
         this->mergeNewFlash(keys);
         this->popOldFlash(keys);
     }
@@ -447,19 +437,11 @@ class Session implements ISession
     /**
      * 删除闪存数据.
      *
-     * @param mixed $keys
+     * @param array keys
      */
-    public function deleteFlash() -> void
+    public function deleteFlash(array keys) -> void
     {
-        var item, keys, args = [];
-
-        let args = func_get_args();
-
-        if empty args {
-            throw new BadMethodCallException("Wrong number of parameters.");
-        }
-
-        let keys = typeof args[0] === "array" ? args[0] : args;
+        var item;
 
         for item in keys {
             this->delete(this->flashDataKey(item));
@@ -474,13 +456,7 @@ class Session implements ISession
      */
     public function clearFlash() -> void
     {
-        var item, newKey;
-
-        let newKey = this->get(this->flashNewKey(), []);
-
-        for item in newKey {
-            call_user_func([this, "deleteFlash"], item);
-        }
+        this->deleteFlash(this->get(this->flashNewKey(), []));
     }
     
     /**

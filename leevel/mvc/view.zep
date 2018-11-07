@@ -92,19 +92,12 @@ class View implements IView
     /**
      * 删除变量值
      *
-     * @param mixed $name
+     * @param array $name
      * @return $this
      */
-    public function deleteAssign()
+    public function deleteAssign(array name)
     {
-        var args;
-
-        let args = func_get_args();
-
-        call_user_func_array([
-            this->theme,
-            "deleteVar"
-        ], args);
+        this->theme->deleteVar(name);
 
         return this;
     }

@@ -15,6 +15,7 @@
  */
 namespace Leevel\View;
 
+use Closure;
 use RuntimeException;
 use Leevel\View\Connect;
 use Leevel\View\IConnect;
@@ -40,7 +41,7 @@ class Html extends Connect implements IConnect
     /**
      * 解析 parser
      *
-     * @var callable
+     * @var \Closure
      */
     protected parserResolver;
 
@@ -104,10 +105,10 @@ class Html extends Connect implements IConnect
     /**
      * 设置 parser 解析回调
      *
-     * @param callable $parserResolver
+     * @param \Closure $parserResolver
      * @return void
      */
-    public function setParseResolver(parserResolver)
+    public function setParseResolver(<Closure> parserResolver)
     {
         let this->parserResolver = parserResolver;
     }

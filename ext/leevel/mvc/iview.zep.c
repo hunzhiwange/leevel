@@ -56,7 +56,7 @@ ZEPHIR_DOC_METHOD(Leevel_Mvc_IView, getAssign);
 /**
  * 删除变量值
  *
- * @param mixed $name
+ * @param array $name
  * @return $this
  */
 ZEPHIR_DOC_METHOD(Leevel_Mvc_IView, deleteAssign);

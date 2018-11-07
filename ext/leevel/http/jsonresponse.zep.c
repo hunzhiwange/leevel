@@ -53,7 +53,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_JsonResponse) {
 	/**
 	 * JSONP 回调
 	 * 
-	 * @var \callable
+	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_jsonresponse_ce, SL("callback"), ZEND_ACC_PROTECTED TSRMLS_CC);
 

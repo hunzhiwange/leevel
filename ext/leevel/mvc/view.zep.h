@@ -28,6 +28,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_mvc_view_getassign, 0, 0, 0)
 	ZEND_ARG_INFO(0, name)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_mvc_view_deleteassign, 0, 0, 1)
+	ZEND_ARG_ARRAY_INFO(0, name, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_mvc_view_display, 0, 0, 1)
 	ZEND_ARG_INFO(0, file)
 	ZEND_ARG_ARRAY_INFO(0, vars, 1)
@@ -39,7 +43,7 @@ ZEPHIR_INIT_FUNCS(leevel_mvc_view_method_entry) {
 	PHP_ME(Leevel_Mvc_View, switchView, arginfo_leevel_mvc_view_switchview, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Mvc_View, assign, arginfo_leevel_mvc_view_assign, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Mvc_View, getAssign, arginfo_leevel_mvc_view_getassign, ZEND_ACC_PUBLIC)
-	PHP_ME(Leevel_Mvc_View, deleteAssign, NULL, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Mvc_View, deleteAssign, arginfo_leevel_mvc_view_deleteassign, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Mvc_View, clearAssign, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Mvc_View, display, arginfo_leevel_mvc_view_display, ZEND_ACC_PUBLIC)
 	PHP_FE_END

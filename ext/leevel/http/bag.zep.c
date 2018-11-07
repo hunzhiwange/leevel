@@ -335,7 +335,7 @@ PHP_METHOD(Leevel_Http_Bag, remove) {
  *
  * @param string $key
  * @param mixed $defaults
- * @param array|sting|int $filter
+ * @param array|string|int $filter
  * @param array $options
  * @return mixed
  */

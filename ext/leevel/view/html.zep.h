@@ -19,7 +19,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_view_html_display, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_view_html_setparseresolver, 0, 0, 1)
-	ZEND_ARG_INFO(0, parserResolver)
+	ZEND_ARG_OBJ_INFO(0, parserResolver, Closure, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_view_html_getcachepath, 0, 0, 1)

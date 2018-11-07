@@ -75,11 +75,6 @@ ZEPHIR_DOC_METHOD(Leevel_Kernel_IProject, runWithExtension);
 ZEPHIR_DOC_METHOD(Leevel_Kernel_IProject, console);
 
 /**
- * {@inheritdoc}
- */
-ZEPHIR_DOC_METHOD(Leevel_Kernel_IProject, make);
-
-/**
  * 设置项目路径.
  *
  * @param string $path

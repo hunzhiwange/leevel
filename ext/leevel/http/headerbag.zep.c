@@ -185,7 +185,7 @@ PHP_METHOD(Leevel_Http_HeaderBag, __toString) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&content);
 	ZVAL_STRING(&content, "");
-	zephir_is_iterable(&headers, 0, "leevel/http/headerbag.zep", 85);
+	zephir_is_iterable(&headers, 0, "leevel/http/headerbag.zep", 86);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&headers), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&name);

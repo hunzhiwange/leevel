@@ -104,17 +104,13 @@ abstract class Controller implements IController
     /**
      * 删除变量值
      *
-     * @param mixed $name
+     * @param array $name
      * @return $this
      */
-    public function deleteAssign()
+    public function deleteAssign(array name)
     {
         this->checkView();
-
-        call_user_func_array([
-            this->view,
-            "deleteAssign"
-        ], func_get_args());
+        this->view->deleteAssign(name);
 
         return this;
     }

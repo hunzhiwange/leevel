@@ -309,12 +309,12 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
     }
 
     /**
-     * JQuery.each
+     * each
      *
-     * @param callable $callback
+     * @param \Closure $callback
      * @return $this
      */
-    public function each(callback)
+    public function each(<Closure> callback)
     {
         var key, item;
 
@@ -338,7 +338,7 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
      * @param callable $macro
      * @return void
      */
-    public static function macro(string name, var macro)
+    public static function macro(string name, <Closure> macro)
     {
         let self::macro[name] = macro;
     }

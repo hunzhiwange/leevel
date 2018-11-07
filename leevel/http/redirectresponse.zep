@@ -149,6 +149,7 @@ class RedirectResponse extends Response
         var args;
 
         let args = func_get_args();
+
         if empty args{
             throw new InvalidArgumentException("Method onlyInput need an args.");
         }
@@ -166,6 +167,7 @@ class RedirectResponse extends Response
         var args;
 
         let args = func_get_args();
+        
         if empty args{
             throw new InvalidArgumentException("Method exceptInput need an args.");
         }

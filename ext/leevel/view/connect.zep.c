@@ -16,9 +16,8 @@
 #include "kernel/array.h"
 #include "kernel/object.h"
 #include "kernel/operators.h"
-#include "kernel/main.h"
-#include "kernel/exception.h"
 #include "kernel/fcall.h"
+#include "kernel/exception.h"
 #include "ext/spl/spl_exceptions.h"
 #include "kernel/string.h"
 #include "kernel/concat.h"
@@ -200,63 +199,35 @@ PHP_METHOD(Leevel_View_Connect, getVar) {
 /**
  * 删除变量值
  *
+ * @param array $name
  * @return $this
  */
 PHP_METHOD(Leevel_View_Connect, deleteVar) {
 
-	zend_class_entry *_1$$3 = NULL;
-	zval item, name, args, _3, *_4, _0$$3, _2$$3, _5$$4, _6$$5;
-	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *name_param = NULL, item, *_0, _1$$3, _2$$4;
+	zval name;
 	zval *this_ptr = getThis();
 
-	ZVAL_UNDEF(&item);
 	ZVAL_UNDEF(&name);
-	ZVAL_UNDEF(&args);
-	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_0$$3);
-	ZVAL_UNDEF(&_2$$3);
-	ZVAL_UNDEF(&_5$$4);
-	ZVAL_UNDEF(&_6$$5);
+	ZVAL_UNDEF(&item);
+	ZVAL_UNDEF(&_1$$3);
+	ZVAL_UNDEF(&_2$$4);
 
 	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &name_param);
 
-	ZEPHIR_INIT_VAR(&args);
-	array_init(&args);
-	ZEPHIR_INIT_NVAR(&args);
-	zephir_get_args(&args);
-	if (ZEPHIR_IS_EMPTY(&args)) {
-		ZEPHIR_INIT_VAR(&_0$$3);
-		if (!_1$$3) {
-		_1$$3 = zephir_fetch_class_str_ex(SL("Leevel\\View\\BadMethodCallException"), ZEND_FETCH_CLASS_AUTO);
-		}
-		object_init_ex(&_0$$3, _1$$3);
-		if (zephir_has_constructor(&_0$$3 TSRMLS_CC)) {
-			ZEPHIR_INIT_VAR(&_2$$3);
-			ZVAL_STRING(&_2$$3, "Wrong number of parameters");
-			ZEPHIR_CALL_METHOD(NULL, &_0$$3, "__construct", NULL, 0, &_2$$3);
-			zephir_check_call_status();
-		}
-		zephir_throw_exception_debug(&_0$$3, "leevel/view/connect.zep", 113 TSRMLS_CC);
-		ZEPHIR_MM_RESTORE();
-		return;
-	}
-	ZEPHIR_OBS_VAR(&_3);
-	zephir_array_fetch_long(&_3, &args, 0, PH_NOISY, "leevel/view/connect.zep", 116 TSRMLS_CC);
-	if (Z_TYPE_P(&_3) == IS_ARRAY) {
-		ZEPHIR_OBS_VAR(&name);
-		zephir_array_fetch_long(&name, &args, 0, PH_NOISY, "leevel/view/connect.zep", 116 TSRMLS_CC);
-	} else {
-		ZEPHIR_CPY_WRT(&name, &args);
-	}
-	zephir_is_iterable(&name, 0, "leevel/view/connect.zep", 124);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&name), _4)
+	zephir_get_arrval(&name, name_param);
+
+
+	zephir_is_iterable(&name, 0, "leevel/view/connect.zep", 117);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&name), _0)
 	{
 		ZEPHIR_INIT_NVAR(&item);
-		ZVAL_COPY(&item, _4);
-		zephir_read_property(&_5$$4, this_ptr, SL("vars"), PH_NOISY_CC | PH_READONLY);
-		if (zephir_array_isset(&_5$$4, &item)) {
-			zephir_read_property(&_6$$5, this_ptr, SL("vars"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_unset(&_6$$5, &item, PH_SEPARATE);
+		ZVAL_COPY(&item, _0);
+		zephir_read_property(&_1$$3, this_ptr, SL("vars"), PH_NOISY_CC | PH_READONLY);
+		if (zephir_array_isset(&_1$$3, &item)) {
+			zephir_read_property(&_2$$4, this_ptr, SL("vars"), PH_NOISY_CC | PH_READONLY);
+			zephir_array_unset(&_2$$4, &item, PH_SEPARATE);
 		}
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
@@ -340,7 +311,7 @@ PHP_METHOD(Leevel_View_Connect, parseDisplayFile) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_4$$4, "__construct", NULL, 3, &_6$$4);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_4$$4, "leevel/view/connect.zep", 156 TSRMLS_CC);
+		zephir_throw_exception_debug(&_4$$4, "leevel/view/connect.zep", 149 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -426,20 +397,20 @@ PHP_METHOD(Leevel_View_Connect, parseFile) {
 		RETURN_MM();
 	}
 	zephir_read_property(&_3, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_11, &_3, SL("theme_path"), PH_NOISY | PH_READONLY, "leevel/view/connect.zep", 182 TSRMLS_CC);
+	zephir_array_fetch_string(&_11, &_3, SL("theme_path"), PH_NOISY | PH_READONLY, "leevel/view/connect.zep", 175 TSRMLS_CC);
 	if (!(zephir_is_true(&_11))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Theme path must be set.", "leevel/view/connect.zep", 183);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Theme path must be set.", "leevel/view/connect.zep", 176);
 		return;
 	}
 	zephir_read_property(&_12, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_13, &_12, SL("theme_path"), PH_NOISY | PH_READONLY, "leevel/view/connect.zep", 186 TSRMLS_CC);
+	zephir_array_fetch_string(&_13, &_12, SL("theme_path"), PH_NOISY | PH_READONLY, "leevel/view/connect.zep", 179 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_14);
 	if (!(ZEPHIR_IS_EMPTY(&ext))) {
 		ZEPHIR_CPY_WRT(&_14, &ext);
 	} else {
 		zephir_read_property(&_15, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_OBS_NVAR(&_14);
-		zephir_array_fetch_string(&_14, &_15, SL("suffix"), PH_NOISY, "leevel/view/connect.zep", 187 TSRMLS_CC);
+		zephir_array_fetch_string(&_14, &_15, SL("suffix"), PH_NOISY, "leevel/view/connect.zep", 180 TSRMLS_CC);
 	}
 	ZEPHIR_CONCAT_VSVV(return_value, &_13, "/", &tplTmp, &_14);
 	RETURN_MM();

@@ -16,6 +16,7 @@
 
 namespace Leevel\View;
 
+use Closure;
 use RuntimeException;
 
 /**
@@ -39,7 +40,7 @@ class Twig extends Connect implements IConnect
     /**
      * 解析 parse.
      *
-     * @var callable
+     * @var \Closure
      */
     protected parseResolver;
     
@@ -86,9 +87,9 @@ class Twig extends Connect implements IConnect
     /**
      * 设置 parse 解析回调.
      *
-     * @param callable $parseResolver
+     * @param \Closure $parseResolver
      */
-    public function setParseResolver(parseResolver) -> void
+    public function setParseResolver(<Closure> parseResolver) -> void
     {
         let this->parseResolver = parseResolver;
     }

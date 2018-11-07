@@ -6,6 +6,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_Response);
 PHP_METHOD(Leevel_Http_Response, __construct);
 PHP_METHOD(Leevel_Http_Response, create);
 PHP_METHOD(Leevel_Http_Response, setCookieResolver);
+PHP_METHOD(Leevel_Http_Response, resolveCookie);
 PHP_METHOD(Leevel_Http_Response, send);
 PHP_METHOD(Leevel_Http_Response, sendHeaders);
 PHP_METHOD(Leevel_Http_Response, sendContent);
@@ -193,7 +194,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_response_macro, 0, 0, 2)
 	ZEND_ARG_INFO(0, name)
-	ZEND_ARG_INFO(0, macro)
+	ZEND_ARG_OBJ_INFO(0, macro, Closure, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_http_response_hasmacro, 0, 0, 1)
@@ -236,6 +237,7 @@ ZEPHIR_INIT_FUNCS(leevel_http_response_method_entry) {
 	PHP_ME(Leevel_Http_Response, __construct, arginfo_leevel_http_response___construct, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
 	PHP_ME(Leevel_Http_Response, create, arginfo_leevel_http_response_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Leevel_Http_Response, setCookieResolver, arginfo_leevel_http_response_setcookieresolver, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(Leevel_Http_Response, resolveCookie, NULL, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(Leevel_Http_Response, send, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Response, sendHeaders, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Http_Response, sendContent, NULL, ZEND_ACC_PUBLIC)

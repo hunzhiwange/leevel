@@ -18,7 +18,7 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_view_twig_display, 0, 0, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_view_twig_setparseresolver, 0, 0, 1)
-	ZEND_ARG_INFO(0, parseResolver)
+	ZEND_ARG_OBJ_INFO(0, parseResolver, Closure, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_leevel_view_twig_renderfile, 0, 0, 1)

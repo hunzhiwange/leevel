@@ -98,7 +98,7 @@ PHP_METHOD(Leevel_Auth_Provider_Register, providers) {
 
 	ZEPHIR_MM_GROW();
 
-	zephir_create_array(return_value, 2, 0 TSRMLS_CC);
+	zephir_create_array(return_value, 3, 0 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_create_array(&_0, 1, 0 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_1);
@@ -114,6 +114,9 @@ PHP_METHOD(Leevel_Auth_Provider_Register, providers) {
 	ZVAL_STRING(&_1, "Leevel\\Auth\\IAuth");
 	zephir_array_fast_append(&_0, &_1);
 	zephir_array_update_string(return_value, SL("auth"), &_0, PH_COPY | PH_SEPARATE);
+	ZEPHIR_INIT_NVAR(&_1);
+	ZVAL_STRING(&_1, "Leevel\\Auth\\Middleware\\Auth");
+	zephir_array_fast_append(return_value, &_1);
 	RETURN_MM();
 
 }

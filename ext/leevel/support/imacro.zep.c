@@ -32,7 +32,7 @@ ZEPHIR_INIT_CLASS(Leevel_Support_IMacro) {
  * 注册一个扩展
  *
  * @param string $name
- * @param callable $macro
+ * @param \Closure $macro
  * @return void
  */
 ZEPHIR_DOC_METHOD(Leevel_Support_IMacro, macro);

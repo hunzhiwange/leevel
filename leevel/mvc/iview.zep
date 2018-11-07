@@ -56,10 +56,10 @@ interface IView
     /**
      * 删除变量值
      *
-     * @param mixed $name
+     * @param array $name
      * @return $this
      */
-    public function deleteAssign();
+    public function deleteAssign(array name);
 
     /**
      * 清空变量值

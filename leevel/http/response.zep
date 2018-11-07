@@ -20,6 +20,7 @@ use DateTime;
 use ArrayObject;
 use DateTimeZone;
 use JsonSerializable;
+use Leevel\Cookie\ICookie;
 use BadMethodCallException;
 use InvalidArgumentException;
 use UnexpectedValueException;
@@ -103,6 +104,13 @@ class Response implements IControl, IMacro, IResponse
      * @var \Closure
      */
     protected static cookieResolver;
+
+    /**
+     * COOKIE.
+     *
+     * @var \Leevel\Cookie\ICookie
+     */
+    protected static resolvedCookie;
     
     /**
      * 状态码
@@ -234,6 +242,30 @@ class Response implements IControl, IMacro, IResponse
     public static function setCookieResolver(<Closure> cookieResolver = null)
     {
         let self::cookieResolver = cookieResolver;
+
+        if !cookieResolver {
+            let self::resolvedCookie = null;
+        }
+    }
+
+    /**
+     * 返回 COOKIE.
+     *
+     * @return \Leevel\Cookie\ICookie
+     */
+    public static function resolveCookie() -> <ICookie>
+    {
+        if self::resolvedCookie {
+            return self::resolvedCookie;
+        }
+
+        if !self::cookieResolver {
+            throw new InvalidArgumentException("Cookie resolver is not set.");
+        }
+        
+        let self::resolvedCookie = call_user_func(self::cookieResolver);
+
+        return self::resolvedCookie;
     }
     
     /**
@@ -260,7 +292,7 @@ class Response implements IControl, IMacro, IResponse
      */
     public function sendHeaders()
     {
-        var name, value, cookie, item;
+        var name, value, item;
     
         if this->checkTControl() {
             return this;
@@ -277,11 +309,8 @@ class Response implements IControl, IMacro, IResponse
         // 状态码
         header(sprintf("HTTP/%s %s %s", this->protocolVersion, this->statusCode, this->statusText), true, this->statusCode);
 
-        // cookie
-        let cookie = call_user_func(self::cookieResolver);
-
-        if cookie {
-            for item in cookie->all() {
+        if self::cookieResolver {
+            for item in self::resolveCookie()->all() {
                 call_user_func_array("setcookie", item);;
             }
         }
@@ -423,18 +452,11 @@ class Response implements IControl, IMacro, IResponse
      */
     public function setCookie(string name, string value = "", array option = [])
     {
-        var cookie;
-    
         if this->checkTControl() {
             return this;
         }
 
-        if ! (self::cookieResolver) {
-            throw new InvalidArgumentException("Cookie resolver is not set.");
-        }
-
-        let cookie = call_user_func(self::cookieResolver);
-        cookie->set(name, value, option);
+        self::resolveCookie()->set(name, value, option);
 
         return this;
     }
@@ -468,8 +490,7 @@ class Response implements IControl, IMacro, IResponse
      */
     public function getCookies()
     {
-        var cookie = call_user_func(self::cookieResolver);
-        return cookie->all();
+        return self::resolveCookie()->all();
     }
     
     /**
@@ -1041,7 +1062,7 @@ class Response implements IControl, IMacro, IResponse
      * @param callable $macro
      * @return void
      */
-    public static function macro(string name, var macro)
+    public static function macro(string name, <Closure> macro)
     {
         let self::macro[name] = macro;
     }

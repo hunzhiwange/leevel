@@ -59,6 +59,7 @@ ZEPHIR_DOC_METHOD(Leevel_View_IConnect, getVar);
 /**
  * 删除变量值
  *
+ * @param array $name
  * @return $this
  */
 ZEPHIR_DOC_METHOD(Leevel_View_IConnect, deleteVar);

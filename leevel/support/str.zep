@@ -489,7 +489,7 @@ class Str implements IMacro
      * @param callable $macro
      * @return void
      */
-    public static function macro(string name, var macro)
+    public static function macro(string name, <Closure> macro)
     {
         let self::macro[name] = macro;
     }

@@ -484,6 +484,13 @@ ZEPHIR_DOC_METHOD(Leevel_Http_IResponse, create);
 ZEPHIR_DOC_METHOD(Leevel_Http_IResponse, setCookieResolver);
 
 /**
+ * 返回 COOKIE.
+ *
+ * @return \Leevel\Cookie\ICookie
+ */
+ZEPHIR_DOC_METHOD(Leevel_Http_IResponse, resolveCookie);
+
+/**
  * 发送 HTTP 响应.
  *
  * @return $this

@@ -47,7 +47,7 @@ ZEPHIR_INIT_CLASS(Leevel_View_Html) {
 	/**
 	 * 解析 parser
 	 *
-	 * @var callable
+	 * @var \Closure
 	 */
 	zend_declare_property_null(leevel_view_html_ce, SL("parserResolver"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
@@ -130,7 +130,7 @@ PHP_METHOD(Leevel_View_Html, display) {
 	zephir_read_property(&_0, this_ptr, SL("vars"), PH_NOISY_CC | PH_READONLY);
 	if (!(ZEPHIR_IS_EMPTY(&_0))) {
 		zephir_read_property(&_1$$4, this_ptr, SL("vars"), PH_NOISY_CC | PH_READONLY);
-		zephir_is_iterable(&_1$$4, 0, "leevel/view/html.zep", 83);
+		zephir_is_iterable(&_1$$4, 0, "leevel/view/html.zep", 84);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_1$$4), _3$$4, _4$$4, _2$$4)
 		{
 			ZEPHIR_INIT_NVAR(&key);
@@ -182,7 +182,7 @@ PHP_METHOD(Leevel_View_Html, display) {
 /**
  * 设置 parser 解析回调
  *
- * @param callable $parserResolver
+ * @param \Closure $parserResolver
  * @return void
  */
 PHP_METHOD(Leevel_View_Html, setParseResolver) {
@@ -236,9 +236,9 @@ PHP_METHOD(Leevel_View_Html, getCachePath) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_1, &_0, SL("cache_path"), PH_NOISY | PH_READONLY, "leevel/view/html.zep", 123 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &_0, SL("cache_path"), PH_NOISY | PH_READONLY, "leevel/view/html.zep", 124 TSRMLS_CC);
 	if (!(zephir_is_true(&_1))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Theme cache path must be set.", "leevel/view/html.zep", 124);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Theme cache path must be set.", "leevel/view/html.zep", 125);
 		return;
 	}
 	ZEPHIR_INIT_VAR(&_2);
@@ -266,7 +266,7 @@ PHP_METHOD(Leevel_View_Html, getCachePath) {
 	ZEPHIR_CONCAT_VSVS(&_12, &_10, ".", &_11, ".php");
 	zephir_get_strval(&file, &_12);
 	zephir_read_property(&_7, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_13, &_7, SL("cache_path"), PH_NOISY | PH_READONLY, "leevel/view/html.zep", 131 TSRMLS_CC);
+	zephir_array_fetch_string(&_13, &_7, SL("cache_path"), PH_NOISY | PH_READONLY, "leevel/view/html.zep", 132 TSRMLS_CC);
 	ZEPHIR_CONCAT_VSV(return_value, &_13, "/", &file);
 	RETURN_MM();
 
@@ -289,7 +289,7 @@ PHP_METHOD(Leevel_View_Html, resolverParser) {
 
 	zephir_read_property(&_0, this_ptr, SL("parserResolver"), PH_NOISY_CC | PH_READONLY);
 	if (!(zephir_is_true(&_0))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STRW(spl_ce_RuntimeException, "Html theme not set parse resolver.", "leevel/view/html.zep", 142);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STRW(spl_ce_RuntimeException, "Html theme not set parse resolver.", "leevel/view/html.zep", 143);
 		return;
 	}
 	zephir_read_property(&_1, this_ptr, SL("parserResolver"), PH_NOISY_CC | PH_READONLY);
