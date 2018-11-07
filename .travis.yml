@@ -55,7 +55,9 @@ before_install:
   - bash ci/pear_setup.sh
 
 install:
-  - composer install -q -n --no-ansi --no-progress --dev --prefer-dist --no-suggest #--ignore-platform-reqs
+  # - composer install -q -n --no-ansi --no-progress --dev --prefer-dist --no-suggest #--ignore-platform-reqs
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
   # We'll do this in future for the all 7.x series
   - bash ci/install-re2c $RE2C_VERSION
   - bash ci/install_zephir_parser.sh
