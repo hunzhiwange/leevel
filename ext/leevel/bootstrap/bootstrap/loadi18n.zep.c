@@ -200,7 +200,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadI18n, getExtend) {
 			ZVAL_STRING(&_10$$5, "I18n dir %s is not exist.");
 			ZEPHIR_CALL_FUNCTION(&_11$$5, "sprintf", &_12, 1, &_10$$5, &item);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_9$$5, "__construct", &_13, 22, &_11$$5);
+			ZEPHIR_CALL_METHOD(NULL, &_9$$5, "__construct", &_13, 5, &_11$$5);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_9$$5, "leevel/bootstrap/bootstrap/loadi18n.zep", 85 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();

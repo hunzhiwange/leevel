@@ -172,7 +172,7 @@ PHP_METHOD(Leevel_Log_Connect, flush) {
 		ZEPHIR_INIT_NVAR(&value);
 		ZVAL_COPY(&value, _0);
 		ZEPHIR_MAKE_REF(&value);
-		ZEPHIR_CALL_FUNCTION(&_1$$3, "array_shift", &_2, 6, &value);
+		ZEPHIR_CALL_FUNCTION(&_1$$3, "array_shift", &_2, 4, &value);
 		ZEPHIR_UNREF(&value);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(&method, this_ptr, "normalizelevel", &_3, 0, &_1$$3);

@@ -453,7 +453,7 @@ PHP_METHOD(Leevel_Support_Str, randChinese) {
 			ZVAL_LONG(&i, _2);
 			ZEPHIR_INIT_NVAR(&_6$$5);
 			ZVAL_STRING(&_6$$5, "utf-8");
-			ZEPHIR_CALL_FUNCTION(&_7$$5, "mb_strlen", &_8, 150, charBox, &_6$$5);
+			ZEPHIR_CALL_FUNCTION(&_7$$5, "mb_strlen", &_8, 151, charBox, &_6$$5);
 			zephir_check_call_status();
 			ZVAL_LONG(&_9$$5, 0);
 			ZVAL_LONG(&_10$$5, (zephir_get_numberval(&_7$$5) - 1));
@@ -505,7 +505,7 @@ PHP_METHOD(Leevel_Support_Str, randStr) {
 	if (_0) {
 		RETURN_MM_STRING("");
 	}
-	ZEPHIR_CALL_FUNCTION(&_1, "str_shuffle", NULL, 151, charBox);
+	ZEPHIR_CALL_FUNCTION(&_1, "str_shuffle", NULL, 152, charBox);
 	zephir_check_call_status();
 	ZVAL_LONG(&_2, 0);
 	ZVAL_LONG(&_3, length);
@@ -578,7 +578,7 @@ PHP_METHOD(Leevel_Support_Str, strEncoding) {
 		RETURN_MM();
 	}
 	if (Z_TYPE_P(contents) == IS_STRING) {
-		ZEPHIR_RETURN_CALL_FUNCTION("mb_convert_encoding", NULL, 152, contents, &toChar, &fromChar);
+		ZEPHIR_RETURN_CALL_FUNCTION("mb_convert_encoding", NULL, 153, contents, &toChar, &fromChar);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -655,7 +655,7 @@ PHP_METHOD(Leevel_Support_Str, substr) {
 
 	ZVAL_LONG(&_0, start);
 	ZVAL_LONG(&_1, length);
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_substr", NULL, 153, &strings, &_0, &_1, &charset);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_substr", NULL, 154, &strings, &_0, &_1, &charset);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -889,7 +889,7 @@ PHP_METHOD(Leevel_Support_Str, formatBytes) {
 PHP_METHOD(Leevel_Support_Str, camelize) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *value_param = NULL, *separator_param = NULL, tmp, _0, _1, _2, _3, _4, _5, _6;
+	zval *value_param = NULL, *separator_param = NULL, tmp, _0, _1, _2, _3, _4, _5, _6, _7;
 	zval value, separator;
 	zval *this_ptr = getThis();
 
@@ -903,6 +903,7 @@ PHP_METHOD(Leevel_Support_Str, camelize) {
 	ZVAL_UNDEF(&_4);
 	ZVAL_UNDEF(&_5);
 	ZVAL_UNDEF(&_6);
+	ZVAL_UNDEF(&_7);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 1, &value_param, &separator_param);
@@ -917,22 +918,27 @@ PHP_METHOD(Leevel_Support_Str, camelize) {
 
 
 	ZEPHIR_INIT_VAR(&_0);
+	zephir_fast_strpos(&_0, &value, &separator, 0 );
+	if (ZEPHIR_IS_FALSE_IDENTICAL(&_0)) {
+		RETURN_CTOR(&value);
+	}
 	ZEPHIR_INIT_VAR(&_1);
-	zephir_fast_strtolower(&_1, &value);
 	ZEPHIR_INIT_VAR(&_2);
-	ZVAL_STRING(&_2, " ");
-	zephir_fast_str_replace(&_0, &separator, &_2, &_1 TSRMLS_CC);
-	ZEPHIR_INIT_VAR(&tmp);
-	ZEPHIR_CONCAT_VV(&tmp, &separator, &_0);
+	zephir_fast_strtolower(&_2, &value);
 	ZEPHIR_INIT_VAR(&_3);
-	ZEPHIR_CALL_FUNCTION(&_4, "ucwords", NULL, 23, &tmp);
+	ZVAL_STRING(&_3, " ");
+	zephir_fast_str_replace(&_1, &separator, &_3, &_2 TSRMLS_CC);
+	ZEPHIR_INIT_VAR(&tmp);
+	ZEPHIR_CONCAT_VV(&tmp, &separator, &_1);
+	ZEPHIR_INIT_VAR(&_4);
+	ZEPHIR_CALL_FUNCTION(&_5, "ucwords", NULL, 6, &tmp);
 	zephir_check_call_status();
-	ZEPHIR_INIT_VAR(&_5);
-	ZVAL_STRING(&_5, " ");
 	ZEPHIR_INIT_VAR(&_6);
-	ZVAL_STRING(&_6, "");
-	zephir_fast_str_replace(&_3, &_5, &_6, &_4 TSRMLS_CC);
-	zephir_fast_trim(return_value, &_3, &separator, ZEPHIR_TRIM_LEFT TSRMLS_CC);
+	ZVAL_STRING(&_6, " ");
+	ZEPHIR_INIT_VAR(&_7);
+	ZVAL_STRING(&_7, "");
+	zephir_fast_str_replace(&_4, &_6, &_7, &_5 TSRMLS_CC);
+	zephir_fast_trim(return_value, &_4, &separator, ZEPHIR_TRIM_LEFT TSRMLS_CC);
 	RETURN_MM();
 
 }
@@ -974,7 +980,7 @@ PHP_METHOD(Leevel_Support_Str, unCamelize) {
 	ZEPHIR_CONCAT_SVS(&_0, "$1", &separator, "$2");
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "/([a-z])([A-Z])/");
-	ZEPHIR_CALL_FUNCTION(&_2, "preg_replace", NULL, 154, &_1, &_0, &value);
+	ZEPHIR_CALL_FUNCTION(&_2, "preg_replace", NULL, 155, &_1, &_0, &value);
 	zephir_check_call_status();
 	zephir_fast_strtolower(return_value, &_2);
 	RETURN_MM();
@@ -1048,7 +1054,7 @@ PHP_METHOD(Leevel_Support_Str, endsWith) {
 	zephir_get_strval(&search, search_param);
 
 
-	ZEPHIR_CALL_FUNCTION(&_0, "strval", NULL, 11, &search);
+	ZEPHIR_CALL_FUNCTION(&_0, "strval", NULL, 15, &search);
 	zephir_check_call_status();
 	ZVAL_LONG(&_1, -zephir_fast_strlen_ev(&search));
 	ZEPHIR_INIT_VAR(&_2);
@@ -1190,7 +1196,7 @@ PHP_METHOD(Leevel_Support_Str, callStaticMacro) {
 	zephir_check_call_status();
 	if (zephir_is_true(&_0)) {
 		zephir_read_static_property_ce(&_1$$3, leevel_support_str_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY | PH_READONLY, "leevel/support/str.zep", 517 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY | PH_READONLY, "leevel/support/str.zep", 521 TSRMLS_CC);
 		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_2$$3, &args);
 		zephir_check_call_status();
 		RETURN_MM();
@@ -1203,7 +1209,7 @@ PHP_METHOD(Leevel_Support_Str, callStaticMacro) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", NULL, 2, &_5);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_3, "leevel/support/str.zep", 520 TSRMLS_CC);
+	zephir_throw_exception_debug(&_3, "leevel/support/str.zep", 524 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -1253,10 +1259,10 @@ PHP_METHOD(Leevel_Support_Str, callMacro) {
 	if (zephir_is_true(&_0)) {
 		zephir_read_static_property_ce(&_1$$3, leevel_support_str_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_OBS_VAR(&_2$$3);
-		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY, "leevel/support/str.zep", 536 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY, "leevel/support/str.zep", 540 TSRMLS_CC);
 		if (zephir_instance_of_ev(&_2$$3, zend_ce_closure TSRMLS_CC)) {
 			zephir_read_static_property_ce(&_3$$4, leevel_support_str_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_4$$4, &_3$$4, &method, PH_NOISY | PH_READONLY, "leevel/support/str.zep", 537 TSRMLS_CC);
+			zephir_array_fetch(&_4$$4, &_3$$4, &method, PH_NOISY | PH_READONLY, "leevel/support/str.zep", 541 TSRMLS_CC);
 			ZEPHIR_CALL_METHOD(&_5$$4, &_4$$4, "bindto", NULL, 0, this_ptr);
 			zephir_check_call_status();
 			ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_5$$4, &args);
@@ -1264,7 +1270,7 @@ PHP_METHOD(Leevel_Support_Str, callMacro) {
 			RETURN_MM();
 		} else {
 			zephir_read_static_property_ce(&_6$$5, leevel_support_str_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_7$$5, &_6$$5, &method, PH_NOISY | PH_READONLY, "leevel/support/str.zep", 539 TSRMLS_CC);
+			zephir_array_fetch(&_7$$5, &_6$$5, &method, PH_NOISY | PH_READONLY, "leevel/support/str.zep", 543 TSRMLS_CC);
 			ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_7$$5, &args);
 			zephir_check_call_status();
 			RETURN_MM();
@@ -1278,7 +1284,7 @@ PHP_METHOD(Leevel_Support_Str, callMacro) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_8, "__construct", NULL, 2, &_10);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_8, "leevel/support/str.zep", 543 TSRMLS_CC);
+	zephir_throw_exception_debug(&_8, "leevel/support/str.zep", 547 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 

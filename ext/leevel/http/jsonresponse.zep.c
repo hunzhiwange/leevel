@@ -413,14 +413,14 @@ PHP_METHOD(Leevel_Http_JsonResponse, setData) {
 		zephir_json_encode(&_12$$8, data, zephir_get_intval(&_13$$8) );
 		zephir_update_property_zval(this_ptr, SL("data"), &_12$$8);
 	}
-	ZEPHIR_CALL_FUNCTION(&_14, "json_last_error", NULL, 19);
+	ZEPHIR_CALL_FUNCTION(&_14, "json_last_error", NULL, 23);
 	zephir_check_call_status();
 	if (!ZEPHIR_IS_LONG_IDENTICAL(&_14, 0)) {
 		ZEPHIR_INIT_VAR(&_15$$9);
 		object_init_ex(&_15$$9, spl_ce_InvalidArgumentException);
-		ZEPHIR_CALL_FUNCTION(&_16$$9, "json_last_error_msg", NULL, 20);
+		ZEPHIR_CALL_FUNCTION(&_16$$9, "json_last_error_msg", NULL, 24);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_15$$9, "__construct", NULL, 21, &_16$$9);
+		ZEPHIR_CALL_METHOD(NULL, &_15$$9, "__construct", NULL, 25, &_16$$9);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_15$$9, "leevel/http/jsonresponse.zep", 184 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -557,10 +557,10 @@ PHP_METHOD(Leevel_Http_JsonResponse, isJsonData) {
 		RETURN_MM_BOOL(0);
 	}
 	ZEPHIR_INIT_VAR(&_1);
-	ZEPHIR_CALL_FUNCTION(&_2, "strval", NULL, 11, data);
+	ZEPHIR_CALL_FUNCTION(&_2, "strval", NULL, 15, data);
 	zephir_check_call_status();
 	zephir_json_decode(&_1, &_2, 0 );
-	ZEPHIR_CALL_FUNCTION(&_3, "json_last_error", NULL, 19);
+	ZEPHIR_CALL_FUNCTION(&_3, "json_last_error", NULL, 23);
 	zephir_check_call_status();
 	RETURN_MM_BOOL(ZEPHIR_IS_LONG_IDENTICAL(&_3, 0));
 

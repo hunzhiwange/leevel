@@ -401,7 +401,11 @@ class Str implements IMacro
     {
         var tmp;
 
-        let tmp = separator . str_replace(separator, " ", strtolower(value));
+        if false === strpos(value, separator) {
+            return value;
+        }
+
+        let tmp = separator.str_replace(separator, " ", strtolower(value));
 
         return ltrim(str_replace(" ", "", ucwords(tmp)), separator);
     }

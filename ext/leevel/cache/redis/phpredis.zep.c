@@ -142,7 +142,7 @@ PHP_METHOD(Leevel_Cache_Redis_PhpRedis, __construct) {
 	zephir_read_property(&_11, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	zephir_array_fetch_string(&_12, &_11, SL("timeout"), PH_NOISY | PH_READONLY, "leevel/cache/redis/phpredis.zep", 78 TSRMLS_CC);
 	ZVAL_LONG(&_13, zephir_get_intval(&_7));
-	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", NULL, 8, &_6, &_9, &_13, &_12);
+	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", NULL, 12, &_6, &_9, &_13, &_12);
 	zephir_check_call_status();
 	zephir_read_property(&_13, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	zephir_array_fetch_string(&_14, &_13, SL("password"), PH_NOISY | PH_READONLY, "leevel/cache/redis/phpredis.zep", 80 TSRMLS_CC);

@@ -293,7 +293,7 @@ PHP_METHOD(Leevel_Pipeline_Pipeline, traverseGenerator) {
 	}
 	if (_13) {
 		ZEPHIR_MAKE_REF(&current);
-		ZEPHIR_CALL_FUNCTION(&params, "array_pop", NULL, 134, &current);
+		ZEPHIR_CALL_FUNCTION(&params, "array_pop", NULL, 135, &current);
 		ZEPHIR_UNREF(&current);
 		zephir_check_call_status();
 		zephir_is_iterable(&params, 0, "leevel/pipeline/pipeline.zep", 165);
@@ -535,7 +535,7 @@ PHP_METHOD(Leevel_Pipeline_Pipeline, parse) {
 		ZEPHIR_INIT_NVAR(&item);
 		ZVAL_COPY(&item, _4);
 		ZEPHIR_INIT_LNVAR(_7$$4);
-		ZEPHIR_CALL_FUNCTION(&_8$$4, "ctype_digit", &_9, 12, &item);
+		ZEPHIR_CALL_FUNCTION(&_8$$4, "ctype_digit", &_9, 16, &item);
 		zephir_check_call_status();
 		if (zephir_is_true(&_8$$4)) {
 			ZEPHIR_INIT_NVAR(&_7$$4);

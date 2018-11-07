@@ -281,7 +281,7 @@ PHP_METHOD(Leevel_Http_File, moveToTarget) {
 		ZEPHIR_INIT_NVAR(&method);
 		ZVAL_STRING(&method, "rename");
 	}
-	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", NULL, 8, &method, &sourcePath, &target);
+	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", NULL, 12, &method, &sourcePath, &target);
 	zephir_check_call_status();
 	ZEPHIR_CALL_FUNCTION(NULL, "restore_error_handler", NULL, 50);
 	zephir_check_call_status();

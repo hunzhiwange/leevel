@@ -327,7 +327,7 @@ PHP_METHOD(Leevel_Collection_Collection, getIterator) {
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("arrayiterator")));
 	zephir_read_property(&_0, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 5, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 10, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1588,7 +1588,7 @@ PHP_METHOD(Leevel_Collection_Collection, checkType) {
 	ZVAL_STRING(&_7, "Collection type %s validation failed.");
 	ZEPHIR_CALL_FUNCTION(&_8, "sprintf", NULL, 1, &_7, &_5);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 21, &_8);
+	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 25, &_8);
 	zephir_check_call_status();
 	zephir_throw_exception_debug(&_4, "leevel/collection/collection.zep", 689 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();

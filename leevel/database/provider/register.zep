@@ -13,12 +13,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Database\Provider;
 
 use Closure;
+use Leevel\Database\Ddd\Entity;
 use Leevel\Di\Provider;
 use Leevel\Di\IContainer;
 use Leevel\Database\Manager;
+use Leevel\Database\Ddd\Meta;
+use Leevel\Event\IDispatch;
 
 /**
  * database 服务提供者
@@ -31,7 +35,6 @@ use Leevel\Database\Manager;
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -53,6 +56,17 @@ class Register extends Provider
         this->databases();
         this->database();
     }
+
+    /**
+     * bootstrap.
+     *
+     * @param \Leevel\Event\IDispatch $event
+     */
+    public function bootstrap(<IDispatch> event)
+    {
+        this->eventDispatch(event);
+        this->meta();
+    }
     
     /**
      * 可用服务提供者
@@ -70,6 +84,14 @@ class Register extends Provider
                 "Leevel\\Database\\IDatabase"
             ]
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function isDeferred() -> bool
+    {
+        return true;
     }
     
     /**
@@ -112,5 +134,23 @@ class Register extends Provider
     protected function databaseClosure(<IContainer> container)
     {
         return container->make("databases")->connect();
+    }
+
+    /**
+     * 设置模型实体事件.
+     *
+     * @param \Leevel\Event\IDispatch $event
+     */
+    protected function eventDispatch(<IDispatch> event)
+    {
+        //Entity::withEventDispatch(event);
+    }
+
+    /**
+     * Meta 设置数据库管理.
+     */
+    protected function meta()
+    {
+        //Meta::setDatabaseManager(this->container->make("databases"));
     }
 }

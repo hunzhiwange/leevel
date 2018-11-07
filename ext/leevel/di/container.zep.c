@@ -115,11 +115,11 @@ PHP_METHOD(Leevel_Di_Container, bind) {
 		ZEPHIR_CALL_METHOD(&templist$$3, this_ptr, "parsealias", NULL, 0, name);
 		zephir_check_call_status();
 		ZEPHIR_MAKE_REF(&templist$$3);
-		ZEPHIR_CALL_FUNCTION(name, "array_shift", &_0, 6, &templist$$3);
+		ZEPHIR_CALL_FUNCTION(name, "array_shift", &_0, 4, &templist$$3);
 		ZEPHIR_UNREF(&templist$$3);
 		zephir_check_call_status();
 		ZEPHIR_MAKE_REF(&templist$$3);
-		ZEPHIR_CALL_FUNCTION(&alias, "array_shift", &_0, 6, &templist$$3);
+		ZEPHIR_CALL_FUNCTION(&alias, "array_shift", &_0, 4, &templist$$3);
 		ZEPHIR_UNREF(&templist$$3);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "alias", NULL, 0, name, &alias);
@@ -172,11 +172,11 @@ PHP_METHOD(Leevel_Di_Container, instance) {
 		ZEPHIR_CALL_METHOD(&templist$$3, this_ptr, "parsealias", NULL, 0, name);
 		zephir_check_call_status();
 		ZEPHIR_MAKE_REF(&templist$$3);
-		ZEPHIR_CALL_FUNCTION(name, "array_shift", &_0, 6, &templist$$3);
+		ZEPHIR_CALL_FUNCTION(name, "array_shift", &_0, 4, &templist$$3);
 		ZEPHIR_UNREF(&templist$$3);
 		zephir_check_call_status();
 		ZEPHIR_MAKE_REF(&templist$$3);
-		ZEPHIR_CALL_FUNCTION(&alias, "array_shift", &_0, 6, &templist$$3);
+		ZEPHIR_CALL_FUNCTION(&alias, "array_shift", &_0, 4, &templist$$3);
 		ZEPHIR_UNREF(&templist$$3);
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "alias", NULL, 0, name, &alias);
@@ -915,7 +915,7 @@ PHP_METHOD(Leevel_Di_Container, parseInjection) {
 				object_init_ex(&_11$$13, spl_ce_InvalidArgumentException);
 				ZEPHIR_CALL_METHOD(&_12$$13, &e, "getmessage", NULL, 0);
 				zephir_check_call_status();
-				ZEPHIR_CALL_METHOD(NULL, &_11$$13, "__construct", &_13, 21, &_12$$13);
+				ZEPHIR_CALL_METHOD(NULL, &_11$$13, "__construct", &_13, 25, &_12$$13);
 				zephir_check_call_status();
 				zephir_throw_exception_debug(&_11$$13, "leevel/di/container.zep", 421 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
@@ -1043,7 +1043,7 @@ PHP_METHOD(Leevel_Di_Container, parseClassInstance) {
 	ZVAL_STRING(&_1, "Class or interface %s is not register in container");
 	ZEPHIR_CALL_FUNCTION(&_2, "sprintf", NULL, 1, &_1, &argsclass);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 21, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 25, &_2);
 	zephir_check_call_status();
 	zephir_throw_exception_debug(&_0, "leevel/di/container.zep", 493 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
@@ -1111,7 +1111,7 @@ PHP_METHOD(Leevel_Di_Container, parseClassFromContainer) {
 			ZVAL_STRING(&_6$$6, "Class or interface %s is register in container is not object.");
 			ZEPHIR_CALL_FUNCTION(&_7$$6, "sprintf", &_8, 1, &_6$$6, &argsclass);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_5$$6, "__construct", NULL, 21, &_7$$6);
+			ZEPHIR_CALL_METHOD(NULL, &_5$$6, "__construct", NULL, 25, &_7$$6);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_5$$6, "leevel/di/container.zep", 527 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -1125,7 +1125,7 @@ PHP_METHOD(Leevel_Di_Container, parseClassFromContainer) {
 	ZVAL_STRING(&_10, "Class or interface %s is not register in container");
 	ZEPHIR_CALL_FUNCTION(&_11, "sprintf", &_8, 1, &_10, &argsclass);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_9, "__construct", NULL, 21, &_11);
+	ZEPHIR_CALL_METHOD(NULL, &_9, "__construct", NULL, 25, &_11);
 	zephir_check_call_status();
 	zephir_throw_exception_debug(&_9, "leevel/di/container.zep", 538 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
@@ -1170,7 +1170,7 @@ PHP_METHOD(Leevel_Di_Container, parseClassNotExists) {
 		ZVAL_STRING(&_1$$4, "Class or interface %s is register in container is not object.");
 		ZEPHIR_CALL_FUNCTION(&_2$$4, "sprintf", NULL, 1, &_1$$4, &argsclass);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_0$$4, "__construct", NULL, 21, &_2$$4);
+		ZEPHIR_CALL_METHOD(NULL, &_0$$4, "__construct", NULL, 25, &_2$$4);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_0$$4, "leevel/di/container.zep", 557 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -1341,7 +1341,7 @@ PHP_METHOD(Leevel_Di_Container, parseClassReflection) {
 		ZVAL_STRING(&_2$$3, "Class %s is not instantiable.");
 		ZEPHIR_CALL_FUNCTION(&_3$$3, "sprintf", NULL, 1, &_2$$3, &injection);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 21, &_3$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 25, &_3$$3);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_1$$3, "leevel/di/container.zep", 633 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();

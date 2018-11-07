@@ -509,7 +509,7 @@ PHP_METHOD(Leevel_Cache_Load, update) {
 		ZVAL_STRING(&_4$$5, "Cache %s is not valid.");
 		ZEPHIR_CALL_FUNCTION(&_5$$5, "sprintf", &_6, 1, &_4$$5, &tempName);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_3$$5, "__construct", NULL, 21, &_5$$5);
+		ZEPHIR_CALL_METHOD(NULL, &_3$$5, "__construct", NULL, 25, &_5$$5);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_3$$5, "leevel/cache/load.zep", 225 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -528,7 +528,7 @@ PHP_METHOD(Leevel_Cache_Load, update) {
 		ZVAL_STRING(&_9$$6, "Cache %s is not a callable.");
 		ZEPHIR_CALL_FUNCTION(&_10$$6, "sprintf", &_6, 1, &_9$$6, &_8$$6);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_7$$6, "__construct", NULL, 21, &_10$$6);
+		ZEPHIR_CALL_METHOD(NULL, &_7$$6, "__construct", NULL, 25, &_10$$6);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_7$$6, "leevel/cache/load.zep", 233 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -724,7 +724,7 @@ PHP_METHOD(Leevel_Cache_Load, parse) {
 		ZEPHIR_INIT_NVAR(&item);
 		ZVAL_COPY(&item, _4);
 		ZEPHIR_INIT_LNVAR(_7$$4);
-		ZEPHIR_CALL_FUNCTION(&_8$$4, "ctype_digit", &_9, 12, &item);
+		ZEPHIR_CALL_FUNCTION(&_8$$4, "ctype_digit", &_9, 16, &item);
 		zephir_check_call_status();
 		if (zephir_is_true(&_8$$4)) {
 			ZEPHIR_INIT_NVAR(&_7$$4);

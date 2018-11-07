@@ -83,6 +83,32 @@ PHP_METHOD(Leevel_Database_Provider_Register, register) {
 }
 
 /**
+ * bootstrap.
+ *
+ * @param \Leevel\Event\IDispatch $event
+ */
+PHP_METHOD(Leevel_Database_Provider_Register, bootstrap) {
+
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *event, event_sub;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&event_sub);
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &event);
+
+
+
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "eventdispatch", NULL, 0, event);
+	zephir_check_call_status();
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "meta", NULL, 0);
+	zephir_check_call_status();
+	ZEPHIR_MM_RESTORE();
+
+}
+
+/**
  * 可用服务提供者
  *
  * @return array
@@ -115,6 +141,18 @@ PHP_METHOD(Leevel_Database_Provider_Register, providers) {
 	zephir_array_fast_append(&_0, &_1);
 	zephir_array_update_string(return_value, SL("database"), &_0, PH_COPY | PH_SEPARATE);
 	RETURN_MM();
+
+}
+
+/**
+ * {@inheritdoc}
+ */
+PHP_METHOD(Leevel_Database_Provider_Register, isDeferred) {
+
+	zval *this_ptr = getThis();
+
+
+	RETURN_BOOL(1);
 
 }
 
@@ -164,7 +202,6 @@ PHP_METHOD(Leevel_Database_Provider_Register, databases) {
  */
 PHP_METHOD(Leevel_Database_Provider_Register, databasesClosure) {
 
-	zend_class_entry *_0 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *container, container_sub;
 	zval *this_ptr = getThis();
@@ -176,14 +213,9 @@ PHP_METHOD(Leevel_Database_Provider_Register, databasesClosure) {
 
 
 
-	if (!_0) {
-	_0 = zephir_fetch_class_str_ex(SL("Leevel\\Database\\Manager"), ZEND_FETCH_CLASS_AUTO);
-	}
-	object_init_ex(return_value, _0);
-	if (zephir_has_constructor(return_value TSRMLS_CC)) {
-		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 0, container);
-		zephir_check_call_status();
-	}
+	object_init_ex(return_value, leevel_database_manager_ce);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 89, container);
+	zephir_check_call_status();
 	RETURN_MM();
 
 }
@@ -254,6 +286,36 @@ PHP_METHOD(Leevel_Database_Provider_Register, databaseClosure) {
 	ZEPHIR_RETURN_CALL_METHOD(&_0, "connect", NULL, 0);
 	zephir_check_call_status();
 	RETURN_MM();
+
+}
+
+/**
+ * 设置模型实体事件.
+ *
+ * @param \Leevel\Event\IDispatch $event
+ */
+PHP_METHOD(Leevel_Database_Provider_Register, eventDispatch) {
+
+	zval *event, event_sub;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&event_sub);
+
+	zephir_fetch_params(0, 1, 0, &event);
+
+
+
+
+}
+
+/**
+ * Meta 设置数据库管理.
+ */
+PHP_METHOD(Leevel_Database_Provider_Register, meta) {
+
+	zval *this_ptr = getThis();
+
+
 
 }
 

@@ -295,7 +295,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 	ZEPHIR_INIT_VAR(&pipeline);
 	object_init_ex(&pipeline, leevel_pipeline_pipeline_ce);
 	zephir_read_property(&_1, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &pipeline, "__construct", NULL, 142, &_1);
+	ZEPHIR_CALL_METHOD(NULL, &pipeline, "__construct", NULL, 143, &_1);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_2);
 	zephir_create_array(&_2, 2, 0 TSRMLS_CC);
@@ -306,7 +306,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 	ZEPHIR_INIT_VAR(&_4);
 	zephir_create_array(&_4, 1, 0 TSRMLS_CC);
 	zephir_array_fast_append(&_4, passed);
-	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 8, &_2, &_4);
+	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 12, &_2, &_4);
 	zephir_check_call_status();
 	if (!(ZEPHIR_IS_EMPTY(&passedExtend))) {
 		ZEPHIR_INIT_VAR(&_6$$4);
@@ -315,7 +315,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 		ZEPHIR_INIT_VAR(&_7$$4);
 		ZVAL_STRING(&_7$$4, "send");
 		zephir_array_fast_append(&_6$$4, &_7$$4);
-		ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 8, &_6$$4, &passedExtend);
+		ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 12, &_6$$4, &passedExtend);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_VAR(&_8);
@@ -325,9 +325,9 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 	ZVAL_STRING(&_3, "through");
 	zephir_array_fast_append(&_8, &_3);
 	zephir_array_fetch(&_9, &middlewares, &method, PH_NOISY | PH_READONLY, "leevel/router/router.zep", 219 TSRMLS_CC);
-	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 8, &_8, &_9);
+	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 12, &_8, &_9);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &pipeline, "then", NULL, 143);
+	ZEPHIR_CALL_METHOD(NULL, &pipeline, "then", NULL, 144);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 
@@ -813,7 +813,7 @@ PHP_METHOD(Leevel_Router_Router, normalizePrefix) {
 			ZVAL_STRING(&_5$$4, " ");
 			zephir_fast_str_replace(&_3$$4, &_4$$4, &_5$$4, &item TSRMLS_CC);
 			ZEPHIR_CPY_WRT(&item, &_3$$4);
-			ZEPHIR_CALL_FUNCTION(&_6$$4, "ucwords", &_7, 23, &item);
+			ZEPHIR_CALL_FUNCTION(&_6$$4, "ucwords", &_7, 6, &item);
 			zephir_check_call_status();
 			ZEPHIR_INIT_NVAR(&_3$$4);
 			ZVAL_STRING(&_3$$4, " ");
@@ -1114,7 +1114,7 @@ PHP_METHOD(Leevel_Router_Router, runRoute) {
 	if (!(_3)) {
 		ZEPHIR_INIT_VAR(&result);
 		object_init_ex(&result, leevel_http_response_ce);
-		ZEPHIR_CALL_METHOD(NULL, &result, "__construct", NULL, 14, &response);
+		ZEPHIR_CALL_METHOD(NULL, &result, "__construct", NULL, 18, &response);
 		zephir_check_call_status();
 	} else {
 		ZEPHIR_CPY_WRT(&result, &response);
@@ -1669,7 +1669,7 @@ PHP_METHOD(Leevel_Router_Router, convertMatched) {
 		ZEPHIR_CONCAT_SV(&_9$$4, "_", &_6$$4);
 		ZEPHIR_CPY_WRT(&tmp, &_9$$4);
 		ZEPHIR_INIT_VAR(&_10$$4);
-		ZEPHIR_CALL_FUNCTION(&_11$$4, "ucwords", NULL, 23, &tmp);
+		ZEPHIR_CALL_FUNCTION(&_11$$4, "ucwords", NULL, 6, &tmp);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_12$$4);
 		ZVAL_STRING(&_12$$4, " ");

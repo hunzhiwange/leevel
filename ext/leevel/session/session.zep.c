@@ -218,7 +218,7 @@ PHP_METHOD(Leevel_Session_Session, save) {
 	ZEPHIR_CALL_METHOD(&_2, this_ptr, "getid", NULL, 0);
 	zephir_check_call_status();
 	zephir_read_property(&_3, this_ptr, SL("datas"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_FUNCTION(&_4, "serialize", NULL, 24, &_3);
+	ZEPHIR_CALL_FUNCTION(&_4, "serialize", NULL, 7, &_3);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_1, "write", NULL, 0, &_2, &_4);
 	zephir_check_call_status();
@@ -1110,7 +1110,7 @@ PHP_METHOD(Leevel_Session_Session, clearFlash) {
 		ZEPHIR_INIT_NVAR(&_4$$3);
 		ZVAL_STRING(&_4$$3, "deleteFlash");
 		zephir_array_fast_append(&_3$$3, &_4$$3);
-		ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 8, &_3$$3, &item);
+		ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_5, 12, &_3$$3, &item);
 		zephir_check_call_status();
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
@@ -1440,7 +1440,7 @@ PHP_METHOD(Leevel_Session_Session, generateSessionId) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_5);
 	ZEPHIR_CONCAT_VSVSV(&_5, &_0, ".", &_1, ".", &_2);
-	ZEPHIR_RETURN_CALL_FUNCTION("sha1", NULL, 149, &_5);
+	ZEPHIR_RETURN_CALL_FUNCTION("sha1", NULL, 150, &_5);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1474,7 +1474,7 @@ PHP_METHOD(Leevel_Session_Session, parseMicrotime) {
 	ZEPHIR_OBS_VAR(&sec);
 	zephir_array_fetch_long(&sec, &tmpListUsecSec, 1, PH_NOISY, "leevel/session/session.zep", 629 TSRMLS_CC);
 	ZVAL_DOUBLE(&_1, (zephir_get_doubleval(&usec) + zephir_get_doubleval(&sec)));
-	ZEPHIR_RETURN_CALL_FUNCTION("strval", NULL, 11, &_1);
+	ZEPHIR_RETURN_CALL_FUNCTION("strval", NULL, 15, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -1719,12 +1719,12 @@ PHP_METHOD(Leevel_Session_Session, getPartData) {
 	ZEPHIR_INIT_VAR(&tempkeys);
 	zephir_fast_explode_str(&tempkeys, SL("\\"), &key, LONG_MAX TSRMLS_CC);
 	ZEPHIR_MAKE_REF(&tempkeys);
-	ZEPHIR_CALL_FUNCTION(&tempkey, "array_shift", &_0, 6, &tempkeys);
+	ZEPHIR_CALL_FUNCTION(&tempkey, "array_shift", &_0, 4, &tempkeys);
 	ZEPHIR_UNREF(&tempkeys);
 	zephir_check_call_status();
 	zephir_get_strval(&key, &tempkey);
 	ZEPHIR_MAKE_REF(&tempkeys);
-	ZEPHIR_CALL_FUNCTION(&name, "array_shift", &_0, 6, &tempkeys);
+	ZEPHIR_CALL_FUNCTION(&name, "array_shift", &_0, 4, &tempkeys);
 	ZEPHIR_UNREF(&tempkeys);
 	zephir_check_call_status();
 	if (ZEPHIR_IS_STRING(type, "flash")) {

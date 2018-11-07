@@ -339,32 +339,32 @@ PHP_METHOD(Leevel_Http_Request, reset) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, leevel_http_bag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", &_1, 113, &query);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", &_1, 114, &query);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("query"), &_0);
 	ZEPHIR_INIT_VAR(&_2);
 	object_init_ex(&_2, leevel_http_bag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", &_1, 113, &request);
+	ZEPHIR_CALL_METHOD(NULL, &_2, "__construct", &_1, 114, &request);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("request"), &_2);
 	ZEPHIR_INIT_VAR(&_3);
 	object_init_ex(&_3, leevel_http_bag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", &_1, 113, &params);
+	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", &_1, 114, &params);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("params"), &_3);
 	ZEPHIR_INIT_VAR(&_4);
 	object_init_ex(&_4, leevel_http_bag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", &_1, 113, &cookies);
+	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", &_1, 114, &cookies);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("cookies"), &_4);
 	ZEPHIR_INIT_VAR(&_5);
 	object_init_ex(&_5, leevel_http_filebag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 114, &files);
+	ZEPHIR_CALL_METHOD(NULL, &_5, "__construct", NULL, 115, &files);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("files"), &_5);
 	ZEPHIR_INIT_VAR(&_6);
 	object_init_ex(&_6, leevel_http_serverbag_ce);
-	ZEPHIR_CALL_METHOD(NULL, &_6, "__construct", &_1, 113, &server);
+	ZEPHIR_CALL_METHOD(NULL, &_6, "__construct", &_1, 114, &server);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("server"), &_6);
 	ZEPHIR_INIT_VAR(&_7);
@@ -372,7 +372,7 @@ PHP_METHOD(Leevel_Http_Request, reset) {
 	zephir_read_property(&_8, this_ptr, SL("server"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(&_9, &_8, "getheaders", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_7, "__construct", NULL, 13, &_9);
+	ZEPHIR_CALL_METHOD(NULL, &_7, "__construct", NULL, 17, &_9);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("headers"), &_7);
 	zephir_update_property_zval(this_ptr, SL("content"), content);
@@ -436,7 +436,7 @@ PHP_METHOD(Leevel_Http_Request, createFromGlobals) {
 	ZEPHIR_INIT_VAR(&_0);
 	array_init(&_0);
 	ZVAL_NULL(&_1);
-	ZEPHIR_CALL_METHOD(NULL, &request, "__construct", NULL, 115, _GET, _POST, &_0, _COOKIE, _FILES, _SERVER, &_1);
+	ZEPHIR_CALL_METHOD(NULL, &request, "__construct", NULL, 116, _GET, _POST, &_0, _COOKIE, _FILES, _SERVER, &_1);
 	zephir_check_call_status();
 	ZEPHIR_CALL_SELF(&_2, "normalizerequestfromcontent", NULL, 0, &request);
 	zephir_check_call_status();
@@ -520,12 +520,12 @@ PHP_METHOD(Leevel_Http_Request, normalizeRequestFromContent) {
 		ZEPHIR_CALL_METHOD(&_9$$3, request, "getcontent", NULL, 0);
 		zephir_check_call_status();
 		ZEPHIR_MAKE_REF(&data);
-		ZEPHIR_CALL_FUNCTION(NULL, "parse_str", NULL, 116, &_9$$3, &data);
+		ZEPHIR_CALL_FUNCTION(NULL, "parse_str", NULL, 117, &_9$$3, &data);
 		ZEPHIR_UNREF(&data);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_10$$3);
 		object_init_ex(&_10$$3, leevel_http_bag_ce);
-		ZEPHIR_CALL_METHOD(NULL, &_10$$3, "__construct", NULL, 113, &data);
+		ZEPHIR_CALL_METHOD(NULL, &_10$$3, "__construct", NULL, 114, &data);
 		zephir_check_call_status();
 		zephir_update_property_zval(request, SL("request"), &_10$$3);
 	}
@@ -819,7 +819,7 @@ PHP_METHOD(Leevel_Http_Request, all) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_1, this_ptr, "allfiles", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("array_replace_recursive", NULL, 117, &_0, &_1);
+	ZEPHIR_RETURN_CALL_FUNCTION("array_replace_recursive", NULL, 118, &_0, &_1);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -2433,10 +2433,10 @@ PHP_METHOD(Leevel_Http_Request, getContent) {
 	ZVAL_BOOL(&resources, Z_TYPE_P(&_0) == IS_RESOURCE);
 	if (zephir_is_true(&resources)) {
 		zephir_read_property(&_1$$3, this_ptr, SL("content"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_FUNCTION(NULL, "rewind", NULL, 118, &_1$$3);
+		ZEPHIR_CALL_FUNCTION(NULL, "rewind", NULL, 119, &_1$$3);
 		zephir_check_call_status();
 		zephir_read_property(&_2$$3, this_ptr, SL("content"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_RETURN_CALL_FUNCTION("stream_get_contents", NULL, 119, &_2$$3);
+		ZEPHIR_RETURN_CALL_FUNCTION("stream_get_contents", NULL, 120, &_2$$3);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -3239,7 +3239,7 @@ PHP_METHOD(Leevel_Http_Request, getBaseUrl) {
 		zephir_fast_trim(&_21$$7, &fileName, &_22$$7, ZEPHIR_TRIM_BOTH TSRMLS_CC);
 		ZEPHIR_INIT_VAR(&segs);
 		zephir_fast_explode_str(&segs, SL("/"), &_21$$7, LONG_MAX TSRMLS_CC);
-		ZEPHIR_CALL_FUNCTION(&_23$$7, "array_reverse", NULL, 120, &segs);
+		ZEPHIR_CALL_FUNCTION(&_23$$7, "array_reverse", NULL, 121, &segs);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(&segs, &_23$$7);
 		index = 0;
@@ -3270,10 +3270,10 @@ PHP_METHOD(Leevel_Http_Request, getBaseUrl) {
 	}
 	ZEPHIR_CALL_METHOD(&requestUri, this_ptr, "getrequesturi", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(&_29, "strval", &_30, 11, &requestUri);
+	ZEPHIR_CALL_FUNCTION(&_29, "strval", &_30, 15, &requestUri);
 	zephir_check_call_status();
 	ZEPHIR_CPY_WRT(&requestUri, &_29);
-	ZEPHIR_CALL_FUNCTION(&_29, "strval", &_30, 11, &url);
+	ZEPHIR_CALL_FUNCTION(&_29, "strval", &_30, 15, &url);
 	zephir_check_call_status();
 	ZEPHIR_CPY_WRT(&url, &_29);
 	ZEPHIR_SINIT_VAR(_31);
@@ -3317,7 +3317,7 @@ PHP_METHOD(Leevel_Http_Request, getBaseUrl) {
 	zephir_basename(&basename, &url TSRMLS_CC);
 	_41 = ZEPHIR_IS_EMPTY(&basename);
 	if (!(_41)) {
-		ZEPHIR_CALL_FUNCTION(&_29, "rawurldecode", NULL, 121, &requestUri);
+		ZEPHIR_CALL_FUNCTION(&_29, "rawurldecode", NULL, 122, &requestUri);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_13);
 		zephir_fast_strpos(&_13, &_29, &basename, 0 );
@@ -3629,9 +3629,9 @@ PHP_METHOD(Leevel_Http_Request, isInt) {
 	if (Z_TYPE_P(value) == IS_LONG) {
 		RETURN_MM_BOOL(1);
 	}
-	ZEPHIR_CALL_FUNCTION(&_0, "strval", NULL, 11, value);
+	ZEPHIR_CALL_FUNCTION(&_0, "strval", NULL, 15, value);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("ctype_digit", NULL, 12, &_0);
+	ZEPHIR_RETURN_CALL_FUNCTION("ctype_digit", NULL, 16, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -3861,7 +3861,7 @@ PHP_METHOD(Leevel_Http_Request, getUrlencodedPrefix) {
 	zephir_get_strval(&prefix, prefix_param);
 
 
-	ZEPHIR_CALL_FUNCTION(&_0, "rawurldecode", NULL, 121, &strings);
+	ZEPHIR_CALL_FUNCTION(&_0, "rawurldecode", NULL, 122, &strings);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_1);
 	zephir_fast_strpos(&_1, &_0, &prefix, 0 );

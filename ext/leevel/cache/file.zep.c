@@ -228,7 +228,7 @@ PHP_METHOD(Leevel_Cache_File, set) {
 	ZEPHIR_CPY_WRT(&option, &_0);
 	zephir_array_fetch_string(&_1, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 134 TSRMLS_CC);
 	if (zephir_is_true(&_1)) {
-		ZEPHIR_CALL_FUNCTION(&_2$$3, "serialize", NULL, 24, data);
+		ZEPHIR_CALL_FUNCTION(&_2$$3, "serialize", NULL, 7, data);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(data, &_2$$3);
 	}
@@ -461,7 +461,7 @@ PHP_METHOD(Leevel_Cache_File, writeData) {
 			ZVAL_STRING(&_10$$4, "Unable to create the %s directory.");
 			ZEPHIR_CALL_FUNCTION(&_11$$4, "sprintf", &_12, 1, &_10$$4, &dirname);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_9$$4, "__construct", NULL, 21, &_11$$4);
+			ZEPHIR_CALL_METHOD(NULL, &_9$$4, "__construct", NULL, 25, &_11$$4);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_9$$4, "leevel/cache/file.zep", 223 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -487,7 +487,7 @@ PHP_METHOD(Leevel_Cache_File, writeData) {
 		ZVAL_STRING(&_19$$5, "Dir %s is not writeable.");
 		ZEPHIR_CALL_FUNCTION(&_20$$5, "sprintf", &_12, 1, &_19$$5, &dirname);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_18$$5, "__construct", NULL, 21, &_20$$5);
+		ZEPHIR_CALL_METHOD(NULL, &_18$$5, "__construct", NULL, 25, &_20$$5);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_18$$5, "leevel/cache/file.zep", 233 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();

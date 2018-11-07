@@ -167,11 +167,11 @@ PHP_METHOD(Leevel_Manager_Manager, connect) {
 	ZEPHIR_CALL_METHOD(&temp, this_ptr, "parseoptionandunique", NULL, 0, options);
 	zephir_check_call_status();
 	ZEPHIR_MAKE_REF(&temp);
-	ZEPHIR_CALL_FUNCTION(options, "array_shift", &_0, 6, &temp);
+	ZEPHIR_CALL_FUNCTION(options, "array_shift", &_0, 4, &temp);
 	ZEPHIR_UNREF(&temp);
 	zephir_check_call_status();
 	ZEPHIR_MAKE_REF(&temp);
-	ZEPHIR_CALL_FUNCTION(&unique, "array_shift", &_0, 6, &temp);
+	ZEPHIR_CALL_FUNCTION(&unique, "array_shift", &_0, 4, &temp);
 	ZEPHIR_UNREF(&temp);
 	zephir_check_call_status();
 	zephir_read_property(&_1, this_ptr, SL("connects"), PH_NOISY_CC | PH_READONLY);
@@ -262,11 +262,11 @@ PHP_METHOD(Leevel_Manager_Manager, disconnect) {
 	ZEPHIR_CALL_METHOD(&temp, this_ptr, "parseoptionandunique", NULL, 0, options);
 	zephir_check_call_status();
 	ZEPHIR_MAKE_REF(&temp);
-	ZEPHIR_CALL_FUNCTION(options, "array_shift", &_0, 6, &temp);
+	ZEPHIR_CALL_FUNCTION(options, "array_shift", &_0, 4, &temp);
 	ZEPHIR_UNREF(&temp);
 	zephir_check_call_status();
 	ZEPHIR_MAKE_REF(&temp);
-	ZEPHIR_CALL_FUNCTION(&unique, "array_shift", &_0, 6, &temp);
+	ZEPHIR_CALL_FUNCTION(&unique, "array_shift", &_0, 4, &temp);
 	ZEPHIR_UNREF(&temp);
 	zephir_check_call_status();
 	zephir_read_property(&_1, this_ptr, SL("connects"), PH_NOISY_CC | PH_READONLY);
@@ -524,7 +524,7 @@ PHP_METHOD(Leevel_Manager_Manager, makeConnect) {
 		ZVAL_STRING(&_3$$3, "Connect driver %s not exits.");
 		ZEPHIR_CALL_FUNCTION(&_4$$3, "sprintf", NULL, 1, &_3$$3, &connect);
 		zephir_check_call_status();
-		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 22, &_4$$3);
+		ZEPHIR_CALL_METHOD(NULL, &_2$$3, "__construct", NULL, 5, &_4$$3);
 		zephir_check_call_status();
 		zephir_throw_exception_debug(&_2$$3, "leevel/manager/manager.zep", 245 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
@@ -569,7 +569,7 @@ PHP_METHOD(Leevel_Manager_Manager, createConnectCommon) {
 	}
 
 
-	ZEPHIR_CALL_FUNCTION(&_0, "ucwords", NULL, 23, &connect);
+	ZEPHIR_CALL_FUNCTION(&_0, "ucwords", NULL, 6, &connect);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_1);
 	ZEPHIR_CONCAT_SV(&_1, "makeConnect", &_0);
@@ -688,7 +688,7 @@ PHP_METHOD(Leevel_Manager_Manager, normalizeUnique) {
 	zephir_get_arrval(&options, options_param);
 
 
-	ZEPHIR_CALL_FUNCTION(&_0, "serialize", NULL, 24, &options);
+	ZEPHIR_CALL_FUNCTION(&_0, "serialize", NULL, 7, &options);
 	zephir_check_call_status();
 	zephir_md5(return_value, &_0);
 	RETURN_MM();
@@ -735,7 +735,7 @@ PHP_METHOD(Leevel_Manager_Manager, normalizeConnectOption) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_1, this_ptr, "getcommonoption", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("array_merge", NULL, 25, &_0, &_1, &extendOption);
+	ZEPHIR_RETURN_CALL_FUNCTION("array_merge", NULL, 8, &_0, &_1, &extendOption);
 	zephir_check_call_status();
 	RETURN_MM();
 

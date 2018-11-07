@@ -237,7 +237,7 @@ PHP_METHOD(Leevel_Event_Subject, register) {
 		ZEPHIR_CPY_WRT(&handle, observer);
 		ZEPHIR_INIT_NVAR(observer);
 		object_init_ex(observer, leevel_event_observer_ce);
-		ZEPHIR_CALL_METHOD(NULL, observer, "__construct", &_1, 102, &handle);
+		ZEPHIR_CALL_METHOD(NULL, observer, "__construct", &_1, 103, &handle);
 		zephir_check_call_status();
 	} else {
 		if (Z_TYPE_P(observer) == IS_STRING) {
@@ -255,7 +255,7 @@ PHP_METHOD(Leevel_Event_Subject, register) {
 				ZVAL_STRING(&_6$$6, "Observer `%s` is invalid.");
 				ZEPHIR_CALL_FUNCTION(&_7$$6, "sprintf", &_8, 1, &_6$$6, observer);
 				zephir_check_call_status();
-				ZEPHIR_CALL_METHOD(NULL, &_5$$6, "__construct", NULL, 21, &_7$$6);
+				ZEPHIR_CALL_METHOD(NULL, &_5$$6, "__construct", NULL, 25, &_7$$6);
 				zephir_check_call_status();
 				zephir_throw_exception_debug(&_5$$6, "leevel/event/subject.zep", 120 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
@@ -282,7 +282,7 @@ PHP_METHOD(Leevel_Event_Subject, register) {
 				ZVAL_STRING(&_14$$8, "Observer `%s` is invalid.");
 				ZEPHIR_CALL_FUNCTION(&_15$$8, "sprintf", &_8, 1, &_14$$8, &_13$$8);
 				zephir_check_call_status();
-				ZEPHIR_CALL_METHOD(NULL, &_12$$8, "__construct", NULL, 21, &_15$$8);
+				ZEPHIR_CALL_METHOD(NULL, &_12$$8, "__construct", NULL, 25, &_15$$8);
 				zephir_check_call_status();
 				zephir_throw_exception_debug(&_12$$8, "leevel/event/subject.zep", 128 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
@@ -299,7 +299,7 @@ PHP_METHOD(Leevel_Event_Subject, register) {
 			_17$$7 = zephir_fetch_class_str_ex(SL("Closure"), ZEND_FETCH_CLASS_AUTO);
 			ZEPHIR_CALL_CE_STATIC(&_16$$7, _17$$7, "fromcallable", NULL, 0, &handle);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, observer, "__construct", &_1, 102, &_16$$7);
+			ZEPHIR_CALL_METHOD(NULL, observer, "__construct", &_1, 103, &_16$$7);
 			zephir_check_call_status();
 		}
 	}

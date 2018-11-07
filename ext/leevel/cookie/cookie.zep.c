@@ -821,10 +821,10 @@ PHP_METHOD(Leevel_Cookie_Cookie, isJson) {
 		RETURN_MM_BOOL(0);
 	}
 	ZEPHIR_INIT_VAR(&_1);
-	ZEPHIR_CALL_FUNCTION(&_2, "strval", NULL, 11, data);
+	ZEPHIR_CALL_FUNCTION(&_2, "strval", NULL, 15, data);
 	zephir_check_call_status();
 	zephir_json_decode(&_1, &_2, 0 );
-	ZEPHIR_CALL_FUNCTION(&_3, "json_last_error", NULL, 19);
+	ZEPHIR_CALL_FUNCTION(&_3, "json_last_error", NULL, 23);
 	zephir_check_call_status();
 	RETURN_MM_BOOL(ZEPHIR_IS_LONG_IDENTICAL(&_3, 0));
 

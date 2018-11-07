@@ -201,7 +201,7 @@ PHP_METHOD(Leevel_Cache_Redis, set) {
 	ZEPHIR_CPY_WRT(&option, &_0);
 	zephir_array_fetch_string(&_1, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 94 TSRMLS_CC);
 	if (zephir_is_true(&_1)) {
-		ZEPHIR_CALL_FUNCTION(&_2$$3, "serialize", NULL, 24, data);
+		ZEPHIR_CALL_FUNCTION(&_2$$3, "serialize", NULL, 7, data);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(data, &_2$$3);
 	}

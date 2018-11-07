@@ -16,10 +16,10 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/support/ijson.zep.c
 	leevel/flow/icontrol.zep.c
 	leevel/http/iresponse.zep.c
+	leevel/manager/manager.zep.c
 	leevel/di/icontainer.zep.c
 	leevel/http/bag.zep.c
 	leevel/http/response.zep.c
-	leevel/manager/manager.zep.c
 	leevel/view/connect.zep.c
 	leevel/view/iconnect.zep.c
 	leevel/log/iconnect.zep.c
@@ -71,6 +71,7 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/cookie.zep.c
 	leevel/cookie/cookie.zep.c
 	leevel/database.zep.c
+	leevel/database/manager.zep.c
 	leevel/database/provider/register.zep.c
 	leevel/db.zep.c
 	leevel/debug.zep.c

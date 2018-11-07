@@ -145,7 +145,7 @@ PHP_METHOD(Leevel_View_V8js, __construct) {
 	{
 		ZEPHIR_INIT_NVAR(&item);
 		ZVAL_COPY(&item, _6);
-		ZEPHIR_CALL_FUNCTION(&_7$$4, "ucwords", &_8, 23, &item);
+		ZEPHIR_CALL_FUNCTION(&_7$$4, "ucwords", &_8, 6, &item);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&method);
 		ZEPHIR_CONCAT_SV(&method, "init", &_7$$4);
@@ -288,7 +288,7 @@ PHP_METHOD(Leevel_View_V8js, select) {
 	zephir_read_property(&_0, this_ptr, SL("v8js"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(NULL, &_0, "executestring", NULL, 0, &js);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("ob_get_clean", NULL, 163);
+	ZEPHIR_RETURN_CALL_FUNCTION("ob_get_clean", NULL, 164);
 	zephir_check_call_status();
 	RETURN_MM();
 

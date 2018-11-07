@@ -166,7 +166,7 @@ PHP_METHOD(Leevel_Log_File, flush) {
 		ZEPHIR_CALL_USER_FUNC_ARRAY(&_2$$3, &_3$$3, &value);
 		zephir_check_call_status();
 		ZVAL_LONG(&_5$$3, 3);
-		ZEPHIR_CALL_FUNCTION(NULL, "error_log", &_6, 125, &_2$$3, &_5$$3, &filepath);
+		ZEPHIR_CALL_FUNCTION(NULL, "error_log", &_6, 126, &_2$$3, &_5$$3, &filepath);
 		zephir_check_call_status();
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&value);
@@ -248,7 +248,7 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 				ZVAL_STRING(&_12$$5, "Unable to create the %s directory.");
 				ZEPHIR_CALL_FUNCTION(&_13$$5, "sprintf", &_14, 1, &_12$$5, &dirname);
 				zephir_check_call_status();
-				ZEPHIR_CALL_METHOD(NULL, &_11$$5, "__construct", NULL, 21, &_13$$5);
+				ZEPHIR_CALL_METHOD(NULL, &_11$$5, "__construct", NULL, 25, &_13$$5);
 				zephir_check_call_status();
 				zephir_throw_exception_debug(&_11$$5, "leevel/log/file.zep", 104 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
@@ -267,7 +267,7 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 			ZVAL_STRING(&_18$$6, "Dir %s is not writeable.");
 			ZEPHIR_CALL_FUNCTION(&_19$$6, "sprintf", &_14, 1, &_18$$6, &dirname);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(NULL, &_17$$6, "__construct", NULL, 21, &_19$$6);
+			ZEPHIR_CALL_METHOD(NULL, &_17$$6, "__construct", NULL, 25, &_19$$6);
 			zephir_check_call_status();
 			zephir_throw_exception_debug(&_17$$6, "leevel/log/file.zep", 113 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
@@ -289,7 +289,7 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 	if (_21) {
 		ZEPHIR_INIT_VAR(&_25$$7);
 		ZVAL_STRING(&_25$$7, ".log");
-		ZEPHIR_CALL_FUNCTION(&_26$$7, "basename", NULL, 126, &filePath, &_25$$7);
+		ZEPHIR_CALL_FUNCTION(&_26$$7, "basename", NULL, 127, &filePath, &_25$$7);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_25$$7);
 		zephir_time(&_25$$7);
@@ -299,7 +299,7 @@ PHP_METHOD(Leevel_Log_File, checkSize) {
 		zephir_sub_function(&_28$$7, &_25$$7, &_27$$7);
 		ZEPHIR_INIT_VAR(&_29$$7);
 		ZEPHIR_CONCAT_VSVSVS(&_29$$7, &dirname, "/", &_26$$7, "_", &_28$$7, ".log");
-		ZEPHIR_CALL_FUNCTION(NULL, "rename", NULL, 127, &filePath, &_29$$7);
+		ZEPHIR_CALL_FUNCTION(NULL, "rename", NULL, 128, &filePath, &_29$$7);
 		zephir_check_call_status();
 	}
 	ZEPHIR_MM_RESTORE();

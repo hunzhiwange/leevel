@@ -185,7 +185,7 @@ PHP_METHOD(Leevel_Http_Bag, add) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_FUNCTION(&_1, "array_replace", NULL, 4, &_0, &elements);
+	ZEPHIR_CALL_FUNCTION(&_1, "array_replace", NULL, 9, &_0, &elements);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, SL("elements"), &_1);
 	ZEPHIR_MM_RESTORE();
@@ -538,7 +538,7 @@ PHP_METHOD(Leevel_Http_Bag, getIterator) {
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("arrayiterator")));
 	zephir_read_property(&_0, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 5, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 10, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -601,7 +601,7 @@ PHP_METHOD(Leevel_Http_Bag, parseKeyFilter) {
 		ZEPHIR_INIT_VAR(&tmp);
 		zephir_fast_explode_str(&tmp, SL("|"), &key, LONG_MAX TSRMLS_CC);
 		ZEPHIR_MAKE_REF(&tmp);
-		ZEPHIR_CALL_FUNCTION(&tmpKey, "array_shift", NULL, 6, &tmp);
+		ZEPHIR_CALL_FUNCTION(&tmpKey, "array_shift", NULL, 4, &tmp);
 		ZEPHIR_UNREF(&tmp);
 		zephir_check_call_status();
 		zephir_get_strval(&key, &tmpKey);
@@ -869,7 +869,7 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithFunc) {
 		}
 		ZEPHIR_INIT_VAR(&_15$$5);
 		ZVAL_STRING(&_15$$5, "**");
-		ZEPHIR_CALL_FUNCTION(&_16$$5, "strstr", NULL, 7, &extend, &_15$$5);
+		ZEPHIR_CALL_FUNCTION(&_16$$5, "strstr", NULL, 11, &extend, &_15$$5);
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&evals);
 		if (zephir_is_true(&_16$$5)) {
@@ -924,7 +924,7 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithCallable) {
 	zephir_get_strval(&filter, filter_param);
 
 
-	ZEPHIR_RETURN_CALL_FUNCTION("call_user_func", NULL, 8, &filter, value);
+	ZEPHIR_RETURN_CALL_FUNCTION("call_user_func", NULL, 12, &filter, value);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -959,7 +959,7 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithFilterVar) {
 
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "parsefilterid", NULL, 0, filter);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("filter_var", NULL, 9, value, &_0, &options);
+	ZEPHIR_RETURN_CALL_FUNCTION("filter_var", NULL, 13, value, &_0, &options);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -992,7 +992,7 @@ PHP_METHOD(Leevel_Http_Bag, parseFilterId) {
 	if (zephir_is_true(&_1)) {
 		ZEPHIR_CPY_WRT(&_0, filter);
 	} else {
-		ZEPHIR_CALL_FUNCTION(&_0, "filter_id", NULL, 10, filter);
+		ZEPHIR_CALL_FUNCTION(&_0, "filter_id", NULL, 14, filter);
 		zephir_check_call_status();
 	}
 	RETURN_CCTOR(&_0);
@@ -1022,9 +1022,9 @@ PHP_METHOD(Leevel_Http_Bag, isInt) {
 	if (Z_TYPE_P(value) == IS_LONG) {
 		RETURN_MM_BOOL(1);
 	}
-	ZEPHIR_CALL_FUNCTION(&_0, "strval", NULL, 11, value);
+	ZEPHIR_CALL_FUNCTION(&_0, "strval", NULL, 15, value);
 	zephir_check_call_status();
-	ZEPHIR_RETURN_CALL_FUNCTION("ctype_digit", NULL, 12, &_0);
+	ZEPHIR_RETURN_CALL_FUNCTION("ctype_digit", NULL, 16, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
