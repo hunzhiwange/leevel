@@ -293,7 +293,7 @@ PHP_METHOD(Leevel_Pipeline_Pipeline, traverseGenerator) {
 	}
 	if (_13) {
 		ZEPHIR_MAKE_REF(&current);
-		ZEPHIR_CALL_FUNCTION(&params, "array_pop", NULL, 135, &current);
+		ZEPHIR_CALL_FUNCTION(&params, "array_pop", NULL, 130, &current);
 		ZEPHIR_UNREF(&current);
 		zephir_check_call_status();
 		zephir_is_iterable(&params, 0, "leevel/pipeline/pipeline.zep", 165);

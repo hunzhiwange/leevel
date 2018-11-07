@@ -202,37 +202,42 @@ PHP_METHOD(Leevel_Database_Manager, normalizeConnectOption) {
  */
 PHP_METHOD(Leevel_Database_Manager, parseDatabaseOption) {
 
+	zend_string *_24$$11;
+	zend_ulong _23$$11;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zephir_fcall_cache_entry *_4 = NULL;
-	zval *option_param = NULL, __$true, temp, type, tmp, slave, tmp2, _0, *_1, _6, *_7, _10, _11, _12, _2$$3, _3$$3, _8$$8, _9$$9, _13$$10, _14$$11, _15$$11, _16$$11, _17$$11, _19$$11, *_20$$11, _18$$12, _21$$13;
-	zval option, _5;
+	zephir_fcall_cache_entry *_5 = NULL;
+	zval *option_param = NULL, __$true, temp, type, tempSlave, k, _0, *_1, _7, *_8, _11, _12, _13, _3$$3, _4$$3, _9$$8, _10$$9, _14$$10, _15$$11, _16$$11, _17$$11, _18$$11, _20$$11, _21$$11, *_22$$11, _19$$12, _25$$13, _26$$13, _27$$13;
+	zval option, _6, _2$$3;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&option);
-	ZVAL_UNDEF(&_5);
+	ZVAL_UNDEF(&_6);
+	ZVAL_UNDEF(&_2$$3);
 	ZVAL_BOOL(&__$true, 1);
 	ZVAL_UNDEF(&temp);
 	ZVAL_UNDEF(&type);
-	ZVAL_UNDEF(&tmp);
-	ZVAL_UNDEF(&slave);
-	ZVAL_UNDEF(&tmp2);
+	ZVAL_UNDEF(&tempSlave);
+	ZVAL_UNDEF(&k);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_6);
-	ZVAL_UNDEF(&_10);
+	ZVAL_UNDEF(&_7);
 	ZVAL_UNDEF(&_11);
 	ZVAL_UNDEF(&_12);
-	ZVAL_UNDEF(&_2$$3);
+	ZVAL_UNDEF(&_13);
 	ZVAL_UNDEF(&_3$$3);
-	ZVAL_UNDEF(&_8$$8);
-	ZVAL_UNDEF(&_9$$9);
-	ZVAL_UNDEF(&_13$$10);
-	ZVAL_UNDEF(&_14$$11);
+	ZVAL_UNDEF(&_4$$3);
+	ZVAL_UNDEF(&_9$$8);
+	ZVAL_UNDEF(&_10$$9);
+	ZVAL_UNDEF(&_14$$10);
 	ZVAL_UNDEF(&_15$$11);
 	ZVAL_UNDEF(&_16$$11);
 	ZVAL_UNDEF(&_17$$11);
-	ZVAL_UNDEF(&_19$$11);
-	ZVAL_UNDEF(&_18$$12);
-	ZVAL_UNDEF(&_21$$13);
+	ZVAL_UNDEF(&_18$$11);
+	ZVAL_UNDEF(&_20$$11);
+	ZVAL_UNDEF(&_21$$11);
+	ZVAL_UNDEF(&_19$$12);
+	ZVAL_UNDEF(&_25$$13);
+	ZVAL_UNDEF(&_26$$13);
+	ZVAL_UNDEF(&_27$$13);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &option_param);
@@ -243,31 +248,31 @@ PHP_METHOD(Leevel_Database_Manager, parseDatabaseOption) {
 	ZEPHIR_CPY_WRT(&temp, &option);
 	ZEPHIR_INIT_VAR(&_0);
 	zephir_array_keys(&_0, &option TSRMLS_CC);
-	zephir_is_iterable(&_0, 0, "leevel/database/manager.zep", 131);
+	zephir_is_iterable(&_0, 0, "leevel/database/manager.zep", 129);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 	{
 		ZEPHIR_INIT_NVAR(&type);
 		ZVAL_COPY(&type, _1);
-		ZEPHIR_INIT_NVAR(&tmp);
-		zephir_create_array(&tmp, 5, 0 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&_2$$3);
-		ZVAL_STRING(&_2$$3, "distributed");
-		zephir_array_fast_append(&tmp, &_2$$3);
-		ZEPHIR_INIT_NVAR(&_2$$3);
-		ZVAL_STRING(&_2$$3, "separate");
-		zephir_array_fast_append(&tmp, &_2$$3);
-		ZEPHIR_INIT_NVAR(&_2$$3);
-		ZVAL_STRING(&_2$$3, "driver");
-		zephir_array_fast_append(&tmp, &_2$$3);
-		ZEPHIR_INIT_NVAR(&_2$$3);
-		ZVAL_STRING(&_2$$3, "master");
-		zephir_array_fast_append(&tmp, &_2$$3);
-		ZEPHIR_INIT_NVAR(&_2$$3);
-		ZVAL_STRING(&_2$$3, "slave");
-		zephir_array_fast_append(&tmp, &_2$$3);
-		ZEPHIR_CALL_FUNCTION(&_3$$3, "in_array", &_4, 55, &type, &tmp, &__$true);
+		zephir_create_array(&_2$$3, 5, 0 TSRMLS_CC);
+		ZEPHIR_INIT_NVAR(&_3$$3);
+		ZVAL_STRING(&_3$$3, "distributed");
+		zephir_array_fast_append(&_2$$3, &_3$$3);
+		ZEPHIR_INIT_NVAR(&_3$$3);
+		ZVAL_STRING(&_3$$3, "separate");
+		zephir_array_fast_append(&_2$$3, &_3$$3);
+		ZEPHIR_INIT_NVAR(&_3$$3);
+		ZVAL_STRING(&_3$$3, "driver");
+		zephir_array_fast_append(&_2$$3, &_3$$3);
+		ZEPHIR_INIT_NVAR(&_3$$3);
+		ZVAL_STRING(&_3$$3, "master");
+		zephir_array_fast_append(&_2$$3, &_3$$3);
+		ZEPHIR_INIT_NVAR(&_3$$3);
+		ZVAL_STRING(&_3$$3, "slave");
+		zephir_array_fast_append(&_2$$3, &_3$$3);
+		ZEPHIR_CALL_FUNCTION(&_4$$3, "in_array", &_5, 55, &type, &_2$$3, &__$true);
 		zephir_check_call_status();
-		if (zephir_is_true(&_3$$3)) {
+		if (zephir_is_true(&_4$$3)) {
 			if (zephir_array_isset(&temp, &type)) {
 				zephir_array_unset(&temp, &type, PH_SEPARATE);
 			}
@@ -278,62 +283,72 @@ PHP_METHOD(Leevel_Database_Manager, parseDatabaseOption) {
 		}
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&type);
-	ZEPHIR_INIT_VAR(&_5);
-	zephir_create_array(&_5, 2, 0 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_6);
-	ZVAL_STRING(&_6, "master");
-	zephir_array_fast_append(&_5, &_6);
-	ZEPHIR_INIT_NVAR(&_6);
-	ZVAL_STRING(&_6, "slave");
-	zephir_array_fast_append(&_5, &_6);
-	zephir_is_iterable(&_5, 0, "leevel/database/manager.zep", 137);
-	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_5), _7)
+	zephir_create_array(&_6, 2, 0 TSRMLS_CC);
+	ZEPHIR_INIT_VAR(&_7);
+	ZVAL_STRING(&_7, "master");
+	zephir_array_fast_append(&_6, &_7);
+	ZEPHIR_INIT_NVAR(&_7);
+	ZVAL_STRING(&_7, "slave");
+	zephir_array_fast_append(&_6, &_7);
+	zephir_is_iterable(&_6, 0, "leevel/database/manager.zep", 135);
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_6), _8)
 	{
 		ZEPHIR_INIT_NVAR(&type);
-		ZVAL_COPY(&type, _7);
-		zephir_array_fetch(&_8$$8, &option, &type, PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 132 TSRMLS_CC);
-		if (!(Z_TYPE_P(&_8$$8) == IS_ARRAY)) {
-			ZEPHIR_INIT_NVAR(&_9$$9);
-			array_init(&_9$$9);
-			zephir_array_update_zval(&option, &type, &_9$$9, PH_COPY | PH_SEPARATE);
+		ZVAL_COPY(&type, _8);
+		zephir_array_fetch(&_9$$8, &option, &type, PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 130 TSRMLS_CC);
+		if (!(Z_TYPE_P(&_9$$8) == IS_ARRAY)) {
+			ZEPHIR_INIT_NVAR(&_10$$9);
+			array_init(&_10$$9);
+			zephir_array_update_zval(&option, &type, &_10$$9, PH_COPY | PH_SEPARATE);
 		}
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&type);
-	ZEPHIR_INIT_NVAR(&_6);
-	zephir_array_fetch_string(&_10, &option, SL("master"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 137 TSRMLS_CC);
-	zephir_fast_array_merge(&_6, &_10, &temp TSRMLS_CC);
-	zephir_array_update_string(&option, SL("master"), &_6, PH_COPY | PH_SEPARATE);
-	zephir_array_fetch_string(&_11, &option, SL("distributed"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 139 TSRMLS_CC);
-	zephir_array_fetch_string(&_12, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 141 TSRMLS_CC);
-	if (!(zephir_is_true(&_11))) {
-		ZEPHIR_INIT_VAR(&_13$$10);
-		array_init(&_13$$10);
-		zephir_array_update_string(&option, SL("slave"), &_13$$10, PH_COPY | PH_SEPARATE);
-	} else if (zephir_is_true(&_12)) {
-		zephir_array_fetch_string(&_14$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 142 TSRMLS_CC);
-		zephir_array_fetch_string(&_15$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 142 TSRMLS_CC);
-		ZVAL_LONG(&_16$$11, 1);
-		ZEPHIR_CALL_FUNCTION(&_17$$11, "count", NULL, 99, &_15$$11, &_16$$11);
+	ZEPHIR_INIT_NVAR(&_7);
+	zephir_array_fetch_string(&_11, &option, SL("master"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 135 TSRMLS_CC);
+	zephir_fast_array_merge(&_7, &_11, &temp TSRMLS_CC);
+	zephir_array_update_string(&option, SL("master"), &_7, PH_COPY | PH_SEPARATE);
+	zephir_array_fetch_string(&_12, &option, SL("distributed"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 137 TSRMLS_CC);
+	zephir_array_fetch_string(&_13, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 139 TSRMLS_CC);
+	if (!(zephir_is_true(&_12))) {
+		ZEPHIR_INIT_VAR(&_14$$10);
+		array_init(&_14$$10);
+		zephir_array_update_string(&option, SL("slave"), &_14$$10, PH_COPY | PH_SEPARATE);
+	} else if (zephir_is_true(&_13)) {
+		zephir_array_fetch_string(&_15$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 140 TSRMLS_CC);
+		zephir_array_fetch_string(&_16$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 140 TSRMLS_CC);
+		ZVAL_LONG(&_17$$11, 1);
+		ZEPHIR_CALL_FUNCTION(&_18$$11, "count", NULL, 94, &_16$$11, &_17$$11);
 		zephir_check_call_status();
-		if (ZEPHIR_IS_LONG_IDENTICAL(&_17$$11, zephir_fast_count_int(&_14$$11 TSRMLS_CC))) {
-			ZEPHIR_INIT_VAR(&tmp2);
-			zephir_create_array(&tmp2, 1, 0 TSRMLS_CC);
-			ZEPHIR_OBS_VAR(&_18$$12);
-			zephir_array_fetch_string(&_18$$12, &option, SL("slave"), PH_NOISY, "leevel/database/manager.zep", 143 TSRMLS_CC);
-			zephir_array_fast_append(&tmp2, &_18$$12);
-			zephir_array_update_string(&option, SL("slave"), &tmp2, PH_COPY | PH_SEPARATE);
+		if (ZEPHIR_IS_LONG_IDENTICAL(&_18$$11, zephir_fast_count_int(&_15$$11 TSRMLS_CC))) {
+			ZEPHIR_INIT_VAR(&tempSlave);
+			zephir_create_array(&tempSlave, 1, 0 TSRMLS_CC);
+			ZEPHIR_OBS_VAR(&_19$$12);
+			zephir_array_fetch_string(&_19$$12, &option, SL("slave"), PH_NOISY, "leevel/database/manager.zep", 141 TSRMLS_CC);
+			zephir_array_fast_append(&tempSlave, &_19$$12);
+			zephir_array_update_string(&option, SL("slave"), &tempSlave, PH_COPY | PH_SEPARATE);
 		}
-		zephir_array_fetch_string(&_19$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 147 TSRMLS_CC);
-		zephir_is_iterable(&_19$$11, 0, "leevel/database/manager.zep", 150);
-		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_19$$11), _20$$11)
+		zephir_array_fetch_string(&_20$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 145 TSRMLS_CC);
+		ZEPHIR_INIT_VAR(&_21$$11);
+		zephir_is_iterable(&_20$$11, 0, "leevel/database/manager.zep", 148);
+		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_20$$11), _23$$11, _24$$11, _22$$11)
 		{
-			ZEPHIR_INIT_NVAR(&slave);
-			ZVAL_COPY(&slave, _20$$11);
-			ZEPHIR_INIT_NVAR(&_21$$13);
-			zephir_fast_array_merge(&_21$$13, &slave, &temp TSRMLS_CC);
-			ZEPHIR_CPY_WRT(&slave, &_21$$13);
+			ZEPHIR_INIT_NVAR(&k);
+			if (_24$$11 != NULL) { 
+				ZVAL_STR_COPY(&k, _24$$11);
+			} else {
+				ZVAL_LONG(&k, _23$$11);
+			}
+			ZEPHIR_INIT_NVAR(&_21$$11);
+			ZVAL_COPY(&_21$$11, _22$$11);
+			ZEPHIR_INIT_NVAR(&_25$$13);
+			zephir_array_fetch_string(&_26$$13, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 146 TSRMLS_CC);
+			zephir_array_fetch(&_27$$13, &_26$$13, &k, PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 146 TSRMLS_CC);
+			zephir_fast_array_merge(&_25$$13, &_27$$13, &temp TSRMLS_CC);
+			zephir_array_update_multi(&option, &_25$$13 TSRMLS_CC, SL("sz"), 3, SL("slave"), &k);
 		} ZEND_HASH_FOREACH_END();
-		ZEPHIR_INIT_NVAR(&slave);
+		ZEPHIR_INIT_NVAR(&_21$$11);
+		ZEPHIR_INIT_NVAR(&k);
 	}
 	RETURN_CTOR(&option);
 

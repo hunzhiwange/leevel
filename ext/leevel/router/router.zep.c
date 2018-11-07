@@ -300,7 +300,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 	ZEPHIR_INIT_VAR(&pipeline);
 	object_init_ex(&pipeline, leevel_pipeline_pipeline_ce);
 	zephir_read_property(&_2, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &pipeline, "__construct", NULL, 143, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &pipeline, "__construct", NULL, 138, &_2);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_3);
 	zephir_create_array(&_3, 2, 0 TSRMLS_CC);
@@ -332,7 +332,7 @@ PHP_METHOD(Leevel_Router_Router, throughMiddleware) {
 	zephir_array_fetch(&_10, &middlewares, &method, PH_NOISY | PH_READONLY, "leevel/router/router.zep", 219 TSRMLS_CC);
 	ZEPHIR_CALL_FUNCTION(NULL, "call_user_func", &_6, 12, &_9, &_10);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &pipeline, "then", NULL, 144);
+	ZEPHIR_CALL_METHOD(NULL, &pipeline, "then", NULL, 139);
 	zephir_check_call_status();
 	ZEPHIR_MM_RESTORE();
 

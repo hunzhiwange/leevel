@@ -119,7 +119,7 @@ PHP_METHOD(Leevel_Event_Provider_Register, eventClosure) {
 
 
 	object_init_ex(return_value, leevel_event_dispatch_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 102, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 97, container);
 	zephir_check_call_status();
 	RETURN_MM();
 

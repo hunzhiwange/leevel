@@ -219,7 +219,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, routerClosure) {
 
 
 	object_init_ex(return_value, leevel_router_router_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 136, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 131, container);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -323,7 +323,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, urlClosure) {
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
 	object_init_ex(return_value, leevel_router_url_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 137, &request, &options);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 132, &request, &options);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -495,13 +495,13 @@ PHP_METHOD(Leevel_Router_Provider_Register, responseClosure) {
 	ZVAL_STRING(&_0, "redirect");
 	ZEPHIR_CALL_METHOD(&_2, container, "make", NULL, 0, &_0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 138, &_1, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &response, "__construct", NULL, 133, &_1, &_2);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_0);
 	ZVAL_STRING(&_0, "view\\success");
 	ZEPHIR_CALL_METHOD(&_4, &option, "get", NULL, 0, &_0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(&_3, &response, "setviewsuccesstemplate", NULL, 139, &_4);
+	ZEPHIR_CALL_METHOD(&_3, &response, "setviewsuccesstemplate", NULL, 134, &_4);
 	zephir_check_call_status();
 	ZEPHIR_INIT_NVAR(&_0);
 	ZVAL_STRING(&_0, "view\\fail");
@@ -580,7 +580,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, cookieClosure) {
 	ZVAL_STRING(&_1, "cookie\\");
 	ZEPHIR_CALL_METHOD(&_2, &_0, "get", NULL, 0, &_1);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 140, &_2);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 135, &_2);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -648,7 +648,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, viewClosure) {
 	ZVAL_STRING(&_1, "view.view");
 	ZEPHIR_CALL_METHOD(&_0, container, "make", NULL, 0, &_1);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 141, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 136, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

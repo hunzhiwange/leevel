@@ -45,7 +45,7 @@ class LoadOption
         let project = args[0];
     
         if project->isCachedOption() {
-            let data = (array)require project->optionCachedPath();
+            let data = (array) require project->optionCachedPath();
             this->setEnvs(data["app"]["_env"]);
         } else {
             let load = new Load(project->optionPath());

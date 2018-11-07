@@ -199,7 +199,7 @@ PHP_METHOD(Leevel_Http_FileResponse, create) {
 	} else {
 		ZVAL_BOOL(&_2, 0);
 	}
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 107, file, &_0, &headers, contentDisposition, &_1, &_2);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 102, file, &_0, &headers, contentDisposition, &_1, &_2);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -292,7 +292,7 @@ PHP_METHOD(Leevel_Http_FileResponse, setFile) {
 	} else {
 		ZEPHIR_CPY_WRT(&files, file);
 	}
-	ZEPHIR_CALL_METHOD(&_8, &files, "isreadable", NULL, 108);
+	ZEPHIR_CALL_METHOD(&_8, &files, "isreadable", NULL, 103);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_8))) {
 		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(leevel_http_fileexception_ce, "File must be readable.", "leevel/http/fileresponse.zep", 110);
@@ -402,9 +402,9 @@ PHP_METHOD(Leevel_Http_FileResponse, setAutoEtag) {
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_3);
 	ZVAL_STRING(&_3, "sha256");
-	ZEPHIR_CALL_FUNCTION(&_4, "hash_file", NULL, 109, &_3, &_2, &__$true);
+	ZEPHIR_CALL_FUNCTION(&_4, "hash_file", NULL, 104, &_3, &_2, &__$true);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(&etag, "base64_encode", NULL, 110, &_4);
+	ZEPHIR_CALL_FUNCTION(&etag, "base64_encode", NULL, 105, &_4);
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, this_ptr, "setetag", NULL, 0, &etag);
 	zephir_check_call_status();
@@ -584,7 +584,7 @@ PHP_METHOD(Leevel_Http_FileResponse, sendContent) {
 	ZVAL_STRING(&_3, "rb");
 	ZEPHIR_CALL_FUNCTION(&file, "fopen", &_5, 76, &_7, &_3);
 	zephir_check_call_status();
-	ZEPHIR_CALL_FUNCTION(NULL, "stream_copy_to_stream", NULL, 111, &file, &out);
+	ZEPHIR_CALL_FUNCTION(NULL, "stream_copy_to_stream", NULL, 106, &file, &out);
 	zephir_check_call_status();
 	zephir_fclose(&out TSRMLS_CC);
 	zephir_fclose(&file TSRMLS_CC);

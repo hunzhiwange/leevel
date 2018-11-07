@@ -96,7 +96,7 @@ PHP_METHOD(Leevel_Session_Manager, createConnect) {
 	object_init_ex(return_value, leevel_session_session_ce);
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "getcommonoption", NULL, 0);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 147, connect, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 142, connect, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -176,7 +176,7 @@ PHP_METHOD(Leevel_Session_Manager, makeConnectFile) {
 	ZVAL_STRING(&_1, "file");
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "normalizeconnectoption", NULL, 0, &_1, &options);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 148, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 143, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -215,7 +215,7 @@ PHP_METHOD(Leevel_Session_Manager, makeConnectRedis) {
 	ZVAL_STRING(&_1, "redis");
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "normalizeconnectoption", NULL, 0, &_1, &options);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 149, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 144, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

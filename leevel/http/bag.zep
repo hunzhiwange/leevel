@@ -234,8 +234,12 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
      * @param integer $option
      * @return string
      */
-    public function toJson(int option = 256) -> string
+    public function toJson(var option = null) -> string
     {
+        if is_null(option) {
+            let option = JSON_UNESCAPED_UNICODE;
+        }
+        
         return json_encode(this->jsonSerialize(), option);
     }
     

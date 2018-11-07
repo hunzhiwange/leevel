@@ -288,8 +288,12 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
      * @param integer $option
      * @return string
      */
-    public function toJson(int option = 256) -> string
+    public function toJson(var option = null) -> string
     {
+        if is_null(option) {
+            let option = JSON_UNESCAPED_UNICODE;
+        }
+
         return json_encode(this->jsonSerialize(), option);
     }
 
@@ -324,283 +328,6 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
         }
 
         return this;
-    }
-
-    /**
-     * JQuery.prev
-     *
-     * @return mixed
-     */
-    public function prev()
-    {
-        var prev;
-
-        let prev = prev(this->elements);
-        let this->valid = true;
-
-        return prev;
-    }
-
-    /**
-     * JQuery.end
-     *
-     * @return mixed
-     */
-    public function end()
-    {
-        var end;
-
-        let end = end(this->elements);
-        let this->valid = false;
-
-        return end;
-    }
-
-    /**
-     * JQuery.siblings
-     *
-     * @param mixed $key
-     * @return array
-     */
-    public function siblings(var key = null) -> array
-    {
-        var result, k, value;
-
-        let result = [];
-        let key = this->parseKey(key);
-
-        for k, value in this->elements {
-            if k === key {
-                continue;
-            }
-            let result[k] = value;
-        }
-
-        return result;
-    }
-
-    /**
-     * JQuery.nextAll
-     *
-     * @param mixed $key
-     * @return array
-     */
-    public function nextAll(var key = null) -> array
-    {
-        var result, current, k, value;
-
-        let result = [];
-        let key = this->parseKey(key);
-        let current = false;
-
-        for k, value in this->elements {
-            if current === false {
-                if k === key {
-                    let current = true;
-                }
-                continue;
-            }
-
-            let result[k] = value;
-        }
-
-        return result;
-    }
-
-    /**
-     * JQuery.prevAll
-     *
-     * @param mixed $key
-     * @return array
-     */
-    public function prevAll(var key = null) -> array
-    {
-        var result, current, k, value;
-
-        let result = [];
-        let key = this->parseKey(key);
-        let current = false;
-
-        for k, value in this->elements {
-            if k === key {
-                let current = true;
-                break;
-            }
-
-            let result[k] = value;
-        }
-
-        return result;
-    }
-
-    /**
-     * JQuery.attr
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return void|mixed
-     */
-    public function attr(string key, var value = null)
-    {
-        if value === null {
-            return this->offsetGet(key);
-        } else {
-            this->offsetSet(key, value);
-        }
-    }
-
-    /**
-     * JQuery.eq
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function eq(string key)
-    {
-        return this->offsetGet(key);
-    }
-
-    /**
-     * JQuery.get
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function get(string key)
-    {
-        return this->offsetGet(key);
-    }
-
-    /**
-     * JQuery.index
-     *
-     * @param mixed $value
-     * @param boolean $strict
-     * @return mixed
-     */
-    public function index(var value = null, boolean strict = true)
-    {
-        var key;
-
-        if value === null {
-            return this->key();
-        } else {
-            let key = array_search(value, this->elements, strict);
-            if key === false {
-                return;
-            }
-
-            return key;
-        }
-    }
-
-    /**
-     * JQuery.find
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function find(string key)
-    {
-        return this->offsetGet(key);
-    }
-
-    /**
-     * JQuery.first
-     *
-     * @return mixed
-     */
-    public function first()
-    {
-        this->rewind();
-        return this->current();
-    }
-
-    /**
-     * JQuery.last
-     *
-     * @return mixed
-     */
-    public function last()
-    {
-        return this->end();
-    }
-
-    /**
-     * JQuery.is
-     *
-     * @param string $key
-     * @return boolean
-     */
-    public function is(string key) -> boolean
-    {
-        return this->offsetExists(key);
-    }
-
-    /**
-     * JQuery.slice
-     *
-     * @param int $selector
-     * @param int $length
-     * @return array
-     */
-    public function slice(int selector, var length = null) -> array
-    {
-        return array_slice(this->elements, selector, length);
-    }
-
-    /**
-     * JQuery.not
-     *
-     * @param string $key
-     * @return array
-     */
-    public function not(string key) -> array
-    {
-        return this->siblings(key);
-    }
-
-    /**
-     * JQuery.filter
-     *
-     * @param string $key
-     * @return array
-     */
-    public function filter(string key) -> array
-    {
-        return this->siblings(key);
-    }
-
-    /**
-     * jquer.size
-     *
-     * @return int
-     */
-    public function size() -> int
-    {
-        return this->count();
-    }
-
-    /**
-     * 是否为空
-     *
-     * @return boolean
-     */
-    public function isEmpty() -> boolean
-    {
-        return empty(this->elements);
-    }
-
-    /**
-     * 数据 map
-     *
-     * @param mixed $key
-     * @param mixed $value
-     * @return array
-     */
-    public function map(var key, var value = null) -> array
-    {
-        return array_column(this->elements, key, value);
     }
 
     /**
@@ -697,8 +424,6 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
      */
     protected function getArrayElements(elements) -> array
     {
-        var temp = [];
-
         if is_array(elements) {
             return elements;
         } elseif is_object(elements) && elements instanceof Collection {
@@ -711,26 +436,7 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
             return elements->jsonSerialize();
         }
 
-        if typeof elements != "array" {
-            let temp[] = elements;
-            let elements = temp;
-        }
-
-        return elements;
-    }
-
-    /**
-     * 分析 key
-     *
-     * @param mixed $key
-     * @return mixed
-     */
-    protected function parseKey(var key = null)
-    {
-        if is_null(key) {
-            let key = this->key();
-        }
-        return key;
+        return json_decode(json_encode(elements), true);
     }
 
     /**

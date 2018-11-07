@@ -110,14 +110,12 @@ class Manager extends Managers
      */
     protected function parseDatabaseOption(array option) -> array
     {
-        var temp, type, tmp, slave, tmp2;
+        var temp, type, tempSlave, k;
     
         let temp = option;
 
         for type in array_keys(option) {
-            let tmp = ["distributed", "separate", "driver", "master", "slave"];
-
-            if in_array(type, tmp, true) {
+            if in_array(type, ["distributed", "separate", "driver", "master", "slave"], true) {
                 if isset temp[type] {
                     unset temp[type];
                 }
@@ -140,12 +138,12 @@ class Manager extends Managers
             let option["slave"] = [];
         } elseif option["slave"] {
             if count(option["slave"]) === count(option["slave"], COUNT_RECURSIVE) {
-                let tmp2 = [option["slave"]];
-                let option["slave"] = tmp2;
+                let tempSlave = [option["slave"]];
+                let option["slave"] = tempSlave;
             }
 
-            for slave in option["slave"] {
-                let slave = array_merge(slave, temp);
+            for k, _ in option["slave"] {
+                let option["slave"][k] = array_merge(option["slave"][k], temp);
             }
         }
 

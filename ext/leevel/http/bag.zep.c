@@ -496,27 +496,32 @@ PHP_METHOD(Leevel_Http_Bag, jsonSerialize) {
  */
 PHP_METHOD(Leevel_Http_Bag, toJson) {
 
-	zval *option_param = NULL, _0, _1;
-	zend_long option, ZEPHIR_LAST_CALL_STATUS;
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *option = NULL, option_sub, __$null, _0;
 	zval *this_ptr = getThis();
 
+	ZVAL_UNDEF(&option_sub);
+	ZVAL_NULL(&__$null);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 
 	ZEPHIR_MM_GROW();
-	zephir_fetch_params(1, 0, 1, &option_param);
+	zephir_fetch_params(1, 0, 1, &option);
 
-	if (!option_param) {
-		option = 256;
+	if (!option) {
+		option = &option_sub;
+		ZEPHIR_CPY_WRT(option, &__$null);
 	} else {
-		option = zephir_get_intval(option_param);
+		ZEPHIR_SEPARATE_PARAM(option);
 	}
 
 
+	if (Z_TYPE_P(option) == IS_NULL) {
+		ZEPHIR_INIT_NVAR(option);
+		ZVAL_LONG(option, 256);
+	}
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "jsonserialize", NULL, 0);
 	zephir_check_call_status();
-	ZVAL_LONG(&_1, option);
-	zephir_json_encode(return_value, &_0, zephir_get_intval(&_1) );
+	zephir_json_encode(return_value, &_0, zephir_get_intval(option) );
 	RETURN_MM();
 
 }
@@ -697,7 +702,7 @@ PHP_METHOD(Leevel_Http_Bag, filterValue) {
 	}
 
 
-	zephir_is_iterable(&filters, 0, "leevel/http/bag.zep", 334);
+	zephir_is_iterable(&filters, 0, "leevel/http/bag.zep", 338);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&filters), _0)
 	{
 		ZEPHIR_INIT_NVAR(&item);
@@ -798,9 +803,9 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithFunc) {
 	ZEPHIR_INIT_NVAR(&tmp);
 	zephir_fast_explode_str(&tmp, SL("="), filter, LONG_MAX TSRMLS_CC);
 	ZEPHIR_OBS_NVAR(filter);
-	zephir_array_fetch_long(filter, &tmp, 0, PH_NOISY, "leevel/http/bag.zep", 349 TSRMLS_CC);
+	zephir_array_fetch_long(filter, &tmp, 0, PH_NOISY, "leevel/http/bag.zep", 353 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&extend);
-	zephir_array_fetch_long(&extend, &tmp, 1, PH_NOISY, "leevel/http/bag.zep", 350 TSRMLS_CC);
+	zephir_array_fetch_long(&extend, &tmp, 1, PH_NOISY, "leevel/http/bag.zep", 354 TSRMLS_CC);
 	if (ZEPHIR_IS_STRING(filter, "default")) {
 		_0$$3 = !(zephir_is_numeric(&extend));
 		if (_0$$3) {
@@ -834,7 +839,7 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithFunc) {
 		if (!ZEPHIR_IS_FALSE_IDENTICAL(&_7$$5)) {
 			ZEPHIR_INIT_NVAR(&tmpExtend);
 			zephir_fast_explode_str(&tmpExtend, SL(","), &extend, LONG_MAX TSRMLS_CC);
-			zephir_is_iterable(&tmpExtend, 0, "leevel/http/bag.zep", 372);
+			zephir_is_iterable(&tmpExtend, 0, "leevel/http/bag.zep", 376);
 			ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&tmpExtend), _8$$6)
 			{
 				ZEPHIR_INIT_NVAR(&v);
@@ -856,11 +861,11 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithFunc) {
 					_11$$7 = zephir_is_true(&_9$$7);
 				}
 				if (_11$$7) {
-					zephir_array_append(&result, &v, PH_SEPARATE, "leevel/http/bag.zep", 366);
+					zephir_array_append(&result, &v, PH_SEPARATE, "leevel/http/bag.zep", 370);
 				} else {
 					ZEPHIR_INIT_LNVAR(_14$$9);
 					ZEPHIR_CONCAT_SVS(&_14$$9, "'", &v, "'");
-					zephir_array_append(&result, &_14$$9, PH_SEPARATE, "leevel/http/bag.zep", 368);
+					zephir_array_append(&result, &_14$$9, PH_SEPARATE, "leevel/http/bag.zep", 372);
 				}
 			} ZEND_HASH_FOREACH_END();
 			ZEPHIR_INIT_NVAR(&v);
@@ -890,7 +895,7 @@ PHP_METHOD(Leevel_Http_Bag, filterValueWithFunc) {
 		ZEPHIR_INIT_VAR(&_21$$12);
 		ZEPHIR_INIT_VAR(&_22$$12);
 		ZVAL_STRING(&_22$$12, "if (! function_exists('zephir_assign')) {\n                function zephir_assign($value, $evals) {\n                    eval($evals);\n                    return $value;\n                }\n            }");
-		zephir_eval_php(&_22$$12, &_21$$12, "/data/codes/queryyetsimple/leevel/http/bag.zep:384" TSRMLS_CC);
+		zephir_eval_php(&_22$$12, &_21$$12, "/data/codes/queryyetsimple/leevel/http/bag.zep:388" TSRMLS_CC);
 		zend_update_static_property(leevel_http_bag_ce, ZEND_STRL("zephirAssign"), &__$true);
 	}
 	ZEPHIR_CALL_FUNCTION(&_23, "zephir_assign", NULL, 0, value, &evals);
@@ -1068,7 +1073,7 @@ PHP_METHOD(Leevel_Http_Bag, getPartData) {
 	}
 	ZEPHIR_INIT_VAR(&parts);
 	zephir_fast_explode_str(&parts, SL("."), key, LONG_MAX TSRMLS_CC);
-	zephir_is_iterable(&parts, 0, "leevel/http/bag.zep", 472);
+	zephir_is_iterable(&parts, 0, "leevel/http/bag.zep", 476);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&parts), _0)
 	{
 		ZEPHIR_INIT_NVAR(&item);
@@ -1081,7 +1086,7 @@ PHP_METHOD(Leevel_Http_Bag, getPartData) {
 			RETVAL_ZVAL(defaults, 1, 0);
 			RETURN_MM();
 		}
-		zephir_array_fetch(&_2$$4, value, &item, PH_NOISY | PH_READONLY, "leevel/http/bag.zep", 469 TSRMLS_CC);
+		zephir_array_fetch(&_2$$4, value, &item, PH_NOISY | PH_READONLY, "leevel/http/bag.zep", 473 TSRMLS_CC);
 		ZEPHIR_CPY_WRT(value, &_2$$4);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);
