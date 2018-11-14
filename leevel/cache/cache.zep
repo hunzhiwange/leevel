@@ -147,11 +147,7 @@ class Cache implements ICache, IMacro
     public function callMacro(string method, array args)
     {
         if self::hasMacro(method) {
-            if self::macro[method] instanceof Closure {
-                return call_user_func_array(self::macro[method]->bindTo(this), args);
-            } else {
-                return call_user_func_array(self::macro[method], args);
-            }
+            return call_user_func_array(self::macro[method]->bindTo(this), args);
         }
 
         throw new BadMethodCallException(sprintf("Method %s is not exits.", method));
