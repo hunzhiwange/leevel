@@ -14,15 +14,15 @@
     <a href="./README.md">English</a> | <a href="./README-zh-CN.md">中文</a>
 </p>
 
-# The Leevel Framework To Rebuild QueryPHP
+# 高性能 PHP 扩展开发框架
 
-Leevel is an open source web framework delivered as a C extension and supplement for the QueryPHP framework providing high performance and lower resource consumption.
+Leevel 是一个开源 PHP C 扩展开发框架，采用 zephir 编写，是为了解决使用框架带来性能下降的经典矛盾，Leevel 是为了解决 QueryPHP 性能而开发，可以与同版本的 QueryPHP 混合使用，将接管 composer 中的 PHP 版本功能。
 
-* Site: <https://www.queryphp.com/>
-* API: <https://api.queryphp.com>
-* Document: <https://www.leevel.vip/>
+* 官方网站: <https://www.queryphp.com/>
+* API 接口: <https://api.queryphp.com>
+* 开发文档: <https://www.leevel.vip/>
 
-## The core packages
+## 核心包
 
  * QueryPHP On Github: <https://github.com/hunzhiwange/queryphp/>
  * QueryPHP On Gitee: <https://gitee.com/dyhb/queryphp/>
@@ -35,21 +35,21 @@ Leevel is an open source web framework delivered as a C extension and supplement
  * Packages From Hunzhiwange: <https://packagist.org/packages/hunzhiwange/>
  * Packages From Leevel: <https://packagist.org/packages/leevel/>
 
-## Requirement
+## 最低 PHP 版本支持
 
 ```
 version_compare(PHP_VERSION, '7.1.3', '<') && die('PHP 7.1.3 OR Higher');
 ```
 
-## How to install
+## 如何安装
 
 ### Windows
 
-Need to tests.
+后续会提供 dll 扩展.
 
 ### Linux
 
-You can download the source code.
+从下面的仓库下载源代码.
 
 ```
 git clone git@github.com:hunzhiwange/leevel.git
@@ -57,7 +57,7 @@ cd ext
 ```
 
 
-Then compile it.
+GCC 编译源码.
 
 ```
 $/path/to/phpize
@@ -65,17 +65,17 @@ $./configure --with-php-config=/path/to/php-config
 $make && make install
 ```
 
-Then add extension to your php.ini,you can see if installation is successful by command php -m.
+将扩展添加到你的 php.ini, 使用 php -m 查看扩展是否被安装.
 
 ```
 extension = leevel.so
 ```
 
-## Official Documentation
+## 官方文档
 
-Documentation for the framework can be found on the [Leevel website](http://www.queryphp.com).
+请访问官方网站即即可查看 [Leevel website](http://www.queryphp.com).
 
-## Run Tests
+## 运行测试文件
 
 ```
 $cd /data/codes/leevel      
@@ -83,10 +83,10 @@ $composer install
 $php vendor/bin/phpunit tests
 ```
 
-## Travis CI Supported
+## Travis CI 持续集成支持
 
-Let code poem.
+让代码提交更值得信赖.
 
-## License
+## 版权协议
 
-The Leevel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Leevel 采用 [MIT license](http://opensource.org/licenses/MIT) 授权许可协议，更自由。
