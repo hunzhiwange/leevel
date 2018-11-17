@@ -14,7 +14,7 @@
     <a href="./README.md">English</a> | <a href="./README-zh-CN.md">中文</a>
 </p>
 
-# 高性能 PHP 扩展开发框架
+# Leevel 高性能 PHP 扩展开发框架
 
 Leevel 是一个开源 PHP C 扩展开发框架，采用 zephir 编写，是为了解决使用框架带来性能下降的经典矛盾，Leevel 是为了解决 QueryPHP 性能而开发，可以与同版本的 QueryPHP 混合使用，将接管 composer 中的 PHP 版本功能。
 
