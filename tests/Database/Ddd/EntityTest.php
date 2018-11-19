@@ -21,7 +21,11 @@ declare(strict_types=1);
 namespace Tests\Database\Ddd;
 
 use Leevel\Database\Ddd\Entity;
+use Tests\Database\Ddd\Entity\EntityWithEnum;
+use Tests\Database\Ddd\Entity\EntityWithEnum2;
+use Tests\Database\Ddd\Entity\EntityWithEnum3;
 use Tests\Database\Ddd\Entity\Relation\Post;
+use Tests\Database\Ddd\Entity\TestPropErrorEntity;
 use Tests\TestCase;
 
 /**
@@ -39,7 +43,7 @@ class EntityTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Prop `name` of entity `Tests\\Database\\Ddd\\TestPropErrorEntity` was not defined.'
+            'Prop `name` of entity `Tests\\Database\\Ddd\\Entity\\TestPropErrorEntity` was not defined.'
         );
 
         $entity = new TestPropErrorEntity();
@@ -78,37 +82,144 @@ class EntityTest extends TestCase
         $entity = new Post(['title' => 'foo']);
         $entity->create()->flush();
     }
-}
 
-class TestPropErrorEntity extends Entity
-{
-    const TABLE = 'error';
-
-    const ID = 'id';
-
-    const AUTO = 'id';
-
-    const STRUCT = [
-        'id' => [
-            'readonly'           => true,
-        ],
-        'title'     => [],
-        'name'      => [],
-    ];
-
-    private $id;
-
-    private $title;
-
-    public function setter(string $prop, $value)
+    public function testWithProps()
     {
-        $this->{$this->prop($prop)} = $value;
+        $entity = new Post();
 
-        return $this;
+        $entity->withProps([
+            'title'   => 'foo',
+            'summary' => 'bar',
+        ]);
+
+        $this->assertSame('foo', $entity->title);
+        $this->assertSame('bar', $entity->summary);
+        $this->assertSame(['title', 'summary'], $entity->changed());
     }
 
-    public function getter(string $prop)
+    public function testEntityWithEnum()
     {
-        return $this->{$this->prop($prop)};
+        $entity = new EntityWithEnum([
+            'title'   => 'foo',
+            'status'  => '1',
+        ]);
+
+        $this->assertSame('foo', $entity->title);
+        $this->assertSame('1', $entity->status);
+
+        $data = <<<'eot'
+{
+    "title": "foo"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray(['title'])
+            )
+        );
+
+        $data = <<<'eot'
+{
+    "id": null,
+    "title": "foo",
+    "status": "1",
+    "status_enum": "启用"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->toArray(),
+                2
+            )
+        );
+
+        $this->assertFalse($entity->isEnum('id'));
+        $this->assertFalse($entity->isEnum('title'));
+        $this->assertTrue($entity->isEnum('status'));
+        $this->assertSame('启用', $entity->enum('status', '1'));
+        $this->assertSame('关闭', $entity->enum('status', '0'));
+        $this->assertFalse($entity->enum('not', '0'));
+        $this->assertFalse($entity->enum('not'));
+
+        $data = <<<'eot'
+[
+    "关闭",
+    "启用"
+]
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->enum('status'),
+                3
+            )
+        );
+    }
+
+    public function testEntityWithEnum2()
+    {
+        $entity = new EntityWithEnum2([
+            'title'   => 'foo',
+            'status'  => 't',
+        ]);
+
+        $data = <<<'eot'
+{
+    "t": "关闭",
+    "f": "启用"
+}
+eot;
+
+        $this->assertSame(
+            $data,
+            $this->varJson(
+                $entity->enum('status')
+            )
+        );
+    }
+
+    public function testEntityWithEnumItemNotFound()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Value not a enum in the field `status` of entity `Tests\\Database\\Ddd\\Entity\\EntityWithEnum`.'
+        );
+
+        $entity = new EntityWithEnum([
+            'title'   => 'foo',
+            'status'  => '1',
+        ]);
+
+        $entity->enum('status', '5');
+    }
+
+    public function testEntityWithEnumItemNotFound2()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Value not a enum in the field `status` of entity `Tests\\Database\\Ddd\\Entity\\EntityWithEnum`.'
+        );
+
+        $entity = new EntityWithEnum([
+            'title'   => 'foo',
+            'status'  => '5',
+        ]);
+
+        $entity->toArray();
+    }
+
+    public function testEntityWithEnumIsNotArrayWillReturnFalse()
+    {
+        $entity = new EntityWithEnum3([
+            'title'   => 'foo',
+            'status'  => 't',
+        ]);
+
+        $this->assertFalse($entity->enum('status'));
     }
 }

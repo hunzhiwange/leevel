@@ -228,8 +228,6 @@ class RequestTest extends TestCase
             ['her=Jane Doe&him=John%20Doe', 'her=Jane Doe&him=John%20Doe', ''],
             ['foo=bar&&&test&&', 'foo=bar&test', 'removes unneeded delimiters'],
             ['formula=e=m*c^2', 'formula=e=m*c^2', ''],
-            // remove _url 用于 nginx url 重写
-            ['foo=bar&_url=/hello/world', 'foo=bar', ''],
         ];
     }
 
@@ -338,6 +336,39 @@ class RequestTest extends TestCase
         $this->assertSame($normalizedMethod, $request->getMethod());
         $this->assertSame('mycontent', $request->request->get('content'));
 
+        unset($_SERVER['REQUEST_METHOD'], $_SERVER['CONTENT_TYPE']);
+    }
+
+    public function provideOverloadedMethods2()
+    {
+        return [
+            ['POST'],
+            ['DELETE'],
+            ['PATCH'],
+            ['put'],
+            ['delete'],
+            ['patch'],
+            ['post'],
+            ['get'],
+            ['options'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideOverloadedMethods2
+     *
+     * @param mixed $method
+     */
+    public function testCreateFromGlobalWithApplicationJson($method)
+    {
+        $normalizedMethod = strtoupper($method);
+        $_SERVER['REQUEST_METHOD'] = $method;
+        $_SERVER['CONTENT_TYPE'] = 'application/json';
+
+        $request = RequestContentApplicationJson::createFromGlobals();
+        $this->assertSame($normalizedMethod, $request->getMethod());
+        $this->assertSame('admin', $request->request->get('name'));
+        $this->assertSame('123456', $request->request->get('password'));
         unset($_SERVER['REQUEST_METHOD'], $_SERVER['CONTENT_TYPE']);
     }
 
@@ -528,5 +559,27 @@ class RequestContentProxy extends Request
     public function getContent()
     {
         return http_build_query(['_method' => 'PUT', 'content' => 'mycontent'], '', '&');
+    }
+}
+
+class RequestContentApplicationJson extends Request
+{
+    /**
+     * 全局变量创建一个 Request.
+     *
+     * @return static
+     */
+    public static function createFromGlobals()
+    {
+        $request = new static($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER, null);
+
+        $request = static::normalizeRequestFromContent($request);
+
+        return $request;
+    }
+
+    public function getContent()
+    {
+        return '{"name":"admin","password":"123456"}';
     }
 }

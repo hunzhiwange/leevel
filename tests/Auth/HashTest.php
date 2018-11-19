@@ -18,48 +18,39 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Tests\Database\Ddd\Entity\Relation;
+namespace Tests\Auth;
 
-use Leevel\Database\Ddd\Entity;
+use Leevel\Auth\Hash;
+use Tests\TestCase;
 
 /**
- * role.
+ * hash test.
  *
  * @author Xiangmin Liu <635750556@qq.com>
  *
- * @since 2018.10.13
+ * @since 2018.11.19
  *
  * @version 1.0
  */
-class Role extends Entity
+class HashTest extends TestCase
 {
-    const TABLE = 'role';
-
-    const ID = 'id';
-
-    const AUTO = 'id';
-
-    const STRUCT = [
-        'id'        => [],
-        'name'      => [],
-        'create_at' => [],
-    ];
-
-    private $id;
-
-    private $name;
-
-    private $createAt;
-
-    public function setter(string $prop, $value): Entity
+    public function testBaseUse()
     {
-        $this->{$this->prop($prop)} = $value;
+        $hash = new Hash();
 
-        return $this;
+        $hashPassword = $hash->password('123456');
+
+        $this->assertSame(60, strlen($hashPassword));
+        $this->assertTrue($hash->verify('123456', $hashPassword));
     }
 
-    public function getter(string $prop)
+    public function testWithCost()
     {
-        return $this->{$this->prop($prop)};
+        $hash = new Hash();
+
+        $hashPassword = $hash->password('123456', ['cost' => 12]);
+
+        $this->assertSame(60, strlen($hashPassword));
+        $this->assertTrue($hash->verify('123456', $hashPassword));
     }
 }

@@ -23,46 +23,40 @@ namespace Tests\Database\Ddd\Entity;
 use Leevel\Database\Ddd\Entity;
 
 /**
- * TestToArrayBlackEntity.
+ * EntityWithEnum2.
  *
  * @author Xiangmin Liu <635750556@qq.com>
  *
- * @since 2018.10.21
+ * @since 2018.11.17
  *
  * @version 1.0
  */
-class TestToArrayBlackEntity extends Entity
+class EntityWithEnum2 extends Entity
 {
-    const TABLE = 'test';
+    const TABLE = 'entity_with_enum';
 
     const ID = 'id';
 
     const AUTO = 'id';
 
     const STRUCT = [
-        'id'          => [],
-        'name'        => [],
-        'description' => [
-            'show_prop_black' => true,
+        'id' => [
+            'readonly'           => true,
         ],
-        'address'     => [],
-        'foo_bar'     => [
-            'show_prop_black' => true,
+        'title'       => [],
+        'status'      => [
+            self::ENUM => [
+                't' => '关闭',
+                'f' => '启用',
+            ],
         ],
-        'hello'       => [],
     ];
 
     private $id;
 
-    private $name;
+    private $title;
 
-    private $description;
-
-    private $address;
-
-    private $fooBar;
-
-    private $hello;
+    private $status;
 
     public function setter(string $prop, $value): Entity
     {

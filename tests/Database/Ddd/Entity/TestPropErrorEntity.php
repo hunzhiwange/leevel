@@ -23,46 +23,33 @@ namespace Tests\Database\Ddd\Entity;
 use Leevel\Database\Ddd\Entity;
 
 /**
- * TestToArrayBlackEntity.
+ * TestPropErrorEntity.
  *
  * @author Xiangmin Liu <635750556@qq.com>
  *
- * @since 2018.10.21
+ * @since 2018.10.27
  *
  * @version 1.0
  */
-class TestToArrayBlackEntity extends Entity
+class TestPropErrorEntity extends Entity
 {
-    const TABLE = 'test';
+    const TABLE = 'error';
 
     const ID = 'id';
 
     const AUTO = 'id';
 
     const STRUCT = [
-        'id'          => [],
-        'name'        => [],
-        'description' => [
-            'show_prop_black' => true,
+        'id' => [
+            'readonly'           => true,
         ],
-        'address'     => [],
-        'foo_bar'     => [
-            'show_prop_black' => true,
-        ],
-        'hello'       => [],
+        'title'     => [],
+        'name'      => [],
     ];
 
     private $id;
 
-    private $name;
-
-    private $description;
-
-    private $address;
-
-    private $fooBar;
-
-    private $hello;
+    private $title;
 
     public function setter(string $prop, $value): Entity
     {

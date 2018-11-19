@@ -24,7 +24,6 @@ use Leevel\Page\Bootstrap;
 use Leevel\Page\Defaults;
 use Leevel\Page\IPage;
 use Leevel\Page\Page;
-use Leevel\Router\IUrl;
 use Tests\TestCase;
 
 /**
@@ -40,7 +39,7 @@ class PageTest extends TestCase
 {
     public function testBaseUse()
     {
-        $page = new Page(10, 52);
+        $page = new Page(1, 10, 52);
 
         $this->assertInstanceof(IPage::class, $page);
 
@@ -104,9 +103,75 @@ eot;
         );
     }
 
+    public function testWithCurrentPage()
+    {
+        $page = new Page(2, 10, 52);
+
+        $this->assertInstanceof(IPage::class, $page);
+
+        $data = <<<'eot'
+<div class="pagination"> <span class="pagination-total">共 52 条</span> <button class="btn-prev" onclick="window.location.href='?page=1';">&#8249;</button> <ul class="pager">  <li class="number"><a href="?page=1">1</a></li><li class="number active"><a>2</a></li><li class="number"><a href="?page=3">3</a></li><li class="number"><a href="?page=4">4</a></li><li class="number"><a href="?page=5">5</a></li><li class="number"><a href="?page=6">6</a></li>  </ul> <button class="btn-next" onclick="window.location.href='?page=3';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="?page={jump}" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
+eot;
+
+        $this->assertSame(
+            $data,
+            $page->render()
+        );
+
+        $this->assertSame(
+            $data,
+            $page->toHtml()
+        );
+
+        $this->assertSame(
+            $data,
+            $page->__toString()
+        );
+
+        $this->assertSame(
+            $data,
+            (string) ($page)
+        );
+
+        $data = <<<'eot'
+{
+    "per_page": 10,
+    "current_page": 2,
+    "total_page": 6,
+    "total_record": 52,
+    "total_macro": false,
+    "from": 10,
+    "to": 20
+}
+eot;
+
+        $this->assertSame(
+            $data,
+                $this->varJson(
+                    $page->toArray()
+                )
+        );
+
+        $this->assertSame(
+            $data,
+                $this->varJson(
+                    $page->jsonSerialize()
+                )
+        );
+
+        $data = <<<'eot'
+{"per_page":10,"current_page":2,"total_page":6,"total_record":52,"total_macro":false,"from":10,"to":20}
+eot;
+
+        $this->assertSame(
+            $data,
+            $page->toJson()
+        );
+    }
+
     public function testFragment()
     {
-        $page = new Page(10, 52);
+        $page = new Page(1, 10, 52);
 
         $page->fragment('hello');
 
@@ -142,7 +207,7 @@ eot;
 
     public function testPerPage()
     {
-        $page = new Page(10, 52);
+        $page = new Page(1, 10, 52);
 
         $this->assertSame(10, $page->getPerPage());
 
@@ -180,7 +245,7 @@ eot;
 
     public function testSetSmallTemplate()
     {
-        $page = new Page(10, 52, [
+        $page = new Page(1, 10, 52, [
             'render_option' => ['small_template' => true],
         ]);
 
@@ -214,7 +279,7 @@ eot;
 
     public function testAppend()
     {
-        $page = new Page(5, 3);
+        $page = new Page(1, 5, 3);
 
         $page->append('foo', 'bar');
 
@@ -263,7 +328,7 @@ eot;
 
     public function testRenderOption()
     {
-        $page = new Page(5, 3);
+        $page = new Page(1, 5, 3);
 
         $data = <<<'eot'
 <div class="pagination"> <span class="pagination-total">共 3 条</span> <button class="btn-prev disabled">&#8249;</button> <ul class="pager">    </ul> <button class="btn-next disabled">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="?page={jump}" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
@@ -319,7 +384,7 @@ eot;
 
     public function testUrl()
     {
-        $page = new Page(3, 5);
+        $page = new Page(1, 3, 5);
 
         $page->url('/hello');
 
@@ -335,7 +400,7 @@ eot;
 
     public function testSetRender()
     {
-        $page = new Page(3, 5);
+        $page = new Page(1, 3, 5);
 
         $page->setRender('bootstrap');
 
@@ -351,7 +416,7 @@ eot;
 
     public function testDefaultPerPage()
     {
-        $page = new Page(null, 25);
+        $page = new Page(1, null, 25);
 
         $data = <<<'eot'
 <div class="pagination"> <span class="pagination-total">共 25 条</span> <button class="btn-prev disabled">&#8249;</button> <ul class="pager">  <li class="number active"><a>1</a></li><li class="number"><a href="?page=2">2</a></li>  </ul> <button class="btn-next" onclick="window.location.href='?page=2';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="?page={jump}" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
@@ -365,9 +430,13 @@ eot;
 
     public function testPageName()
     {
-        $page = new Page(10, 25);
+        $page = new Page(1, 10, 25);
+
+        $this->assertSame('page', $page->getPageName());
 
         $page->pageName('page2');
+
+        $this->assertSame('page2', $page->getPageName());
 
         $data = <<<'eot'
 <div class="pagination"> <span class="pagination-total">共 25 条</span> <button class="btn-prev disabled">&#8249;</button> <ul class="pager">  <li class="number active"><a>1</a></li><li class="number"><a href="?page2=2">2</a></li><li class="number"><a href="?page2=3">3</a></li>  </ul> <button class="btn-next" onclick="window.location.href='?page2=2';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="?page2={jump}" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
@@ -381,7 +450,7 @@ eot;
 
     public function testParseLastRenderNext()
     {
-        $page = new Page(3, 30);
+        $page = new Page(1, 3, 30);
 
         $page->currentPage(3);
 
@@ -433,69 +502,9 @@ eot;
         );
     }
 
-    public function testWithResolver()
-    {
-        $page = new Page(10, 25);
-
-        Page::setUrlResolver(function () {
-            $args = func_get_args();
-
-            $url = $this->createMock(IUrl::class);
-
-            $this->assertInstanceof(IUrl::class, $url);
-
-            $resultUrl = $args[2].$args[0];
-
-            $url->method('make')->willReturn($resultUrl);
-            $this->assertEquals($resultUrl, $url->make($args[0]));
-
-            return call_user_func_array(
-                [$url, 'make'], $args
-            );
-        });
-
-        $page->url('domain@/hello/world');
-
-        $data = <<<'eot'
-<div class="pagination"> <span class="pagination-total">共 25 条</span> <button class="btn-prev disabled">&#8249;</button> <ul class="pager">  <li class="number active"><a>1</a></li><li class="number"><a href="domain/hello/world">2</a></li><li class="number"><a href="domain/hello/world">3</a></li>  </ul> <button class="btn-next" onclick="window.location.href='domain/hello/world';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="domain/hello/world" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
-eot;
-
-        $this->assertSame(
-            $data,
-            $page->render()
-        );
-
-        $page->url('@/hello/world');
-
-        $data = <<<'eot'
-<div class="pagination"> <span class="pagination-total">共 25 条</span> <button class="btn-prev disabled">&#8249;</button> <ul class="pager">  <li class="number active"><a>1</a></li><li class="number"><a href="www/hello/world">2</a></li><li class="number"><a href="www/hello/world">3</a></li>  </ul> <button class="btn-next" onclick="window.location.href='www/hello/world';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="www/hello/world" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
-eot;
-
-        $this->assertSame(
-            $data,
-            $page->render()
-        );
-
-        Page::setUrlResolver(null);
-    }
-
-    public function testWithResolverException()
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage(
-            'Page not set url resolver.'
-        );
-
-        $page = new Page(10, 25);
-
-        $page->url('domain@/hello/world');
-
-        $page->render();
-    }
-
     public function testRange()
     {
-        $page = new Page(3, 40);
+        $page = new Page(1, 3, 40);
 
         $page->currentPage(7);
 
@@ -531,7 +540,7 @@ eot;
 
     public function testMacro()
     {
-        $page = new Page(3, Page::MACRO);
+        $page = new Page(1, 3, Page::MACRO);
 
         $page->currentPage(44);
 
@@ -563,14 +572,14 @@ eot;
         );
     }
 
-    public function testUseParameterAsPage()
+    public function testUseParameterWithPageWillBeRemoved()
     {
-        $page = new Page(3, null);
+        $page = new Page(1, 3, null);
 
         $page->addParameter('page', 5);
 
         $data = <<<'eot'
-<div class="pagination">  <button class="btn-prev" onclick="window.location.href='?page=4';">&#8249;</button> <ul class="pager">    </ul> <button class="btn-next" onclick="window.location.href='?page=6';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="?page={jump}" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
+<div class="pagination">  <button class="btn-prev disabled">&#8249;</button> <ul class="pager">    </ul> <button class="btn-next" onclick="window.location.href='?page=2';">&#8250;</button> <span class="pagination-jump">前往<input type="number" link="?page={jump}" onkeydown="var event = event || window.event; if (event.keyCode == 13) { window.location.href = this.getAttribute('link').replace( '{jump}', this.value); }" onfocus="this.select();" min="1" value="1" number="true" class="pagination-editor">页</span> </div>
 eot;
 
         $this->assertSame(
@@ -581,11 +590,11 @@ eot;
         $data = <<<'eot'
 {
     "per_page": 3,
-    "current_page": 5,
+    "current_page": 1,
     "total_page": null,
     "total_record": null,
     "total_macro": false,
-    "from": 12,
+    "from": 0,
     "to": null
 }
 eot;
@@ -600,7 +609,7 @@ eot;
 
     public function testPageBootstrapSize()
     {
-        $page = new Page(3, 40);
+        $page = new Page(1, 3, 40);
 
         $page->currentPage(8);
 
@@ -625,7 +634,7 @@ eot;
 
     public function testRenderObject()
     {
-        $page = new Page(10, 25);
+        $page = new Page(1, 10, 25);
 
         $render = new Defaults($page, [
             'small_template' => true,
@@ -661,7 +670,7 @@ eot;
             'Unsupported render type.'
         );
 
-        $page = new Page(10, 25);
+        $page = new Page(1, 10, 25);
 
         $page->render([1, 2]);
     }
