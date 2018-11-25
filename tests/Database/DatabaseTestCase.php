@@ -18,49 +18,46 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Tests\Database\Ddd\Delete;
+namespace Tests\Database;
 
-use Leevel\Database\Ddd\Entity;
-use Tests\Database\DatabaseTestCase as TestCase;
-use Tests\Database\Ddd\Entity\TestEntity;
+use Tests\Database;
+use Tests\TestCase;
 
 /**
- * delete test.
+ * 数据库单元测试基类.
  *
  * @author Xiangmin Liu <635750556@qq.com>
  *
- * @since 2018.10.23
+ * @since 2018.09.29
  *
  * @version 1.0
  */
-class DeleteTest extends TestCase
+abstract class DatabaseTestCase extends TestCase
 {
-    public function testBaseUse()
+    use Database;
+
+    protected function setUp()
     {
-        $entity = new TestEntity(['id' => 5, 'name' => 'foo']);
+        $this->clearDatabaseTable();
 
-        $this->assertInstanceof(Entity::class, $entity);
-
-        $this->assertSame('foo', $entity->name);
-        $this->assertSame(['id', 'name'], $entity->changed());
-
-        $this->assertNull($entity->flushData());
-
-        $entity->destroy();
-
-        $data = <<<'eot'
-[
-    {
-        "id": 5
+        $this->metaWithDatabase();
     }
-]
-eot;
 
-        $this->assertSame(
-            $data,
-            $this->varJson(
-                $entity->flushData()
-            )
-        );
+    protected function tearDown()
+    {
+        $this->clearDatabaseTable();
+
+        $this->metaWithoutDatabase();
+
+        $this->freeDatabaseConnects();
+    }
+
+    protected function clearDatabaseTable()
+    {
+        if (!method_exists($this, 'getDatabaseTable')) {
+            return;
+        }
+
+        $this->truncateDatabase($this->getDatabaseTable());
     }
 }
