@@ -22,7 +22,6 @@
         "phpunit/phpunit": "~7.0",
         "nunomaduro/collision": "~2.0",
         "phalcon/zephir": "^0.10.10",
-        "hollodotme/phpunit-testdox-markdown": "^1.0",
         "codedungeon/phpunit-result-printer": "^0.20.1"
     },
     "suggest": {
