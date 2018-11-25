@@ -35,12 +35,6 @@
             "dev-master": "1.0-dev"
         }
     },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.org"
-        }
-    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
