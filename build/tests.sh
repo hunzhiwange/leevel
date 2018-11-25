@@ -24,6 +24,6 @@ rm -rf $TMP_DIR;
 
     rm -rf $TMP_DIR;
 
-    git add $TMP_DIR
+    git add .
     git commit -m "$commit" -n
 )
