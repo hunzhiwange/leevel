@@ -20,6 +20,9 @@ rm -rf $TMP_DIR;
 
     rm -rf "$TMP_DIR/.git"
 
+    rm -rf ./tests/
+    mkdir ./tests/
+
     cp -rf "$TMP_DIR/"* ./tests/
 
     rm -rf $TMP_DIR;
