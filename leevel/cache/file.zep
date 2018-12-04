@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Cache;
 
 use InvalidArgumentException;
@@ -53,7 +54,7 @@ class File extends Connect implements IConnect
         "path" : "",
         "serialize" : true
     ];
-    
+
     /**
      * 获取缓存.
      *
@@ -66,7 +67,7 @@ class File extends Connect implements IConnect
     public function get(string name, var defaults = false, array! option = [])
     {
         var cachePath, fp, len, data;
-    
+
         let option = this->normalizeOptions(option);
         let cachePath = this->getCachePath(name);
 
@@ -117,7 +118,7 @@ class File extends Connect implements IConnect
 
         return data;
     }
-    
+
     /**
      * 设置缓存.
      *
@@ -128,7 +129,7 @@ class File extends Connect implements IConnect
     public function set(string name, var data, array! option = []) -> void
     {
         var cachePath;
-    
+
         let option = this->normalizeOptions(option);
 
         if option["serialize"] {
@@ -141,7 +142,7 @@ class File extends Connect implements IConnect
 
         this->writeData(cachePath, data);
     }
-    
+
     /**
      * 清除缓存.
      *
@@ -150,21 +151,21 @@ class File extends Connect implements IConnect
     public function delete(string name) -> void
     {
         var cachePath;
-    
+
         let cachePath = this->getCachePath(name);
 
         if this->exist(name) {
             unlink(cachePath);
         }
     }
-    
+
     /**
      * 关闭.
      */
     public function close() -> void
     {
     }
-    
+
     /**
      * 验证缓存是否过期
      *
@@ -176,7 +177,7 @@ class File extends Connect implements IConnect
     protected function isExpired(string name, array! option) -> bool
     {
         var filePath;
-    
+
         let filePath = this->getCachePath(name);
 
         let option["expire"] = this->cacheTime(name, intval(option["expire"]));
@@ -187,7 +188,7 @@ class File extends Connect implements IConnect
 
         return filemtime(filePath) + (int) option["expire"] < time();
     }
-    
+
     /**
      * 获取缓存路径.
      *
@@ -203,7 +204,7 @@ class File extends Connect implements IConnect
 
         return this->option["path"] . "/" . this->getCacheName(name) . ".php";
     }
-    
+
     /**
      * 写入缓存数据.
      *
@@ -213,7 +214,7 @@ class File extends Connect implements IConnect
     protected function writeData(string fileName, string data) -> void
     {
         var dirname;
-    
+
         let dirname = dirname(fileName);
 
         if ! (is_dir(dirname)) {
@@ -235,7 +236,7 @@ class File extends Connect implements IConnect
 
         chmod(fileName, 0666);
     }
-    
+
     /**
      * 验证缓存是否存在.
      *
@@ -247,7 +248,7 @@ class File extends Connect implements IConnect
     {
         return is_file(this->getCachePath(name));
     }
-    
+
     /**
      * 获取缓存名字
      * 去掉特殊缓存名字字符.

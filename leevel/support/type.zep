@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Support;
 
 use Closure;
@@ -28,10 +29,9 @@ use InvalidArgumentException;
  */
 class Type
 {
-
     /**
      * zephir 不支持动态 instanceof
-     * 
+     *
      * @var boolean
      */
     protected static zephirInstanceof = false;
@@ -97,7 +97,7 @@ class Type
             case "array":
                 if isset tmp[1] {
                     let tmp1 = explode(",", tmp[1]);
-                    
+
                     return self::arr(value, tmp1);
                 } else {
                     return is_array(value);
@@ -133,7 +133,7 @@ class Type
 
         return false;
     }
-    
+
     /**
      * 判断字符串是否为数字
      *
@@ -147,7 +147,7 @@ class Type
         }
         return ! (preg_match("/[^\\d-.,]/", trim(value, "'")));
     }
-    
+
     /**
      * 判断字符串是否为整数
      *
@@ -161,7 +161,7 @@ class Type
         }
         return ctype_digit(strval(value));
     }
-    
+
     /**
      * 验证参数是否为指定的类型集合
      *
@@ -172,7 +172,7 @@ class Type
     public static function these(value, types) -> boolean
     {
         var item, tmps;
-    
+
         if ! (self::vars(types, "string")) && ! (self::arr(types, ["string"])) {
             throw new InvalidArgumentException("The parameter must be string or an array of string elements.");
         }
@@ -192,7 +192,7 @@ class Type
 
         return false;
     }
-    
+
     /**
      * 验证数组中的每一项格式化是否正确
      *
@@ -203,7 +203,7 @@ class Type
     public static function arr(var arr, array types) -> boolean
     {
         var value, ret, item;
-    
+
         // 不是数组直接返回
         if ! (is_array(arr)) {
             return false;

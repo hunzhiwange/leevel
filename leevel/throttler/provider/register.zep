@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Throttler\Provider;
 
 use Closure;
@@ -40,7 +41,7 @@ class Register extends Provider
     {
         parent::__construct(container);
     }
-    
+
     /**
      * 注册服务
      *
@@ -51,7 +52,7 @@ class Register extends Provider
         this->throttler();
         this->middleware();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -61,9 +62,9 @@ class Register extends Provider
     {
         return [
             "throttler" : [
-                "Leevel\\Throttler\\Throttler", 
+                "Leevel\\Throttler\\Throttler",
                 "Leevel\\Throttler\\IThrottler"
-            ], 
+            ],
             "Leevel\\Throttler\\Middleware\\Throttler"
         ];
     }
@@ -104,7 +105,7 @@ class Register extends Provider
 
         return throttler;
     }
-    
+
     /**
      * 注册 middleware 服务
      *

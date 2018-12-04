@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\View;
 
 use RuntimeException;
@@ -27,7 +28,6 @@ use RuntimeException;
  */
 abstract class Connect
 {
-
     /**
      * 变量值
      *
@@ -55,7 +55,7 @@ abstract class Connect
 
     /**
      * 设置配置
-     * 
+     *
      * @param string $name
      * @param mixed $value
      * @return $this
@@ -94,7 +94,7 @@ abstract class Connect
         if typeof name == "null" {
             return this->vars;
         }
-        
+
         return isset(this->vars[name]) ? this->vars[name] : null;
     }
 
@@ -107,7 +107,7 @@ abstract class Connect
     public function deleteVar(array name)
     {
         var item;
-        
+
         for item in name {
             if isset this->vars[item] {
                 unset(this->vars[item]);
@@ -126,7 +126,7 @@ abstract class Connect
     public function clearVar()
     {
         let this->vars = [];
-        
+
         return this;
     }
 
@@ -153,7 +153,7 @@ abstract class Connect
     }
 
     /**
-     * 分析模板真实路径            
+     * 分析模板真实路径
      *
      * @param string $tpl 文件地址
      * @param string $ext 扩展名
@@ -176,7 +176,7 @@ abstract class Connect
             throw new RuntimeException("Theme path must be set.");
         }
 
-        return this->option["theme_path"] . "/" . tplTmp . 
+        return this->option["theme_path"] . "/" . tplTmp .
             (! empty ext ? ext : this->option["suffix"]);
     }
 

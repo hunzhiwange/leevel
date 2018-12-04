@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Cache\Provider;
 
 use Closure;
@@ -27,7 +28,7 @@ use Leevel\Di\IContainer;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2017.06.03
- * 
+ *
  * @version 1.0
  */
 class Register extends Provider
@@ -42,7 +43,7 @@ class Register extends Provider
     {
         parent::__construct(container);
     }
-    
+
     /**
      * 注册服务
      *
@@ -54,7 +55,7 @@ class Register extends Provider
         this->cache();
         this->cacheLoad();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -65,11 +66,11 @@ class Register extends Provider
         return [
             "caches" : [
                 "Leevel\\Cache\\Manager"
-            ], 
+            ],
             "cache" : [
-                "Leevel\\Cache\\Cache", 
+                "Leevel\\Cache\\Cache",
                 "Leevel\\Cache\\ICache"
-            ], 
+            ],
             "cache.load" : [
                 "Leevel\\Cache\\Load"
             ]
@@ -83,7 +84,7 @@ class Register extends Provider
     {
         return true;
     }
-    
+
     /**
      * 注册 caches 服务
      *
@@ -96,7 +97,7 @@ class Register extends Provider
 
     /**
      * 创建 auths 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Cache\Manager
      */
@@ -104,7 +105,7 @@ class Register extends Provider
     {
         return new Manager(container);
     }
-    
+
     /**
      * 注册 cache 服务
      *
@@ -117,7 +118,7 @@ class Register extends Provider
 
     /**
      * 创建 cache 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return object
      */
@@ -125,7 +126,7 @@ class Register extends Provider
     {
         return container->make("caches")->connect();
     }
-    
+
     /**
      * 注册 cache.load 服务
      *
@@ -138,7 +139,7 @@ class Register extends Provider
 
     /**
      * 创建 cache.load 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Cache\Load
      */

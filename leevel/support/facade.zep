@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Support;
 
 use RuntimeException;
@@ -29,7 +30,6 @@ use Leevel\Di\IContainer;
  */
 abstract class Facade
 {
-
     /**
      * 项目容器
      *
@@ -45,7 +45,7 @@ abstract class Facade
     protected static instances = [];
 
     /**
-     * call 
+     * call
      *
      * @param string $method
      * @param array $args

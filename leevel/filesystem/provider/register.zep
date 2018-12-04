@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Filesystem\Provider;
 
 use Closure;
@@ -26,7 +27,7 @@ use Leevel\Filesystem\Manager;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.28
- * 
+ *
  * @version 1.0
  */
 class Register extends Provider
@@ -41,7 +42,7 @@ class Register extends Provider
     {
         parent::__construct(container);
     }
-       
+
     /**
      * 注册服务
      *
@@ -52,7 +53,7 @@ class Register extends Provider
         this->filesystems();
         this->filesystem();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -63,9 +64,9 @@ class Register extends Provider
         return [
             "filesystems" : [
                 "Leevel\\Filesystem\\Manager"
-            ], 
+            ],
             "filesystem" : [
-                "Leevel\\Filesystem\\Filesystem", 
+                "Leevel\\Filesystem\\Filesystem",
                 "Leevel\\Filesystem\\IFilesystem"
             ]
         ];
@@ -78,7 +79,7 @@ class Register extends Provider
     {
         return true;
     }
-    
+
     /**
      * 注册 filesystems 服务
      *
@@ -91,7 +92,7 @@ class Register extends Provider
 
     /**
      * 创建 filesystems 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Filesystem\Manager
      */
@@ -99,7 +100,7 @@ class Register extends Provider
     {
         return new Manager(container);
     }
-    
+
     /**
      * 注册 filesystem 服务
      *

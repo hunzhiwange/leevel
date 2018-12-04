@@ -31,14 +31,13 @@ use Leevel\Log\Manager;
  */
 class Log
 {
-
     /**
      * log 管理
      *
      * @var \Leevel\Log\Manager
      */
     protected manager;
-    
+
     /**
      * 构造函数
      *
@@ -49,10 +48,10 @@ class Log
     {
         let this->manager = manager;
     }
-    
+
     /**
      * 响应
-     * 
+     *
      * @param \Closure $next
      * @param \Leevel\Http\IRequest $request
      * @param \Leevel\Http\IResponse $response
@@ -64,7 +63,7 @@ class Log
 
         {next}(request, response);
     }
-    
+
     /**
      * 保存日志
      */

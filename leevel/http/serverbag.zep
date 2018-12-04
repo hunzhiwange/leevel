@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 /**
@@ -25,7 +26,6 @@ namespace Leevel\Http;
  */
 class ServerBag extends Bag
 {
-
     /**
      * 取回 HTTP HEADERS
      *
@@ -34,11 +34,11 @@ class ServerBag extends Bag
     public function getHeaders() -> array
     {
         var result, contentHeaders, key, value;
-    
+
         let result = [];
         let contentHeaders = [
-            "CONTENT_LENGTH", 
-            "CONTENT_MD5", 
+            "CONTENT_LENGTH",
+            "CONTENT_MD5",
             "CONTENT_TYPE"
         ];
 

@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\View;
 
 use Leevel\View\IView;
@@ -28,7 +29,6 @@ use Leevel\View\IConnect;
  */
 class View implements IView
 {
-
     /**
      * 连接驱动
      *
@@ -48,7 +48,7 @@ class View implements IView
     }
 
     /**
-     * call 
+     * call
      *
      * @param string $method
      * @param array $args

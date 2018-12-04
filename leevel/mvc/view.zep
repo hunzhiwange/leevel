@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Mvc;
 
 use Leevel\Mvc\IView;
@@ -28,7 +29,6 @@ use Leevel\View\IView as IViews;
  */
 class View implements IView
 {
-
     /**
      * 视图模板
      *
@@ -111,7 +111,7 @@ class View implements IView
     public function clearAssign()
     {
         this->theme->clearVar();
-        
+
         return this;
     }
 

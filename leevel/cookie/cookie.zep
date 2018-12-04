@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Cookie;
 
 use Exception;
@@ -24,7 +25,7 @@ use Leevel\Cookie\ICookie;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.06
- * 
+ *
  * @version 1.0
  */
 class Cookie implements ICookie
@@ -47,7 +48,7 @@ class Cookie implements ICookie
      *
      * @var array
      */
-    protected cookies = []; 
+    protected cookies = [];
 
     /**
      * 构造函数
@@ -70,7 +71,7 @@ class Cookie implements ICookie
     public function setOption(string name, var value)
     {
         let this->option[name] = value;
-        
+
         return this;
     }
 
@@ -251,7 +252,7 @@ class Cookie implements ICookie
             if this->isJson(this->cookies[name][1]) {
                 return json_decode(this->cookies[name][1], true);
             }
-            
+
             return this->cookies[name][1];
         } else {
             return defaults;

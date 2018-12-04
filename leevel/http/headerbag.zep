@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 /**
@@ -21,23 +22,22 @@ namespace Leevel\Http;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.03.04
- * 
+ *
  * @version 1.0
  */
 class HeaderBag extends Bag
 {
-
     /**
      * 构造函数
-     * 
+     *
      * @param array $elements
-     * @return void 
+     * @return void
      */
     public function __construct(array elements = [])
     {
         this->add(elements);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -46,30 +46,30 @@ class HeaderBag extends Bag
         let this->elements = [];
         this->add(elements);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function add(array elements = []) -> void
     {
         var key, value;
-    
+
         for key, value in elements {
             this->set(key, value);
         }
     }
 
     /**
-     * 格式化 header 字符串 
-     * 
+     * 格式化 header 字符串
+     *
      * @return string
      */
     public function __toString() -> string
     {
         var headers, content, name, value;
-    
+
         let headers = this->all();
-        
+
         if ! (headers) {
             return "";
         }
@@ -85,7 +85,7 @@ class HeaderBag extends Bag
 
         return content;
     }
-    
+
     /**
      * {@inheritdoc}
      */

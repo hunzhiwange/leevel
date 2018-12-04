@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use InvalidArgumentException;
@@ -23,30 +24,29 @@ use InvalidArgumentException;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.03.04
- * 
+ *
  * @version 1.0
  */
 class FileBag extends Bag
 {
-
     /**
      * 上传文件 keys
-     * 
+     *
      * @var array
      */
     protected static fileKeys = [
-        "error", 
-        "name", 
-        "size", 
-        "tmp_name", 
+        "error",
+        "name",
+        "size",
+        "tmp_name",
         "type"
     ];
-    
+
     /**
      * 构造函数
-     * 
+     *
      * @param array $elements
-     * @return void 
+     * @return void
      */
     public function __construct(array elements = [])
     {
@@ -54,19 +54,19 @@ class FileBag extends Bag
 
         this->add(elements);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function replace(array elements = []) -> void
     {
         let this->elements = [];
-        
+
         let elements = this->normalizeArray(elements);
 
         this->add(elements);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -80,19 +80,19 @@ class FileBag extends Bag
 
         parent::set(key, this->convertFile(value));
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function add(array files = []) -> void
     {
         var key, file;
-    
+
         for key, file in files {
             this->set(key, file);
         }
     }
-    
+
     /**
      * 取回文件数组
      * 数组文件请在末尾加上反斜杆访问
@@ -104,7 +104,7 @@ class FileBag extends Bag
     public function getArr(string key, array defaults = [])
     {
         var files, k, value;
-    
+
         let files = [];
         for k, value in this->elements {
             if strpos(k, key) === 0 && typeof value !== "null" {
@@ -114,7 +114,7 @@ class FileBag extends Bag
 
         return files ? files : defaults;
     }
-    
+
     /**
      * 转换上传信息到文件实例 UploadedFile
      *
@@ -139,7 +139,7 @@ class FileBag extends Bag
 
         return result;
     }
-    
+
     /**
      * 格式化 $_FILES 数组
      *
@@ -149,7 +149,7 @@ class FileBag extends Bag
     protected function normalizeFile(array data) -> array
     {
         var result, key, value, keys;
-    
+
         let result = [];
         for key, value in data {
             if in_array(key, self::fileKeys) {
@@ -166,7 +166,7 @@ class FileBag extends Bag
 
         return result;
     }
-    
+
     /**
      * 格式化多维数组类文件为一维数组
      *
@@ -176,7 +176,7 @@ class FileBag extends Bag
     protected function normalizeArray(array elements) -> array
     {
         var result, key, value, index, item, element, fileKey;
-    
+
         let result = [];
 
         for key, value in elements {
@@ -216,7 +216,7 @@ class FileBag extends Bag
 
         return result;
     }
-    
+
     /**
      * 格式化 keys
      *
@@ -226,7 +226,7 @@ class FileBag extends Bag
     protected function normalizeKey(array data) -> array
     {
         var keys;
-    
+
         let keys = array_keys(data);
         sort(keys);
 

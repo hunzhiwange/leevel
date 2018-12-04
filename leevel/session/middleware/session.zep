@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Session\Middleware;
 
 use Closure;
@@ -30,14 +31,13 @@ use Leevel\Session\Manager;
  */
 class Session
 {
-
     /**
      * session 管理
      *
      * @var \Leevel\Session\Manager
      */
     protected manager;
-    
+
     /**
      * 构造函数
      *
@@ -48,7 +48,7 @@ class Session
     {
         let this->manager = manager;
     }
-    
+
     /**
      * 请求
      *
@@ -62,7 +62,7 @@ class Session
 
         {next}(request);
     }
-    
+
     /**
      * 响应
      *
@@ -86,7 +86,7 @@ class Session
 
         {next}(request, response);
     }
-    
+
     /**
      * 启动 session.
      *
@@ -104,7 +104,7 @@ class Session
     {
         this->manager->save();
     }
-    
+
     /**
      * 保存当期请求 URL.
      *
@@ -114,7 +114,7 @@ class Session
     {
         this->manager->setPrevUrl(request->getUri());
     }
-    
+
     /**
      * 获取 session ID.
      *

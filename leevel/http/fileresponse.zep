@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use DateTime;
@@ -33,17 +34,16 @@ use InvalidArgumentException;
  */
 class FileResponse extends Response
 {
-
     /**
      * 文件
-     * 
+     *
      * @var \Leevel\Http\File
      */
     protected file;
 
     /**
      * 构造函数
-     * 
+     *
      * @param \SplFileObject|\SplFileInfo|string $file
      * @param integer $status
      * @param array $headers
@@ -58,10 +58,10 @@ class FileResponse extends Response
 
         this->setFile(file, contentDisposition, autoEtag, autoLastModified);
     }
-    
+
     /**
      * 创建一个文件响应
-     * 
+     *
      * @param \SplFileObject|\SplFileInfo|string $file
      * @param integer $status
      * @param array $headers
@@ -74,11 +74,11 @@ class FileResponse extends Response
     {
         return new static(file, status, headers, contentDisposition, autoEtag, autoLastModified);
     }
-    
+
     /**
      * 设置文件
      *
-     * @param \SplFileObject|\SplFileInfo|string $file 
+     * @param \SplFileObject|\SplFileInfo|string $file
      * @param string $contentDisposition
      * @param bool $autoEtag
      * @param bool $autoLastModified
@@ -123,10 +123,10 @@ class FileResponse extends Response
         if contentDisposition {
             this->setContentDisposition(contentDisposition);
         }
-        
+
         return this;
     }
-    
+
     /**
      * 取回文件
      *
@@ -136,7 +136,7 @@ class FileResponse extends Response
     {
         return this->file;
     }
-    
+
     /**
      * 自动设置最后修改时间
      *
@@ -152,7 +152,7 @@ class FileResponse extends Response
 
         return this;
     }
-    
+
     /**
      * 自动设置标记
      *
@@ -161,7 +161,7 @@ class FileResponse extends Response
     public function setAutoEtag()
     {
         var etag;
-    
+
         if this->checkTControl() {
             return this;
         }
@@ -171,7 +171,7 @@ class FileResponse extends Response
 
         return this;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -187,7 +187,7 @@ class FileResponse extends Response
 
         return this;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -195,7 +195,7 @@ class FileResponse extends Response
     {
         return false;
     }
-    
+
     /**
      * 设置文件下载模式
      *
@@ -214,7 +214,7 @@ class FileResponse extends Response
         }
 
         if ! (in_array(disposition, [
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT, 
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             ResponseHeaderBag::DISPOSITION_INLINE
         ])) {
             throw new InvalidArgumentException("The disposition type is invalid.");
@@ -227,14 +227,14 @@ class FileResponse extends Response
 
         return this;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function sendContent()
     {
         var out, file;
-    
+
         if this->checkTControl() {
             return this;
         }
@@ -245,7 +245,7 @@ class FileResponse extends Response
 
         let out = fopen("php://output", "wb");
         let file = fopen(this->file->getPathname(), "rb");
-        
+
         stream_copy_to_stream(file, out);
         fclose(out);
         fclose(file);

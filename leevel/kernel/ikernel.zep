@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Kernel;
 
 use Leevel\Http\IRequest;
@@ -35,7 +36,7 @@ interface IKernel
      * @return \Leevel\Http\IResponse
      */
     public function handle(<IRequest> request) -> <IResponse>;
-    
+
     /**
      * 执行结束
      *
@@ -44,7 +45,7 @@ interface IKernel
      * @return void
      */
     public function terminate(<IRequest> request, <IResponse> response) -> void;
-    
+
     /**
      * 返回项目
      *

@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use Closure;
@@ -41,66 +42,65 @@ use Leevel\Support\IMacro;
  */
 class Response implements IControl, IMacro, IResponse
 {
-
     /**
      * 响应头
-     * 
+     *
      * @var \Leevel\Http\ResponseHeaderBag
      */
     public headers;
-    
+
     /**
      * 原生响应内容
      *
      * @var mixed
      */
     public original;
-    
+
     /**
      * 响应内容
-     * 
+     *
      * @var string
      */
     protected content;
-    
+
     /**
      * HTTP 协议版本
-     * 
+     *
      * @var string
      */
     protected protocolVersion;
-    
+
     /**
      * 状态码
-     * 
+     *
      * @var int
      */
     protected statusCode;
-    
+
     /**
      * 状态码内容
-     * 
+     *
      * @var string
      */
     protected statusText;
-    
+
     /**
      * 字符编码
-     * 
+     *
      * @var string
      */
     protected charset;
-    
+
     /**
      * 是否为 JSON
-     * 
+     *
      * @var boolean
      */
     protected isJson = false;
-    
+
     /**
      * COOKIE Resolver
-     * 
+     *
      * @var \Closure
      */
     protected static cookieResolver;
@@ -111,7 +111,7 @@ class Response implements IControl, IMacro, IResponse
      * @var \Leevel\Cookie\ICookie
      */
     protected static resolvedCookie;
-    
+
     /**
      * 状态码
      *
@@ -119,70 +119,70 @@ class Response implements IControl, IMacro, IResponse
      * @var array
      */
     public static statusTexts = [
-        100 : "Continue", 
-        101 : "Switching Protocols", 
-        102 : "Processing", 
-        103 : "Early Hints", 
-        200 : "OK", 
-        201 : "Created", 
-        202 : "Accepted", 
-        203 : "Non-Authoritative Information", 
-        204 : "No Content", 
-        205 : "Reset Content", 
-        206 : "Partial Content", 
-        207 : "Multi-Status", 
-        208 : "Already Reported", 
-        226 : "IM Used", 
-        300 : "Multiple Choices", 
-        301 : "Moved Permanently", 
-        302 : "Found", 
-        303 : "See Other", 
-        304 : "Not Modified", 
-        305 : "Use Proxy", 
-        307 : "Temporary Redirect", 
-        308 : "Permanent Redirect", 
-        400 : "Bad Request", 
-        401 : "Unauthorized", 
-        402 : "Payment Required", 
-        403 : "Forbidden", 
-        404 : "Not Found", 
-        405 : "Method Not Allowed", 
-        406 : "Not Acceptable", 
-        407 : "Proxy Authentication Required", 
-        408 : "Request Timeout", 
-        409 : "Conflict", 
-        410 : "Gone", 
-        411 : "Length Required", 
-        412 : "Precondition Failed", 
-        413 : "Payload Too Large", 
-        414 : "URI Too Long", 
-        415 : "Unsupported Media Type", 
-        416 : "Range Not Satisfiable", 
-        417 : "Expectation Failed", 
-        418 : "I'm a teapot", 
-        421 : "Misdirected Request", 
-        422 : "Unprocessable Entity", 
-        423 : "Locked", 
-        424 : "Failed Dependency", 
-        425 : "Reserved for WebDAV advanced collections expired proposal", 
-        426 : "Upgrade Required", 
-        428 : "Precondition Required", 
-        429 : "Too Many Requests", 
-        431 : "Request Header Fields Too Large", 
-        451 : "Unavailable For Legal Reasons", 
-        500 : "Internal Server Error", 
-        501 : "Not Implemented", 
-        502 : "Bad Gateway", 
-        503 : "Service Unavailable", 
-        504 : "Gateway Timeout", 
-        505 : "HTTP Version Not Supported", 
-        506 : "Variant Also Negotiates", 
-        507 : "Insufficient Storage", 
-        508 : "Loop Detected", 
-        510 : "Not Extended", 
+        100 : "Continue",
+        101 : "Switching Protocols",
+        102 : "Processing",
+        103 : "Early Hints",
+        200 : "OK",
+        201 : "Created",
+        202 : "Accepted",
+        203 : "Non-Authoritative Information",
+        204 : "No Content",
+        205 : "Reset Content",
+        206 : "Partial Content",
+        207 : "Multi-Status",
+        208 : "Already Reported",
+        226 : "IM Used",
+        300 : "Multiple Choices",
+        301 : "Moved Permanently",
+        302 : "Found",
+        303 : "See Other",
+        304 : "Not Modified",
+        305 : "Use Proxy",
+        307 : "Temporary Redirect",
+        308 : "Permanent Redirect",
+        400 : "Bad Request",
+        401 : "Unauthorized",
+        402 : "Payment Required",
+        403 : "Forbidden",
+        404 : "Not Found",
+        405 : "Method Not Allowed",
+        406 : "Not Acceptable",
+        407 : "Proxy Authentication Required",
+        408 : "Request Timeout",
+        409 : "Conflict",
+        410 : "Gone",
+        411 : "Length Required",
+        412 : "Precondition Failed",
+        413 : "Payload Too Large",
+        414 : "URI Too Long",
+        415 : "Unsupported Media Type",
+        416 : "Range Not Satisfiable",
+        417 : "Expectation Failed",
+        418 : "I'm a teapot",
+        421 : "Misdirected Request",
+        422 : "Unprocessable Entity",
+        423 : "Locked",
+        424 : "Failed Dependency",
+        425 : "Reserved for WebDAV advanced collections expired proposal",
+        426 : "Upgrade Required",
+        428 : "Precondition Required",
+        429 : "Too Many Requests",
+        431 : "Request Header Fields Too Large",
+        451 : "Unavailable For Legal Reasons",
+        500 : "Internal Server Error",
+        501 : "Not Implemented",
+        502 : "Bad Gateway",
+        503 : "Service Unavailable",
+        504 : "Gateway Timeout",
+        505 : "HTTP Version Not Supported",
+        506 : "Variant Also Negotiates",
+        507 : "Insufficient Storage",
+        508 : "Loop Detected",
+        510 : "Not Extended",
         511 : "Network Authentication Required"
     ];
-    
+
     /**
      * 注册的动态扩展
      *
@@ -196,7 +196,7 @@ class Response implements IControl, IMacro, IResponse
      * @var boolean
      */
     protected inFlowControl = false;
-    
+
     /**
      * 条件表达式是否为真
      *
@@ -206,7 +206,7 @@ class Response implements IControl, IMacro, IResponse
 
     /**
      * 构造函数
-     * 
+     *
      * @param string $content
      * @param integer $status
      * @param array $headers
@@ -219,10 +219,10 @@ class Response implements IControl, IMacro, IResponse
         this->setStatusCode(status);
         this->setProtocolVersion("1.0");
     }
-    
+
     /**
      * 创建一个响应
-     * 
+     *
      * @param string $content
      * @param integer $status
      * @param array $headers
@@ -232,10 +232,10 @@ class Response implements IControl, IMacro, IResponse
     {
         return new static(content, status, headers);
     }
-    
+
     /**
      * 设置 COOKIE Resolver
-     * 
+     *
      * @param \Closure $cookieResolver
      * @return void
      */
@@ -262,12 +262,12 @@ class Response implements IControl, IMacro, IResponse
         if !self::cookieResolver {
             throw new InvalidArgumentException("Cookie resolver is not set.");
         }
-        
+
         let self::resolvedCookie = call_user_func(self::cookieResolver);
 
         return self::resolvedCookie;
     }
-    
+
     /**
      * 发送 HTTP 响应
      *
@@ -284,7 +284,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 发送响应头
      *
@@ -293,7 +293,7 @@ class Response implements IControl, IMacro, IResponse
     public function sendHeaders()
     {
         var name, value, item;
-    
+
         if this->checkTControl() {
             return this;
         }
@@ -314,10 +314,10 @@ class Response implements IControl, IMacro, IResponse
                 call_user_func_array("setcookie", item);;
             }
         }
-        
+
         return this;
     }
-    
+
     /**
      * 发送响应内容
      *
@@ -333,7 +333,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置内容
      *
@@ -357,7 +357,7 @@ class Response implements IControl, IMacro, IResponse
         }
 
         if content !== null && ! (is_scalar(content)) && ! (is_callable([
-            content, 
+            content,
             "__toString"
         ])) {
             throw new UnexpectedValueException(
@@ -369,7 +369,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 附加内容
      *
@@ -386,7 +386,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置响应头
      *
@@ -407,7 +407,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 批量设置响应头
      *
@@ -417,7 +417,7 @@ class Response implements IControl, IMacro, IResponse
     public function withHeaders(array headers)
     {
         var key, value;
-    
+
         if this->checkTControl() {
             return this;
         }
@@ -441,7 +441,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->setCookie(name, value, option);
     }
-    
+
     /**
      * 设置 COOKIE
      *
@@ -460,7 +460,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 批量设置 COOKIE
      *
@@ -471,7 +471,7 @@ class Response implements IControl, IMacro, IResponse
     public function withCookies(array cookies, array option = [])
     {
         var value, key;
-    
+
         if this->checkTControl() {
             return this;
         }
@@ -492,7 +492,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return self::resolveCookie()->all();
     }
-    
+
     /**
      * 取回 JSON 数据
      *
@@ -508,7 +508,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this->content;
     }
-    
+
     /**
      * 设置 JSON 数据
      *
@@ -547,7 +547,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 获取内容
      *
@@ -557,7 +557,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->content;
     }
-    
+
     /**
      * 获取内容
      *
@@ -567,7 +567,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->getContent();
     }
-    
+
     /**
      * 获取原始内容
      *
@@ -577,7 +577,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->original;
     }
-    
+
     /**
      * 设置 HTTP 协议版本 (1.0 or 1.1).
      *
@@ -594,7 +594,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 获取 HTTP 协议版本
      *
@@ -604,10 +604,10 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->protocolVersion;
     }
-    
+
     /**
      * 设置相应状态码
-     * 
+     *
      * @param int $code
      * @param mixed $text
      * @return $this
@@ -638,7 +638,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 获取状态码
      *
@@ -648,7 +648,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->getStatusCode();
     }
-    
+
     /**
      * 获取状态码
      *
@@ -669,7 +669,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->charset(charset);
     }
-    
+
     /**
      * 编码设置
      *
@@ -686,7 +686,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 获取编码
      *
@@ -696,7 +696,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->charset;
     }
-    
+
     /**
      * 设置过期时间
      *
@@ -718,7 +718,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置最后修改时间
      *
@@ -740,7 +740,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置缓存
      *
@@ -750,7 +750,7 @@ class Response implements IControl, IMacro, IResponse
     public function setCache(int minutes)
     {
         var date;
-    
+
         if this->checkTControl() {
             return this;
         }
@@ -763,7 +763,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置响应未修改
      *
@@ -779,7 +779,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置响应内容类型
      *
@@ -805,7 +805,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置响应内容长度
      *
@@ -822,7 +822,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 设置自定义标识符
      *
@@ -839,7 +839,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 响应是否为 JSON
      *
@@ -849,7 +849,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->isJson;
     }
-    
+
     /**
      * 响应是否正确
      *
@@ -859,7 +859,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->statusCode < 100 || this->statusCode >= 600;
     }
-    
+
     /**
      * 是否为信息性响应
      *
@@ -869,7 +869,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->statusCode >= 100 && this->statusCode < 200;
     }
-    
+
     /**
      * 是否为正确响应
      *
@@ -879,7 +879,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->statusCode >= 200 && this->statusCode < 300;
     }
-    
+
     /**
      * 是否为重定向响应
      *
@@ -889,7 +889,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->statusCode >= 300 && this->statusCode < 400;
     }
-    
+
     /**
      * 是否为客户端错误响应
      *
@@ -899,7 +899,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->statusCode >= 400 && this->statusCode < 500;
     }
-    
+
     /**
      * 是否为服务端错误响应
      *
@@ -909,7 +909,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->statusCode >= 500 && this->statusCode < 600;
     }
-    
+
     /**
      * 是否为正常响应
      *
@@ -919,7 +919,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return 200 === this->statusCode;
     }
-    
+
     /**
      * 是否为受限响应
      *
@@ -929,7 +929,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return 403 === this->statusCode;
     }
-    
+
     /**
      * 是否为 404 NOT FOUND
      *
@@ -939,7 +939,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return 404 === this->statusCode;
     }
-    
+
     /**
      * 是否为表单重定向响应
      *
@@ -948,16 +948,16 @@ class Response implements IControl, IMacro, IResponse
     public function isRedirect(var location = null) -> boolean
     {
         return in_array(this->statusCode, [
-            201, 
-            301, 
-            302, 
-            303, 
-            307, 
+            201,
+            301,
+            302,
+            303,
+            307,
             308
-        ]) && 
+        ]) &&
             ( location === null ? location === null : location == this->headers->get("Location"));
     }
-    
+
     /**
      * 是否为空响应
      *
@@ -966,7 +966,7 @@ class Response implements IControl, IMacro, IResponse
     public function isEmpty() -> boolean
     {
         return in_array(this->statusCode, [
-            204, 
+            204,
             304
         ]);
     }
@@ -982,7 +982,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->setTControl(true, value ? true : false);
     }
-    
+
     /**
      * 条件语句 elseIfs.
      *
@@ -994,7 +994,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->setTControl(true, value ? true : false);
     }
-    
+
     /**
      * 条件语句 elses
      *
@@ -1004,7 +1004,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->setTControl(true, !this->isFlowControlTrue);
     }
-    
+
     /**
      * 条件语句 endIfs
      *
@@ -1014,7 +1014,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->setTControl(false, false);
     }
-    
+
     /**
      * 设置当前条件表达式状态
      *
@@ -1030,7 +1030,7 @@ class Response implements IControl, IMacro, IResponse
 
         return this;
     }
-    
+
     /**
      * 验证一下条件表达式是否通过
      *
@@ -1040,7 +1040,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return this->inFlowControl && ! (this->isFlowControlTrue);
     }
-    
+
     /**
      * 占位符
      *
@@ -1050,7 +1050,7 @@ class Response implements IControl, IMacro, IResponse
     public function placeholderTControl(string method) -> boolean
     {
         return in_array(method, [
-            "placeholder", 
+            "placeholder",
             "foobar"
         ]);
     }
@@ -1066,7 +1066,7 @@ class Response implements IControl, IMacro, IResponse
     {
         let self::macro[name] = macro;
     }
-    
+
     /**
      * 判断一个扩展是否注册
      *
@@ -1102,7 +1102,7 @@ class Response implements IControl, IMacro, IResponse
      * 由于 zephir 对应的 C 扩展版本不支持对象内绑定 class
      * 即 Closure::bind($closures, null, get_called_class())
      * 为保持功能一致，所以绑定对象但是不绑定作用域，即可以使用 $this,只能访问 public 属性
-     * 
+     *
      * @param string $method
      * @param array $args
      * @return mixed
@@ -1115,7 +1115,7 @@ class Response implements IControl, IMacro, IResponse
 
         throw new BadMethodCallException(sprintf("Method %s is not exits.", method));
     }
-    
+
     /**
      * 格式化响应时间
      *
@@ -1125,13 +1125,13 @@ class Response implements IControl, IMacro, IResponse
     protected function normalizeDateTime(<DateTime> datetime) -> string
     {
         var date;
-    
+
         let date = clone datetime;
         date->setTimezone(new DateTimeZone("UTC"));
 
         return date->format("D, d M Y H:i:s") . " GMT";
     }
-    
+
     /**
      * 内容转换为 JSON
      *
@@ -1150,7 +1150,7 @@ class Response implements IControl, IMacro, IResponse
 
         return json_encode(content, JSON_UNESCAPED_UNICODE);
     }
-    
+
     /**
      * 可以转换为 JSON
      *
@@ -1159,10 +1159,10 @@ class Response implements IControl, IMacro, IResponse
      */
     protected function contentShouldJson(var content) -> boolean
     {
-        return (is_object(content) && content instanceof IJson) || 
-            (is_object(content) && content instanceof IArray) || 
-            (is_object(content) && content instanceof ArrayObject) || 
-            (is_object(content) && content instanceof JsonSerializable) || 
+        return (is_object(content) && content instanceof IJson) ||
+            (is_object(content) && content instanceof IArray) ||
+            (is_object(content) && content instanceof ArrayObject) ||
+            (is_object(content) && content instanceof JsonSerializable) ||
             is_array(content);
     }
 
@@ -1177,7 +1177,7 @@ class Response implements IControl, IMacro, IResponse
     {
         return self::callStaticMacro(method, args);
     }
-    
+
     /**
      * __call 魔术方法
      *

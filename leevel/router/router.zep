@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Router;
 
 use Closure;
@@ -48,34 +49,34 @@ class Router implements IRouter, IMacro
      * @var \Leevel\Di\IContainer
      */
     protected container;
-    
+
     /**
      * http 请求
      *
      * @var \Leevel\Http\IRequest
      */
     protected request;
-    
+
     /**
      * 路由匹配数据
-     * 
+     *
      * @var array
      */
     protected matchedData;
-    
+
     /**
      * 路由匹配初始化数据
-     * 
+     *
      * @var array
      */
     protected static matcheDataInit = [
-        "_app" : self::DEFAULT_APP, 
-        "_prefix" : null, 
-        "_c" : null, 
-        "_a" : null, 
-        "_bind" : null, 
-        "_params" : null, 
-        "_middlewares" : null, 
+        "_app" : self::DEFAULT_APP,
+        "_prefix" : null,
+        "_c" : null,
+        "_a" : null,
+        "_bind" : null,
+        "_params" : null,
+        "_middlewares" : null,
         "_vars" : null
     ];
 
@@ -87,7 +88,7 @@ class Router implements IRouter, IMacro
     protected isMatched;
 
     /**
-     * 基础路径 
+     * 基础路径
      *
      * @var array
      */
@@ -99,38 +100,38 @@ class Router implements IRouter, IMacro
      * @var array
      */
     protected groupPaths = [];
-    
+
     /**
      * 分组
      *
      * @var array
      */
     protected groups = [];
-    
+
     /**
-     * 路由 
+     * 路由
      *
      * @var array
      */
     protected routers = [];
-    
+
     /**
-     * 中间件分组 
+     * 中间件分组
      *
      * @var array
      */
     protected middlewareGroups = [];
-    
+
     /**
-     * 中间件别名 
+     * 中间件别名
      *
      * @var array
      */
     protected middlewareAlias = [];
-    
+
     /**
      * 控制器相对目录
-     * 
+     *
      * @var string
      */
     protected controllerDir = "App\\Controller";
@@ -141,7 +142,7 @@ class Router implements IRouter, IMacro
      * @var array
      */
     protected static macro = [];
-    
+
     /**
      * 构造函数
      *
@@ -152,7 +153,7 @@ class Router implements IRouter, IMacro
     {
         let this->container = container;
     }
-    
+
     /**
      * 分发请求到路由
      *
@@ -165,7 +166,7 @@ class Router implements IRouter, IMacro
 
         return this->dispatchToRoute(request);
     }
-    
+
     /**
      * 初始化请求
      *
@@ -175,7 +176,7 @@ class Router implements IRouter, IMacro
     {
         let this->matchedData = null;
     }
-    
+
     /**
      * 设置匹配路由
      * 绕过路由解析，可以用于高性能 RPC 快速匹配资源
@@ -189,7 +190,7 @@ class Router implements IRouter, IMacro
 
         let this->isMatched = true;
     }
-    
+
     /**
      * 穿越中间件
      *
@@ -200,7 +201,7 @@ class Router implements IRouter, IMacro
     public function throughMiddleware(<IRequest> passed, array passedExtend = [])
     {
         var method, pipeline, middlewares;
-    
+
         let method = empty passedExtend ? "handle" : "terminate";
         let middlewares = this->matchedMiddlewares();
 
@@ -220,7 +221,7 @@ class Router implements IRouter, IMacro
 
         pipeline->then();
     }
-    
+
     /**
      * 设置控制器相对目录
      *
@@ -233,7 +234,7 @@ class Router implements IRouter, IMacro
 
         let this->controllerDir = controllerDir;
     }
-    
+
     /**
      * 返回控制器相对目录
      *
@@ -243,7 +244,7 @@ class Router implements IRouter, IMacro
     {
         return this->controllerDir;
     }
-    
+
     /**
      * 设置路由
      *
@@ -254,7 +255,7 @@ class Router implements IRouter, IMacro
     {
         let this->routers = routers;
     }
-    
+
     /**
      * 取得当前路由
      *
@@ -264,7 +265,7 @@ class Router implements IRouter, IMacro
     {
         return this->routers;
     }
-    
+
     /**
      * 设置基础路径
      *
@@ -275,7 +276,7 @@ class Router implements IRouter, IMacro
     {
         let this->basePaths = basePaths;
     }
-    
+
     /**
      * 取得基础路径
      *
@@ -305,7 +306,7 @@ class Router implements IRouter, IMacro
     {
         return this->groupPaths;
     }
-    
+
     /**
      * 设置路由分组
      *
@@ -326,7 +327,7 @@ class Router implements IRouter, IMacro
     {
         return this->groups;
     }
-    
+
     /**
      * 设置中间件分组
      *
@@ -337,7 +338,7 @@ class Router implements IRouter, IMacro
     {
         let this->middlewareGroups = middlewareGroups;
     }
-    
+
     /**
      * 取得中间件分组
      *
@@ -347,7 +348,7 @@ class Router implements IRouter, IMacro
     {
         return this->middlewareGroups;
     }
-    
+
     /**
      * 设置中间件别名
      *
@@ -358,7 +359,7 @@ class Router implements IRouter, IMacro
     {
         let this->middlewareAlias = middlewareAlias;
     }
-    
+
     /**
      * 取得中间件别名
      *
@@ -380,7 +381,7 @@ class Router implements IRouter, IMacro
     {
         let self::macro[name] = macro;
     }
-    
+
     /**
      * 判断一个扩展是否注册
      *
@@ -416,7 +417,7 @@ class Router implements IRouter, IMacro
      * 由于 zephir 对应的 C 扩展版本不支持对象内绑定 class
      * 即 Closure::bind($closures, null, get_called_class())
      * 为保持功能一致，所以绑定对象但是不绑定作用域，即可以使用 $this,只能访问 public 属性
-     * 
+     *
      * @param string $method
      * @param array $args
      * @return mixed
@@ -432,7 +433,7 @@ class Router implements IRouter, IMacro
 
     /**
      * 格式化前缀
-     * 
+     *
      * @param array $paths
      * @return array
      */
@@ -464,7 +465,7 @@ class Router implements IRouter, IMacro
     protected function matchRouter()
     {
         var dataPathInfo, bind;
-    
+
         if true === this->isMatched && ! (is_null(this->matchedData)) {
             return this->findRouterBind();
         }
@@ -482,17 +483,17 @@ class Router implements IRouter, IMacro
 
         return bind;
     }
-    
+
     /**
      * 注解路由绑定.
      *
-     * @param array $dataPathInfo 
+     * @param array $dataPathInfo
      * @return mixed
      */
     protected function annotationRouterBind(array dataPathInfo)
     {
         var data;
-    
+
         let data = this->normalizeMatchedData("Annotation");
 
         if ! (data) {
@@ -505,18 +506,18 @@ class Router implements IRouter, IMacro
 
         return this->findRouterBind();
     }
-    
+
     /**
      * 完成路由匹配数据
      *
-     * @param array $data 
+     * @param array $data
      * @return void
      */
     protected function resolveMatchedData(array data)
     {
         let this->matchedData = array_merge(self::matcheDataInit, data);
     }
-    
+
     /**
      * 解析路由匹配数据
      *
@@ -529,7 +530,7 @@ class Router implements IRouter, IMacro
 
         return (new {matche}())->matche(this, this->request);
     }
-    
+
     /**
      * 尝试获取路由绑定
      *
@@ -538,7 +539,7 @@ class Router implements IRouter, IMacro
     protected function findRouterBind()
     {
         var bind;
-    
+
         let bind = this->normalizeRouterBind();
 
         if bind === false {
@@ -547,7 +548,7 @@ class Router implements IRouter, IMacro
 
         return bind;
     }
-    
+
     /**
      * 解析路由绑定
      *
@@ -559,7 +560,7 @@ class Router implements IRouter, IMacro
 
         return this->parseMatchedBind();
     }
-    
+
     /**
      * 发送路由并返回响应
      *
@@ -570,10 +571,10 @@ class Router implements IRouter, IMacro
     {
         return this->runRoute(request, this->matchRouter());
     }
-    
+
     /**
      * 运行路由
-     * 
+     *
      * @param \Leevel\Http\IRequest $request
      * @param callable $bind
      * @return \Leevel\Http\IResponse
@@ -581,7 +582,7 @@ class Router implements IRouter, IMacro
     protected function runRoute(<IRequest> request, var bind) -> <IResponse>
     {
         var response, result;
-    
+
         this->throughMiddleware(this->request);
 
         let response = this->container->call(bind, this->matchedVars());
@@ -594,7 +595,7 @@ class Router implements IRouter, IMacro
 
         return result;
     }
-    
+
     /**
      * 路由未找到异常.
      *
@@ -603,12 +604,12 @@ class Router implements IRouter, IMacro
     protected function routerNotFound()
     {
         var message;
-    
+
         let message = sprintf("The router %s was not found.", this->makeRouterNode());
 
         throw new RouterNotFoundException(message);
     }
-    
+
     /**
      * 生成路由节点资源.
      *
@@ -629,7 +630,7 @@ class Router implements IRouter, IMacro
             this->matchedController() . "::" .
             this->matchedAction() . "()";
     }
-    
+
     /**
      * 取得控制器命名空间目录
      *
@@ -638,7 +639,7 @@ class Router implements IRouter, IMacro
     protected function parseControllerDir() -> string
     {
         var result;
-    
+
         let result = this->getControllerDir();
 
         if this->matchedPrefix() {
@@ -647,7 +648,7 @@ class Router implements IRouter, IMacro
 
         return result;
     }
-    
+
     /**
      * 完成请求
      *
@@ -661,7 +662,7 @@ class Router implements IRouter, IMacro
 
         this->request->params->replace(this->matchedParams());
     }
-    
+
     /**
      * 智能 restful 解析
      * 路由匹配如果没有匹配上方法则系统会进入 restful 解析.
@@ -692,7 +693,7 @@ class Router implements IRouter, IMacro
                 break;
         }
     }
-    
+
     /**
      * 分析匹配绑定路由.
      *
@@ -714,7 +715,7 @@ class Router implements IRouter, IMacro
                 if !class_exists(bindClass) {
                     return false;
                 }
-                
+
                 let controller = this->container->make(bindClass);
             } else {
                 if !class_exists(matchedBind) {
@@ -747,7 +748,7 @@ class Router implements IRouter, IMacro
                 let method = matchedAction;
             }
         }
-            
+
         if is_object(controller) && controller instanceof IController {
             controller->setView(this->container->make("Leevel\\Mvc\\IView"));
         }
@@ -783,7 +784,7 @@ class Router implements IRouter, IMacro
 
         return this->matchedData[self::PREFIX];
     }
-    
+
     /**
      * 取回应用名
      *
@@ -793,7 +794,7 @@ class Router implements IRouter, IMacro
     {
         return ucfirst(this->matchedData[self::APP]);
     }
-    
+
     /**
      * 取回控制器名
      *
@@ -803,7 +804,7 @@ class Router implements IRouter, IMacro
     {
         return this->convertMatched(ucfirst(this->matchedData[self::CONTROLLER]));
     }
-    
+
     /**
      * 取回方法名
      *
@@ -844,7 +845,7 @@ class Router implements IRouter, IMacro
     {
         return this->matchedData[self::BIND];
     }
-    
+
     /**
      * 取回匹配参数
      *
@@ -854,7 +855,7 @@ class Router implements IRouter, IMacro
     {
         return ! is_null(this->matchedData[self::PARAMS]) ? this->matchedData[self::PARAMS] : [];
     }
-    
+
     /**
      * 取回匹配中间件
      *
@@ -863,10 +864,10 @@ class Router implements IRouter, IMacro
     protected function matchedMiddlewares() -> array
     {
         return ! is_null(this->matchedData[self::MIDDLEWARES]) ?
-            this->matchedData[self::MIDDLEWARES] : 
+            this->matchedData[self::MIDDLEWARES] :
             ["handle" : [], "terminate" : []];
     }
-    
+
     /**
      * 取回匹配变量
      *

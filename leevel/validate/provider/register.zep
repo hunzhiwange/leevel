@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Validate\Provider;
 
 use Closure;
@@ -30,7 +31,6 @@ use Leevel\Validate\Validate;
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -62,7 +62,7 @@ class Register extends Provider
     {
         return (new Validate())->setContainer(container);
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -72,7 +72,7 @@ class Register extends Provider
     {
         return [
             "validate" : [
-                "Leevel\\Validate\\Validate", 
+                "Leevel\\Validate\\Validate",
                 "Leevel\\Validate\\IValidate"
             ]
         ];

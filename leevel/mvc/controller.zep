@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Mvc;
 
 use RuntimeException;
@@ -29,7 +30,6 @@ use Leevel\View\IView as IViews;
  */
 abstract class Controller implements IController
 {
-
     /**
      * 视图
      *
@@ -139,7 +139,7 @@ abstract class Controller implements IController
     public function display(string file, array! vars = [], var ext = null)
     {
         this->checkView();
-        
+
         return this->view->display(file, vars, ext);
     }
 

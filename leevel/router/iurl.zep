@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Router;
 
 use Leevel\Http\IRequest;
@@ -37,17 +38,17 @@ interface IUrl
      * @return string
      */
     public function make(var url, array params = [], string subdomain = "www", var suffix = null) -> string;
-    
+
     /**
      * 返回 HTTP 请求
-     * 
+     *
      * @return \Leevel\Http\IRequest
      */
     public function getRequest()-> <IRequest>;
-    
+
     /**
      * 设置配置
-     * 
+     *
      * @param string $name
      * @param mixed $value
      * @return $this

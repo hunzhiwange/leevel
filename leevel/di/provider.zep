@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Di;
 
 use Closure;
@@ -24,7 +25,7 @@ use BadMethodCallException;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.25
- * 
+ *
  * @version 1.0
  */
 abstract class Provider
@@ -35,7 +36,7 @@ abstract class Provider
      * @var \Leevel\Di\IContainer
      */
     protected container;
-    
+
     /**
      * 创建一个服务容器提供者实例
      *
@@ -45,10 +46,10 @@ abstract class Provider
     public function __construct(<IContainer> container)
     {
         let this->container = container;
-        
+
         this->registerAlias();
     }
-    
+
     /**
      * 注册服务
      *
@@ -73,7 +74,7 @@ abstract class Provider
             }
         }
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -83,7 +84,7 @@ abstract class Provider
     {
         return [];
     }
-    
+
     /**
      * 是否延迟载入
      *
@@ -93,7 +94,7 @@ abstract class Provider
     {
         return false;
     }
-    
+
     /**
      * 返回 IOC 容器
      *
@@ -103,9 +104,9 @@ abstract class Provider
     {
         return this->container;
     }
-    
+
     /**
-     * call 
+     * call
      *
      * @param string $method
      * @param array $args
@@ -116,7 +117,7 @@ abstract class Provider
         if method == "bootstrap" {
             return;
         }
-        
+
         throw new BadMethodCallException(sprintf("Method %s is not exits.", method));
     }
 

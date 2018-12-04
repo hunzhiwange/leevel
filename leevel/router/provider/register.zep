@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Router\Provider;
 
 use Closure;
@@ -36,7 +37,6 @@ use Leevel\Router\ResponseFactory;
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -63,7 +63,7 @@ class Register extends Provider
         this->view();
         this->cookieResolver();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -109,7 +109,7 @@ class Register extends Provider
 
     /**
      * 创建 router 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Router\Router
      */
@@ -130,14 +130,14 @@ class Register extends Provider
 
     /**
      * 创建 url 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Router\Url
      */
     protected function urlClosure(<IContainer> container)
     {
         var option, request, options = [], item;
-        
+
         let option = container->make("option");
         let request = container->make("request");
 
@@ -164,7 +164,7 @@ class Register extends Provider
 
     /**
      * 创建 redirect 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Router\Redirect
      */
@@ -194,7 +194,7 @@ class Register extends Provider
 
     /**
      * 创建 response 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Router\ResponseFactory
      */
@@ -222,7 +222,7 @@ class Register extends Provider
 
     /**
      * 创建 cookie 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Cookie\Cookie
      */
@@ -241,7 +241,7 @@ class Register extends Provider
 
     /**
      * 创建 view 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Mvc\View
      */

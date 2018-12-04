@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\View;
 
 use Closure;
@@ -33,7 +34,6 @@ use Leevel\Manager\Manager as Managers;
  */
 class Manager extends Managers
 {
-
     /**
      * 取得配置命名空间
      *

@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use RuntimeException;
@@ -23,7 +24,7 @@ use RuntimeException;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.03.05
- * 
+ *
  * @version 1.0
  */
 class FileException extends RuntimeException

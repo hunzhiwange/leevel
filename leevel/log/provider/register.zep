@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Log\Provider;
 
 use Closure;
@@ -30,7 +31,6 @@ use Leevel\Di\IContainer;
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -53,7 +53,7 @@ class Register extends Provider
         this->log();
         this->middleware();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -64,15 +64,15 @@ class Register extends Provider
         return [
             "logs" : [
                 "Leevel\\Log\\Manager"
-            ], 
+            ],
             "log" : [
-                "Leevel\\Log\\Log", 
+                "Leevel\\Log\\Log",
                 "Leevel\\Log\\ILog"
-            ], 
+            ],
             "Leevel\\Log\\Middleware\\Log"
         ];
     }
-    
+
     /**
      * 注册 logs 服务
      *
@@ -85,7 +85,7 @@ class Register extends Provider
 
     /**
      * 创建 logs 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Log\Manager
      */
@@ -93,7 +93,7 @@ class Register extends Provider
     {
         return new Manager(container);
     }
-    
+
     /**
      * 注册 log 服务
      *
@@ -114,7 +114,7 @@ class Register extends Provider
     {
         return container->make("logs")->connect();
     }
-    
+
     /**
      * 注册 middleware 服务
      *

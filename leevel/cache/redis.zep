@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Cache;
 
 use Leevel\Cache\Redis\IConnect as RedisIConnect;
@@ -38,7 +39,7 @@ class Redis extends Connect implements IConnect
         "expire" : 86400,
         "serialize" : true
     ];
-    
+
     /**
      * 构造函数.
      *
@@ -51,7 +52,7 @@ class Redis extends Connect implements IConnect
 
         let this->handle = handle;
     }
-    
+
     /**
      * 获取缓存.
      *
@@ -64,7 +65,7 @@ class Redis extends Connect implements IConnect
     public function get(string name, var defaults = false, array! option = [])
     {
         var data;
-    
+
         let option = this->normalizeOptions(option);
 
         let data = this->handle->get(this->getCacheName(name));
@@ -79,7 +80,7 @@ class Redis extends Connect implements IConnect
 
         return data;
     }
-    
+
     /**
      * 设置缓存.
      *
@@ -102,7 +103,7 @@ class Redis extends Connect implements IConnect
             option["expire"] ? (int) option["expire"] : null
         );
     }
-    
+
     /**
      * 清除缓存.
      *
@@ -112,7 +113,7 @@ class Redis extends Connect implements IConnect
     {
         this->handle->delete(this->getCacheName(name));
     }
-    
+
     /**
      * 关闭 redis.
      */

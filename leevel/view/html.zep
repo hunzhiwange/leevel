@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\View;
 
 use Closure;
@@ -30,7 +31,6 @@ use Leevel\View\IConnect;
  */
 class Html extends Connect implements IConnect
 {
-
     /**
      * 视图分析器
      *

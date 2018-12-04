@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Manager;
 
 use Exception;
@@ -29,7 +30,6 @@ use Leevel\Di\IContainer;
  */
 abstract class Manager
 {
-
     /**
      * IOC Container
      *
@@ -56,7 +56,7 @@ abstract class Manager
     }
 
     /**
-     * call 
+     * call
      *
      * @param string $method
      * @param array $args

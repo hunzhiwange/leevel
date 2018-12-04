@@ -33,7 +33,6 @@ use SplFileObject;
  */
 class File extends SplFileObject
 {
-
     /**
      * 构造函数
      *
@@ -48,7 +47,7 @@ class File extends SplFileObject
 
         parent::__construct(path);
     }
-    
+
     /**
      * 移动文件
      *
@@ -65,7 +64,7 @@ class File extends SplFileObject
 
         return new self(target);
     }
-    
+
     /**
      * 获取目标文件
      *
@@ -76,7 +75,7 @@ class File extends SplFileObject
     protected function getTargetFile(string directory, var name = null) -> string
     {
         var target;
-    
+
         if ! (is_dir(directory)) {
             if (!is_writable(dirname(directory))) {
                 throw new FileException(
@@ -93,10 +92,10 @@ class File extends SplFileObject
 
         let target = rtrim(directory, "/\\") . DIRECTORY_SEPARATOR .
             (name === null ? this->getBasename() : name);
-        
+
         return target;
     }
-    
+
     /**
      * 移动文件到目标文件
      *

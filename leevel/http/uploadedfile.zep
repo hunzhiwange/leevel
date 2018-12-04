@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 /**
@@ -27,40 +28,39 @@ namespace Leevel\Http;
  */
 class UploadedFile extends File
 {
-
     /**
      * 文件原始名字
-     * 
+     *
      * @var string
      */
     protected originalName;
-    
+
     /**
      * 文件类型
-     * 
+     *
      * @var string
      */
     protected mimeType;
-    
+
     /**
      * 上传错误
-     * 
+     *
      * @var int|null
      */
     protected error;
-    
+
     /**
      * 上传错误消息格式化
-     * 
+     *
      * @var array
      */
     protected static errors = [
         1 : "The file %s exceeds your upload_max_filesize ini directive (limit is %d KiB).",
-        2 : "The file %s exceeds the upload limit defined in your form.", 
-        3 : "The file %s was only partially uploaded.", 
-        4 : "No file was uploaded.", 
-        7 : "The file %s could not be written on disk.", 
-        6 : "File could not be uploaded: missing temporary directory.", 
+        2 : "The file %s exceeds the upload limit defined in your form.",
+        3 : "The file %s was only partially uploaded.",
+        4 : "No file was uploaded.",
+        7 : "The file %s could not be written on disk.",
+        6 : "File could not be uploaded: missing temporary directory.",
         8 : "File upload was stopped by a PHP extension."
     ];
 
@@ -70,7 +70,7 @@ class UploadedFile extends File
      * @var bool
      */
     protected test = false;
-    
+
     /**
      * 构造函数
      * $_FILES['foo'](tmp_name, name, type, error)
@@ -90,7 +90,7 @@ class UploadedFile extends File
 
         parent::__construct(path);
     }
-    
+
     /**
      * 返回文件原始名字
      *
@@ -100,7 +100,7 @@ class UploadedFile extends File
     {
         return this->originalName;
     }
-    
+
     /**
      * 返回文件原始名字扩展
      *
@@ -110,7 +110,7 @@ class UploadedFile extends File
     {
         return pathinfo(this->originalName, PATHINFO_EXTENSION);
     }
-    
+
     /**
      * 返回文件类型
      *
@@ -120,7 +120,7 @@ class UploadedFile extends File
     {
         return this->mimeType;
     }
-    
+
     /**
      * 返回上传错误
      *
@@ -130,7 +130,7 @@ class UploadedFile extends File
     {
         return this->error;
     }
-    
+
     /**
      * 文件是否上传成功
      *
@@ -141,7 +141,7 @@ class UploadedFile extends File
         return UPLOAD_ERR_OK === this->error &&
             (this->test ? true : is_uploaded_file(this->getPathname()));
     }
-    
+
     /**
      * {@inheritdoc}
      *
@@ -150,7 +150,7 @@ class UploadedFile extends File
     public function move(var directory, var name = null)
     {
         var target;
-    
+
         if this->isValid() {
             if (this->test) {
                 return parent::move(directory, name);
@@ -164,7 +164,7 @@ class UploadedFile extends File
 
         throw new FileException(this->getErrorMessage());
     }
-    
+
     /**
      * 返回文件最大上传字节
      *
@@ -174,7 +174,7 @@ class UploadedFile extends File
     public static function getMaxFilesize() -> int
     {
         var iniMax, max;
-    
+
         let iniMax = strtolower(ini_get("upload_max_filesize"));
 
         if iniMax === "" {
@@ -204,7 +204,7 @@ class UploadedFile extends File
 
         return max;
     }
-    
+
     /**
      * 上传错误
      *
@@ -213,7 +213,7 @@ class UploadedFile extends File
     public function getErrorMessage() -> string
     {
         var errorCode, maxFilesize, message;
-    
+
         let errorCode = this->error;
         let maxFilesize = errorCode === UPLOAD_ERR_INI_SIZE ? self::getMaxFilesize() / 1024 : 0;
         let message = isset self::errors[errorCode] ? self::errors[errorCode] : "The file %s was not uploaded due to an unknown error.";

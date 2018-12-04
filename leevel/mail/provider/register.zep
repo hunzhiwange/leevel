@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Mail\Provider;
 
 use Closure;
@@ -30,7 +31,6 @@ use Leevel\Di\IContainer;
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -52,7 +52,7 @@ class Register extends Provider
         this->mails();
         this->mail();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -63,14 +63,14 @@ class Register extends Provider
         return [
             "mails" : [
                 "Leevel\\Mail\\Manager"
-            ], 
+            ],
             "mail" : [
-                "Leevel\\Mail\\Mail", 
+                "Leevel\\Mail\\Mail",
                 "Leevel\\Mail\\IMail"
             ]
         ];
     }
-    
+
     /**
      * 注册 mails 服务
      *
@@ -83,7 +83,7 @@ class Register extends Provider
 
     /**
      * 创建 mails 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Mail\Manager
      */
@@ -91,7 +91,7 @@ class Register extends Provider
     {
         return new Manager(container);
     }
-    
+
     /**
      * 注册 mail 服务
      *

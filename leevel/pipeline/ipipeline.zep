@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Pipeline;
 
 use Closure;
@@ -27,7 +28,6 @@ use Closure;
  */
 interface IPipeline
 {
-
     /**
      * 将传输对象传入管道
      *
@@ -51,7 +51,7 @@ interface IPipeline
      *
      * @param \Closure $end
      * @since 2018.01.03
-     * 
+     *
      * @return mixed
      */
     public function then(<Closure> end = null);

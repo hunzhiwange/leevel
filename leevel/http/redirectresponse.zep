@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use InvalidArgumentException;
@@ -30,28 +31,27 @@ use Leevel\Session\ISession;
  */
 class RedirectResponse extends Response
 {
-
     /**
      * 目标 URL 地址
-     * 
+     *
      * @var string
      */
     protected targetUrl;
-    
+
     /**
      * HTTP 请求
      *
      * @var \Leevel\Http\IRequest
      */
     protected request;
-    
+
     /**
      * SESSION 仓储
      *
      * @var \Leevel\Session\ISession
      */
     protected session;
-    
+
     /**
      * 构造函数
      *
@@ -76,7 +76,7 @@ class RedirectResponse extends Response
             this->headers->remove("cache-control");
         }
     }
-    
+
     /**
      * 创建 URL 跳转响应
      *
@@ -104,7 +104,7 @@ class RedirectResponse extends Response
         if this->checkTControl() {
             return this;
         }
-    
+
         let tmp = typeof key == "array" ? key : [
             key : value
         ];
@@ -167,7 +167,7 @@ class RedirectResponse extends Response
         var args;
 
         let args = func_get_args();
-        
+
         if empty args{
             throw new InvalidArgumentException("Method exceptInput need an args.");
         }
@@ -207,7 +207,7 @@ class RedirectResponse extends Response
     {
         return this->targetUrl;
     }
-    
+
     /**
      * 设置目标 URL 地址
      *
@@ -242,7 +242,7 @@ class RedirectResponse extends Response
 
         return this;
     }
-    
+
     /**
      * 获取 HTTP 请求
      *
@@ -252,7 +252,7 @@ class RedirectResponse extends Response
     {
         return this->request;
     }
-    
+
     /**
      * 设置 HTTP 请求
      *
@@ -263,7 +263,7 @@ class RedirectResponse extends Response
     {
         let this->request = request;
     }
-    
+
     /**
      * 获取 SESSION 仓储
      *
@@ -273,7 +273,7 @@ class RedirectResponse extends Response
     {
         return this->session;
     }
-    
+
     /**
      * 设置 SESSION 仓储
      *

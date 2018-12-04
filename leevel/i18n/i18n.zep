@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\I18n;
 
 use InvalidArgumentException;
@@ -29,7 +30,6 @@ use Leevel\I18n\II18n;
  */
 class I18n implements II18n
 {
-
     /**
      * 当前语言上下文
      *

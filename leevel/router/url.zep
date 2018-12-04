@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Router;
 
 use Closure;
@@ -30,18 +31,18 @@ class Url implements IUrl
 {
     /**
      * HTTP 请求
-     * 
+     *
      * @var \Leevel\Http\IRequest
      */
     protected request;
-    
+
     /**
-     * URL 参数 
-     * 
-     * @var array 
+     * URL 参数
+     *
+     * @var array
      */
     protected params = [];
-    
+
     /**
      * 配置
      *
@@ -52,10 +53,10 @@ class Url implements IUrl
         "suffix" : ".html",
         "domain" : ""
     ];
-    
+
     /**
      * 构造函数
-     * 
+     *
      * @param \Leevel\Http\IRequest $request
      * @param array $option
      * @return void
@@ -66,7 +67,7 @@ class Url implements IUrl
 
         let this->option = array_merge(this->option, option);
     }
-    
+
     /**
      * 生成路由地址
      *
@@ -84,20 +85,20 @@ class Url implements IUrl
 
         return url;
     }
-    
+
     /**
      * 返回 HTTP 请求
-     * 
+     *
      * @return \Leevel\Http\IRequest
      */
     public function getRequest()-> <IRequest>
     {
         return this->request;
     }
-    
+
     /**
      * 设置配置
-     * 
+     *
      * @param string $name
      * @param mixed $value
      * @return $this
@@ -118,10 +119,10 @@ class Url implements IUrl
     {
         return this->option["domain"];
     }
-    
+
     /**
      * 自定义 URL
-     * 
+     *
      * @param string $url
      * @param array $params
      * @param mixed $suffix
@@ -130,7 +131,7 @@ class Url implements IUrl
     protected function makeUrl(var url, array params, suffix) -> string
     {
         var queryUrl;
-    
+
         let this->params = params;
 
         if substr(url, 0, 1) !== "/" {
@@ -153,7 +154,7 @@ class Url implements IUrl
 
     /**
      * 匹配 URL 变量
-     * 
+     *
      * @param array $matches
      * @return string
      */
@@ -172,7 +173,7 @@ class Url implements IUrl
 
         return value;
     }
-    
+
     /**
      * 返回完整 URL 地址
      *
@@ -186,11 +187,11 @@ class Url implements IUrl
             return url;
         }
 
-        return (this->isSecure() ? "https://" : "http://") . 
-            (domain && domain != "*" ? domain . "." : "") . 
+        return (this->isSecure() ? "https://" : "http://") .
+            (domain && domain != "*" ? domain . "." : "") .
             this->option["domain"] . url;
     }
-    
+
     /**
      * 是否启用 https
      *
@@ -200,10 +201,10 @@ class Url implements IUrl
     {
         return this->request->isSecure();
     }
-    
+
     /**
      * url 带后缀
-     * 
+     *
      * @param string $url
      * @param string|boolean $suffix
      * @return string
@@ -224,17 +225,17 @@ class Url implements IUrl
 
         return url;
     }
-    
+
     /**
      * 带上入口文件
-     * 
+     *
      * @param string $url
      * @return string
      */
     protected function withEnter(string url) -> string
     {
         var enter;
-    
+
         let enter = this->request->getEnter();
         let enter = enter !== "/" ? enter : "";
 

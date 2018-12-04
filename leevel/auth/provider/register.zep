@@ -25,14 +25,13 @@ use Leevel\Di\IContainer;
  * auth 服务提供者
  *
  * @author Xiangmin Liu <635750556@qq.com>
- * 
+ *
  * @since 2018.01.28
- * 
+ *
  * @version 1.0
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -54,7 +53,7 @@ class Register extends Provider
         this->auths();
         this->auth();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -65,15 +64,15 @@ class Register extends Provider
         return [
             "auths" : [
                 "Leevel\\Auth\\Manager"
-            ], 
+            ],
             "auth" : [
-                "Leevel\\Auth\\Auth", 
+                "Leevel\\Auth\\Auth",
                 "Leevel\\Auth\\IAuth"
             ],
             "Leevel\\Auth\\Middleware\\Auth"
         ];
     }
-    
+
     /**
      * 注册 auths 服务
      *
@@ -86,7 +85,7 @@ class Register extends Provider
 
     /**
      * 创建 auths 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Auth\Manager
      */
@@ -94,7 +93,7 @@ class Register extends Provider
     {
         return new Manager(container);
     }
-    
+
     /**
      * 注册 auth 服务
      *

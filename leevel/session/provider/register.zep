@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Session\Provider;
 
 use Closure;
@@ -30,7 +31,6 @@ use Leevel\Session\Manager;
  */
 class Register extends Provider
 {
-
     /**
      * 创建一个服务容器提供者实例
      *
@@ -53,7 +53,7 @@ class Register extends Provider
         this->session();
         this->middleware();
     }
-    
+
     /**
      * 可用服务提供者
      *
@@ -64,15 +64,15 @@ class Register extends Provider
         return [
             "sessions" : [
                 "Leevel\\Session\\Manager"
-            ], 
+            ],
             "session" : [
-                "Leevel\\Session\\Session", 
+                "Leevel\\Session\\Session",
                 "Leevel\\Session\\ISession"
-            ], 
+            ],
             "Leevel\\Session\\Middleware\\Session"
         ];
     }
-    
+
     /**
      * 注册 sessions 服务
      *
@@ -82,10 +82,10 @@ class Register extends Provider
     {
         this->container->singleton("sessions", Closure::fromCallable([this, "sessionsClosure"]));
     }
-    
+
     /**
      * 创建 sessions 闭包
-     * 
+     *
      * @param \Leevel\Di\IContainer $container
      * @return \Leevel\Session\Manager
      */
@@ -114,7 +114,7 @@ class Register extends Provider
     {
         return container->make("sessions")->connect();
     }
-    
+
     /**
      * 注册 middleware 服务
      *

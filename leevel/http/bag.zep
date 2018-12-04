@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use ArrayIterator;
@@ -36,10 +37,9 @@ use Leevel\Support\IJson;
  */
 class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializable
 {
-
     /**
      * zephir 不支持 eval 动态赋值
-     * 
+     *
      * @var boolean
      */
     protected static zephirAssign = false;
@@ -50,18 +50,18 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
      * @var array
      */
     protected elements = [];
-    
+
     /**
      * 构造函数
-     * 
+     *
      * @param array $elements
-     * @return void 
+     * @return void
      */
     public function __construct(array elements = [])
     {
         let this->elements = elements;
     }
-    
+
     /**
      * 取回元素
      *
@@ -71,7 +71,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return this->elements;
     }
-    
+
     /**
      * 返回元素键值
      *
@@ -81,7 +81,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return array_keys(this->elements);
     }
-    
+
     /**
      * 替换当前所有元素
      *
@@ -92,7 +92,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         let this->elements = elements;
     }
-    
+
     /**
      * 新增元素
      *
@@ -103,7 +103,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         let this->elements = array_replace(this->elements, elements);
     }
-    
+
     /**
      * 取回元素值
      *
@@ -117,7 +117,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return this->filter(key, defaults);
     }
-    
+
     /**
      * 设置元素值
      *
@@ -130,7 +130,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
         let key = this->normalize(key);
         let this->elements[key] = value;
     }
-    
+
     /**
      * 判断是否存在元素值
      *
@@ -143,7 +143,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return array_key_exists(key, this->elements);
     }
-    
+
     /**
      * 删除元素值
      *
@@ -158,7 +158,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
             unset this->elements[key];
         }
     }
-    
+
     /**
      * 获取过滤变量
      *
@@ -171,7 +171,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     public function filter(var key, var defaults = null, var filter = null, array options = [])
     {
         var tmp = [], tmpKey = [], result, part;
-    
+
         let key = this->normalize(key);
         let filter = this->parseFilter(filter);
         let tmp = this->parseKeyFilter(key, filter);
@@ -197,7 +197,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return result;
     }
-    
+
     /**
      * 实现 Countable::count
      *
@@ -207,7 +207,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return count(this->elements);
     }
-    
+
     /**
      * 对象转数组
      *
@@ -217,7 +217,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return this->elements;
     }
-    
+
     /**
      * 实现 JsonSerializable::jsonSerialize
      *
@@ -227,7 +227,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return this->toArray();
     }
-    
+
     /**
      * 对象转 JSON
      *
@@ -239,10 +239,10 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
         if is_null(option) {
             let option = JSON_UNESCAPED_UNICODE;
         }
-        
+
         return json_encode(this->jsonSerialize(), option);
     }
-    
+
     /**
      * 实现 IteratorAggregate::getIterator
      *
@@ -252,7 +252,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return new ArrayIterator(this->elements);
     }
-    
+
     /**
      * 魔术方法 __toString
      *
@@ -262,10 +262,10 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return this->toJson();
     }
-    
+
     /**
      * 分析键值和过滤器
-     * 
+     *
      * @param string $key
      * @param array $filter
      * @return array
@@ -273,7 +273,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     protected function parseKeyFilter(string key, array filter) -> array
     {
         var tmp, tmpKey;
-    
+
         if strpos(key, "|") !== false {
             let tmp = explode("|", key);
             let tmpKey = array_shift(tmp);
@@ -283,7 +283,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return [key, filter];
     }
-    
+
     /**
      * 分析过滤器
      *
@@ -306,7 +306,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return data;
     }
-    
+
     /**
      * 过滤值
      *
@@ -319,7 +319,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     protected function filterValue(var value, var defaults, array filters, array options = [])
     {
         var item;
-    
+
         for item in filters {
             if is_string(item) && strpos(item, "=") !== false {
                 let value = this->filterValueWithFunc(value, item);
@@ -337,7 +337,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return value;
     }
-    
+
     /**
      * 使用函数过滤值
      *
@@ -348,7 +348,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     protected function filterValueWithFunc(var value, var filter)
     {
         var extend, tmp = [], evals, tmpExtend = [], result = [], v;
-    
+
         let tmp = explode("=", filter);
         let filter = tmp[0];
         let extend = tmp[1];
@@ -399,7 +399,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return value;
     }
-    
+
     /**
      * 使用回调过滤值
      *
@@ -411,7 +411,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return call_user_func(filter, value);
     }
-    
+
     /**
      * 使用 filter_var 过滤值
      *
@@ -425,7 +425,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return filter_var(value, this->parseFilterId(filter), options);
     }
-    
+
     /**
      * 分析转换 filter_var 参数
      *
@@ -436,7 +436,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     {
         return this->isInt(filter) ? filter : filter_id(filter);
     }
-    
+
     /**
      * 判断字符串是否为数字
      *
@@ -451,7 +451,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return ctype_digit(strval(value));
     }
-    
+
     /**
      * 返回部分数组数据
      *
@@ -463,7 +463,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
     protected function getPartData(var key, var value, var defaults = null)
     {
         var parts, item;
-    
+
         if typeof value != "array" {
             return value;
         }
@@ -480,7 +480,7 @@ class Bag implements IArray, IJson, Countable, IteratorAggregate, JsonSerializab
 
         return value;
     }
-    
+
     /**
      * 格式化键值
      *

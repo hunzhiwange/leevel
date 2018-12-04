@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Http;
 
 use ArrayObject;
@@ -33,38 +34,37 @@ use Leevel\Support\IArray;
  */
 class JsonResponse extends Response
 {
-
     /**
      * 响应内容
-     * 
+     *
      * @var sting
      */
     protected data;
-    
+
     /**
      * JSON 格式化参数
-     * 
+     *
      * @var int
      */
     protected encodingOptions = self::DEFAULT_ENCODING_OPTIONS;
-    
+
     /**
      * JSONP 回调
-     * 
+     *
      * @var string
      */
     protected callback;
-    
+
     /**
-     * 默认 JSON 格式化参数 
-     *  
+     * 默认 JSON 格式化参数
+     *
      * @var int
      */
     const DEFAULT_ENCODING_OPTIONS = 256;
 
     /**
      * 构造函数
-     * 
+     *
      * @param string $data
      * @param integer $status
      * @param array $headers
@@ -90,7 +90,7 @@ class JsonResponse extends Response
 
     /**
      * 创建一个 JSON 响应
-     * 
+     *
      * @param string $data
      * @param integer $status
      * @param array $headers
@@ -100,10 +100,10 @@ class JsonResponse extends Response
     {
         return new static(data, status, headers);
     }
-    
+
     /**
-     * 从 JSON 字符串创建响应对象  
-     * 
+     * 从 JSON 字符串创建响应对象
+     *
      * @param string $data
      * @param integer $status
      * @param array $headers
@@ -113,9 +113,9 @@ class JsonResponse extends Response
     {
         return new static(data, status, headers, true);
     }
-    
+
     /**
-     * 设置 JSONP 回调 
+     * 设置 JSONP 回调
      *
      * @param string|null $callback
      * @return $this
@@ -130,7 +130,7 @@ class JsonResponse extends Response
 
         return this->updateContent();
     }
-    
+
     /**
      * 设置原生 JSON 数据
      *
@@ -151,9 +151,9 @@ class JsonResponse extends Response
 
         return this->updateContent();
     }
-    
+
     /**
-     * 设置数据作为 JSON   
+     * 设置数据作为 JSON
      *
      * @param mixed $data
      * @param int $encodingOptions
@@ -186,7 +186,7 @@ class JsonResponse extends Response
 
         return this->updateContent();
     }
-    
+
     /**
      * 取回数据
      *
@@ -198,7 +198,7 @@ class JsonResponse extends Response
     {
         return json_decode(this->data, assoc, depth);
     }
-    
+
     /**
      * 获取编码参数
      *
@@ -208,7 +208,7 @@ class JsonResponse extends Response
     {
         return this->encodingOptions;
     }
-    
+
     /**
      * 设置编码参数
      *
@@ -225,7 +225,7 @@ class JsonResponse extends Response
 
         return this->setData(this->getData());
     }
-    
+
     /**
      * 验证是否为正常的 JSON 字符串
      *
@@ -242,7 +242,7 @@ class JsonResponse extends Response
 
         return json_last_error() === JSON_ERROR_NONE;
     }
-    
+
     /**
      * 更新响应内容
      *

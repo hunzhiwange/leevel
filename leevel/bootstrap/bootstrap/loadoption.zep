@@ -6,13 +6,14 @@
  *    __/ / /  / /_/ /  __/ /  \  / /_/ / / / / /_/ /__
  *      \_\ \_/\____/\___/_/   / / .___/_/ /_/ .___/
  *         \_\                /_/_/         /_/
- * 
+ *
  * The PHP Framework For Code Poem As Free As Wind. <Query Yet Simple>
  * (c) 2010-2018 http://queryphp.com All rights reserved.
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Bootstrap\Bootstrap;
 
 use Leevel\Option\Load;
@@ -26,14 +27,14 @@ use Leevel\Kernel\IProject;
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.04.24
- * 
+ *
  * @version 1.0
  */
 class LoadOption
 {
     /**
      * 响应
-     * 
+     *
      * @param \Leevel\Kernel\IProject $project
      * @return void
      */
@@ -43,7 +44,7 @@ class LoadOption
 
         let args = func_get_args();
         let project = args[0];
-    
+
         if project->isCachedOption() {
             let data = (array) require project->optionCachedPath();
             this->setEnvs(data["app"]["_env"]);
@@ -63,7 +64,7 @@ class LoadOption
             this->initialization(option);
         }
     }
-    
+
     /**
      * 初始化处理
      *
@@ -73,12 +74,12 @@ class LoadOption
     protected function setEnvs(array env)
     {
         var name, value;
-    
+
         for name, value in env {
             this->setEnvVar(name, value);
         }
     }
-    
+
     /**
      * 设置环境变量
      *
@@ -99,7 +100,7 @@ class LoadOption
         let _ENV[name] = value;
         let _SERVER[name] = value;
     }
-    
+
     /**
      * 初始化处理
      *

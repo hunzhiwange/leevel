@@ -13,6 +13,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Leevel\Di;
 
 use Closure;
@@ -34,8 +35,8 @@ use InvalidArgumentException;
  *
  * @version 1.0
  */
-class Container implements IContainer, ArrayAccess {
-
+class Container implements IContainer, ArrayAccess
+{
     /**
      * 注册服务
      *
