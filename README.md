@@ -78,8 +78,10 @@ Documentation for the framework can be found on the [Leevel website](http://www.
 ## Run Tests
 
 ```
-$cd /data/codes/leevel      
+$cd /data/codes/leevel    
 $composer install
+$cp ./tests/config.php ./tests/config.local.php // Modify the config
+$php vendor/bin/phinx migrate
 $php vendor/bin/phpunit tests
 ```
 
