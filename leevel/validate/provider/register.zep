@@ -60,7 +60,7 @@ class Register extends Provider
      */
     protected function validateClosure(<IContainer> container)
     {
-        return (new Validate())->setContainer(container);
+        return new Validate(container);
     }
 
     /**

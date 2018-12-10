@@ -106,30 +106,26 @@ PHP_METHOD(Leevel_Validate_Provider_Register, register) {
  */
 PHP_METHOD(Leevel_Validate_Provider_Register, validateClosure) {
 
-	zend_class_entry *_1 = NULL;
+	zend_class_entry *_0 = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *container, container_sub, _0;
+	zval *container, container_sub;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&container_sub);
-	ZVAL_UNDEF(&_0);
 
 	ZEPHIR_MM_GROW();
 	zephir_fetch_params(1, 1, 0, &container);
 
 
 
-	ZEPHIR_INIT_VAR(&_0);
-	if (!_1) {
-	_1 = zephir_fetch_class_str_ex(SL("Leevel\\Validate\\Validate"), ZEND_FETCH_CLASS_AUTO);
+	if (!_0) {
+	_0 = zephir_fetch_class_str_ex(SL("Leevel\\Validate\\Validate"), ZEND_FETCH_CLASS_AUTO);
 	}
-	object_init_ex(&_0, _1);
-	if (zephir_has_constructor(&_0 TSRMLS_CC)) {
-		ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 0);
+	object_init_ex(return_value, _0);
+	if (zephir_has_constructor(return_value TSRMLS_CC)) {
+		ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 0, container);
 		zephir_check_call_status();
 	}
-	ZEPHIR_RETURN_CALL_METHOD(&_0, "setcontainer", NULL, 0, container);
-	zephir_check_call_status();
 	RETURN_MM();
 
 }
