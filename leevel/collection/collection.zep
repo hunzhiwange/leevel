@@ -270,12 +270,16 @@ class Collection implements IMacro, IArray, IJson, IteratorAggregate, ArrayAcces
         array result = [];
 
         for key, value in this->elements {
-            if value instanceof JsonSerializable {
-                let result[key] = value->jsonSerialize();
-            } elseif value instanceof IJson {
-                let result[key] = json_decode(value->toJson(), true);
-            } elseif value instanceof IArray {
-                let result[key] = value->toArray();
+            if is_object(value) {
+                if value instanceof JsonSerializable {
+                    let result[key] = value->jsonSerialize();
+                } elseif value instanceof IJson {
+                    let result[key] = json_decode(value->toJson(), true);
+                } elseif value instanceof IArray {
+                    let result[key] = value->toArray();
+                } else {
+                    let result[key] = value;
+                }
             } else {
                 let result[key] = value;
             }
