@@ -105,7 +105,6 @@
 #include "leevel/mvc/view.zep.h"
 #include "leevel/option.zep.h"
 #include "leevel/option/option.zep.h"
-#include "leevel/page.zep.h"
 #include "leevel/pipeline/pipeline.zep.h"
 #include "leevel/request.zep.h"
 #include "leevel/response.zep.h"
@@ -140,5 +139,6 @@
 #include "leevel/view/twig.zep.h"
 #include "leevel/view/v8js.zep.h"
 #include "leevel/view/view.zep.h"
+#include "leevel/work.zep.h"
 
 #endif

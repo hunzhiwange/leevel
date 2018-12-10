@@ -24,7 +24,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2017.06.03
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Cache_Provider_Register) {
@@ -178,7 +178,7 @@ PHP_METHOD(Leevel_Cache_Provider_Register, caches) {
 
 /**
  * 创建 auths 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Cache\Manager
  */
@@ -242,7 +242,7 @@ PHP_METHOD(Leevel_Cache_Provider_Register, cache) {
 
 /**
  * 创建 cache 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return object
  */
@@ -311,7 +311,7 @@ PHP_METHOD(Leevel_Cache_Provider_Register, cacheLoad) {
 
 /**
  * 创建 cache.load 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Cache\Load
  */

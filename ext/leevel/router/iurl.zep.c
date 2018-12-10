@@ -41,14 +41,14 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IUrl, make);
 
 /**
  * 返回 HTTP 请求
- * 
+ *
  * @return \Leevel\Http\IRequest
  */
 ZEPHIR_DOC_METHOD(Leevel_Router_IUrl, getRequest);
 
 /**
  * 设置配置
- * 
+ *
  * @param string $name
  * @param mixed $value
  * @return $this

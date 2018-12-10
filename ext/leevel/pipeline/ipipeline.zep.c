@@ -51,7 +51,7 @@ ZEPHIR_DOC_METHOD(Leevel_Pipeline_IPipeline, through);
  *
  * @param \Closure $end
  * @since 2018.01.03
- * 
+ *
  * @return mixed
  */
 ZEPHIR_DOC_METHOD(Leevel_Pipeline_IPipeline, then);

@@ -52,7 +52,7 @@ ZEPHIR_INIT_CLASS(Leevel_Support_Facade) {
 }
 
 /**
- * call 
+ * call
  *
  * @param string $method
  * @param array $args

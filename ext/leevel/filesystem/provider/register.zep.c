@@ -24,7 +24,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.28
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Filesystem_Provider_Register) {
@@ -170,7 +170,7 @@ PHP_METHOD(Leevel_Filesystem_Provider_Register, filesystems) {
 
 /**
  * 创建 filesystems 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Filesystem\Manager
  */

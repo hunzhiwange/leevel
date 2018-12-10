@@ -35,15 +35,15 @@ ZEPHIR_INIT_CLASS(Leevel_Router_Url) {
 
 	/**
 	 * HTTP 请求
-	 * 
+	 *
 	 * @var \Leevel\Http\IRequest
 	 */
 	zend_declare_property_null(leevel_router_url_ce, SL("request"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
-	 * URL 参数 
-	 * 
-	 * @var array 
+	 * URL 参数
+	 *
+	 * @var array
 	 */
 	zend_declare_property_null(leevel_router_url_ce, SL("params"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
@@ -63,7 +63,7 @@ ZEPHIR_INIT_CLASS(Leevel_Router_Url) {
 
 /**
  * 构造函数
- * 
+ *
  * @param \Leevel\Http\IRequest $request
  * @param array $option
  * @return void
@@ -153,7 +153,7 @@ PHP_METHOD(Leevel_Router_Url, make) {
 	} else {
 		zephir_read_property(&_2, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_OBS_NVAR(&_1);
-		zephir_array_fetch_string(&_1, &_2, SL("with_suffix"), PH_NOISY, "leevel/router/url.zep", 81 TSRMLS_CC);
+		zephir_array_fetch_string(&_1, &_2, SL("with_suffix"), PH_NOISY, "leevel/router/url.zep", 82 TSRMLS_CC);
 	}
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "makeurl", NULL, 0, url, &params, &_1);
 	zephir_check_call_status();
@@ -171,7 +171,7 @@ PHP_METHOD(Leevel_Router_Url, make) {
 
 /**
  * 返回 HTTP 请求
- * 
+ *
  * @return \Leevel\Http\IRequest
  */
 PHP_METHOD(Leevel_Router_Url, getRequest) {
@@ -185,7 +185,7 @@ PHP_METHOD(Leevel_Router_Url, getRequest) {
 
 /**
  * 设置配置
- * 
+ *
  * @param string $name
  * @param mixed $value
  * @return $this
@@ -225,14 +225,14 @@ PHP_METHOD(Leevel_Router_Url, getDomain) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_1, &_0, SL("domain"), PH_NOISY | PH_READONLY, "leevel/router/url.zep", 119 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &_0, SL("domain"), PH_NOISY | PH_READONLY, "leevel/router/url.zep", 120 TSRMLS_CC);
 	RETURN_CTORW(&_1);
 
 }
 
 /**
  * 自定义 URL
- * 
+ *
  * @param string $url
  * @param array $params
  * @param mixed $suffix
@@ -336,7 +336,7 @@ PHP_METHOD(Leevel_Router_Url, makeUrl) {
 
 /**
  * 匹配 URL 变量
- * 
+ *
  * @param array $matches
  * @return string
  */
@@ -362,18 +362,18 @@ PHP_METHOD(Leevel_Router_Url, matchVar) {
 
 	zephir_read_property(&_0, this_ptr, SL("params"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CPY_WRT(&params, &_0);
-	zephir_array_fetch_long(&_1, &matches, 1, PH_READONLY, "leevel/router/url.zep", 165 TSRMLS_CC);
+	zephir_array_fetch_long(&_1, &matches, 1, PH_READONLY, "leevel/router/url.zep", 166 TSRMLS_CC);
 	if (zephir_array_isset(&params, &_1)) {
 		ZEPHIR_OBS_VAR(&value);
 		ZEPHIR_OBS_VAR(&_2$$3);
-		zephir_array_fetch_long(&_2$$3, &matches, 1, PH_NOISY, "leevel/router/url.zep", 166 TSRMLS_CC);
-		zephir_array_fetch(&value, &params, &_2$$3, PH_NOISY, "leevel/router/url.zep", 166 TSRMLS_CC);
-		zephir_array_fetch_long(&_3$$3, &matches, 1, PH_NOISY | PH_READONLY, "leevel/router/url.zep", 167 TSRMLS_CC);
+		zephir_array_fetch_long(&_2$$3, &matches, 1, PH_NOISY, "leevel/router/url.zep", 167 TSRMLS_CC);
+		zephir_array_fetch(&value, &params, &_2$$3, PH_NOISY, "leevel/router/url.zep", 167 TSRMLS_CC);
+		zephir_array_fetch_long(&_3$$3, &matches, 1, PH_NOISY | PH_READONLY, "leevel/router/url.zep", 168 TSRMLS_CC);
 		zephir_array_unset(&params, &_3$$3, PH_SEPARATE);
 		zephir_update_property_zval(this_ptr, SL("params"), &params);
 	} else {
 		ZEPHIR_OBS_NVAR(&value);
-		zephir_array_fetch_long(&value, &matches, 0, PH_NOISY, "leevel/router/url.zep", 170 TSRMLS_CC);
+		zephir_array_fetch_long(&value, &matches, 0, PH_NOISY, "leevel/router/url.zep", 171 TSRMLS_CC);
 	}
 	RETURN_CCTOR(&value);
 
@@ -414,7 +414,7 @@ PHP_METHOD(Leevel_Router_Url, withDomain) {
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_OBS_VAR(&_1);
-	zephir_array_fetch_string(&_1, &_0, SL("domain"), PH_NOISY, "leevel/router/url.zep", 185 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &_0, SL("domain"), PH_NOISY, "leevel/router/url.zep", 186 TSRMLS_CC);
 	_2 = !zephir_is_true(&_1);
 	if (!(_2)) {
 		_2 = ZEPHIR_IS_EMPTY(&domain);
@@ -446,7 +446,7 @@ PHP_METHOD(Leevel_Router_Url, withDomain) {
 		ZVAL_STRING(&_5, "");
 	}
 	zephir_read_property(&_8, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_9, &_8, SL("domain"), PH_NOISY | PH_READONLY, "leevel/router/url.zep", 191 TSRMLS_CC);
+	zephir_array_fetch_string(&_9, &_8, SL("domain"), PH_NOISY | PH_READONLY, "leevel/router/url.zep", 192 TSRMLS_CC);
 	ZEPHIR_CONCAT_VVVV(return_value, &_3, &_5, &_9, &url);
 	RETURN_MM();
 
@@ -476,7 +476,7 @@ PHP_METHOD(Leevel_Router_Url, isSecure) {
 
 /**
  * url 带后缀
- * 
+ *
  * @param string $url
  * @param string|boolean $suffix
  * @return string
@@ -522,7 +522,7 @@ PHP_METHOD(Leevel_Router_Url, withSuffix) {
 	if (ZEPHIR_IS_TRUE_IDENTICAL(suffix)) {
 		zephir_read_property(&_4, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 		ZEPHIR_OBS_NVAR(&_3);
-		zephir_array_fetch_string(&_3, &_4, SL("suffix"), PH_NOISY, "leevel/router/url.zep", 217 TSRMLS_CC);
+		zephir_array_fetch_string(&_3, &_4, SL("suffix"), PH_NOISY, "leevel/router/url.zep", 218 TSRMLS_CC);
 	} else {
 		ZEPHIR_CPY_WRT(&_3, suffix);
 	}
@@ -548,7 +548,7 @@ PHP_METHOD(Leevel_Router_Url, withSuffix) {
 
 /**
  * 带上入口文件
- * 
+ *
  * @param string $url
  * @return string
  */

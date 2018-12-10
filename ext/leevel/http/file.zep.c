@@ -74,7 +74,7 @@ PHP_METHOD(Leevel_Http_File, __construct) {
 		object_init_ex(&_1$$3, leevel_http_filenotfoundexception_ce);
 		ZEPHIR_CALL_METHOD(NULL, &_1$$3, "__construct", NULL, 3, &path);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_1$$3, "leevel/http/file.zep", 46 TSRMLS_CC);
+		zephir_throw_exception_debug(&_1$$3, "leevel/http/file.zep", 45 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -189,7 +189,7 @@ PHP_METHOD(Leevel_Http_File, getTargetFile) {
 			zephir_check_call_status();
 			ZEPHIR_CALL_METHOD(NULL, &_4$$4, "__construct", NULL, 3, &_6$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_4$$4, "leevel/http/file.zep", 84 TSRMLS_CC);
+			zephir_throw_exception_debug(&_4$$4, "leevel/http/file.zep", 83 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -205,7 +205,7 @@ PHP_METHOD(Leevel_Http_File, getTargetFile) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_8$$5, "__construct", NULL, 3, &_10$$5);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_8$$5, "leevel/http/file.zep", 91 TSRMLS_CC);
+		zephir_throw_exception_debug(&_8$$5, "leevel/http/file.zep", 90 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}
@@ -311,10 +311,10 @@ PHP_METHOD(Leevel_Http_File, errorHandlerClosure) {
 	zephir_get_args(&args);
 	ZEPHIR_INIT_VAR(&_0);
 	object_init_ex(&_0, leevel_http_fileexception_ce);
-	zephir_array_fetch_long(&_1, &args, 1, PH_NOISY | PH_READONLY, "leevel/http/file.zep", 129 TSRMLS_CC);
+	zephir_array_fetch_long(&_1, &args, 1, PH_NOISY | PH_READONLY, "leevel/http/file.zep", 128 TSRMLS_CC);
 	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 3, &_1);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_0, "leevel/http/file.zep", 129 TSRMLS_CC);
+	zephir_throw_exception_debug(&_0, "leevel/http/file.zep", 128 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 

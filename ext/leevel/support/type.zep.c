@@ -37,7 +37,7 @@ ZEPHIR_INIT_CLASS(Leevel_Support_Type) {
 
 	/**
 	 * zephir 不支持动态 instanceof
-	 * 
+	 *
 	 * @var boolean
 	 */
 	zend_declare_property_bool(leevel_support_type_ce, SL("zephirInstanceof"), 0, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC TSRMLS_CC);

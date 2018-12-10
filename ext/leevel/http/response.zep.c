@@ -22,7 +22,6 @@
 #include "kernel/array.h"
 #include "kernel/string.h"
 #include "ext/date/php_date.h"
-#include "Zend/zend_closures.h"
 #include "ext/spl/spl_array.h"
 
 
@@ -42,7 +41,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_Response) {
 
 	/**
 	 * 响应头
-	 * 
+	 *
 	 * @var \Leevel\Http\ResponseHeaderBag
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("headers"), ZEND_ACC_PUBLIC TSRMLS_CC);
@@ -56,49 +55,49 @@ ZEPHIR_INIT_CLASS(Leevel_Http_Response) {
 
 	/**
 	 * 响应内容
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("content"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * HTTP 协议版本
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("protocolVersion"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 状态码
-	 * 
+	 *
 	 * @var int
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("statusCode"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 状态码内容
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("statusText"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 字符编码
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("charset"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 是否为 JSON
-	 * 
+	 *
 	 * @var boolean
 	 */
 	zend_declare_property_bool(leevel_http_response_ce, SL("isJson"), 0, ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * COOKIE Resolver
-	 * 
+	 *
 	 * @var \Closure
 	 */
 	zend_declare_property_null(leevel_http_response_ce, SL("cookieResolver"), ZEND_ACC_PROTECTED|ZEND_ACC_STATIC TSRMLS_CC);
@@ -148,7 +147,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_Response) {
 
 /**
  * 构造函数
- * 
+ *
  * @param string $content
  * @param integer $status
  * @param array $headers
@@ -208,7 +207,7 @@ PHP_METHOD(Leevel_Http_Response, __construct) {
 
 /**
  * 创建一个响应
- * 
+ *
  * @param string $content
  * @param integer $status
  * @param array $headers
@@ -256,7 +255,7 @@ PHP_METHOD(Leevel_Http_Response, create) {
 
 /**
  * 设置 COOKIE Resolver
- * 
+ *
  * @param \Closure $cookieResolver
  * @return void
  */
@@ -1151,7 +1150,7 @@ PHP_METHOD(Leevel_Http_Response, getProtocolVersion) {
 
 /**
  * 设置相应状态码
- * 
+ *
  * @param int $code
  * @param mixed $text
  * @return $this
@@ -2340,7 +2339,7 @@ PHP_METHOD(Leevel_Http_Response, callStaticMacro) {
  * 由于 zephir 对应的 C 扩展版本不支持对象内绑定 class
  * 即 Closure::bind($closures, null, get_called_class())
  * 为保持功能一致，所以绑定对象但是不绑定作用域，即可以使用 $this,只能访问 public 属性
- * 
+ *
  * @param string $method
  * @param array $args
  * @return mixed
@@ -2349,22 +2348,18 @@ PHP_METHOD(Leevel_Http_Response, callMacro) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval args;
-	zval *method_param = NULL, *args_param = NULL, _0, _8, _9, _10, _1$$3, _2$$3, _3$$4, _4$$4, _5$$4, _6$$5, _7$$5;
+	zval *method_param = NULL, *args_param = NULL, _0, _4, _5, _6, _1$$3, _2$$3, _3$$3;
 	zval method;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&method);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_8);
-	ZVAL_UNDEF(&_9);
-	ZVAL_UNDEF(&_10);
+	ZVAL_UNDEF(&_4);
+	ZVAL_UNDEF(&_5);
+	ZVAL_UNDEF(&_6);
 	ZVAL_UNDEF(&_1$$3);
 	ZVAL_UNDEF(&_2$$3);
-	ZVAL_UNDEF(&_3$$4);
-	ZVAL_UNDEF(&_4$$4);
-	ZVAL_UNDEF(&_5$$4);
-	ZVAL_UNDEF(&_6$$5);
-	ZVAL_UNDEF(&_7$$5);
+	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&args);
 
 	ZEPHIR_MM_GROW();
@@ -2378,33 +2373,22 @@ PHP_METHOD(Leevel_Http_Response, callMacro) {
 	zephir_check_call_status();
 	if (zephir_is_true(&_0)) {
 		zephir_read_static_property_ce(&_1$$3, leevel_http_response_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_OBS_VAR(&_2$$3);
-		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY, "leevel/http/response.zep", 1113 TSRMLS_CC);
-		if (zephir_instance_of_ev(&_2$$3, zend_ce_closure TSRMLS_CC)) {
-			zephir_read_static_property_ce(&_3$$4, leevel_http_response_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_4$$4, &_3$$4, &method, PH_NOISY | PH_READONLY, "leevel/http/response.zep", 1114 TSRMLS_CC);
-			ZEPHIR_CALL_METHOD(&_5$$4, &_4$$4, "bindto", NULL, 0, this_ptr);
-			zephir_check_call_status();
-			ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_5$$4, &args);
-			zephir_check_call_status();
-			RETURN_MM();
-		} else {
-			zephir_read_static_property_ce(&_6$$5, leevel_http_response_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_7$$5, &_6$$5, &method, PH_NOISY | PH_READONLY, "leevel/http/response.zep", 1116 TSRMLS_CC);
-			ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_7$$5, &args);
-			zephir_check_call_status();
-			RETURN_MM();
-		}
+		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY | PH_READONLY, "leevel/http/response.zep", 1113 TSRMLS_CC);
+		ZEPHIR_CALL_METHOD(&_3$$3, &_2$$3, "bindto", NULL, 0, this_ptr);
+		zephir_check_call_status();
+		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_3$$3, &args);
+		zephir_check_call_status();
+		RETURN_MM();
 	}
-	ZEPHIR_INIT_VAR(&_8);
-	object_init_ex(&_8, spl_ce_BadMethodCallException);
-	ZEPHIR_INIT_VAR(&_9);
-	ZVAL_STRING(&_9, "Method %s is not exits.");
-	ZEPHIR_CALL_FUNCTION(&_10, "sprintf", NULL, 1, &_9, &method);
+	ZEPHIR_INIT_VAR(&_4);
+	object_init_ex(&_4, spl_ce_BadMethodCallException);
+	ZEPHIR_INIT_VAR(&_5);
+	ZVAL_STRING(&_5, "Method %s is not exits.");
+	ZEPHIR_CALL_FUNCTION(&_6, "sprintf", NULL, 1, &_5, &method);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_8, "__construct", NULL, 2, &_10);
+	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 2, &_6);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_8, "leevel/http/response.zep", 1120 TSRMLS_CC);
+	zephir_throw_exception_debug(&_4, "leevel/http/response.zep", 1116 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 

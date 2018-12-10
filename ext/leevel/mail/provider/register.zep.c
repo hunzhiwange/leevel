@@ -157,7 +157,7 @@ PHP_METHOD(Leevel_Mail_Provider_Register, mails) {
 
 /**
  * 创建 mails 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Mail\Manager
  */

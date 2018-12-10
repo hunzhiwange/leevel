@@ -21,7 +21,6 @@
 #include "kernel/string.h"
 #include "kernel/exception.h"
 #include "ext/spl/spl_exceptions.h"
-#include "Zend/zend_closures.h"
 
 
 /**
@@ -128,7 +127,7 @@ PHP_METHOD(Leevel_Collection_Collection, __construct) {
 	ZEPHIR_CPY_WRT(elements, &_0);
 	zephir_read_property(&_1, this_ptr, SL("type"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_is_true(&_1)) {
-		zephir_is_iterable(elements, 0, "leevel/collection/collection.zep", 93);
+		zephir_is_iterable(elements, 0, "leevel/collection/collection.zep", 94);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(elements), _3$$4, _4$$4, _2$$4)
 		{
 			ZEPHIR_INIT_NVAR(&key);
@@ -381,7 +380,7 @@ PHP_METHOD(Leevel_Collection_Collection, offsetGet) {
 	zephir_read_property(&_1, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, index)) {
 		zephir_read_property(&_2, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_0, &_2, index, PH_NOISY, "leevel/collection/collection.zep", 193 TSRMLS_CC);
+		zephir_array_fetch(&_0, &_2, index, PH_NOISY, "leevel/collection/collection.zep", 194 TSRMLS_CC);
 	} else {
 		ZVAL_NULL(&_0);
 	}
@@ -500,7 +499,7 @@ PHP_METHOD(Leevel_Collection_Collection, toArray) {
 	ZEPHIR_INIT_VAR(&result);
 	array_init(&result);
 	zephir_read_property(&_0, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "leevel/collection/collection.zep", 258);
+	zephir_is_iterable(&_0, 0, "leevel/collection/collection.zep", 259);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -558,7 +557,7 @@ PHP_METHOD(Leevel_Collection_Collection, jsonSerialize) {
 	ZEPHIR_INIT_VAR(&result);
 	array_init(&result);
 	zephir_read_property(&_0, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "leevel/collection/collection.zep", 283);
+	zephir_is_iterable(&_0, 0, "leevel/collection/collection.zep", 284);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -676,11 +675,11 @@ PHP_METHOD(Leevel_Collection_Collection, each) {
 
 
 	if (!(zephir_is_callable(callback TSRMLS_CC))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Each need a callback.", "leevel/collection/collection.zep", 322);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Each need a callback.", "leevel/collection/collection.zep", 323);
 		return;
 	}
 	zephir_read_property(&_0, this_ptr, SL("elements"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "leevel/collection/collection.zep", 331);
+	zephir_is_iterable(&_0, 0, "leevel/collection/collection.zep", 332);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -794,7 +793,7 @@ PHP_METHOD(Leevel_Collection_Collection, callStaticMacro) {
 	zephir_check_call_status();
 	if (zephir_is_true(&_0)) {
 		zephir_read_static_property_ce(&_1$$3, leevel_collection_collection_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY | PH_READONLY, "leevel/collection/collection.zep", 370 TSRMLS_CC);
+		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY | PH_READONLY, "leevel/collection/collection.zep", 371 TSRMLS_CC);
 		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_2$$3, &args);
 		zephir_check_call_status();
 		RETURN_MM();
@@ -807,7 +806,7 @@ PHP_METHOD(Leevel_Collection_Collection, callStaticMacro) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_3, "__construct", NULL, 2, &_5);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_3, "leevel/collection/collection.zep", 373 TSRMLS_CC);
+	zephir_throw_exception_debug(&_3, "leevel/collection/collection.zep", 374 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -827,22 +826,18 @@ PHP_METHOD(Leevel_Collection_Collection, callMacro) {
 
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval args;
-	zval *method_param = NULL, *args_param = NULL, _0, _8, _9, _10, _1$$3, _2$$3, _3$$4, _4$$4, _5$$4, _6$$5, _7$$5;
+	zval *method_param = NULL, *args_param = NULL, _0, _4, _5, _6, _1$$3, _2$$3, _3$$3;
 	zval method;
 	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&method);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_8);
-	ZVAL_UNDEF(&_9);
-	ZVAL_UNDEF(&_10);
+	ZVAL_UNDEF(&_4);
+	ZVAL_UNDEF(&_5);
+	ZVAL_UNDEF(&_6);
 	ZVAL_UNDEF(&_1$$3);
 	ZVAL_UNDEF(&_2$$3);
-	ZVAL_UNDEF(&_3$$4);
-	ZVAL_UNDEF(&_4$$4);
-	ZVAL_UNDEF(&_5$$4);
-	ZVAL_UNDEF(&_6$$5);
-	ZVAL_UNDEF(&_7$$5);
+	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&args);
 
 	ZEPHIR_MM_GROW();
@@ -856,33 +851,22 @@ PHP_METHOD(Leevel_Collection_Collection, callMacro) {
 	zephir_check_call_status();
 	if (zephir_is_true(&_0)) {
 		zephir_read_static_property_ce(&_1$$3, leevel_collection_collection_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_OBS_VAR(&_2$$3);
-		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY, "leevel/collection/collection.zep", 389 TSRMLS_CC);
-		if (zephir_instance_of_ev(&_2$$3, zend_ce_closure TSRMLS_CC)) {
-			zephir_read_static_property_ce(&_3$$4, leevel_collection_collection_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_4$$4, &_3$$4, &method, PH_NOISY | PH_READONLY, "leevel/collection/collection.zep", 390 TSRMLS_CC);
-			ZEPHIR_CALL_METHOD(&_5$$4, &_4$$4, "bindto", NULL, 0, this_ptr);
-			zephir_check_call_status();
-			ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_5$$4, &args);
-			zephir_check_call_status();
-			RETURN_MM();
-		} else {
-			zephir_read_static_property_ce(&_6$$5, leevel_collection_collection_ce, SL("macro"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_7$$5, &_6$$5, &method, PH_NOISY | PH_READONLY, "leevel/collection/collection.zep", 392 TSRMLS_CC);
-			ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_7$$5, &args);
-			zephir_check_call_status();
-			RETURN_MM();
-		}
+		zephir_array_fetch(&_2$$3, &_1$$3, &method, PH_NOISY | PH_READONLY, "leevel/collection/collection.zep", 390 TSRMLS_CC);
+		ZEPHIR_CALL_METHOD(&_3$$3, &_2$$3, "bindto", NULL, 0, this_ptr);
+		zephir_check_call_status();
+		ZEPHIR_CALL_USER_FUNC_ARRAY(return_value, &_3$$3, &args);
+		zephir_check_call_status();
+		RETURN_MM();
 	}
-	ZEPHIR_INIT_VAR(&_8);
-	object_init_ex(&_8, spl_ce_BadMethodCallException);
-	ZEPHIR_INIT_VAR(&_9);
-	ZVAL_STRING(&_9, "Method %s is not exits.");
-	ZEPHIR_CALL_FUNCTION(&_10, "sprintf", NULL, 1, &_9, &method);
+	ZEPHIR_INIT_VAR(&_4);
+	object_init_ex(&_4, spl_ce_BadMethodCallException);
+	ZEPHIR_INIT_VAR(&_5);
+	ZVAL_STRING(&_5, "Method %s is not exits.");
+	ZEPHIR_CALL_FUNCTION(&_6, "sprintf", NULL, 1, &_5, &method);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, &_8, "__construct", NULL, 2, &_10);
+	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 2, &_6);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_8, "leevel/collection/collection.zep", 396 TSRMLS_CC);
+	zephir_throw_exception_debug(&_4, "leevel/collection/collection.zep", 393 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -937,7 +921,7 @@ PHP_METHOD(Leevel_Collection_Collection, checkType) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_4, "__construct", NULL, 25, &_8);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_4, "leevel/collection/collection.zep", 417 TSRMLS_CC);
+	zephir_throw_exception_debug(&_4, "leevel/collection/collection.zep", 414 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 

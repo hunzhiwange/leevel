@@ -24,6 +24,13 @@ ZEPHIR_INIT_CLASS(Leevel_Option_IOption) {
 
 	ZEPHIR_REGISTER_INTERFACE(Leevel\\Option, IOption, leevel, option_ioption, leevel_option_ioption_method_entry);
 
+	/**
+	 * 默认命名空间
+	 *
+	 * @var string
+	 */
+	zephir_declare_class_constant_string(leevel_option_ioption_ce, SL("DEFAUTL_NAMESPACE"), "app");
+
 	return SUCCESS;
 
 }

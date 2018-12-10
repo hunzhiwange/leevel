@@ -145,7 +145,7 @@ PHP_METHOD(Leevel_Event_Dispatch, handle) {
 	ZEPHIR_CALL_FUNCTION(NULL, "ksort", NULL, 52, &listeners);
 	ZEPHIR_UNREF(&listeners);
 	zephir_check_call_status();
-	zephir_is_iterable(&listeners, 0, "leevel/event/dispatch.zep", 100);
+	zephir_is_iterable(&listeners, 0, "leevel/event/dispatch.zep", 101);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&listeners), _2)
 	{
 		ZEPHIR_INIT_NVAR(&items);
@@ -208,12 +208,12 @@ PHP_METHOD(Leevel_Event_Dispatch, register) {
 	ZEPHIR_INIT_VAR(&temp);
 	array_init(&temp);
 	if (Z_TYPE_P(event) != IS_ARRAY) {
-		zephir_array_append(&temp, event, PH_SEPARATE, "leevel/event/dispatch.zep", 116);
+		zephir_array_append(&temp, event, PH_SEPARATE, "leevel/event/dispatch.zep", 117);
 		ZEPHIR_CPY_WRT(event, &temp);
 	}
 	ZVAL_LONG(&_0, priority);
 	priority = zephir_get_intval(&_0);
-	zephir_is_iterable(event, 0, "leevel/event/dispatch.zep", 131);
+	zephir_is_iterable(event, 0, "leevel/event/dispatch.zep", 132);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(event), _1)
 	{
 		ZEPHIR_INIT_NVAR(&item);
@@ -283,11 +283,11 @@ PHP_METHOD(Leevel_Event_Dispatch, get) {
 	zephir_read_property(&_1, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_array_isset(&_1, event)) {
 		zephir_read_property(&_2$$3, this_ptr, SL("listeners"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_3$$3, &_2$$3, event, PH_NOISY | PH_READONLY, "leevel/event/dispatch.zep", 148 TSRMLS_CC);
+		zephir_array_fetch(&_3$$3, &_2$$3, event, PH_NOISY | PH_READONLY, "leevel/event/dispatch.zep", 149 TSRMLS_CC);
 		ZEPHIR_CPY_WRT(&listeners, &_3$$3);
 	}
 	zephir_read_property(&_4, this_ptr, SL("wildcards"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_4, 0, "leevel/event/dispatch.zep", 165);
+	zephir_is_iterable(&_4, 0, "leevel/event/dispatch.zep", 166);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_4), _6, _7, _5)
 	{
 		ZEPHIR_INIT_NVAR(&key);
@@ -304,7 +304,7 @@ PHP_METHOD(Leevel_Event_Dispatch, get) {
 		ZEPHIR_INIT_NVAR(&_10$$4);
 		zephir_preg_match(&_10$$4, &key, event, &res, 0, 0 , 0  TSRMLS_CC);
 		if (zephir_is_true(&_10$$4)) {
-			zephir_is_iterable(&item, 0, "leevel/event/dispatch.zep", 162);
+			zephir_is_iterable(&item, 0, "leevel/event/dispatch.zep", 163);
 			ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&item), _12$$5, _13$$5, _11$$5)
 			{
 				ZEPHIR_INIT_NVAR(&priority);
@@ -321,7 +321,7 @@ PHP_METHOD(Leevel_Event_Dispatch, get) {
 					zephir_array_update_zval(&listeners, &priority, &_14$$7, PH_COPY | PH_SEPARATE);
 				}
 				ZEPHIR_INIT_NVAR(&_15$$6);
-				zephir_array_fetch(&_16$$6, &listeners, &priority, PH_NOISY | PH_READONLY, "leevel/event/dispatch.zep", 160 TSRMLS_CC);
+				zephir_array_fetch(&_16$$6, &listeners, &priority, PH_NOISY | PH_READONLY, "leevel/event/dispatch.zep", 161 TSRMLS_CC);
 				zephir_fast_array_merge(&_15$$6, &_16$$6, &value TSRMLS_CC);
 				zephir_array_update_zval(&listeners, &priority, &_15$$6, PH_COPY | PH_SEPARATE);
 			} ZEND_HASH_FOREACH_END();
@@ -462,7 +462,7 @@ PHP_METHOD(Leevel_Event_Dispatch, makeSubject) {
 	zephir_read_property(&_0, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
 	ZEPHIR_CALL_METHOD(NULL, &subject, "__construct", NULL, 95, &_0);
 	zephir_check_call_status();
-	zephir_is_iterable(&listeners, 0, "leevel/event/dispatch.zep", 225);
+	zephir_is_iterable(&listeners, 0, "leevel/event/dispatch.zep", 226);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&listeners), _1)
 	{
 		ZEPHIR_INIT_NVAR(&item);

@@ -140,7 +140,7 @@ PHP_METHOD(Leevel_Cache_Redis, get) {
 		RETVAL_ZVAL(defaults, 1, 0);
 		RETURN_MM();
 	}
-	zephir_array_fetch_string(&_3, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 76 TSRMLS_CC);
+	zephir_array_fetch_string(&_3, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 77 TSRMLS_CC);
 	_4 = zephir_is_true(&_3);
 	if (_4) {
 		_4 = Z_TYPE_P(&data) == IS_STRING;
@@ -199,13 +199,13 @@ PHP_METHOD(Leevel_Cache_Redis, set) {
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "normalizeoptions", NULL, 0, &option);
 	zephir_check_call_status();
 	ZEPHIR_CPY_WRT(&option, &_0);
-	zephir_array_fetch_string(&_1, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 94 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 95 TSRMLS_CC);
 	if (zephir_is_true(&_1)) {
 		ZEPHIR_CALL_FUNCTION(&_2$$3, "serialize", NULL, 7, data);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(data, &_2$$3);
 	}
-	zephir_array_fetch_string(&_4, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 98 TSRMLS_CC);
+	zephir_array_fetch_string(&_4, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 99 TSRMLS_CC);
 	ZVAL_LONG(&_5, zephir_get_intval(&_4));
 	ZEPHIR_CALL_METHOD(&_3, this_ptr, "cachetime", NULL, 0, &name, &_5);
 	zephir_check_call_status();
@@ -214,10 +214,10 @@ PHP_METHOD(Leevel_Cache_Redis, set) {
 	ZEPHIR_CALL_METHOD(&_6, this_ptr, "getcachename", NULL, 0, &name);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&_7);
-	zephir_array_fetch_string(&_8, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 102 TSRMLS_CC);
+	zephir_array_fetch_string(&_8, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/redis.zep", 103 TSRMLS_CC);
 	if (zephir_is_true(&_8)) {
 		ZEPHIR_OBS_VAR(&_9);
-		zephir_array_fetch_string(&_9, &option, SL("expire"), PH_NOISY, "leevel/cache/redis.zep", 102 TSRMLS_CC);
+		zephir_array_fetch_string(&_9, &option, SL("expire"), PH_NOISY, "leevel/cache/redis.zep", 103 TSRMLS_CC);
 		ZEPHIR_INIT_NVAR(&_7);
 		ZVAL_LONG(&_7, zephir_get_intval(&_9));
 	} else {

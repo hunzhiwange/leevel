@@ -30,7 +30,7 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IResponseFactory) {
 
 /**
  * 返回一个响应
- * 
+ *
  * @param string $content
  * @param integer $status
  * @param array $headers
@@ -137,7 +137,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, redirectRaw);
 /**
  * 请求成功
  * 一般用于GET与POST请求: 200
- * 
+ *
  * @param mixed $content
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -174,7 +174,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiNoContent);
 /**
  * 错误请求
  * 服务器不理解请求的语法: 400
- * 
+ *
  * @param string $message
  * @param string $message
  * @param string $text
@@ -185,7 +185,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiError);
 /**
  * 错误请求
  * 服务器不理解请求的语法: 400
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -195,7 +195,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiBadRequest);
 /**
  * 未授权
  * 对于需要登录的网页，服务器可能返回此响应: 401
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -205,7 +205,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiUnauthorized);
 /**
  * 禁止
  * 服务器拒绝请求: 403
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -215,7 +215,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiForbidden);
 /**
  * 未找到
  * 用户发出的请求针对的是不存在的记录: 404
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -225,7 +225,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiNotFound);
 /**
  * 方法禁用
  * 禁用请求中指定的方法: 405
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -235,7 +235,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiMethodNotAllowed);
 /**
  * 无法处理的实体
  * 请求格式正确，但是由于含有语义错误，无法响应: 422
- * 
+ *
  * @param array $errors
  * @param string $message
  * @param string $text
@@ -246,7 +246,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiUnprocessableEntity);
 /**
  * 太多请求
  * 用户在给定的时间内发送了太多的请求: 429
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -256,7 +256,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiTooManyRequests);
 /**
  * 服务器内部错误
  * 服务器遇到错误，无法完成请求: 500
- * 
+ *
  * @param string $message
  * @param string $text
  * @return \Leevel\Http\ApiResponse
@@ -265,7 +265,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, apiInternalServerError);
 
 /**
  * 设置视图正确模板
- * 
+ *
  * @param string $template
  * @return $this
  */
@@ -273,7 +273,7 @@ ZEPHIR_DOC_METHOD(Leevel_Router_IResponseFactory, setViewSuccessTemplate);
 
 /**
  * 设置视图错误模板
- * 
+ *
  * @param string $template
  * @return $this
  */

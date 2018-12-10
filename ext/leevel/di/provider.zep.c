@@ -26,7 +26,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.01.25
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Di_Provider) {
@@ -155,7 +155,7 @@ PHP_METHOD(Leevel_Di_Provider, container) {
 }
 
 /**
- * call 
+ * call
  *
  * @param string $method
  * @param array $args
@@ -193,7 +193,7 @@ PHP_METHOD(Leevel_Di_Provider, __call) {
 	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 2, &_2);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_0, "leevel/di/provider.zep", 120 TSRMLS_CC);
+	zephir_throw_exception_debug(&_0, "leevel/di/provider.zep", 121 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 

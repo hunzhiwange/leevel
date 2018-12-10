@@ -257,7 +257,7 @@ PHP_METHOD(Leevel_Event_Subject, register) {
 				zephir_check_call_status();
 				ZEPHIR_CALL_METHOD(NULL, &_5$$6, "__construct", NULL, 25, &_7$$6);
 				zephir_check_call_status();
-				zephir_throw_exception_debug(&_5$$6, "leevel/event/subject.zep", 120 TSRMLS_CC);
+				zephir_throw_exception_debug(&_5$$6, "leevel/event/subject.zep", 121 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
 				return;
 			}
@@ -284,7 +284,7 @@ PHP_METHOD(Leevel_Event_Subject, register) {
 				zephir_check_call_status();
 				ZEPHIR_CALL_METHOD(NULL, &_12$$8, "__construct", NULL, 25, &_15$$8);
 				zephir_check_call_status();
-				zephir_throw_exception_debug(&_12$$8, "leevel/event/subject.zep", 128 TSRMLS_CC);
+				zephir_throw_exception_debug(&_12$$8, "leevel/event/subject.zep", 129 TSRMLS_CC);
 				ZEPHIR_MM_RESTORE();
 				return;
 			}

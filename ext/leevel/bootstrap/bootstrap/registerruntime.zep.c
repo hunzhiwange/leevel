@@ -75,7 +75,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_RegisterRuntime, handle) {
 	ZEPHIR_INIT_VAR(&args);
 	zephir_get_args(&args);
 	ZEPHIR_OBS_VAR(&project);
-	zephir_array_fetch_long(&project, &args, 0, PH_NOISY, "leevel/bootstrap/bootstrap/registerruntime.zep", 54 TSRMLS_CC);
+	zephir_array_fetch_long(&project, &args, 0, PH_NOISY, "leevel/bootstrap/bootstrap/registerruntime.zep", 55 TSRMLS_CC);
 	zephir_update_property_zval(this_ptr, SL("project"), &project);
 	test = 2 == ZEND_NUM_ARGS();
 	if (!test) {
@@ -178,7 +178,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_RegisterRuntime, setErrorHandle) {
 	ZVAL_LONG(&_3, code);
 	ZEPHIR_CALL_METHOD(NULL, &_1, "__construct", NULL, 67, &description, &_2, &_3, file, line);
 	zephir_check_call_status();
-	zephir_throw_exception_debug(&_1, "leevel/bootstrap/bootstrap/registerruntime.zep", 91 TSRMLS_CC);
+	zephir_throw_exception_debug(&_1, "leevel/bootstrap/bootstrap/registerruntime.zep", 92 TSRMLS_CC);
 	ZEPHIR_MM_RESTORE();
 	return;
 
@@ -206,7 +206,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_RegisterRuntime, registerShutdownFunction)
 	zephir_check_call_status();
 	_0 = zephir_is_true(&error);
 	if (_0) {
-		zephir_array_fetch_string(&_1, &error, SL("type"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 105 TSRMLS_CC);
+		zephir_array_fetch_string(&_1, &error, SL("type"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 106 TSRMLS_CC);
 		_0 = !(ZEPHIR_IS_EMPTY(&_1));
 	}
 	if (_0) {
@@ -408,10 +408,10 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_RegisterRuntime, formatErrorException) {
 
 
 	object_init_ex(return_value, zephir_get_internal_ce(SL("errorexception")));
-	zephir_array_fetch_string(&_0, &error, SL("message"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 176 TSRMLS_CC);
-	zephir_array_fetch_string(&_1, &error, SL("type"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 176 TSRMLS_CC);
-	zephir_array_fetch_string(&_2, &error, SL("file"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 176 TSRMLS_CC);
-	zephir_array_fetch_string(&_3, &error, SL("line"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 177 TSRMLS_CC);
+	zephir_array_fetch_string(&_0, &error, SL("message"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 177 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &error, SL("type"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 177 TSRMLS_CC);
+	zephir_array_fetch_string(&_2, &error, SL("file"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 177 TSRMLS_CC);
+	zephir_array_fetch_string(&_3, &error, SL("line"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/registerruntime.zep", 178 TSRMLS_CC);
 	ZVAL_LONG(&_4, 0);
 	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 67, &_0, &_1, &_4, &_2, &_3);
 	zephir_check_call_status();

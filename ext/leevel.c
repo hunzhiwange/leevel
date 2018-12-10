@@ -126,7 +126,6 @@ zend_class_entry *leevel_mvc_controller_ce;
 zend_class_entry *leevel_mvc_view_ce;
 zend_class_entry *leevel_option_ce;
 zend_class_entry *leevel_option_option_ce;
-zend_class_entry *leevel_page_ce;
 zend_class_entry *leevel_pipeline_pipeline_ce;
 zend_class_entry *leevel_request_ce;
 zend_class_entry *leevel_response_ce;
@@ -159,6 +158,7 @@ zend_class_entry *leevel_view_provider_register_ce;
 zend_class_entry *leevel_view_twig_ce;
 zend_class_entry *leevel_view_v8js_ce;
 zend_class_entry *leevel_view_view_ce;
+zend_class_entry *leevel_work_ce;
 
 ZEND_DECLARE_MODULE_GLOBALS(leevel)
 
@@ -273,7 +273,6 @@ static PHP_MINIT_FUNCTION(leevel)
 	ZEPHIR_INIT(Leevel_Mvc_View);
 	ZEPHIR_INIT(Leevel_Option);
 	ZEPHIR_INIT(Leevel_Option_Option);
-	ZEPHIR_INIT(Leevel_Page);
 	ZEPHIR_INIT(Leevel_Pipeline_Pipeline);
 	ZEPHIR_INIT(Leevel_Request);
 	ZEPHIR_INIT(Leevel_Response);
@@ -306,6 +305,7 @@ static PHP_MINIT_FUNCTION(leevel)
 	ZEPHIR_INIT(Leevel_View_Twig);
 	ZEPHIR_INIT(Leevel_View_V8js);
 	ZEPHIR_INIT(Leevel_View_View);
+	ZEPHIR_INIT(Leevel_Work);
 	return SUCCESS;
 }
 

@@ -38,7 +38,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_RedirectResponse) {
 
 	/**
 	 * 目标 URL 地址
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_redirectresponse_ce, SL("targetUrl"), ZEND_ACC_PROTECTED TSRMLS_CC);

@@ -22,7 +22,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.05.02
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Bootstrap_Bootstrap_TraverseProvider) {
@@ -35,7 +35,7 @@ ZEPHIR_INIT_CLASS(Leevel_Bootstrap_Bootstrap_TraverseProvider) {
 
 /**
  * 响应
- * 
+ *
  * @param \Leevel\Kernel\IProject $project
  * @return void
  */

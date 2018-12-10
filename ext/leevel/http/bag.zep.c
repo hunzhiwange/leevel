@@ -40,7 +40,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_Bag) {
 
 	/**
 	 * zephir 不支持 eval 动态赋值
-	 * 
+	 *
 	 * @var boolean
 	 */
 	zend_declare_property_bool(leevel_http_bag_ce, SL("zephirAssign"), 0, ZEND_ACC_PROTECTED|ZEND_ACC_STATIC TSRMLS_CC);
@@ -65,9 +65,9 @@ ZEPHIR_INIT_CLASS(Leevel_Http_Bag) {
 
 /**
  * 构造函数
- * 
+ *
  * @param array $elements
- * @return void 
+ * @return void
  */
 PHP_METHOD(Leevel_Http_Bag, __construct) {
 
@@ -570,7 +570,7 @@ PHP_METHOD(Leevel_Http_Bag, __toString) {
 
 /**
  * 分析键值和过滤器
- * 
+ *
  * @param string $key
  * @param array $filter
  * @return array

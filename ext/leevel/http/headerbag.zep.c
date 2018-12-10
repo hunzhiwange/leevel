@@ -26,7 +26,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.03.04
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Http_HeaderBag) {
@@ -39,9 +39,9 @@ ZEPHIR_INIT_CLASS(Leevel_Http_HeaderBag) {
 
 /**
  * 构造函数
- * 
+ *
  * @param array $elements
- * @return void 
+ * @return void
  */
 PHP_METHOD(Leevel_Http_HeaderBag, __construct) {
 
@@ -151,8 +151,8 @@ PHP_METHOD(Leevel_Http_HeaderBag, add) {
 }
 
 /**
- * 格式化 header 字符串 
- * 
+ * 格式化 header 字符串
+ *
  * @return string
  */
 PHP_METHOD(Leevel_Http_HeaderBag, __toString) {

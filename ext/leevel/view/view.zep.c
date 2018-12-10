@@ -65,7 +65,7 @@ PHP_METHOD(Leevel_View_View, __construct) {
 }
 
 /**
- * call 
+ * call
  *
  * @param string $method
  * @param array $args

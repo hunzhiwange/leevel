@@ -42,12 +42,6 @@ ZEPHIR_INIT_CLASS(Leevel_Option_Option) {
 	zend_declare_property_null(leevel_option_option_ce, SL("option"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	leevel_option_option_ce->create_object = zephir_init_properties_Leevel_Option_Option;
-	/**
-	 * 默认命名空间
-	 *
-	 * @var string
-	 */
-	zephir_declare_class_constant_string(leevel_option_option_ce, SL("DEFAUTL_NAMESPACE"), "app");
 
 	zend_class_implements(leevel_option_option_ce TSRMLS_CC, 1, leevel_option_ioption_ce);
 	zend_class_implements(leevel_option_option_ce TSRMLS_CC, 1, zend_ce_arrayaccess);
@@ -128,9 +122,9 @@ PHP_METHOD(Leevel_Option_Option, has) {
 	ZEPHIR_CALL_METHOD(&names, this_ptr, "parsenamespace", NULL, 0, &name);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&namespaces);
-	zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 68 TSRMLS_CC);
+	zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 61 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&tempname);
-	zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY, "leevel/option/option.zep", 69 TSRMLS_CC);
+	zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY, "leevel/option/option.zep", 62 TSRMLS_CC);
 	zephir_get_strval(&name, &tempname);
 	if (ZEPHIR_IS_STRING(&name, "*")) {
 		zephir_read_property(&_0$$3, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
@@ -142,15 +136,15 @@ PHP_METHOD(Leevel_Option_Option, has) {
 	zephir_fast_strpos(&_2, &name, &_1, 0 );
 	if (!(zephir_is_true(&_2))) {
 		zephir_read_property(&_3$$4, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_4$$4, &_3$$4, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 77 TSRMLS_CC);
+		zephir_array_fetch(&_4$$4, &_3$$4, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 70 TSRMLS_CC);
 		RETURN_MM_BOOL(zephir_array_key_exists(&_4$$4, &name TSRMLS_CC));
 	}
 	ZEPHIR_INIT_VAR(&parts);
 	zephir_fast_explode_str(&parts, SL("."), &name, LONG_MAX TSRMLS_CC);
 	zephir_read_property(&_5, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_6, &_5, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 81 TSRMLS_CC);
+	zephir_array_fetch(&_6, &_5, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 74 TSRMLS_CC);
 	ZEPHIR_CPY_WRT(&option, &_6);
-	zephir_is_iterable(&parts, 0, "leevel/option/option.zep", 89);
+	zephir_is_iterable(&parts, 0, "leevel/option/option.zep", 82);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&parts), _7)
 	{
 		ZEPHIR_INIT_NVAR(&part);
@@ -158,7 +152,7 @@ PHP_METHOD(Leevel_Option_Option, has) {
 		if (!(zephir_array_isset(&option, &part))) {
 			RETURN_MM_BOOL(0);
 		}
-		zephir_array_fetch(&_8$$5, &option, &part, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 86 TSRMLS_CC);
+		zephir_array_fetch(&_8$$5, &option, &part, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 79 TSRMLS_CC);
 		ZEPHIR_CPY_WRT(&option, &_8$$5);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&part);
@@ -220,13 +214,13 @@ PHP_METHOD(Leevel_Option_Option, get) {
 	ZEPHIR_CALL_METHOD(&names, this_ptr, "parsenamespace", NULL, 0, &name);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&namespaces);
-	zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 104 TSRMLS_CC);
+	zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 97 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&tempname);
-	zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY, "leevel/option/option.zep", 105 TSRMLS_CC);
+	zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY, "leevel/option/option.zep", 98 TSRMLS_CC);
 	zephir_get_strval(&name, &tempname);
 	if (ZEPHIR_IS_STRING(&name, "*")) {
 		zephir_read_property(&_0$$3, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_1$$3, &_0$$3, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 109 TSRMLS_CC);
+		zephir_array_fetch(&_1$$3, &_0$$3, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 102 TSRMLS_CC);
 		RETURN_CTOR(&_1$$3);
 	}
 	ZEPHIR_INIT_VAR(&_2);
@@ -236,11 +230,11 @@ PHP_METHOD(Leevel_Option_Option, get) {
 	if (!(zephir_is_true(&_3))) {
 		ZEPHIR_INIT_VAR(&_4$$4);
 		zephir_read_property(&_5$$4, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_6$$4, &_5$$4, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 113 TSRMLS_CC);
+		zephir_array_fetch(&_6$$4, &_5$$4, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 106 TSRMLS_CC);
 		if (zephir_array_key_exists(&_6$$4, &name TSRMLS_CC)) {
 			zephir_read_property(&_7$$4, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_8$$4, &_7$$4, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 113 TSRMLS_CC);
-			zephir_array_fetch(&_4$$4, &_8$$4, &name, PH_NOISY, "leevel/option/option.zep", 113 TSRMLS_CC);
+			zephir_array_fetch(&_8$$4, &_7$$4, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 106 TSRMLS_CC);
+			zephir_array_fetch(&_4$$4, &_8$$4, &name, PH_NOISY, "leevel/option/option.zep", 106 TSRMLS_CC);
 		} else {
 			ZEPHIR_CPY_WRT(&_4$$4, defaults);
 		}
@@ -249,9 +243,9 @@ PHP_METHOD(Leevel_Option_Option, get) {
 	ZEPHIR_INIT_VAR(&parts);
 	zephir_fast_explode_str(&parts, SL("."), &name, LONG_MAX TSRMLS_CC);
 	zephir_read_property(&_9, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch(&_10, &_9, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 117 TSRMLS_CC);
+	zephir_array_fetch(&_10, &_9, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 110 TSRMLS_CC);
 	ZEPHIR_CPY_WRT(&option, &_10);
-	zephir_is_iterable(&parts, 0, "leevel/option/option.zep", 125);
+	zephir_is_iterable(&parts, 0, "leevel/option/option.zep", 118);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&parts), _11)
 	{
 		ZEPHIR_INIT_NVAR(&part);
@@ -260,7 +254,7 @@ PHP_METHOD(Leevel_Option_Option, get) {
 			RETVAL_ZVAL(defaults, 1, 0);
 			RETURN_MM();
 		}
-		zephir_array_fetch(&_12$$5, &option, &part, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 122 TSRMLS_CC);
+		zephir_array_fetch(&_12$$5, &option, &part, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 115 TSRMLS_CC);
 		ZEPHIR_CPY_WRT(&option, &_12$$5);
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&part);
@@ -323,7 +317,7 @@ PHP_METHOD(Leevel_Option_Option, set) {
 
 
 	if (Z_TYPE_P(name) == IS_ARRAY) {
-		zephir_is_iterable(name, 0, "leevel/option/option.zep", 152);
+		zephir_is_iterable(name, 0, "leevel/option/option.zep", 145);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(name), _1$$3, _2$$3, _0$$3)
 		{
 			ZEPHIR_INIT_NVAR(&key);
@@ -343,9 +337,9 @@ PHP_METHOD(Leevel_Option_Option, set) {
 		ZEPHIR_CALL_METHOD(&names, this_ptr, "parsenamespace", NULL, 0, name);
 		zephir_check_call_status();
 		ZEPHIR_OBS_VAR(&namespaces);
-		zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 154 TSRMLS_CC);
+		zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 147 TSRMLS_CC);
 		ZEPHIR_OBS_NVAR(name);
-		zephir_array_fetch_long(name, &names, 1, PH_NOISY, "leevel/option/option.zep", 155 TSRMLS_CC);
+		zephir_array_fetch_long(name, &names, 1, PH_NOISY, "leevel/option/option.zep", 148 TSRMLS_CC);
 		if (ZEPHIR_IS_STRING(name, "*")) {
 			zephir_update_property_array(this_ptr, SL("option"), &namespaces, value TSRMLS_CC);
 			RETURN_MM_NULL();
@@ -363,7 +357,7 @@ PHP_METHOD(Leevel_Option_Option, set) {
 			zephir_check_call_status();
 			ZEPHIR_INIT_VAR(&_6$$8);
 			zephir_read_property(&_7$$8, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-			zephir_array_fetch(&_8$$8, &_7$$8, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 167 TSRMLS_CC);
+			zephir_array_fetch(&_8$$8, &_7$$8, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 160 TSRMLS_CC);
 			zephir_fast_array_merge(&_6$$8, &_8$$8, &option TSRMLS_CC);
 			zephir_update_property_array(this_ptr, SL("option"), &namespaces, &_6$$8 TSRMLS_CC);
 		}
@@ -409,9 +403,9 @@ PHP_METHOD(Leevel_Option_Option, delete) {
 	ZEPHIR_CALL_METHOD(&names, this_ptr, "parsenamespace", NULL, 0, &name);
 	zephir_check_call_status();
 	ZEPHIR_OBS_VAR(&namespaces);
-	zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 183 TSRMLS_CC);
+	zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 176 TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&tempname);
-	zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY, "leevel/option/option.zep", 184 TSRMLS_CC);
+	zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY, "leevel/option/option.zep", 177 TSRMLS_CC);
 	ZEPHIR_CPY_WRT(&name, &tempname);
 	if (ZEPHIR_IS_STRING(&name, "*")) {
 		ZEPHIR_INIT_VAR(&_0$$3);
@@ -425,11 +419,11 @@ PHP_METHOD(Leevel_Option_Option, delete) {
 	zephir_fast_strpos(&_2, &name, &_1, 0 );
 	if (!(zephir_is_true(&_2))) {
 		zephir_read_property(&_3$$4, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_4$$4, &_3$$4, &namespaces, PH_READONLY, "leevel/option/option.zep", 193 TSRMLS_CC);
+		zephir_array_fetch(&_4$$4, &_3$$4, &namespaces, PH_READONLY, "leevel/option/option.zep", 186 TSRMLS_CC);
 		if (zephir_array_isset(&_4$$4, &name)) {
 			zephir_read_property(&_5$$5, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
 			ZEPHIR_OBS_VAR(&tmpDelete);
-			zephir_array_fetch(&tmpDelete, &_5$$5, &namespaces, PH_NOISY, "leevel/option/option.zep", 194 TSRMLS_CC);
+			zephir_array_fetch(&tmpDelete, &_5$$5, &namespaces, PH_NOISY, "leevel/option/option.zep", 187 TSRMLS_CC);
 			zephir_array_unset(&tmpDelete, &name, PH_SEPARATE);
 			zephir_update_property_array(this_ptr, SL("option"), &namespaces, &tmpDelete TSRMLS_CC);
 		}
@@ -437,7 +431,7 @@ PHP_METHOD(Leevel_Option_Option, delete) {
 		ZEPHIR_INIT_VAR(&parts);
 		zephir_fast_explode_str(&parts, SL("."), &name, LONG_MAX TSRMLS_CC);
 		zephir_read_property(&_6$$6, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-		zephir_array_fetch(&_7$$6, &_6$$6, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 200 TSRMLS_CC);
+		zephir_array_fetch(&_7$$6, &_6$$6, &namespaces, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 193 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(&option, this_ptr, "deleterecursion", NULL, 0, &parts, &_7$$6);
 		zephir_check_call_status();
 		zephir_update_property_array(this_ptr, SL("option"), &namespaces, &option TSRMLS_CC);
@@ -674,7 +668,7 @@ PHP_METHOD(Leevel_Option_Option, deleteRecursion) {
 		RETURN_CTOR(&result);
 	}
 	if (!(ZEPHIR_IS_EMPTY(&part))) {
-		zephir_array_fetch(&_1$$4, &result, &item, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 308 TSRMLS_CC);
+		zephir_array_fetch(&_1$$4, &result, &item, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 301 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(&_0$$4, this_ptr, "deleterecursion", NULL, 129, &part, &_1$$4);
 		zephir_check_call_status();
 		zephir_array_update_zval(&result, &item, &_0$$4, PH_COPY | PH_SEPARATE);
@@ -723,16 +717,16 @@ PHP_METHOD(Leevel_Option_Option, parseNamespace) {
 	if (zephir_is_true(&_1)) {
 		ZEPHIR_INIT_VAR(&names);
 		zephir_fast_explode_str(&names, SL("\\"), &name, LONG_MAX TSRMLS_CC);
-		zephir_array_fetch_long(&_2$$3, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 330 TSRMLS_CC);
+		zephir_array_fetch_long(&_2$$3, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 323 TSRMLS_CC);
 		if (ZEPHIR_IS_EMPTY(&_2$$3)) {
 			ZEPHIR_INIT_VAR(&_3$$4);
 			ZVAL_STRING(&_3$$4, "*");
 			zephir_array_update_long(&names, 1, &_3$$4, PH_COPY | PH_SEPARATE ZEPHIR_DEBUG_PARAMS_DUMMY);
 		}
-		zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 333 TSRMLS_CC);
+		zephir_array_fetch_long(&tempname, &names, 1, PH_NOISY | PH_READONLY, "leevel/option/option.zep", 326 TSRMLS_CC);
 		zephir_get_strval(&name, &tempname);
 		ZEPHIR_OBS_VAR(&namespaces);
-		zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 335 TSRMLS_CC);
+		zephir_array_fetch_long(&namespaces, &names, 0, PH_NOISY, "leevel/option/option.zep", 328 TSRMLS_CC);
 	} else {
 		ZEPHIR_INIT_NVAR(&namespaces);
 		ZVAL_STRING(&namespaces, "app");

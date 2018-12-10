@@ -40,7 +40,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_FileResponse) {
 
 	/**
 	 * 文件
-	 * 
+	 *
 	 * @var \Leevel\Http\File
 	 */
 	zend_declare_property_null(leevel_http_fileresponse_ce, SL("file"), ZEND_ACC_PROTECTED TSRMLS_CC);
@@ -51,7 +51,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_FileResponse) {
 
 /**
  * 构造函数
- * 
+ *
  * @param \SplFileObject|\SplFileInfo|string $file
  * @param integer $status
  * @param array $headers
@@ -128,7 +128,7 @@ PHP_METHOD(Leevel_Http_FileResponse, __construct) {
 
 /**
  * 创建一个文件响应
- * 
+ *
  * @param \SplFileObject|\SplFileInfo|string $file
  * @param integer $status
  * @param array $headers
@@ -208,7 +208,7 @@ PHP_METHOD(Leevel_Http_FileResponse, create) {
 /**
  * 设置文件
  *
- * @param \SplFileObject|\SplFileInfo|string $file 
+ * @param \SplFileObject|\SplFileInfo|string $file
  * @param string $contentDisposition
  * @param bool $autoEtag
  * @param bool $autoLastModified

@@ -162,7 +162,7 @@ PHP_METHOD(Leevel_Session_Provider_Register, sessions) {
 
 /**
  * 创建 sessions 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Session\Manager
  */

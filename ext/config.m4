@@ -110,7 +110,6 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/mvc/view.zep.c
 	leevel/option.zep.c
 	leevel/option/option.zep.c
-	leevel/page.zep.c
 	leevel/pipeline/pipeline.zep.c
 	leevel/request.zep.c
 	leevel/response.zep.c
@@ -144,7 +143,8 @@ if test "$PHP_LEEVEL" = "yes"; then
 	leevel/view/provider/register.zep.c
 	leevel/view/twig.zep.c
 	leevel/view/v8js.zep.c
-	leevel/view/view.zep.c "
+	leevel/view/view.zep.c
+	leevel/work.zep.c "
 	PHP_NEW_EXTENSION(leevel, $leevel_sources, $ext_shared,, )
 	PHP_SUBST(LEEVEL_SHARED_LIBADD)
 

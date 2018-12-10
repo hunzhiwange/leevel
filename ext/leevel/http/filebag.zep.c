@@ -29,7 +29,7 @@
  * @author Xiangmin Liu <635750556@qq.com>
  *
  * @since 2018.03.04
- * 
+ *
  * @version 1.0
  */
 ZEPHIR_INIT_CLASS(Leevel_Http_FileBag) {
@@ -38,7 +38,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_FileBag) {
 
 	/**
 	 * 上传文件 keys
-	 * 
+	 *
 	 * @var array
 	 */
 	zend_declare_property_null(leevel_http_filebag_ce, SL("fileKeys"), ZEND_ACC_PROTECTED|ZEND_ACC_STATIC TSRMLS_CC);
@@ -49,9 +49,9 @@ ZEPHIR_INIT_CLASS(Leevel_Http_FileBag) {
 
 /**
  * 构造函数
- * 
+ *
  * @param array $elements
- * @return void 
+ * @return void
  */
 PHP_METHOD(Leevel_Http_FileBag, __construct) {
 

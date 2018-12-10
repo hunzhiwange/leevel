@@ -201,7 +201,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, router) {
 
 /**
  * 创建 router 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Router\Router
  */
@@ -265,7 +265,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, url) {
 
 /**
  * 创建 url 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Router\Url
  */
@@ -369,7 +369,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, redirect) {
 
 /**
  * 创建 redirect 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Router\Redirect
  */
@@ -456,7 +456,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, response) {
 
 /**
  * 创建 response 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Router\ResponseFactory
  */
@@ -551,7 +551,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, cookie) {
 
 /**
  * 创建 cookie 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Cookie\Cookie
  */
@@ -624,7 +624,7 @@ PHP_METHOD(Leevel_Router_Provider_Register, view) {
 
 /**
  * 创建 view 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Mvc\View
  */

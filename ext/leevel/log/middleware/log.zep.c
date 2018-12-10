@@ -63,7 +63,7 @@ PHP_METHOD(Leevel_Log_Middleware_Log, __construct) {
 
 /**
  * 响应
- * 
+ *
  * @param \Closure $next
  * @param \Leevel\Http\IRequest $request
  * @param \Leevel\Http\IResponse $response

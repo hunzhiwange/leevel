@@ -162,7 +162,7 @@ PHP_METHOD(Leevel_Log_Provider_Register, logs) {
 
 /**
  * 创建 logs 闭包
- * 
+ *
  * @param \Leevel\Di\IContainer $container
  * @return \Leevel\Log\Manager
  */

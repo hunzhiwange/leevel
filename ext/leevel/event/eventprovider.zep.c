@@ -72,7 +72,7 @@ PHP_METHOD(Leevel_Event_EventProvider, bootstrap) {
 
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "get", NULL, 0);
 	zephir_check_call_status();
-	zephir_is_iterable(&_0, 0, "leevel/event/eventprovider.zep", 57);
+	zephir_is_iterable(&_0, 0, "leevel/event/eventprovider.zep", 58);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&_0), _2, _3, _1)
 	{
 		ZEPHIR_INIT_NVAR(&event);
@@ -83,7 +83,7 @@ PHP_METHOD(Leevel_Event_EventProvider, bootstrap) {
 		}
 		ZEPHIR_INIT_NVAR(&listeners);
 		ZVAL_COPY(&listeners, _1);
-		zephir_is_iterable(&listeners, 0, "leevel/event/eventprovider.zep", 56);
+		zephir_is_iterable(&listeners, 0, "leevel/event/eventprovider.zep", 57);
 		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&listeners), _5$$3, _6$$3, _4$$3)
 		{
 			ZEPHIR_INIT_NVAR(&key);

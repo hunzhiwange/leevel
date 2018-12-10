@@ -37,28 +37,28 @@ ZEPHIR_INIT_CLASS(Leevel_Http_UploadedFile) {
 
 	/**
 	 * 文件原始名字
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_uploadedfile_ce, SL("originalName"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 文件类型
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_uploadedfile_ce, SL("mimeType"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 上传错误
-	 * 
+	 *
 	 * @var int|null
 	 */
 	zend_declare_property_null(leevel_http_uploadedfile_ce, SL("error"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * 上传错误消息格式化
-	 * 
+	 *
 	 * @var array
 	 */
 	zend_declare_property_null(leevel_http_uploadedfile_ce, SL("errors"), ZEND_ACC_PROTECTED|ZEND_ACC_STATIC TSRMLS_CC);

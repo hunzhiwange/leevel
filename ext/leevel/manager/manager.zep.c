@@ -76,7 +76,7 @@ PHP_METHOD(Leevel_Manager_Manager, __construct) {
 }
 
 /**
- * call 
+ * call
  *
  * @param string $method
  * @param array $args

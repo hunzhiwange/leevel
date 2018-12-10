@@ -131,7 +131,7 @@ PHP_METHOD(Leevel_Cache_File, get) {
 	ZEPHIR_CALL_FUNCTION(&_2, "is_readable", NULL, 75, &cachePath);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_2))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Cache path is not readable.", "leevel/cache/file.zep", 81);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Cache path is not readable.", "leevel/cache/file.zep", 82);
 		return;
 	}
 	ZEPHIR_INIT_VAR(&_3);
@@ -172,7 +172,7 @@ PHP_METHOD(Leevel_Cache_File, get) {
 	if (ZEPHIR_IS_FALSE_IDENTICAL(&data)) {
 		RETURN_MM_BOOL(0);
 	}
-	zephir_array_fetch_string(&_9, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 114 TSRMLS_CC);
+	zephir_array_fetch_string(&_9, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 115 TSRMLS_CC);
 	if (zephir_is_true(&_9)) {
 		ZEPHIR_CALL_FUNCTION(&_10$$10, "unserialize", NULL, 29, &data);
 		zephir_check_call_status();
@@ -226,7 +226,7 @@ PHP_METHOD(Leevel_Cache_File, set) {
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "normalizeoptions", NULL, 0, &option);
 	zephir_check_call_status();
 	ZEPHIR_CPY_WRT(&option, &_0);
-	zephir_array_fetch_string(&_1, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 134 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &option, SL("serialize"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 135 TSRMLS_CC);
 	if (zephir_is_true(&_1)) {
 		ZEPHIR_CALL_FUNCTION(&_2$$3, "serialize", NULL, 7, data);
 		zephir_check_call_status();
@@ -334,19 +334,19 @@ PHP_METHOD(Leevel_Cache_File, isExpired) {
 
 	ZEPHIR_CALL_METHOD(&filePath, this_ptr, "getcachepath", NULL, 0, &name);
 	zephir_check_call_status();
-	zephir_array_fetch_string(&_1, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 182 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 183 TSRMLS_CC);
 	ZVAL_LONG(&_2, zephir_get_intval(&_1));
 	ZEPHIR_CALL_METHOD(&_0, this_ptr, "cachetime", NULL, 0, &name, &_2);
 	zephir_check_call_status();
 	zephir_array_update_string(&option, SL("expire"), &_0, PH_COPY | PH_SEPARATE);
-	zephir_array_fetch_string(&_3, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 184 TSRMLS_CC);
+	zephir_array_fetch_string(&_3, &option, SL("expire"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 185 TSRMLS_CC);
 	if (ZEPHIR_LE_LONG(&_3, 0)) {
 		RETURN_MM_BOOL(1);
 	}
 	ZEPHIR_INIT_VAR(&_4);
 	zephir_filemtime(&_4, &filePath TSRMLS_CC);
 	ZEPHIR_OBS_VAR(&_5);
-	zephir_array_fetch_string(&_5, &option, SL("expire"), PH_NOISY, "leevel/cache/file.zep", 188 TSRMLS_CC);
+	zephir_array_fetch_string(&_5, &option, SL("expire"), PH_NOISY, "leevel/cache/file.zep", 189 TSRMLS_CC);
 	ZEPHIR_INIT_VAR(&_6);
 	zephir_time(&_6);
 	RETURN_MM_BOOL(ZEPHIR_GT_LONG(&_6, (zephir_get_numberval(&_4) + zephir_get_intval(&_5))));
@@ -381,13 +381,13 @@ PHP_METHOD(Leevel_Cache_File, getCachePath) {
 
 
 	zephir_read_property(&_0, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_1, &_0, SL("path"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 200 TSRMLS_CC);
+	zephir_array_fetch_string(&_1, &_0, SL("path"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 201 TSRMLS_CC);
 	if (!(zephir_is_true(&_1))) {
-		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Cache path is not allowed empty.", "leevel/cache/file.zep", 201);
+		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Cache path is not allowed empty.", "leevel/cache/file.zep", 202);
 		return;
 	}
 	zephir_read_property(&_2, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	zephir_array_fetch_string(&_3, &_2, SL("path"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 204 TSRMLS_CC);
+	zephir_array_fetch_string(&_3, &_2, SL("path"), PH_NOISY | PH_READONLY, "leevel/cache/file.zep", 205 TSRMLS_CC);
 	ZEPHIR_CALL_METHOD(&_4, this_ptr, "getcachename", NULL, 0, &name);
 	zephir_check_call_status();
 	ZEPHIR_CONCAT_VSVS(return_value, &_3, "/", &_4, ".php");
@@ -463,7 +463,7 @@ PHP_METHOD(Leevel_Cache_File, writeData) {
 			zephir_check_call_status();
 			ZEPHIR_CALL_METHOD(NULL, &_9$$4, "__construct", NULL, 25, &_11$$4);
 			zephir_check_call_status();
-			zephir_throw_exception_debug(&_9$$4, "leevel/cache/file.zep", 223 TSRMLS_CC);
+			zephir_throw_exception_debug(&_9$$4, "leevel/cache/file.zep", 224 TSRMLS_CC);
 			ZEPHIR_MM_RESTORE();
 			return;
 		}
@@ -489,7 +489,7 @@ PHP_METHOD(Leevel_Cache_File, writeData) {
 		zephir_check_call_status();
 		ZEPHIR_CALL_METHOD(NULL, &_18$$5, "__construct", NULL, 25, &_20$$5);
 		zephir_check_call_status();
-		zephir_throw_exception_debug(&_18$$5, "leevel/cache/file.zep", 233 TSRMLS_CC);
+		zephir_throw_exception_debug(&_18$$5, "leevel/cache/file.zep", 234 TSRMLS_CC);
 		ZEPHIR_MM_RESTORE();
 		return;
 	}

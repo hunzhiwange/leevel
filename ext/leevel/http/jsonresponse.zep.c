@@ -38,28 +38,28 @@ ZEPHIR_INIT_CLASS(Leevel_Http_JsonResponse) {
 
 	/**
 	 * 响应内容
-	 * 
+	 *
 	 * @var sting
 	 */
 	zend_declare_property_null(leevel_http_jsonresponse_ce, SL("data"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * JSON 格式化参数
-	 * 
+	 *
 	 * @var int
 	 */
 	zend_declare_property_long(leevel_http_jsonresponse_ce, SL("encodingOptions"), 256, ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
 	 * JSONP 回调
-	 * 
+	 *
 	 * @var string
 	 */
 	zend_declare_property_null(leevel_http_jsonresponse_ce, SL("callback"), ZEND_ACC_PROTECTED TSRMLS_CC);
 
 	/**
-	 * 默认 JSON 格式化参数 
-	 *  
+	 * 默认 JSON 格式化参数
+	 *
 	 * @var int
 	 */
 	zephir_declare_class_constant_long(leevel_http_jsonresponse_ce, SL("DEFAULT_ENCODING_OPTIONS"), 256);
@@ -70,7 +70,7 @@ ZEPHIR_INIT_CLASS(Leevel_Http_JsonResponse) {
 
 /**
  * 构造函数
- * 
+ *
  * @param string $data
  * @param integer $status
  * @param array $headers
@@ -150,7 +150,7 @@ PHP_METHOD(Leevel_Http_JsonResponse, __construct) {
 
 /**
  * 创建一个 JSON 响应
- * 
+ *
  * @param string $data
  * @param integer $status
  * @param array $headers
@@ -197,8 +197,8 @@ PHP_METHOD(Leevel_Http_JsonResponse, create) {
 }
 
 /**
- * 从 JSON 字符串创建响应对象  
- * 
+ * 从 JSON 字符串创建响应对象
+ *
  * @param string $data
  * @param integer $status
  * @param array $headers
@@ -247,7 +247,7 @@ PHP_METHOD(Leevel_Http_JsonResponse, fromJsonString) {
 }
 
 /**
- * 设置 JSONP 回调 
+ * 设置 JSONP 回调
  *
  * @param string|null $callback
  * @return $this
@@ -323,7 +323,7 @@ PHP_METHOD(Leevel_Http_JsonResponse, setJson) {
 }
 
 /**
- * 设置数据作为 JSON   
+ * 设置数据作为 JSON
  *
  * @param mixed $data
  * @param int $encodingOptions
