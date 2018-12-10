@@ -235,19 +235,26 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
      */
     public static function normalizeRequestFromContent(<Request> request) -> <Request>
     {
-        var data, contentType, method;
+        var data, contentType, method, content;
 
         let contentType = request->headers->get("CONTENT_TYPE");
         let method = strtoupper(request->server->get("REQUEST_METHOD", self::METHOD_GET));
 
-        if contentType && 0 === strpos(contentType, "application/x-www-form-urlencoded") &&
-            in_array(method, [
-            self::METHOD_PUT,
-            self::METHOD_DELETE,
-            self::METHOD_PATCH
-        ]) {
-            parse_str(request->getContent(), data);
-            let request->request = new Bag(data);
+        if contentType {
+            let content = request->getContent();
+
+            if 0 === strpos(contentType, "application/x-www-form-urlencoded") &&
+                in_array(method, [
+                self::METHOD_PUT,
+                self::METHOD_DELETE,
+                self::METHOD_PATCH
+            ]) {
+                parse_str(content, data);
+                let request->request = new Bag(data);
+            } elseif 0 === strpos(contentType, "application/json") &&
+                content {
+                let request->request = new Bag(json_decode(content, true));
+            }
         }
 
         return request;
