@@ -1223,7 +1223,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
             let queryString = "?" . queryString;
         }
 
-        return this->getSchemeAndHttpHost() . this->getBaseUrl() . this->getPathInfo() . queryString;
+        return this->getSchemeAndHttpHost() . rtrim(this->getBaseUrl(), "/") . this->getPathInfo() . queryString;
     }
 
     /**
@@ -1306,20 +1306,23 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
 
         // 分析请求参数
         let requestUri = this->getRequestUri();
+
         if requestUri === null {
             let this->pathInfo = this->parsePathInfo("");
             return this->pathInfo;
         }
 
         let pos = strpos(requestUri, "?");
+
         if pos > -1 {
             let requestUri = substr(requestUri, 0, pos);
         }
 
         let pathInfo = substr(requestUri, strlen(baseUrl));
+
         if baseUrl !== null && pathInfo === false {
             let pathInfo = "";
-        } elseif null === baseUrl {
+        } elseif null === baseUrl || "/" === baseUrl {
             let pathInfo = requestUri;
         }
 
@@ -1342,6 +1345,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
         }
 
         let baseUrl = this->getBaseUrl();
+
         if empty baseUrl {
             return "";
         }
@@ -1558,15 +1562,15 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
     {
         var ext;
 
-        // 自动清除后缀
         if pathInfo {
             let ext = pathinfo(pathInfo, PATHINFO_EXTENSION);
+
             if ext {
                 let pathInfo = substr(pathInfo, 0, -(strlen(ext)+1));
             }
         }
 
-        let pathInfo = empty(pathInfo) ? "/" : pathInfo;
+        let pathInfo = empty(pathInfo) ? "/" : "/".ltrim(pathInfo, "/");
 
         return pathInfo;
     }
@@ -1586,7 +1590,7 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
         }
 
         let parts = [];
-        
+
         for item in explode("&", queryString) {
             if "" === item && "0" !== item {
                 continue;
