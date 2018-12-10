@@ -118,8 +118,6 @@ class Dispatch implements IDispatch
             let event = temp;
         }
 
-        let priority = intval(priority);
-
         for item in event {
             let item = this->normalizeEvent(item);
 
