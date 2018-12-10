@@ -140,7 +140,7 @@ class Type
      * @param string $value
      * @since bool
      */
-    public static function num(value)
+    public static function num(value) -> boolean
     {
         if is_numeric(value) {
             return true;
@@ -154,7 +154,7 @@ class Type
      * @param string $value
      * @since bool
      */
-    public static function ints(value)
+    public static function ints(value) -> boolean
     {
         if is_int(value) {
             return true;
