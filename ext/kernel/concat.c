@@ -10,40 +10,6 @@
 #include "kernel/memory.h"
 #include "kernel/concat.h"
 
-void zephir_concat_ss(zval *result, const char *op1, zend_uint op1_len, const char *op2, zend_uint op2_len, int self_var){
-
-	zval result_copy;
-	int use_copy = 0;
-	uint offset = 0, length;
-
-	length = op1_len + op2_len;
-	if (self_var) {
-
-		if (Z_TYPE_P(result) != IS_STRING) {
-			use_copy = zend_make_printable_zval(result, &result_copy);
-			if (use_copy) {
-				ZEPHIR_CPY_WRT_CTOR(result, (&result_copy));
-			}
-		}
-
-		offset = Z_STRLEN_P(result);
-		length += offset;
-		Z_STR_P(result) = zend_string_realloc(Z_STR_P(result), length, 0);
-
-	} else {
-		ZVAL_STR(result, zend_string_alloc(length, 0));
-	}
-
-	memcpy(Z_STRVAL_P(result) + offset, op1, op1_len);
-	memcpy(Z_STRVAL_P(result) + offset + op1_len, op2, op2_len);
-	Z_STRVAL_P(result)[length] = 0;
-	zend_string_forget_hash_val(Z_STR_P(result));
-	if (use_copy) {
-	   zval_dtor(&result_copy);
-	}
-
-}
-
 void zephir_concat_ssssssssssssssssssssssssssssssss(zval *result, const char *op1, zend_uint op1_len, const char *op2, zend_uint op2_len, const char *op3, zend_uint op3_len, const char *op4, zend_uint op4_len, const char *op5, zend_uint op5_len, const char *op6, zend_uint op6_len, const char *op7, zend_uint op7_len, const char *op8, zend_uint op8_len, const char *op9, zend_uint op9_len, const char *op10, zend_uint op10_len, const char *op11, zend_uint op11_len, const char *op12, zend_uint op12_len, const char *op13, zend_uint op13_len, const char *op14, zend_uint op14_len, const char *op15, zend_uint op15_len, const char *op16, zend_uint op16_len, const char *op17, zend_uint op17_len, const char *op18, zend_uint op18_len, const char *op19, zend_uint op19_len, const char *op20, zend_uint op20_len, const char *op21, zend_uint op21_len, const char *op22, zend_uint op22_len, const char *op23, zend_uint op23_len, const char *op24, zend_uint op24_len, const char *op25, zend_uint op25_len, const char *op26, zend_uint op26_len, const char *op27, zend_uint op27_len, const char *op28, zend_uint op28_len, const char *op29, zend_uint op29_len, const char *op30, zend_uint op30_len, const char *op31, zend_uint op31_len, const char *op32, zend_uint op32_len, int self_var){
 
 	zval result_copy;

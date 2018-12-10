@@ -1301,13 +1301,6 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
             return this->pathInfo;
         }
 
-        // 服务器重写
-        if this->query->get(self::PATHINFO_URL) {
-            let pathInfo = this->parsePathInfo(this->query->get(self::PATHINFO_URL));
-            let this->pathInfo = pathInfo;
-            return this->pathInfo;
-        }
-
         // 分析基础 url
         let baseUrl = this->getBaseUrl();
 
@@ -1593,8 +1586,9 @@ class Request implements IMacro, IRequest, IArray, ArrayAccess
         }
 
         let parts = [];
+        
         for item in explode("&", queryString) {
-            if ("" === item && "0" !== item) || 0 === strpos(item, self::PATHINFO_URL . "=") {
+            if "" === item && "0" !== item {
                 continue;
             }
 

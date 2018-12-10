@@ -96,18 +96,6 @@ ZEPHIR_INIT_CLASS(Leevel_Http_IRequest) {
 	zephir_declare_class_constant_string(leevel_http_irequest_ce, SL("METHOD_CONNECT"), "CONNECT");
 
 	/**
-	 * 服务器 url 重写支持 pathInfo.
-	 *
-	 * Nginx
-	 * location @rewrite {
-	 *     rewrite ^/(.*)$ /index.php?_url=/$1;
-	 * }
-	 *
-	 * @var string
-	 */
-	zephir_declare_class_constant_string(leevel_http_irequest_ce, SL("PATHINFO_URL"), "_url");
-
-	/**
 	 * 请求方法伪装.
 	 *
 	 * @var string
