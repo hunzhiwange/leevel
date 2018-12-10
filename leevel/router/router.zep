@@ -669,12 +669,21 @@ class Router implements IRouter, IMacro
      */
     protected function pathinfoRestful()
     {
+        var params;
+
         if ! isset this->matchedData[self::ACTION] ||
             ! empty this->matchedData[self::ACTION] {
             return;
         }
 
         switch (this->request->getMethod()) {
+            // 跨域请求转发到首页
+            // 防止由于 API 请求跨域提示路由不正确
+            case "OPTIONS":
+                let this->matchedData[self::CONTROLLER] = self::DEFAULT_CONTROLLER;
+                let this->matchedData[self::ACTION] = self::RESTFUL_INDEX;
+                break;
+
             case "POST":
                 let this->matchedData[self::ACTION] = self::RESTFUL_STORE;
                 break;
@@ -689,7 +698,14 @@ class Router implements IRouter, IMacro
 
             case "GET":
             default:
-                let this->matchedData[self::ACTION] = self::RESTFUL_SHOW;
+                let params = this->matchedParams();
+
+                if array_key_exists("_param0", params) {
+                    let this->matchedData[self::ACTION] = self::RESTFUL_SHOW;
+                } else {
+                    let this->matchedData[self::ACTION] = self::RESTFUL_INDEX;
+                }
+
                 break;
         }
     }

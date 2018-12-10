@@ -110,6 +110,13 @@ ZEPHIR_INIT_CLASS(Leevel_Router_IRouter) {
 	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("RESTFUL_DESTROY"), "destroy");
 
 	/**
+	 * restful index.
+	 *
+	 * @var string
+	 */
+	zephir_declare_class_constant_string(leevel_router_irouter_ce, SL("RESTFUL_INDEX"), "index");
+
+	/**
 	 * 默认应用
 	 *
 	 * @var string
