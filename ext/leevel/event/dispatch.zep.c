@@ -460,14 +460,14 @@ PHP_METHOD(Leevel_Event_Dispatch, makeSubject) {
 	ZEPHIR_INIT_VAR(&subject);
 	object_init_ex(&subject, leevel_event_subject_ce);
 	zephir_read_property(&_0, this_ptr, SL("container"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &subject, "__construct", NULL, 95, &_0);
+	ZEPHIR_CALL_METHOD(NULL, &subject, "__construct", NULL, 96, &_0);
 	zephir_check_call_status();
 	zephir_is_iterable(&listeners, 0, "leevel/event/dispatch.zep", 226);
 	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&listeners), _1)
 	{
 		ZEPHIR_INIT_NVAR(&item);
 		ZVAL_COPY(&item, _1);
-		ZEPHIR_CALL_METHOD(NULL, &subject, "register", &_2, 96, &item);
+		ZEPHIR_CALL_METHOD(NULL, &subject, "register", &_2, 97, &item);
 		zephir_check_call_status();
 	} ZEND_HASH_FOREACH_END();
 	ZEPHIR_INIT_NVAR(&item);

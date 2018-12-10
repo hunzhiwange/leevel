@@ -7,11 +7,11 @@ PHP_METHOD(Leevel_Bootstrap_Kernel, __construct);
 PHP_METHOD(Leevel_Bootstrap_Kernel, handle);
 PHP_METHOD(Leevel_Bootstrap_Kernel, getRuntime);
 PHP_METHOD(Leevel_Bootstrap_Kernel, terminate);
+PHP_METHOD(Leevel_Bootstrap_Kernel, bootstrap);
 PHP_METHOD(Leevel_Bootstrap_Kernel, getProject);
 PHP_METHOD(Leevel_Bootstrap_Kernel, registerBaseService);
 PHP_METHOD(Leevel_Bootstrap_Kernel, getResponseWithRequest);
 PHP_METHOD(Leevel_Bootstrap_Kernel, dispatchRouter);
-PHP_METHOD(Leevel_Bootstrap_Kernel, bootstrap);
 PHP_METHOD(Leevel_Bootstrap_Kernel, reportException);
 PHP_METHOD(Leevel_Bootstrap_Kernel, renderException);
 PHP_METHOD(Leevel_Bootstrap_Kernel, middlewareTerminate);
@@ -62,11 +62,11 @@ ZEPHIR_INIT_FUNCS(leevel_bootstrap_kernel_method_entry) {
 	PHP_ME(Leevel_Bootstrap_Kernel, handle, arginfo_leevel_bootstrap_kernel_handle, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Bootstrap_Kernel, getRuntime, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, terminate, arginfo_leevel_bootstrap_kernel_terminate, ZEND_ACC_PUBLIC)
+	PHP_ME(Leevel_Bootstrap_Kernel, bootstrap, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Bootstrap_Kernel, getProject, NULL, ZEND_ACC_PUBLIC)
 	PHP_ME(Leevel_Bootstrap_Kernel, registerBaseService, arginfo_leevel_bootstrap_kernel_registerbaseservice, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, getResponseWithRequest, arginfo_leevel_bootstrap_kernel_getresponsewithrequest, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, dispatchRouter, arginfo_leevel_bootstrap_kernel_dispatchrouter, ZEND_ACC_PROTECTED)
-	PHP_ME(Leevel_Bootstrap_Kernel, bootstrap, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, reportException, arginfo_leevel_bootstrap_kernel_reportexception, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, renderException, arginfo_leevel_bootstrap_kernel_renderexception, ZEND_ACC_PROTECTED)
 	PHP_ME(Leevel_Bootstrap_Kernel, middlewareTerminate, arginfo_leevel_bootstrap_kernel_middlewareterminate, ZEND_ACC_PROTECTED)

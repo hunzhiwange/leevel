@@ -109,12 +109,12 @@ PHP_METHOD(Leevel_Session_Redis, createCache) {
 	ZEPHIR_INIT_VAR(&_1);
 	object_init_ex(&_1, leevel_cache_redis_phpredis_ce);
 	zephir_read_property(&_2, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &_1, "__construct", NULL, 87, &_2);
+	ZEPHIR_CALL_METHOD(NULL, &_1, "__construct", NULL, 88, &_2);
 	zephir_check_call_status();
 	zephir_read_property(&_3, this_ptr, SL("option"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 88, &_1, &_3);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "__construct", NULL, 89, &_1, &_3);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 85, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 86, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

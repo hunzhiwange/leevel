@@ -136,6 +136,14 @@ abstract class Kernel implements IKernel
     }
 
     /**
+     * 初始化
+     */
+    public function bootstrap() -> void
+    {
+        this->project->bootstrap(this->bootstraps);
+    }
+
+    /**
      * 返回项目
      *
      * @return \Leevel\Kernel\IProject
@@ -175,14 +183,6 @@ abstract class Kernel implements IKernel
     protected function dispatchRouter(<IRequest> request) -> <IResponse>
     {
         return this->router->dispatch(request);
-    }
-
-    /**
-     * 初始化
-     */
-    protected function bootstrap()
-    {
-        this->project->bootstrap(this->bootstraps);
     }
 
     /**

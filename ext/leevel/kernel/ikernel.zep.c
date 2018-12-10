@@ -46,6 +46,11 @@ ZEPHIR_DOC_METHOD(Leevel_Kernel_IKernel, handle);
 ZEPHIR_DOC_METHOD(Leevel_Kernel_IKernel, terminate);
 
 /**
+ * 初始化.
+ */
+ZEPHIR_DOC_METHOD(Leevel_Kernel_IKernel, bootstrap);
+
+/**
  * 返回项目
  *
  * @return \Leevel\Kernel\IProject

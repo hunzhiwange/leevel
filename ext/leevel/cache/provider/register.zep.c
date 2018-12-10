@@ -196,7 +196,7 @@ PHP_METHOD(Leevel_Cache_Provider_Register, cachesClosure) {
 
 
 	object_init_ex(return_value, leevel_cache_manager_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 89, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 90, container);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -335,7 +335,7 @@ PHP_METHOD(Leevel_Cache_Provider_Register, cacheLoadClosure) {
 	ZVAL_STRING(&_1, "cache");
 	ZEPHIR_CALL_METHOD(&_0, container, "make", NULL, 0, &_1);
 	zephir_check_call_status();
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 90, container, &_0);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 91, container, &_0);
 	zephir_check_call_status();
 	RETURN_MM();
 

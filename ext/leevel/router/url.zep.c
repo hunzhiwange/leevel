@@ -301,14 +301,14 @@ PHP_METHOD(Leevel_Router_Url, makeUrl) {
 		zephir_check_call_status();
 		ZEPHIR_INIT_NVAR(&_9$$4);
 		ZVAL_STRING(&_9$$4, "/{(.+?)}/");
-		ZEPHIR_CALL_FUNCTION(&_10$$4, "preg_replace_callback", NULL, 140, &_9$$4, &_6$$4, url);
+		ZEPHIR_CALL_FUNCTION(&_10$$4, "preg_replace_callback", NULL, 141, &_9$$4, &_6$$4, url);
 		zephir_check_call_status();
 		ZEPHIR_CPY_WRT(url, &_10$$4);
 	}
 	zephir_read_property(&_11, this_ptr, SL("params"), PH_NOISY_CC | PH_READONLY);
 	if (zephir_is_true(&_11)) {
 		zephir_read_property(&_12$$5, this_ptr, SL("params"), PH_NOISY_CC | PH_READONLY);
-		ZEPHIR_CALL_FUNCTION(&queryUrl, "http_build_query", NULL, 141, &_12$$5);
+		ZEPHIR_CALL_FUNCTION(&queryUrl, "http_build_query", NULL, 142, &_12$$5);
 		zephir_check_call_status();
 		ZEPHIR_INIT_VAR(&_13$$5);
 		ZEPHIR_INIT_VAR(&_14$$5);

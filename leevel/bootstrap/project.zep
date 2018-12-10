@@ -529,11 +529,17 @@ class Project extends Container implements IProject
     /**
      * 返回配置缓存路径.
      *
+     * @since 2018.11.23 支持不同环境变量的缓存路径
+     *
      * @return string
      */
     public function optionCachedPath() -> string
     {
-        return this->runtimePath() . "/bootstrap/option.php";
+        var cache;
+
+        let cache = getenv("RUNTIME_ENVIRONMENT") ? getenv("RUNTIME_ENVIRONMENT") : "option";
+
+        return this->runtimePath()."/bootstrap/".cache.".php";
     }
 
     /**

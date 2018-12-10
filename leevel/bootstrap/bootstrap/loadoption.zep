@@ -16,10 +16,11 @@
 
 namespace Leevel\Bootstrap\Bootstrap;
 
+use Leevel\Kernel\IProject;
 use Leevel\Option\Load;
 use Leevel\Option\Option;
 use Leevel\Support\Facade;
-use Leevel\Kernel\IProject;
+use RuntimeException;
 
 /**
  * 读取配置
@@ -44,6 +45,8 @@ class LoadOption
 
         let args = func_get_args();
         let project = args[0];
+
+        this->checkRuntimeEnv(project);
 
         if project->isCachedOption() {
             let data = (array) require project->optionCachedPath();
@@ -99,6 +102,30 @@ class LoadOption
 
         let _ENV[name] = value;
         let _SERVER[name] = value;
+    }
+
+    /**
+     * 载入运行时环境变量.
+     *
+     * @param \Leevel\Kernel\IProject $projecty
+     */
+    protected function checkRuntimeEnv(<IProject> project)
+    {
+        var file, fullFile;
+
+        if !getenv("RUNTIME_ENVIRONMENT") {
+            return;
+        }
+
+        let file = ".".getenv("RUNTIME_ENVIRONMENT");
+        let fullFile = project->envPath()."/".file;
+
+        // 校验运行时环境，防止测试用例清空非测试库的业务数据
+        if !is_file(fullFile) {
+            throw new RuntimeException(sprintf("Env file `%s` was not found.", fullFile));
+        }
+
+        project->setEnvFile(file);
     }
 
     /**

@@ -452,7 +452,7 @@ PHP_METHOD(Leevel_Support_Str, randChinese) {
 			ZVAL_LONG(&i, _2);
 			ZEPHIR_INIT_NVAR(&_6$$5);
 			ZVAL_STRING(&_6$$5, "utf-8");
-			ZEPHIR_CALL_FUNCTION(&_7$$5, "mb_strlen", &_8, 146, charBox, &_6$$5);
+			ZEPHIR_CALL_FUNCTION(&_7$$5, "mb_strlen", &_8, 147, charBox, &_6$$5);
 			zephir_check_call_status();
 			ZVAL_LONG(&_9$$5, 0);
 			ZVAL_LONG(&_10$$5, (zephir_get_numberval(&_7$$5) - 1));
@@ -504,7 +504,7 @@ PHP_METHOD(Leevel_Support_Str, randStr) {
 	if (_0) {
 		RETURN_MM_STRING("");
 	}
-	ZEPHIR_CALL_FUNCTION(&_1, "str_shuffle", NULL, 147, charBox);
+	ZEPHIR_CALL_FUNCTION(&_1, "str_shuffle", NULL, 148, charBox);
 	zephir_check_call_status();
 	ZVAL_LONG(&_2, 0);
 	ZVAL_LONG(&_3, length);
@@ -577,7 +577,7 @@ PHP_METHOD(Leevel_Support_Str, strEncoding) {
 		RETURN_MM();
 	}
 	if (Z_TYPE_P(contents) == IS_STRING) {
-		ZEPHIR_RETURN_CALL_FUNCTION("mb_convert_encoding", NULL, 148, contents, &toChar, &fromChar);
+		ZEPHIR_RETURN_CALL_FUNCTION("mb_convert_encoding", NULL, 149, contents, &toChar, &fromChar);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -654,7 +654,7 @@ PHP_METHOD(Leevel_Support_Str, substr) {
 
 	ZVAL_LONG(&_0, start);
 	ZVAL_LONG(&_1, length);
-	ZEPHIR_RETURN_CALL_FUNCTION("mb_substr", NULL, 149, &strings, &_0, &_1, &charset);
+	ZEPHIR_RETURN_CALL_FUNCTION("mb_substr", NULL, 150, &strings, &_0, &_1, &charset);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -718,7 +718,7 @@ PHP_METHOD(Leevel_Support_Str, formatDate) {
 	ZVAL_LONG(&sec, (zephir_get_numberval(&_0) - dateTemp));
 	if (ZEPHIR_LT_LONG(&sec, 0)) {
 		ZVAL_LONG(&_1$$3, dateTemp);
-		ZEPHIR_RETURN_CALL_FUNCTION("date", &_2, 80, &dateFormat, &_1$$3);
+		ZEPHIR_RETURN_CALL_FUNCTION("date", &_2, 81, &dateFormat, &_1$$3);
 		zephir_check_call_status();
 		RETURN_MM();
 	}
@@ -766,7 +766,7 @@ PHP_METHOD(Leevel_Support_Str, formatDate) {
 		RETURN_MM();
 	}
 	ZVAL_LONG(&_10, dateTemp);
-	ZEPHIR_RETURN_CALL_FUNCTION("date", &_2, 80, &dateFormat, &_10);
+	ZEPHIR_RETURN_CALL_FUNCTION("date", &_2, 81, &dateFormat, &_10);
 	zephir_check_call_status();
 	RETURN_MM();
 
@@ -979,7 +979,7 @@ PHP_METHOD(Leevel_Support_Str, unCamelize) {
 	ZEPHIR_CONCAT_SVS(&_0, "$1", &separator, "$2");
 	ZEPHIR_INIT_VAR(&_1);
 	ZVAL_STRING(&_1, "/([a-z])([A-Z])/");
-	ZEPHIR_CALL_FUNCTION(&_2, "preg_replace", NULL, 150, &_1, &_0, &value);
+	ZEPHIR_CALL_FUNCTION(&_2, "preg_replace", NULL, 151, &_1, &_0, &value);
 	zephir_check_call_status();
 	zephir_fast_strtolower(return_value, &_2);
 	RETURN_MM();

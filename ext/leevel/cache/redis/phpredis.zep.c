@@ -106,7 +106,7 @@ PHP_METHOD(Leevel_Cache_Redis_PhpRedis, __construct) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "redis");
-	ZEPHIR_CALL_FUNCTION(&_1, "extension_loaded", NULL, 70, &_0);
+	ZEPHIR_CALL_FUNCTION(&_1, "extension_loaded", NULL, 71, &_0);
 	zephir_check_call_status();
 	if (!(zephir_is_true(&_1))) {
 		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Redis extension must be loaded before use.", "leevel/cache/redis/phpredis.zep", 64);

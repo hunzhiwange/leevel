@@ -20,6 +20,8 @@
 #include "kernel/require.h"
 #include "kernel/object.h"
 #include "kernel/concat.h"
+#include "kernel/exception.h"
+#include "ext/spl/spl_exceptions.h"
 
 
 /**
@@ -74,7 +76,9 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, handle) {
 	ZEPHIR_INIT_VAR(&args);
 	zephir_get_args(&args);
 	ZEPHIR_OBS_VAR(&project);
-	zephir_array_fetch_long(&project, &args, 0, PH_NOISY, "leevel/bootstrap/bootstrap/loadoption.zep", 46 TSRMLS_CC);
+	zephir_array_fetch_long(&project, &args, 0, PH_NOISY, "leevel/bootstrap/bootstrap/loadoption.zep", 47 TSRMLS_CC);
+	ZEPHIR_CALL_METHOD(NULL, this_ptr, "checkruntimeenv", NULL, 0, &project);
+	zephir_check_call_status();
 	ZEPHIR_CALL_METHOD(&_0, &project, "iscachedoption", NULL, 0);
 	zephir_check_call_status();
 	if (zephir_is_true(&_0)) {
@@ -86,8 +90,8 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, handle) {
 		}
 		zephir_get_arrval(&_3$$3, &_2$$3);
 		ZEPHIR_CPY_WRT(&data, &_3$$3);
-		zephir_array_fetch_string(&_4$$3, &data, SL("app"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/loadoption.zep", 50 TSRMLS_CC);
-		zephir_array_fetch_string(&_5$$3, &_4$$3, SL("_env"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/loadoption.zep", 50 TSRMLS_CC);
+		zephir_array_fetch_string(&_4$$3, &data, SL("app"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/loadoption.zep", 53 TSRMLS_CC);
+		zephir_array_fetch_string(&_5$$3, &_4$$3, SL("_env"), PH_NOISY | PH_READONLY, "leevel/bootstrap/bootstrap/loadoption.zep", 53 TSRMLS_CC);
 		ZEPHIR_CALL_METHOD(NULL, this_ptr, "setenvs", NULL, 0, &_5$$3);
 		zephir_check_call_status();
 	} else {
@@ -150,7 +154,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, setEnvs) {
 	zephir_get_arrval(&env, env_param);
 
 
-	zephir_is_iterable(&env, 0, "leevel/bootstrap/bootstrap/loadoption.zep", 81);
+	zephir_is_iterable(&env, 0, "leevel/bootstrap/bootstrap/loadoption.zep", 84);
 	ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&env), _1, _2, _0)
 	{
 		ZEPHIR_INIT_NVAR(&name);
@@ -244,6 +248,73 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, setEnvVar) {
 }
 
 /**
+ * 载入运行时环境变量.
+ *
+ * @param \Leevel\Kernel\IProject $projecty
+ */
+PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, checkRuntimeEnv) {
+
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zephir_fcall_cache_entry *_2 = NULL;
+	zval *project, project_sub, file, fullFile, _0, _1, _3, _4, _5, _6$$4, _7$$4, _8$$4;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&project_sub);
+	ZVAL_UNDEF(&file);
+	ZVAL_UNDEF(&fullFile);
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_1);
+	ZVAL_UNDEF(&_3);
+	ZVAL_UNDEF(&_4);
+	ZVAL_UNDEF(&_5);
+	ZVAL_UNDEF(&_6$$4);
+	ZVAL_UNDEF(&_7$$4);
+	ZVAL_UNDEF(&_8$$4);
+
+	ZEPHIR_MM_GROW();
+	zephir_fetch_params(1, 1, 0, &project);
+
+
+
+	ZEPHIR_INIT_VAR(&_0);
+	ZVAL_STRING(&_0, "RUNTIME_ENVIRONMENT");
+	ZEPHIR_CALL_FUNCTION(&_1, "getenv", &_2, 60, &_0);
+	zephir_check_call_status();
+	if (!(zephir_is_true(&_1))) {
+		RETURN_MM_NULL();
+	}
+	ZEPHIR_INIT_NVAR(&_0);
+	ZVAL_STRING(&_0, "RUNTIME_ENVIRONMENT");
+	ZEPHIR_CALL_FUNCTION(&_3, "getenv", &_2, 60, &_0);
+	zephir_check_call_status();
+	ZEPHIR_INIT_VAR(&file);
+	ZEPHIR_CONCAT_SV(&file, ".", &_3);
+	ZEPHIR_CALL_METHOD(&_4, project, "envpath", NULL, 0);
+	zephir_check_call_status();
+	ZEPHIR_INIT_VAR(&fullFile);
+	ZEPHIR_CONCAT_VSV(&fullFile, &_4, "/", &file);
+	ZEPHIR_CALL_FUNCTION(&_5, "is_file", NULL, 26, &fullFile);
+	zephir_check_call_status();
+	if (!(zephir_is_true(&_5))) {
+		ZEPHIR_INIT_VAR(&_6$$4);
+		object_init_ex(&_6$$4, spl_ce_RuntimeException);
+		ZEPHIR_INIT_VAR(&_7$$4);
+		ZVAL_STRING(&_7$$4, "Env file `%s` was not found.");
+		ZEPHIR_CALL_FUNCTION(&_8$$4, "sprintf", NULL, 1, &_7$$4, &fullFile);
+		zephir_check_call_status();
+		ZEPHIR_CALL_METHOD(NULL, &_6$$4, "__construct", NULL, 3, &_8$$4);
+		zephir_check_call_status();
+		zephir_throw_exception_debug(&_6$$4, "leevel/bootstrap/bootstrap/loadoption.zep", 125 TSRMLS_CC);
+		ZEPHIR_MM_RESTORE();
+		return;
+	}
+	ZEPHIR_CALL_METHOD(NULL, project, "setenvfile", NULL, 0, &file);
+	zephir_check_call_status();
+	ZEPHIR_MM_RESTORE();
+
+}
+
+/**
  * 初始化处理
  *
  * @param \Leevel\Option\Option $option
@@ -274,7 +345,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, initialization) {
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "UTF-8");
-	ZEPHIR_CALL_FUNCTION(NULL, "mb_internal_encoding", NULL, 60, &_0);
+	ZEPHIR_CALL_FUNCTION(NULL, "mb_internal_encoding", NULL, 61, &_0);
 	zephir_check_call_status();
 	if ((zephir_function_exists_ex(SL("date_default_timezone_set") TSRMLS_CC) == SUCCESS)) {
 		ZEPHIR_INIT_VAR(&_2$$3);
@@ -283,7 +354,7 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, initialization) {
 		ZVAL_STRING(&_3$$3, "UTC");
 		ZEPHIR_CALL_METHOD(&_1$$3, option, "get", NULL, 0, &_2$$3, &_3$$3);
 		zephir_check_call_status();
-		ZEPHIR_CALL_FUNCTION(NULL, "date_default_timezone_set", NULL, 61, &_1$$3);
+		ZEPHIR_CALL_FUNCTION(NULL, "date_default_timezone_set", NULL, 62, &_1$$3);
 		zephir_check_call_status();
 	}
 	ZEPHIR_INIT_NVAR(&_0);
@@ -304,10 +375,10 @@ PHP_METHOD(Leevel_Bootstrap_Bootstrap_LoadOption, initialization) {
 	if (_5) {
 		ZEPHIR_INIT_VAR(&_8$$5);
 		ZVAL_STRING(&_8$$5, "gz_handler");
-		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 62, &_8$$5);
+		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 63, &_8$$5);
 		zephir_check_call_status();
 	} else {
-		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 62);
+		ZEPHIR_CALL_FUNCTION(NULL, "ob_start", &_9, 63);
 		zephir_check_call_status();
 	}
 	ZEPHIR_MM_RESTORE();

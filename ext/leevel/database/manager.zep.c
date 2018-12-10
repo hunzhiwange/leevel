@@ -318,7 +318,7 @@ PHP_METHOD(Leevel_Database_Manager, parseDatabaseOption) {
 		zephir_array_fetch_string(&_15$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 140 TSRMLS_CC);
 		zephir_array_fetch_string(&_16$$11, &option, SL("slave"), PH_NOISY | PH_READONLY, "leevel/database/manager.zep", 140 TSRMLS_CC);
 		ZVAL_LONG(&_17$$11, 1);
-		ZEPHIR_CALL_FUNCTION(&_18$$11, "count", NULL, 94, &_16$$11, &_17$$11);
+		ZEPHIR_CALL_FUNCTION(&_18$$11, "count", NULL, 95, &_16$$11, &_17$$11);
 		zephir_check_call_status();
 		if (ZEPHIR_IS_LONG_IDENTICAL(&_18$$11, zephir_fast_count_int(&_15$$11 TSRMLS_CC))) {
 			ZEPHIR_INIT_VAR(&tempSlave);

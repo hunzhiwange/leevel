@@ -154,7 +154,7 @@ PHP_METHOD(Leevel_Bootstrap_Kernel, handle) {
 				ZEPHIR_CALL_METHOD(&_5$$6, &e, "getprevious", NULL, 0);
 				zephir_check_call_status();
 				ZVAL_LONG(&_6$$6, 1);
-				ZEPHIR_CALL_METHOD(NULL, &fatalException, "__construct", NULL, 67, &_1$$6, &_2$$6, &_6$$6, &_3$$6, &_4$$6, &_5$$6);
+				ZEPHIR_CALL_METHOD(NULL, &fatalException, "__construct", NULL, 68, &_1$$6, &_2$$6, &_6$$6, &_3$$6, &_4$$6, &_5$$6);
 				zephir_check_call_status();
 				ZEPHIR_CALL_METHOD(NULL, this_ptr, "reportexception", NULL, 0, &fatalException);
 				zephir_check_call_status();
@@ -210,6 +210,28 @@ PHP_METHOD(Leevel_Bootstrap_Kernel, terminate) {
 
 
 
+
+}
+
+/**
+ * 初始化
+ */
+PHP_METHOD(Leevel_Bootstrap_Kernel, bootstrap) {
+
+	zval _0, _1;
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zval *this_ptr = getThis();
+
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_1);
+
+	ZEPHIR_MM_GROW();
+
+	zephir_read_property(&_0, this_ptr, SL("project"), PH_NOISY_CC | PH_READONLY);
+	zephir_read_property(&_1, this_ptr, SL("bootstraps"), PH_NOISY_CC | PH_READONLY);
+	ZEPHIR_CALL_METHOD(NULL, &_0, "bootstrap", NULL, 0, &_1);
+	zephir_check_call_status();
+	ZEPHIR_MM_RESTORE();
 
 }
 
@@ -305,28 +327,6 @@ PHP_METHOD(Leevel_Bootstrap_Kernel, dispatchRouter) {
 	ZEPHIR_RETURN_CALL_METHOD(&_0, "dispatch", NULL, 0, request);
 	zephir_check_call_status();
 	RETURN_MM();
-
-}
-
-/**
- * 初始化
- */
-PHP_METHOD(Leevel_Bootstrap_Kernel, bootstrap) {
-
-	zval _0, _1;
-	zend_long ZEPHIR_LAST_CALL_STATUS;
-	zval *this_ptr = getThis();
-
-	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
-
-	ZEPHIR_MM_GROW();
-
-	zephir_read_property(&_0, this_ptr, SL("project"), PH_NOISY_CC | PH_READONLY);
-	zephir_read_property(&_1, this_ptr, SL("bootstraps"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_CALL_METHOD(NULL, &_0, "bootstrap", NULL, 0, &_1);
-	zephir_check_call_status();
-	ZEPHIR_MM_RESTORE();
 
 }
 

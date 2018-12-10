@@ -15,6 +15,7 @@ ZEND_END_ARG_INFO()
 ZEPHIR_INIT_FUNCS(leevel_kernel_ikernel_method_entry) {
 	PHP_ABSTRACT_ME(Leevel_Kernel_IKernel, handle, arginfo_leevel_kernel_ikernel_handle)
 	PHP_ABSTRACT_ME(Leevel_Kernel_IKernel, terminate, arginfo_leevel_kernel_ikernel_terminate)
+	PHP_ABSTRACT_ME(Leevel_Kernel_IKernel, bootstrap, NULL)
 	PHP_ABSTRACT_ME(Leevel_Kernel_IKernel, getProject, NULL)
 	PHP_FE_END
 };

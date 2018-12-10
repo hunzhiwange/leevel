@@ -180,7 +180,7 @@ PHP_METHOD(Leevel_Log_Provider_Register, logsClosure) {
 
 
 	object_init_ex(return_value, leevel_log_manager_ce);
-	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 89, container);
+	ZEPHIR_CALL_METHOD(NULL, return_value, "__construct", NULL, 90, container);
 	zephir_check_call_status();
 	RETURN_MM();
 
